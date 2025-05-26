@@ -243,7 +243,7 @@ Mi estilo es: ${formData.estilo}
                         onClick={() => copyToClipboard(socialMediaContent, "Contenido de Redes Sociales")}
                         variant="outline"
                         size="sm"
-                        className="border-white/30 text-white hover:bg-white/10"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
                       >
                         {copiedContent === "Contenido de Redes Sociales" ? (
                           <Check className="w-4 h-4" />
@@ -302,7 +302,7 @@ Mi estilo es: ${formData.estilo}
                         onClick={() => copyToClipboard(lovablePrompt, "Prompt para Lovable")}
                         variant="outline"
                         size="sm"
-                        className="border-white/30 text-white hover:bg-white/10"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
                       >
                         {copiedContent === "Prompt para Lovable" ? (
                           <Check className="w-4 h-4" />
@@ -332,7 +332,7 @@ Mi estilo es: ${formData.estilo}
                         onClick={() => copyToClipboard(chatGPTPrompt, "Prompt para ChatGPT")}
                         variant="outline"
                         size="sm"
-                        className="border-white/30 text-white hover:bg-white/10"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
                       >
                         {copiedContent === "Prompt para ChatGPT" ? (
                           <Check className="w-4 h-4" />
@@ -354,35 +354,35 @@ Mi estilo es: ${formData.estilo}
         </Card>
 
         {/* Next Steps */}
-        <Card className="max-w-4xl mx-auto mt-8 bg-gradient-to-r from-green-500/20 to-blue-500/20 border-green-500/30 backdrop-blur-xl">
+        <Card className="max-w-4xl mx-auto mt-8 bg-white/95 border-gray-200 backdrop-blur-xl shadow-xl">
           <CardHeader>
-            <CardTitle className="text-white text-center flex items-center justify-center gap-2">
+            <CardTitle className="text-gray-800 text-center flex items-center justify-center gap-2">
               <TrendingUp className="w-6 h-6" />
               🎉 ¡Próximos pasos!
             </CardTitle>
           </CardHeader>
           <CardContent className="text-center space-y-4">
-            <p className="text-green-100 text-lg">
+            <p className="text-gray-700 text-lg">
               Ahora tienes todo lo necesario para potenciar tu presencia digital:
             </p>
             <div className="grid md:grid-cols-2 gap-4 text-left">
-              <div className="bg-white/10 p-4 rounded-lg">
-                <h4 className="text-white font-semibold mb-2 flex items-center gap-2">
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h4 className="text-gray-800 font-semibold mb-2 flex items-center gap-2">
                   <MessageSquare className="w-5 h-5" />
                   📱 Redes Sociales
                 </h4>
-                <p className="text-gray-200 text-sm">Copia y adapta el contenido para tus reels y posts</p>
+                <p className="text-gray-600 text-sm">Copia y adapta el contenido para tus reels y posts</p>
               </div>
-              <div className="bg-white/10 p-4 rounded-lg">
-                <h4 className="text-white font-semibold mb-2 flex items-center gap-2">
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h4 className="text-gray-800 font-semibold mb-2 flex items-center gap-2">
                   <Rocket className="w-5 h-5" />
                   🌐 Tu Página Web
                 </h4>
-                <p className="text-gray-200 text-sm">Usa el prompt de Lovable para crear tu sitio profesional</p>
+                <p className="text-gray-600 text-sm">Usa el prompt de Lovable para crear tu sitio profesional</p>
               </div>
             </div>
-            <div className="mt-4 p-4 bg-blue-500/20 rounded-lg border border-blue-400/30">
-              <p className="text-blue-100 text-sm">
+            <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <p className="text-blue-800 text-sm">
                 <strong>Tip:</strong> Guarda estos prompts y úsalos para generar contenido constantemente. 
                 ¡Tu marca ahora tiene una voz consistente y profesional!
               </p>
