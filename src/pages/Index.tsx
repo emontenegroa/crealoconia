@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap } from "lucide-react";
+import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe } from "lucide-react";
 import FormField from '@/components/FormField';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -13,6 +14,9 @@ interface FormData {
   preguntas_frecuentes: string;
   estilo: string;
   producto: string;
+  email: string;
+  website: string;
+  instagram: string;
 }
 
 const Index = () => {
@@ -22,7 +26,10 @@ const Index = () => {
     problemas: '',
     preguntas_frecuentes: '',
     estilo: '',
-    producto: ''
+    producto: '',
+    email: '',
+    website: '',
+    instagram: ''
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -41,7 +48,10 @@ const Index = () => {
       problemas: 'Mis clientas suelen llegar a mí sintiéndose bloqueadas emocionalmente, con una sensación constante de estar viviendo en piloto automático sin conexión con lo que realmente las hace felices. Muchas experimentan el síndrome del impostor, miedo al fracaso y dificultades para tomar decisiones importantes. Yo las ayudo a través de un proceso de autoconocimiento profundo, técnicas de PNL y ejercicios prácticos que les permiten recuperar su claridad mental, confianza y dirección en la vida.',
       preguntas_frecuentes: 'Me preguntan constantemente si realmente es posible cambiar de vida después de los 35 o 40 años, especialmente cuando ya tienen responsabilidades familiares y económicas. También me consultan sobre cómo saber si están tomando la decisión correcta y cómo superar el miedo al juicio de otros. Me encanta explicar que la transformación es posible a cualquier edad y que el momento perfecto no existe, pero el momento presente sí.',
       estilo: 'Inspirador',
-      producto: 'Mi programa insignia "Renace: Transforma tu Vida en 90 Días", un proceso de coaching integral que incluye 8 sesiones individuales, un workbook personalizado, meditaciones guiadas y acceso a mi comunidad privada de mujeres en transformación. El programa está diseñado para mujeres que quieren hacer cambios profundos y duraderos en su vida personal y profesional.'
+      producto: 'Mi programa insignia "Renace: Transforma tu Vida en 90 Días", un proceso de coaching integral que incluye 8 sesiones individuales, un workbook personalizado, meditaciones guiadas y acceso a mi comunidad privada de mujeres en transformación. El programa está diseñado para mujeres que quieren hacer cambios profundos y duraderos en su vida personal y profesional.',
+      email: 'carolina@luzinteriorcoaching.com',
+      website: 'www.luzinteriorcoaching.com',
+      instagram: 'luzinteriorcoaching'
     });
   };
 
@@ -56,7 +66,11 @@ const Index = () => {
     setShowResults(true);
   };
 
-  const isFormValid = Object.values(formData).every(value => value.trim() !== '');
+  const isFormValid = Object.values(formData).filter((value, index) => {
+    // Los últimos 3 campos (email, website, instagram) son opcionales
+    const requiredFields = Object.keys(formData).slice(0, -3);
+    return index < requiredFields.length;
+  }).every(value => value.trim() !== '');
 
   if (showResults) {
     return <ResultsDisplay formData={formData} onReset={() => {
@@ -67,7 +81,10 @@ const Index = () => {
         problemas: '',
         preguntas_frecuentes: '',
         estilo: '',
-        producto: ''
+        producto: '',
+        email: '',
+        website: '',
+        instagram: ''
       });
     }} />;
   }
@@ -225,6 +242,45 @@ const Index = () => {
                   onChange={handleInputChange}
                   icon={Rocket}
                 />
+
+                {/* New contact fields */}
+                <div className="border-t border-white/20 pt-8">
+                  <h3 className="text-white text-xl font-semibold mb-4 text-center">
+                    Información de contacto (opcional)
+                  </h3>
+                  
+                  <div className="space-y-6">
+                    <FormField
+                      type="input"
+                      label="Correo electrónico"
+                      placeholder="Ej: info@tumarca.com"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      icon={Mail}
+                    />
+
+                    <FormField
+                      type="input"
+                      label="Página web"
+                      placeholder="Ej: www.tumarca.com"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleInputChange}
+                      icon={Globe}
+                    />
+
+                    <FormField
+                      type="input"
+                      label="Instagram (nombre de usuario)"
+                      placeholder="Ej: tumarca (sin @)"
+                      name="instagram"
+                      value={formData.instagram}
+                      onChange={handleInputChange}
+                      icon={MessageSquare}
+                    />
+                  </div>
+                </div>
 
                 <Button 
                   type="submit" 

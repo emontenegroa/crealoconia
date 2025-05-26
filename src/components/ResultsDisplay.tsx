@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +14,9 @@ interface FormData {
   preguntas_frecuentes: string;
   estilo: string;
   producto: string;
+  email: string;
+  website: string;
+  instagram: string;
 }
 
 interface ResultsDisplayProps {
@@ -33,6 +37,15 @@ const ResultsDisplay = ({ formData, onReset }: ResultsDisplayProps) => {
     setTimeout(() => setCopiedContent(null), 2000);
   };
 
+  // Generate contact info section for prompts
+  const contactInfo = () => {
+    let contact = '';
+    if (formData.email) contact += `📧 Email: ${formData.email}\n`;
+    if (formData.website) contact += `🌐 Website: ${formData.website}\n`;
+    if (formData.instagram) contact += `📱 Instagram: @${formData.instagram}\n`;
+    return contact ? `\nINFORMACIÓN DE CONTACTO:\n${contact}` : '';
+  };
+
   // Generate content based on form data
   const socialMediaContent = `🌟 CONTENIDO PARA REDES SOCIALES - ${formData.marca}
 
@@ -42,7 +55,7 @@ ${formData.quien_eres}
 
 Mi misión es ayudarte con: ${formData.problemas}
 
-¿Te resuena? ¡Sígueme para más contenido! 💫"
+¿Te resuena? ¡Sígueme para más contenido! 💫"${formData.instagram ? `\n\n📍 Sígueme en Instagram: @${formData.instagram}` : ''}
 
 📝 POST EDUCATIVO:
 "💡 ¿Sabías que...?
@@ -60,7 +73,7 @@ Te presento: ${formData.producto}
 ✨ Diseñado especialmente para quienes:
 ${formData.problemas}
 
-¡Envíame DM para más información! 📩"
+¡Envíame DM para más información! 📩"${formData.website ? `\nMás info en: ${formData.website}` : ''}
 
 📊 POST DE VALOR:
 "🔥 3 señales de que necesitas ${formData.producto}:
@@ -70,14 +83,14 @@ ${formData.problemas}
 
 ¿Te identificas? Escríbeme 'ME INTERESA' 👇"
 
-#${formData.marca.replace(/\s+/g, '')} #transformacion #crecimiento #${formData.estilo.toLowerCase()}`;
+#${formData.marca.replace(/\s+/g, '')} #transformacion #crecimiento #${formData.estilo.toLowerCase()}${contactInfo()}`;
 
   const lovablePrompt = `Crea una página web profesional para "${formData.marca}" con las siguientes especificaciones:
 
 MARCA Y PERSONALIDAD:
 - Nombre: ${formData.marca}
 - Estilo de comunicación: ${formData.estilo}
-- Descripción: ${formData.quien_eres}
+- Descripción: ${formData.quien_eres}${contactInfo()}
 
 CONTENIDO PRINCIPAL:
 - Problema que resuelve: ${formData.problemas}
@@ -91,7 +104,7 @@ ESTRUCTURA REQUERIDA:
 4. Sección de servicios/productos con beneficios claros
 5. Testimonios (crear 3-4 ejemplos realistas y específicos)
 6. FAQ basada en las preguntas frecuentes mencionadas
-7. Footer con formulario de contacto y redes sociales
+7. Footer con formulario de contacto y redes sociales${formData.email || formData.website || formData.instagram ? `\n   - Incluir enlaces a: ${formData.email ? `Email (${formData.email})` : ''}${formData.website ? `, Website (${formData.website})` : ''}${formData.instagram ? `, Instagram (@${formData.instagram})` : ''}` : ''}
 
 DISEÑO Y EXPERIENCIA:
 - Estilo moderno, profesional y ${formData.estilo.toLowerCase()}
@@ -103,13 +116,13 @@ DISEÑO Y EXPERIENCIA:
 - Secciones con testimonios reales y casos de éxito
 
 FUNCIONALIDADES ESPECÍFICAS:
-- Formulario de contacto funcional con validación
+- Formulario de contacto funcional con validación${formData.email ? ` (enviar a ${formData.email})` : ''}
 - Navegación suave entre secciones (smooth scroll)
 - Efectos hover en botones, tarjetas e imágenes
 - Modal para testimonios expandidos
 - Sección de preguntas frecuentes interactiva
 - Optimizado para conversión y generación de leads
-- Integración con redes sociales
+- Integración con redes sociales${formData.instagram ? ` (especialmente Instagram @${formData.instagram})` : ''}
 
 CONTENIDO PERSONALIZADO:
 - Textos que reflejen el problema: "${formData.problemas}"
@@ -134,7 +147,7 @@ CONTEXTO DE LA MARCA:
 - Problema que resuelvo: ${formData.problemas}
 - Preguntas que me hacen: ${formData.preguntas_frecuentes}
 - Estilo de comunicación: ${formData.estilo}
-- Producto principal: ${formData.producto}
+- Producto principal: ${formData.producto}${contactInfo()}
 
 INSTRUCCIONES PRINCIPALES:
 1. Siempre responde en un tono ${formData.estilo.toLowerCase()} y auténtico
@@ -142,7 +155,7 @@ INSTRUCCIONES PRINCIPALES:
 3. Usa ejemplos y casos relacionados con mi experiencia
 4. Menciona "${formData.producto}" cuando sea relevante para la conversación
 5. Crea contenido que genere engagement, confianza y conversiones
-6. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)
+6. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)${formData.instagram ? `\n7. Cuando sea apropiado, menciona mi Instagram @${formData.instagram}` : ''}${formData.website ? `\n8. Dirige tráfico a mi website ${formData.website} cuando sea relevante` : ''}
 
 ESPECIALIDADES EN LAS QUE PUEDES AYUDARME:
 📱 CONTENIDO PARA REDES SOCIALES:
@@ -153,7 +166,7 @@ ESPECIALIDADES EN LAS QUE PUEDES AYUDARME:
 - Captions que generen engagement
 
 📧 MARKETING DIRECTO:
-- Emails de nurturing
+- Emails de nurturing${formData.email ? ` (desde ${formData.email})` : ''}
 - Secuencias de follow-up
 - Newsletters semanales
 - Mensajes para WhatsApp Business
