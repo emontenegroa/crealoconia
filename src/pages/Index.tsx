@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -44,14 +43,14 @@ const Index = () => {
   const loadExampleData = () => {
     setFormData({
       marca: 'Luz Interior Coaching',
+      email: 'carolina@luzinteriorcoaching.com',
+      website: 'www.luzinteriorcoaching.com',
+      instagram: 'luzinteriorcoaching',
       quien_eres: 'Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras y profesionales que buscan reconectar con su propósito de vida y desarrollar todo su potencial. Disfruto profundamente crear espacios seguros donde mis clientas pueden explorar sus emociones, desbloquear sus miedos y diseñar la vida que realmente desean vivir.',
       problemas: 'Mis clientas suelen llegar a mí sintiéndose bloqueadas emocionalmente, con una sensación constante de estar viviendo en piloto automático sin conexión con lo que realmente las hace felices. Muchas experimentan el síndrome del impostor, miedo al fracaso y dificultades para tomar decisiones importantes. Yo las ayudo a través de un proceso de autoconocimiento profundo, técnicas de PNL y ejercicios prácticos que les permiten recuperar su claridad mental, confianza y dirección en la vida.',
       preguntas_frecuentes: 'Me preguntan constantemente si realmente es posible cambiar de vida después de los 35 o 40 años, especialmente cuando ya tienen responsabilidades familiares y económicas. También me consultan sobre cómo saber si están tomando la decisión correcta y cómo superar el miedo al juicio de otros. Me encanta explicar que la transformación es posible a cualquier edad y que el momento perfecto no existe, pero el momento presente sí.',
       estilo: 'Inspirador',
-      producto: 'Mi programa insignia "Renace: Transforma tu Vida en 90 Días", un proceso de coaching integral que incluye 8 sesiones individuales, un workbook personalizado, meditaciones guiadas y acceso a mi comunidad privada de mujeres en transformación. El programa está diseñado para mujeres que quieren hacer cambios profundos y duraderos en su vida personal y profesional.',
-      email: 'carolina@luzinteriorcoaching.com',
-      website: 'www.luzinteriorcoaching.com',
-      instagram: 'luzinteriorcoaching'
+      producto: 'Mi programa insignia "Renace: Transforma tu Vida en 90 Días", un proceso de coaching integral que incluye 8 sesiones individuales, un workbook personalizado, meditaciones guiadas y acceso a mi comunidad privada de mujeres en transformación. El programa está diseñado para mujeres que quieren hacer cambios profundos y duraderos en su vida personal y profesional.'
     });
   };
 
@@ -210,8 +209,38 @@ const Index = () => {
                 />
 
                 <FormField
+                  type="input"
+                  label="2. Correo electrónico"
+                  placeholder="Ej: info@tumarca.com"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  icon={Mail}
+                />
+
+                <FormField
+                  type="input"
+                  label="3. Página web"
+                  placeholder="Ej: www.tumarca.com"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleInputChange}
+                  icon={Globe}
+                />
+
+                <FormField
+                  type="input"
+                  label="4. Instagram (nombre de usuario)"
+                  placeholder="Ej: tumarca (sin @)"
+                  name="instagram"
+                  value={formData.instagram}
+                  onChange={handleInputChange}
+                  icon={Instagram}
+                />
+
+                <FormField
                   type="textarea"
-                  label="2. ¿Quién eres y qué disfrutas hacer en tu trabajo? ¿A quién ayudas?"
+                  label="5. ¿Quién eres y qué disfrutas hacer en tu trabajo? ¿A quién ayudas?"
                   placeholder="Ej: Soy Carolina, coach de vida. Me encanta acompañar a mujeres que buscan reconectar con su propósito."
                   name="quien_eres"
                   value={formData.quien_eres}
@@ -221,7 +250,7 @@ const Index = () => {
 
                 <FormField
                   type="textarea"
-                  label="3. ¿Qué problema frecuente tiene tu cliente ideal y cómo tú lo solucionas?"
+                  label="6. ¿Qué problema frecuente tiene tu cliente ideal y cómo tú lo solucionas?"
                   placeholder="Ej: Mis clientas suelen sentirse bloqueadas emocionalmente. Yo las ayudo a recuperar claridad con sesiones de coaching."
                   name="problemas"
                   value={formData.problemas}
@@ -231,7 +260,7 @@ const Index = () => {
 
                 <FormField
                   type="textarea"
-                  label="4. ¿Qué te preguntan siempre o qué disfrutas explicar una y otra vez?"
+                  label="7. ¿Qué te preguntan siempre o qué disfrutas explicar una y otra vez?"
                   placeholder="Ej: Me preguntan si realmente es posible cambiar de vida después de los 40. Me encanta mostrar que siempre es posible."
                   name="preguntas_frecuentes"
                   value={formData.preguntas_frecuentes}
@@ -241,7 +270,7 @@ const Index = () => {
 
                 <FormField
                   type="select"
-                  label="5. ¿Cómo te gusta comunicarte en redes sociales?"
+                  label="8. ¿Cómo te gusta comunicarte en redes sociales?"
                   name="estilo"
                   value={formData.estilo}
                   onChange={handleInputChange}
@@ -251,56 +280,13 @@ const Index = () => {
 
                 <FormField
                   type="textarea"
-                  label="6. ¿Qué producto o servicio principal quieres vender o promover hoy?"
+                  label="9. ¿Qué producto o servicio principal quieres vender o promover hoy?"
                   placeholder="Ej: Mi programa 'Renace', un proceso de coaching de 8 semanas para mujeres que quieren recuperar su autoestima."
                   name="producto"
                   value={formData.producto}
                   onChange={handleInputChange}
                   icon={Rocket}
                 />
-
-                {/* Contact information section - now required */}
-                <div className="border-t border-white/20 pt-8">
-                  <h3 className="text-white text-xl font-semibold mb-6 text-center flex items-center justify-center gap-2">
-                    <Mail className="w-6 h-6" />
-                    Información de contacto
-                  </h3>
-                  <p className="text-purple-200 text-center mb-6 text-sm">
-                    Estos datos son obligatorios y mejorarán significativamente tus prompts personalizados
-                  </p>
-                  
-                  <div className="space-y-6">
-                    <FormField
-                      type="input"
-                      label="7. Correo electrónico"
-                      placeholder="Ej: info@tumarca.com"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      icon={Mail}
-                    />
-
-                    <FormField
-                      type="input"
-                      label="8. Página web"
-                      placeholder="Ej: www.tumarca.com"
-                      name="website"
-                      value={formData.website}
-                      onChange={handleInputChange}
-                      icon={Globe}
-                    />
-
-                    <FormField
-                      type="input"
-                      label="9. Instagram (nombre de usuario)"
-                      placeholder="Ej: tumarca (sin @)"
-                      name="instagram"
-                      value={formData.instagram}
-                      onChange={handleInputChange}
-                      icon={Instagram}
-                    />
-                  </div>
-                </div>
 
                 <Button 
                   type="submit" 
