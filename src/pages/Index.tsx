@@ -101,13 +101,13 @@ const Index = () => {
         </div>
 
         {/* Important notice */}
-        <Card className="max-w-4xl mx-auto mb-8 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-blue-400/30 backdrop-blur-xl">
+        <Card className="max-w-4xl mx-auto mb-8 bg-white/95 border-gray-200 shadow-xl">
           <CardContent className="p-6 text-center">
             <div className="flex items-center justify-center gap-3 mb-3">
-              <Brain className="w-6 h-6 text-blue-300" />
-              <h3 className="text-xl font-semibold text-white">Tómate tu tiempo para responder</h3>
+              <Brain className="w-6 h-6 text-blue-600" />
+              <h3 className="text-xl font-semibold text-gray-800">Tómate tu tiempo para responder</h3>
             </div>
-            <p className="text-white text-lg leading-relaxed">
+            <p className="text-gray-700 text-lg leading-relaxed">
               Entre más detalladas y reflexivas sean tus respuestas, mejor será el prompt generado. 
               La calidad de tu contenido depende de la información que compartas.
             </p>
