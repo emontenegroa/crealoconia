@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe, Gift } from "lucide-react";
+import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe, Instagram } from "lucide-react";
 import FormField from '@/components/FormField';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -66,11 +66,13 @@ const Index = () => {
     setShowResults(true);
   };
 
-  const isFormValid = Object.values(formData).filter((value, index) => {
-    // Los últimos 3 campos (email, website, instagram) son opcionales
-    const requiredFields = Object.keys(formData).slice(0, -3);
-    return index < requiredFields.length;
-  }).every(value => value.trim() !== '');
+  // Only the first 6 fields are required (marca, quien_eres, problemas, preguntas_frecuentes, estilo, producto)
+  const isFormValid = formData.marca.trim() !== '' && 
+                     formData.quien_eres.trim() !== '' && 
+                     formData.problemas.trim() !== '' && 
+                     formData.preguntas_frecuentes.trim() !== '' && 
+                     formData.estilo !== '' && 
+                     formData.producto.trim() !== '';
 
   if (showResults) {
     return <ResultsDisplay formData={formData} onReset={() => {
@@ -118,7 +120,7 @@ const Index = () => {
           <div className="max-w-3xl mx-auto mb-6">
             <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-xl p-6">
               <h3 className="text-white text-xl font-semibold mb-4 flex items-center justify-center gap-2">
-                <Gift className="w-6 h-6 text-yellow-300" />
+                <Sparkles className="w-6 h-6 text-yellow-300" />
                 ✅ Recibirás:
               </h3>
               <div className="text-purple-100 text-left space-y-2">
@@ -135,7 +137,6 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Creator credit */}
           <p className="text-purple-300 text-sm">
             Creado por <span className="font-semibold text-purple-200">Esteban Montenegro</span>
           </p>
@@ -155,7 +156,6 @@ const Index = () => {
           </CardContent>
         </Card>
 
-        {/* Example data button */}
         <div className="max-w-4xl mx-auto mb-8 text-center">
           <Button 
             onClick={loadExampleData}
@@ -167,7 +167,6 @@ const Index = () => {
           </Button>
         </div>
 
-        {/* Features */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {[
             { icon: MessageSquare, title: "Plan de Contenido", desc: "15 días de contenido para redes sociales listo para usar" },
@@ -189,7 +188,7 @@ const Index = () => {
           <CardHeader className="text-center pb-8">
             <CardTitle className="text-2xl text-white flex items-center justify-center gap-3">
               <Sparkles className="w-8 h-8 text-yellow-300" />
-              Completa estas 6 preguntas para generar tu Kit IA personalizado
+              Completa estas preguntas para generar tu Kit IA personalizado
             </CardTitle>
           </CardHeader>
           <CardContent className="p-8">
@@ -199,7 +198,7 @@ const Index = () => {
               <form onSubmit={handleSubmit} className="space-y-8">
                 <FormField
                   type="input"
-                  label="¿Cómo se llama tu emprendimiento o marca personal?"
+                  label="1. ¿Cómo se llama tu emprendimiento o marca personal?"
                   placeholder="Ej: Luz Interior Coaching, Panadería Las 3 Hermanas, Soy Nombre Apellido"
                   name="marca"
                   value={formData.marca}
@@ -209,7 +208,7 @@ const Index = () => {
 
                 <FormField
                   type="textarea"
-                  label="¿Quién eres y qué disfrutas hacer en tu trabajo? ¿A quién ayudas?"
+                  label="2. ¿Quién eres y qué disfrutas hacer en tu trabajo? ¿A quién ayudas?"
                   placeholder="Ej: Soy Carolina, coach de vida. Me encanta acompañar a mujeres que buscan reconectar con su propósito."
                   name="quien_eres"
                   value={formData.quien_eres}
@@ -219,7 +218,7 @@ const Index = () => {
 
                 <FormField
                   type="textarea"
-                  label="¿Qué problema frecuente tiene tu cliente ideal y cómo tú lo solucionas?"
+                  label="3. ¿Qué problema frecuente tiene tu cliente ideal y cómo tú lo solucionas?"
                   placeholder="Ej: Mis clientas suelen sentirse bloqueadas emocionalmente. Yo las ayudo a recuperar claridad con sesiones de coaching."
                   name="problemas"
                   value={formData.problemas}
@@ -229,7 +228,7 @@ const Index = () => {
 
                 <FormField
                   type="textarea"
-                  label="¿Qué te preguntan siempre o qué disfrutas explicar una y otra vez?"
+                  label="4. ¿Qué te preguntan siempre o qué disfrutas explicar una y otra vez?"
                   placeholder="Ej: Me preguntan si realmente es posible cambiar de vida después de los 40. Me encanta mostrar que siempre es posible."
                   name="preguntas_frecuentes"
                   value={formData.preguntas_frecuentes}
@@ -239,7 +238,7 @@ const Index = () => {
 
                 <FormField
                   type="select"
-                  label="¿Cómo te gusta comunicarte en redes sociales?"
+                  label="5. ¿Cómo te gusta comunicarte en redes sociales?"
                   name="estilo"
                   value={formData.estilo}
                   onChange={handleInputChange}
@@ -249,7 +248,7 @@ const Index = () => {
 
                 <FormField
                   type="textarea"
-                  label="¿Qué producto o servicio principal quieres vender o promover hoy?"
+                  label="6. ¿Qué producto o servicio principal quieres vender o promover hoy?"
                   placeholder="Ej: Mi programa 'Renace', un proceso de coaching de 8 semanas para mujeres que quieren recuperar su autoestima."
                   name="producto"
                   value={formData.producto}
@@ -257,11 +256,15 @@ const Index = () => {
                   icon={Rocket}
                 />
 
-                {/* Optional contact fields */}
+                {/* Contact information section */}
                 <div className="border-t border-white/20 pt-8">
-                  <h3 className="text-white text-xl font-semibold mb-4 text-center">
-                    Información de contacto (opcional)
+                  <h3 className="text-white text-xl font-semibold mb-6 text-center flex items-center justify-center gap-2">
+                    <Mail className="w-6 h-6" />
+                    Información de contacto (opcional pero recomendado)
                   </h3>
+                  <p className="text-purple-200 text-center mb-6 text-sm">
+                    Estos datos mejorarán significativamente tus prompts personalizados
+                  </p>
                   
                   <div className="space-y-6">
                     <FormField
@@ -291,7 +294,7 @@ const Index = () => {
                       name="instagram"
                       value={formData.instagram}
                       onChange={handleInputChange}
-                      icon={MessageSquare}
+                      icon={Instagram}
                     />
                   </div>
                 </div>
