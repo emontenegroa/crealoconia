@@ -64,6 +64,8 @@ const Index = () => {
     const BREVO_API_KEY = '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';
     
     try {
+      console.log('🚀 Enviando email a Esteban con datos del formulario...');
+      
       const emailData = {
         sender: {
           name: "Kit IA de Esteban",
@@ -71,91 +73,184 @@ const Index = () => {
         },
         to: [
           {
-            email: "esteban.Montenegro@gmail.com",
+            email: "esteban.montenegro@gmail.com",
             name: "Esteban Montenegro"
           }
         ],
         subject: `🚀 Nuevo Kit IA generado para: ${formData.marca}`,
         htmlContent: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h1 style="color: #7C3AED; text-align: center;">🧠 Nuevo Kit IA Generado</h1>
-            
-            <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h2 style="color: #374151; margin-top: 0;">📊 Información de la Marca</h2>
-              <p><strong>Marca:</strong> ${formData.marca}</p>
-              <p><strong>Email:</strong> ${formData.email}</p>
-              <p><strong>Website:</strong> ${formData.website || 'No proporcionado'}</p>
-              <p><strong>Instagram:</strong> ${formData.instagram ? '@' + formData.instagram : 'No proporcionado'}</p>
-              <p><strong>Estilo:</strong> ${formData.estilo}</p>
-            </div>
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
+            <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🧠 Nuevo Kit IA Generado</h1>
+              
+              <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h2 style="color: #374151; margin-top: 0; font-size: 20px;">📊 Información de la Marca</h2>
+                <p style="margin: 8px 0;"><strong>Marca:</strong> ${formData.marca}</p>
+                <p style="margin: 8px 0;"><strong>Email:</strong> ${formData.email}</p>
+                <p style="margin: 8px 0;"><strong>Website:</strong> ${formData.website || 'No proporcionado'}</p>
+                <p style="margin: 8px 0;"><strong>Instagram:</strong> ${formData.instagram ? '@' + formData.instagram : 'No proporcionado'}</p>
+                <p style="margin: 8px 0;"><strong>Estilo:</strong> ${formData.estilo}</p>
+              </div>
 
-            <div style="background: #EFF6FF; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h2 style="color: #1E40AF; margin-top: 0;">👤 Quién es</h2>
-              <p>${formData.quien_eres}</p>
-            </div>
+              <div style="background: #EFF6FF; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h2 style="color: #1E40AF; margin-top: 0; font-size: 18px;">👤 Quién es</h2>
+                <p style="line-height: 1.6;">${formData.quien_eres}</p>
+              </div>
 
-            <div style="background: #FEF3C7; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h2 style="color: #D97706; margin-top: 0;">🎯 Problemas que resuelve</h2>
-              <p>${formData.problemas}</p>
-            </div>
+              <div style="background: #FEF3C7; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h2 style="color: #D97706; margin-top: 0; font-size: 18px;">🎯 Problemas que resuelve</h2>
+                <p style="line-height: 1.6;">${formData.problemas}</p>
+              </div>
 
-            <div style="background: #ECFDF5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h2 style="color: #059669; margin-top: 0;">❓ Preguntas frecuentes</h2>
-              <p>${formData.preguntas_frecuentes}</p>
-            </div>
+              <div style="background: #ECFDF5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h2 style="color: #059669; margin-top: 0; font-size: 18px;">❓ Preguntas frecuentes</h2>
+                <p style="line-height: 1.6;">${formData.preguntas_frecuentes}</p>
+              </div>
 
-            <div style="background: #FDF2F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h2 style="color: #BE185D; margin-top: 0;">🚀 Producto principal</h2>
-              <p>${formData.producto}</p>
-            </div>
+              <div style="background: #FDF2F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h2 style="color: #BE185D; margin-top: 0; font-size: 18px;">🚀 Producto principal</h2>
+                <p style="line-height: 1.6;">${formData.producto}</p>
+              </div>
 
-            <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
-              <p style="margin: 0; color: #6B7280; font-size: 14px;">
-                Kit IA generado el ${new Date().toLocaleDateString('es-ES', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}
-              </p>
+              <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
+                <p style="margin: 0; color: #6B7280; font-size: 14px;">
+                  Kit IA generado el ${new Date().toLocaleDateString('es-ES', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
+                </p>
+              </div>
             </div>
           </div>
         `
       };
 
+      console.log('📧 Payload para email a Esteban:', JSON.stringify(emailData, null, 2));
+
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
         headers: {
-          'accept': 'application/json',
+          'Accept': 'application/json',
           'api-key': BREVO_API_KEY,
-          'content-type': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(emailData)
       });
 
+      console.log('📬 Respuesta del servidor:', response.status, response.statusText);
+      
       if (response.ok) {
-        console.log('Email enviado exitosamente a Esteban');
-        toast({
-          title: "¡Email enviado!",
-          description: "Los datos del kit han sido enviados exitosamente",
-        });
+        const responseData = await response.json();
+        console.log('✅ Email enviado exitosamente a Esteban:', responseData);
+        return true;
       } else {
-        const errorData = await response.json();
-        console.error('Error al enviar email:', errorData);
-        toast({
-          title: "Error al enviar email",
-          description: "Hubo un problema al enviar el email, pero el kit se generó correctamente",
-          variant: "destructive",
-        });
+        const errorData = await response.text();
+        console.error('❌ Error al enviar email a Esteban:', errorData);
+        throw new Error(`Error ${response.status}: ${errorData}`);
       }
     } catch (error) {
-      console.error('Error al enviar email:', error);
-      toast({
-        title: "Error al enviar email",
-        description: "Hubo un problema al enviar el email, pero el kit se generó correctamente",
-        variant: "destructive",
+      console.error('💥 Error en sendEmailToAdmin:', error);
+      throw error;
+    }
+  };
+
+  const sendConfirmationEmail = async (formData: FormData) => {
+    const BREVO_API_KEY = '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';
+    
+    try {
+      console.log('📨 Enviando email de confirmación al usuario:', formData.email);
+      
+      const confirmationEmailData = {
+        sender: {
+          name: "Kit IA de Esteban",
+          email: "noreply@kitia.com"
+        },
+        to: [
+          {
+            email: formData.email,
+            name: formData.marca
+          }
+        ],
+        subject: `✅ Tu Kit IA está listo - ${formData.marca}`,
+        htmlContent: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
+            <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🎉 ¡Tu Kit IA está listo!</h1>
+              
+              <p style="font-size: 18px; color: #374151; margin-bottom: 20px;">Hola <strong>${formData.marca}</strong>,</p>
+              
+              <p style="font-size: 16px; color: #6B7280; line-height: 1.6; margin-bottom: 25px;">
+                ¡Excelente! Hemos generado tu Kit IA personalizado con todo el contenido que necesitas para potenciar tu presencia digital.
+              </p>
+
+              <div style="background: #EFF6FF; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                <h2 style="color: #1E40AF; margin-top: 0; font-size: 20px;">📦 Tu Kit IA incluye:</h2>
+                <ul style="color: #374151; line-height: 1.8; padding-left: 20px;">
+                  <li>📅 <strong>Plan de contenido para 15 días</strong> - Listo para usar en redes sociales</li>
+                  <li>📱 <strong>Contenido específico para redes sociales</strong> - Posts, reels y estrategias</li>
+                  <li>🌐 <strong>Prompt para crear tu página web</strong> - Para usar en Lovable</li>
+                  <li>🧠 <strong>Prompt personalizado para ChatGPT</strong> - Tu asistente de marketing</li>
+                </ul>
+              </div>
+
+              <div style="background: #F0FDF4; padding: 20px; border-radius: 8px; margin: 25px 0; border-left: 4px solid #10B981;">
+                <p style="margin: 0; color: #065F46; font-size: 16px; line-height: 1.6;">
+                  <strong>💡 Próximos pasos:</strong><br>
+                  Revisa el contenido generado en la plataforma y comienza a implementar tu estrategia digital. 
+                  ¡Tu nueva presencia online está a solo unos clics de distancia!
+                </p>
+              </div>
+
+              <div style="text-align: center; margin: 30px 0;">
+                <p style="color: #6B7280; font-size: 14px; margin: 0;">
+                  Valor del kit: <strong style="color: #7C3AED;">USD $50</strong> - ¡Completamente gratis para ti!
+                </p>
+              </div>
+
+              <div style="background: #F9FAFB; padding: 20px; border-radius: 8px; text-align: center; margin-top: 30px;">
+                <p style="margin: 0; color: #6B7280; font-size: 14px;">
+                  Kit IA creado por <strong>Esteban Montenegro</strong><br>
+                  ${new Date().toLocaleDateString('es-ES', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric'
+                  })}
+                </p>
+              </div>
+            </div>
+          </div>
+        `
+      };
+
+      console.log('📧 Payload para email de confirmación:', JSON.stringify(confirmationEmailData, null, 2));
+
+      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'api-key': BREVO_API_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(confirmationEmailData)
       });
+
+      console.log('📬 Respuesta del servidor (confirmación):', response.status, response.statusText);
+      
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('✅ Email de confirmación enviado exitosamente:', responseData);
+        return true;
+      } else {
+        const errorData = await response.text();
+        console.error('❌ Error al enviar email de confirmación:', errorData);
+        throw new Error(`Error ${response.status}: ${errorData}`);
+      }
+    } catch (error) {
+      console.error('💥 Error en sendConfirmationEmail:', error);
+      throw error;
     }
   };
 
@@ -164,20 +259,33 @@ const Index = () => {
     setIsGenerating(true);
     
     try {
+      console.log('🔄 Iniciando proceso de envío de emails...');
+      
       // Simulate AI generation process
       await new Promise(resolve => setTimeout(resolve, 3000));
       
-      // Send email to admin with form data
-      await sendEmailToAdmin(formData);
+      // Send both emails
+      console.log('📤 Enviando emails...');
+      await Promise.all([
+        sendEmailToAdmin(formData),
+        sendConfirmationEmail(formData)
+      ]);
+      
+      console.log('✅ Todos los emails enviados exitosamente');
       
       setIsGenerating(false);
       setShowResults(true);
+      
+      toast({
+        title: "¡Kit generado exitosamente!",
+        description: "Los emails han sido enviados. Revisa tu bandeja de entrada.",
+      });
     } catch (error) {
-      console.error('Error during form submission:', error);
+      console.error('💥 Error durante el envío:', error);
       setIsGenerating(false);
       toast({
-        title: "Error",
-        description: "Hubo un problema al procesar tu solicitud. Por favor, inténtalo de nuevo.",
+        title: "Error al enviar emails",
+        description: `Hubo un problema: ${error instanceof Error ? error.message : 'Error desconocido'}`,
         variant: "destructive",
       });
     }
