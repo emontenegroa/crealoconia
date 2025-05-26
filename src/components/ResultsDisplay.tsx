@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Copy, RefreshCw, MessageSquare, Rocket, Brain, Check, TrendingUp } from 'lucide-react';
+import { Copy, RefreshCw, MessageSquare, Rocket, Brain, Check, TrendingUp, Info, ExternalLink } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
 
 interface FormData {
@@ -263,6 +263,35 @@ Mi estilo es: ${formData.estilo}
               </TabsContent>
 
               <TabsContent value="lovable" className="mt-6">
+                {/* How to use Lovable - Instructions */}
+                <Card className="bg-blue-500/20 border-blue-400/30 mb-6">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center gap-2 text-lg">
+                      <Info className="w-5 h-5" />
+                      🚀 Cómo usar este prompt en Lovable
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="text-blue-100 space-y-2">
+                      <p><strong className="text-white">Paso 1:</strong> Ve a <span className="bg-blue-600/50 px-2 py-1 rounded text-blue-200">lovable.dev</span> y crea un nuevo proyecto</p>
+                      <p><strong className="text-white">Paso 2:</strong> En el chat de la izquierda, pega todo el prompt de abajo</p>
+                      <p><strong className="text-white">Paso 3:</strong> Espera a que Lovable genere tu página web completa</p>
+                      <p><strong className="text-white">Paso 4:</strong> Publica tu sitio con un solo clic</p>
+                    </div>
+                    <div className="flex items-center gap-2 mt-3">
+                      <Button
+                        onClick={() => window.open('https://lovable.dev', '_blank')}
+                        size="sm"
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Ir a Lovable
+                      </Button>
+                      <span className="text-blue-200 text-sm">↗️ Se abre en nueva pestaña</span>
+                    </div>
+                  </CardContent>
+                </Card>
+
                 <Card className="bg-white/5 border-white/10">
                   <CardHeader>
                     <CardTitle className="text-white flex items-center justify-between">
