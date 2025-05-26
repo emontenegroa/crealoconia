@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -45,7 +46,6 @@ const ResultsDisplay = ({ formData, onReset }: ResultsDisplayProps) => {
     return contact ? `\nINFORMACIÓN DE CONTACTO:\n${contact}` : '';
   };
 
-  // Generate 15-day content plan
   const contentPlan = `📅 PLAN DE CONTENIDO 15 DÍAS - ${formData.marca}
 
 🎯 SEMANA 1: PRESENTACIÓN Y CONEXIÓN
@@ -125,7 +125,6 @@ Seguimos creando valor juntos 💫"
 - Usa hashtags relevantes a tu nicho
 - Programa tus publicaciones para consistencia${contactInfo()}`;
 
-  // Generate content based on form data
   const socialMediaContent = `🌟 CONTENIDO PARA REDES SOCIALES - ${formData.marca}
 
 📱 REEL PRESENTACIÓN (15-30 segundos):
@@ -282,22 +281,22 @@ Mi estilo es: ${formData.estilo}
       <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
-      <div className="relative z-10 container mx-auto px-4 py-8">
+      <div className="relative z-10 container mx-auto px-4 py-4 sm:py-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <Badge className="mb-4 bg-green-500/20 text-green-200 border-green-400/50 px-4 py-2 text-lg">
+        <div className="text-center mb-6 sm:mb-8">
+          <Badge className="mb-4 bg-green-500/20 text-green-200 border-green-400/50 px-3 py-2 text-sm sm:text-lg">
             ✅ ¡Kit IA Generado!
           </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Tu Kit IA está listo
           </h1>
-          <p className="text-purple-100 text-lg mb-6 max-w-2xl mx-auto">
+          <p className="text-purple-100 text-base sm:text-lg mb-4 sm:mb-6 max-w-2xl mx-auto px-4">
             Aquí tienes todo el contenido personalizado para <strong className="text-white">{formData.marca}</strong>
           </p>
           <Button 
             onClick={onReset}
             variant="outline"
-            className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
+            className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 text-sm sm:text-base px-4 py-2"
           >
             <RefreshCw className="w-4 h-4 mr-2" />
             Crear otro Kit IA
@@ -306,170 +305,190 @@ Mi estilo es: ${formData.estilo}
 
         {/* Results Tabs */}
         <Card className="max-w-6xl mx-auto bg-white/10 border-white/20 backdrop-blur-xl">
-          <CardContent className="p-6">
+          <CardContent className="p-3 sm:p-6">
             <Tabs defaultValue="content-plan" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 bg-white/10 backdrop-blur-lg">
-                <TabsTrigger value="content-plan" className="flex items-center gap-2 data-[state=active]:bg-purple-500/50 text-white">
-                  <Calendar className="w-4 h-4" />
-                  Plan 15 Días
+              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 bg-white/10 backdrop-blur-lg gap-1 p-1">
+                <TabsTrigger 
+                  value="content-plan" 
+                  className="flex items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-2 min-h-[40px] sm:min-h-[44px]"
+                >
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                  <span className="hidden sm:inline">Plan 15 Días</span>
+                  <span className="sm:hidden">Plan</span>
                 </TabsTrigger>
-                <TabsTrigger value="social" className="flex items-center gap-2 data-[state=active]:bg-purple-500/50 text-white">
-                  <MessageSquare className="w-4 h-4" />
-                  Redes Sociales
+                <TabsTrigger 
+                  value="social" 
+                  className="flex items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-2 min-h-[40px] sm:min-h-[44px]"
+                >
+                  <MessageSquare className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                  <span className="hidden sm:inline">Redes Sociales</span>
+                  <span className="sm:hidden">Redes</span>
                 </TabsTrigger>
-                <TabsTrigger value="lovable" className="flex items-center gap-2 data-[state=active]:bg-purple-500/50 text-white">
-                  <Rocket className="w-4 h-4" />
-                  Prompt Lovable
+                <TabsTrigger 
+                  value="lovable" 
+                  className="flex items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-2 min-h-[40px] sm:min-h-[44px]"
+                >
+                  <Rocket className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                  <span className="hidden sm:inline">Prompt Lovable</span>
+                  <span className="sm:hidden">Web</span>
                 </TabsTrigger>
-                <TabsTrigger value="chatgpt" className="flex items-center gap-2 data-[state=active]:bg-purple-500/50 text-white">
-                  <Brain className="w-4 h-4" />
-                  Prompt ChatGPT
+                <TabsTrigger 
+                  value="chatgpt" 
+                  className="flex items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-2 min-h-[40px] sm:min-h-[44px]"
+                >
+                  <Brain className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                  <span className="hidden sm:inline">Prompt ChatGPT</span>
+                  <span className="sm:hidden">ChatGPT</span>
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="content-plan" className="mt-6">
+              <TabsContent value="content-plan" className="mt-4 sm:mt-6">
                 <Card className="bg-white/5 border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-white flex items-center justify-between">
-                      <span className="flex items-center gap-2">
-                        <Calendar className="w-6 h-6" />
+                  <CardHeader className="pb-3 sm:pb-6">
+                    <CardTitle className="text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                      <span className="flex items-center gap-2 text-base sm:text-lg">
+                        <Calendar className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                         Plan de Contenido 15 Días
                       </span>
                       <Button
                         onClick={() => copyToClipboard(contentPlan, "Plan de Contenido 15 Días")}
                         variant="outline"
                         size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 flex-shrink-0 text-xs sm:text-sm px-3 py-2"
                       >
                         {copiedContent === "Plan de Contenido 15 Días" ? (
-                          <Check className="w-4 h-4" />
+                          <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                         ) : (
-                          <Copy className="w-4 h-4" />
+                          <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                         )}
+                        <span className="ml-1 sm:ml-2">Copiar</span>
                       </Button>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <pre className="text-gray-100 whitespace-pre-wrap text-sm bg-black/20 p-4 rounded-lg overflow-auto max-h-96">
+                  <CardContent className="pt-0">
+                    <pre className="text-gray-100 whitespace-pre-wrap text-xs sm:text-sm bg-black/20 p-3 sm:p-4 rounded-lg overflow-auto max-h-60 sm:max-h-96">
                       {contentPlan}
                     </pre>
                   </CardContent>
                 </Card>
               </TabsContent>
 
-              <TabsContent value="social" className="mt-6">
+              <TabsContent value="social" className="mt-4 sm:mt-6">
                 <Card className="bg-white/5 border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-white flex items-center justify-between">
-                      <span className="flex items-center gap-2">
-                        <MessageSquare className="w-6 h-6" />
+                  <CardHeader className="pb-3 sm:pb-6">
+                    <CardTitle className="text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                      <span className="flex items-center gap-2 text-base sm:text-lg">
+                        <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                         Contenido para Redes Sociales
                       </span>
                       <Button
                         onClick={() => copyToClipboard(socialMediaContent, "Contenido de Redes Sociales")}
                         variant="outline"
                         size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 flex-shrink-0 text-xs sm:text-sm px-3 py-2"
                       >
                         {copiedContent === "Contenido de Redes Sociales" ? (
-                          <Check className="w-4 h-4" />
+                          <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                         ) : (
-                          <Copy className="w-4 h-4" />
+                          <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                         )}
+                        <span className="ml-1 sm:ml-2">Copiar</span>
                       </Button>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <pre className="text-gray-100 whitespace-pre-wrap text-sm bg-black/20 p-4 rounded-lg overflow-auto max-h-96">
+                  <CardContent className="pt-0">
+                    <pre className="text-gray-100 whitespace-pre-wrap text-xs sm:text-sm bg-black/20 p-3 sm:p-4 rounded-lg overflow-auto max-h-60 sm:max-h-96">
                       {socialMediaContent}
                     </pre>
                   </CardContent>
                 </Card>
               </TabsContent>
 
-              <TabsContent value="lovable" className="mt-6">
+              <TabsContent value="lovable" className="mt-4 sm:mt-6">
                 {/* How to use Lovable - Instructions */}
-                <Card className="bg-blue-500/20 border-blue-400/30 mb-6">
-                  <CardHeader>
-                    <CardTitle className="text-white flex items-center gap-2 text-lg">
-                      <Info className="w-5 h-5" />
+                <Card className="bg-blue-500/20 border-blue-400/30 mb-4 sm:mb-6">
+                  <CardHeader className="pb-3 sm:pb-6">
+                    <CardTitle className="text-white flex items-center gap-2 text-base sm:text-lg">
+                      <Info className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                       🚀 Cómo usar este prompt en Lovable
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="text-blue-100 space-y-2">
+                  <CardContent className="space-y-3 pt-0">
+                    <div className="text-blue-100 space-y-2 text-sm sm:text-base">
                       <p><strong className="text-white">Paso 1:</strong> Ve a <span className="bg-blue-600/50 px-2 py-1 rounded text-blue-200">lovable.dev</span> y crea un nuevo proyecto</p>
                       <p><strong className="text-white">Paso 2:</strong> En el chat de la izquierda, pega todo el prompt de abajo</p>
                       <p><strong className="text-white">Paso 3:</strong> Espera a que Lovable genere tu página web completa</p>
                       <p><strong className="text-white">Paso 4:</strong> Publica tu sitio con un solo clic</p>
                     </div>
-                    <div className="flex items-center gap-2 mt-3">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mt-3">
                       <Button
                         onClick={() => window.open('https://lovable.dev', '_blank')}
                         size="sm"
-                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm px-3 py-2"
                       >
-                        <ExternalLink className="w-4 h-4 mr-2" />
+                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
                         Ir a Lovable
                       </Button>
-                      <span className="text-blue-200 text-sm">↗️ Se abre en nueva pestaña</span>
+                      <span className="text-blue-200 text-xs sm:text-sm">↗️ Se abre en nueva pestaña</span>
                     </div>
                   </CardContent>
                 </Card>
 
                 <Card className="bg-white/5 border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-white flex items-center justify-between">
-                      <span className="flex items-center gap-2">
-                        <Rocket className="w-6 h-6" />
+                  <CardHeader className="pb-3 sm:pb-6">
+                    <CardTitle className="text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                      <span className="flex items-center gap-2 text-base sm:text-lg">
+                        <Rocket className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                         Prompt para Lovable
                       </span>
                       <Button
                         onClick={() => copyToClipboard(lovablePrompt, "Prompt para Lovable")}
                         variant="outline"
                         size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 flex-shrink-0 text-xs sm:text-sm px-3 py-2"
                       >
                         {copiedContent === "Prompt para Lovable" ? (
-                          <Check className="w-4 h-4" />
+                          <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                         ) : (
-                          <Copy className="w-4 h-4" />
+                          <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                         )}
+                        <span className="ml-1 sm:ml-2">Copiar</span>
                       </Button>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <pre className="text-gray-100 whitespace-pre-wrap text-sm bg-black/20 p-4 rounded-lg overflow-auto max-h-96">
+                  <CardContent className="pt-0">
+                    <pre className="text-gray-100 whitespace-pre-wrap text-xs sm:text-sm bg-black/20 p-3 sm:p-4 rounded-lg overflow-auto max-h-60 sm:max-h-96">
                       {lovablePrompt}
                     </pre>
                   </CardContent>
                 </Card>
               </TabsContent>
 
-              <TabsContent value="chatgpt" className="mt-6">
+              <TabsContent value="chatgpt" className="mt-4 sm:mt-6">
                 <Card className="bg-white/5 border-white/10">
-                  <CardHeader>
-                    <CardTitle className="text-white flex items-center justify-between">
-                      <span className="flex items-center gap-2">
-                        <Brain className="w-6 h-6" />
+                  <CardHeader className="pb-3 sm:pb-6">
+                    <CardTitle className="text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                      <span className="flex items-center gap-2 text-base sm:text-lg">
+                        <Brain className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                         Prompt para ChatGPT
                       </span>
                       <Button
                         onClick={() => copyToClipboard(chatGPTPrompt, "Prompt para ChatGPT")}
                         variant="outline"
                         size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 flex-shrink-0 text-xs sm:text-sm px-3 py-2"
                       >
                         {copiedContent === "Prompt para ChatGPT" ? (
-                          <Check className="w-4 h-4" />
+                          <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                         ) : (
-                          <Copy className="w-4 h-4" />
+                          <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                         )}
+                        <span className="ml-1 sm:ml-2">Copiar</span>
                       </Button>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <pre className="text-gray-100 whitespace-pre-wrap text-sm bg-black/20 p-4 rounded-lg overflow-auto max-h-96">
+                  <CardContent className="pt-0">
+                    <pre className="text-gray-100 whitespace-pre-wrap text-xs sm:text-sm bg-black/20 p-3 sm:p-4 rounded-lg overflow-auto max-h-60 sm:max-h-96">
                       {chatGPTPrompt}
                     </pre>
                   </CardContent>
@@ -480,35 +499,35 @@ Mi estilo es: ${formData.estilo}
         </Card>
 
         {/* Next Steps */}
-        <Card className="max-w-4xl mx-auto mt-8 bg-white/95 border-gray-200 backdrop-blur-xl shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-gray-800 text-center flex items-center justify-center gap-2">
-              <TrendingUp className="w-6 h-6" />
+        <Card className="max-w-4xl mx-auto mt-6 sm:mt-8 bg-white/95 border-gray-200 backdrop-blur-xl shadow-xl">
+          <CardHeader className="pb-3 sm:pb-6">
+            <CardTitle className="text-gray-800 text-center flex items-center justify-center gap-2 text-lg sm:text-xl">
+              <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6" />
               🎉 ¡Tu Kit IA está completo!
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-center space-y-4">
-            <p className="text-gray-700 text-lg">
+          <CardContent className="text-center space-y-4 pt-0">
+            <p className="text-gray-700 text-base sm:text-lg px-4">
               Ahora tienes todo lo necesario para potenciar tu presencia digital:
             </p>
             <div className="grid md:grid-cols-2 gap-4 text-left">
-              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <h4 className="text-gray-800 font-semibold mb-2 flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
+              <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
+                <h4 className="text-gray-800 font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                   📅 Plan de 15 Días
                 </h4>
-                <p className="text-gray-600 text-sm">Contenido estructurado listo para usar en redes sociales</p>
+                <p className="text-gray-600 text-xs sm:text-sm">Contenido estructurado listo para usar en redes sociales</p>
               </div>
-              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <h4 className="text-gray-800 font-semibold mb-2 flex items-center gap-2">
-                  <Rocket className="w-5 h-5" />
+              <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
+                <h4 className="text-gray-800 font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
+                  <Rocket className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                   🌐 Tu Página Web
                 </h4>
-                <p className="text-gray-600 text-sm">Usa el prompt de Lovable para crear tu sitio profesional</p>
+                <p className="text-gray-600 text-xs sm:text-sm">Usa el prompt de Lovable para crear tu sitio profesional</p>
               </div>
             </div>
-            <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <p className="text-blue-800 text-sm">
+            <div className="mt-4 p-3 sm:p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <p className="text-blue-800 text-xs sm:text-sm px-2">
                 <strong>Valor: USD 50</strong> • Guarda estos prompts y úsalos para generar contenido constantemente. 
                 ¡Tu marca ahora tiene una voz consistente y profesional!
               </p>
@@ -517,8 +536,8 @@ Mi estilo es: ${formData.estilo}
         </Card>
 
         {/* Creator signature */}
-        <div className="text-center mt-8">
-          <p className="text-purple-300 text-sm">
+        <div className="text-center mt-6 sm:mt-8">
+          <p className="text-purple-300 text-xs sm:text-sm">
             Kit IA diseñado y desarrollado por <span className="font-semibold text-purple-200">Esteban Montenegro</span>
           </p>
         </div>
