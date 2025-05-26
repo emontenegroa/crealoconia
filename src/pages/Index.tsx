@@ -107,7 +107,7 @@ const Index = () => {
               <Brain className="w-6 h-6 text-blue-300" />
               <h3 className="text-xl font-semibold text-white">Tómate tu tiempo para responder</h3>
             </div>
-            <p className="text-blue-100 text-lg leading-relaxed">
+            <p className="text-white text-lg leading-relaxed">
               Entre más detalladas y reflexivas sean tus respuestas, mejor será el prompt generado. 
               La calidad de tu contenido depende de la información que compartas.
             </p>
