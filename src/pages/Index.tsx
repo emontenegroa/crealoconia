@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe } from "lucide-react";
+import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe, Gift } from "lucide-react";
 import FormField from '@/components/FormField';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -104,25 +104,39 @@ const Index = () => {
               <Brain className="w-12 h-12 text-white" />
             </div>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 bg-gradient-to-r from-purple-200 to-blue-200 bg-clip-text text-transparent">
-            SuperPrompt
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-purple-200 to-blue-200 bg-clip-text text-transparent">
+            Kit IA de Esteban
           </h1>
-          <p className="text-xl md:text-2xl text-purple-100 font-light max-w-4xl mx-auto leading-relaxed">
-            Crea tu presencia online en minutos con inteligencia artificial
-          </p>
-          <p className="text-lg text-purple-200 mt-4 max-w-3xl mx-auto">
-            Genera prompts optimizados para crear tu página web en Lovable, contenido para reels y posts de redes sociales que te ayuden a entender mejor tu negocio y vender más.
+          <h2 className="text-2xl md:text-3xl text-white mb-6 font-semibold">
+            Lanza tu contenido y web con inteligencia artificial — gratis y en minutos
+          </h2>
+          <p className="text-lg text-purple-100 max-w-4xl mx-auto leading-relaxed mb-6">
+            Este kit gratuito está diseñado para emprendedores, coaches, freelancers y marcas personales que quieren tener presencia digital sin enredarse. Responde solo 6 preguntas y genera tu contenido, tu web y tu estrategia en segundos.
           </p>
           
-          {/* Special offer notice */}
-          <div className="mt-6 inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 border border-yellow-400/30 rounded-full px-6 py-3">
-            <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
-            <span className="text-yellow-100 font-medium">¡GRATIS por tiempo limitado!</span>
-            <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
+          {/* Value proposition */}
+          <div className="max-w-3xl mx-auto mb-6">
+            <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-xl p-6">
+              <h3 className="text-white text-xl font-semibold mb-4 flex items-center justify-center gap-2">
+                <Gift className="w-6 h-6 text-yellow-300" />
+                ✅ Recibirás:
+              </h3>
+              <div className="text-purple-100 text-left space-y-2">
+                <p>• Un prompt profesional para ChatGPT</p>
+                <p>• Un plan de contenido para 15 días</p>
+                <p>• Los textos completos para tu web</p>
+                <p>• Un prompt para crear tu sitio automáticamente en Lovable</p>
+              </div>
+              <div className="mt-4 pt-4 border-t border-white/20">
+                <p className="text-yellow-200 font-medium">
+                  🎁 Valor estimado: USD 50 – pero hoy lo recibes gratis como parte de esta comunidad.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Creator credit */}
-          <p className="text-purple-300 mt-4 text-sm">
+          <p className="text-purple-300 text-sm">
             Creado por <span className="font-semibold text-purple-200">Esteban Montenegro</span>
           </p>
         </div>
@@ -135,7 +149,7 @@ const Index = () => {
               <h3 className="text-xl font-semibold text-gray-800">Tómate tu tiempo para responder</h3>
             </div>
             <p className="text-gray-700 text-lg leading-relaxed">
-              Entre más detalladas y reflexivas sean tus respuestas, mejor será el prompt generado. 
+              Entre más detalladas y reflexivas sean tus respuestas, mejor será el kit generado. 
               La calidad de tu contenido depende de la información que compartas.
             </p>
           </CardContent>
@@ -156,9 +170,9 @@ const Index = () => {
         {/* Features */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {[
-            { icon: MessageSquare, title: "Contenido para Redes", desc: "Reels y posts optimizados para todas las plataformas" },
-            { icon: Rocket, title: "Prompt para Lovable", desc: "Instrucciones detalladas para crear tu página web" },
-            { icon: TrendingUp, title: "Estrategia de Negocio", desc: "Entiende mejor tu propuesta y mejora tus ventas" }
+            { icon: MessageSquare, title: "Plan de Contenido", desc: "15 días de contenido para redes sociales listo para usar" },
+            { icon: Rocket, title: "Web Automática", desc: "Prompt para crear tu sitio profesional en Lovable" },
+            { icon: TrendingUp, title: "Estrategia de Negocio", desc: "Prompt personalizado para ChatGPT y crecimiento" }
           ].map((feature, index) => (
             <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-lg hover:bg-white/20 transition-all duration-300 hover:scale-105">
               <CardContent className="p-6 text-center">
@@ -173,9 +187,9 @@ const Index = () => {
         {/* Main Form */}
         <Card className="max-w-4xl mx-auto bg-white/10 border-white/20 backdrop-blur-xl shadow-2xl">
           <CardHeader className="text-center pb-8">
-            <CardTitle className="text-3xl text-white flex items-center justify-center gap-3">
+            <CardTitle className="text-2xl text-white flex items-center justify-center gap-3">
               <Sparkles className="w-8 h-8 text-yellow-300" />
-              Cuéntanos sobre tu proyecto
+              Completa estas 6 preguntas para generar tu Kit IA personalizado
             </CardTitle>
           </CardHeader>
           <CardContent className="p-8">
@@ -243,7 +257,7 @@ const Index = () => {
                   icon={Rocket}
                 />
 
-                {/* New contact fields */}
+                {/* Optional contact fields */}
                 <div className="border-t border-white/20 pt-8">
                   <h3 className="text-white text-xl font-semibold mb-4 text-center">
                     Información de contacto (opcional)
@@ -288,8 +302,12 @@ const Index = () => {
                   disabled={!isFormValid}
                 >
                   <Brain className="w-6 h-6 mr-3" />
-                  🧠 Generar mi SuperPrompt
+                  🧠 Generar mi Kit IA personalizado
                 </Button>
+
+                <p className="text-center text-purple-200 text-sm mt-4">
+                  🔐 Sin trucos. Sin ventas forzadas. Solo valor real.
+                </p>
               </form>
             )}
           </CardContent>

@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Copy, RefreshCw, MessageSquare, Rocket, Brain, Check, TrendingUp, Info, ExternalLink } from 'lucide-react';
+import { Copy, RefreshCw, MessageSquare, Rocket, Brain, Check, TrendingUp, Info, ExternalLink, Calendar } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
 
 interface FormData {
@@ -45,6 +44,86 @@ const ResultsDisplay = ({ formData, onReset }: ResultsDisplayProps) => {
     if (formData.instagram) contact += `📱 Instagram: @${formData.instagram}\n`;
     return contact ? `\nINFORMACIÓN DE CONTACTO:\n${contact}` : '';
   };
+
+  // Generate 15-day content plan
+  const contentPlan = `📅 PLAN DE CONTENIDO 15 DÍAS - ${formData.marca}
+
+🎯 SEMANA 1: PRESENTACIÓN Y CONEXIÓN
+
+DÍA 1 - REEL PRESENTACIÓN:
+"¡Hola! Soy parte de ${formData.marca} 👋
+${formData.quien_eres.slice(0, 100)}...
+¿Te resuena? ¡Sígueme para más contenido! 💫"
+
+DÍA 2 - POST EDUCATIVO:
+"💡 Mito vs Realidad sobre [tu área]:
+${formData.preguntas_frecuentes.slice(0, 120)}...
+¿Qué opinas? Cuéntame en comentarios 👇"
+
+DÍA 3 - HISTORIA PERSONAL:
+"Mi historia: Por qué decidí ayudar con ${formData.problemas.slice(0, 80)}...
+Todo empezó cuando..."
+
+DÍA 4 - CONSEJO RÁPIDO:
+"⚡ Tip del día: Si sientes que ${formData.problemas.slice(0, 60)}...
+Prueba esto: [consejo específico]"
+
+DÍA 5 - REEL EDUCATIVO:
+"🔥 3 señales de que necesitas ${formData.producto.slice(0, 50)}...
+1. [Señal relacionada con el problema]
+2. [Segunda señal]
+3. [Tercera señal]"
+
+🎯 SEMANA 2: VALOR Y AUTORIDAD
+
+DÍA 6 - POST REFLEXIVO:
+"¿Sabías que...? ${formData.preguntas_frecuentes.slice(0, 100)}...
+Mi experiencia me ha enseñado que..."
+
+DÍA 7 - CONTENIDO DETRÁS DE CÁMARAS:
+"Un día en mi vida trabajando en ${formData.marca}
+Así es como ayudo a [tu audiencia]..."
+
+DÍA 8 - REEL MOTIVACIONAL:
+"Para ti que sientes ${formData.problemas.slice(0, 80)}...
+Recuerda: [mensaje motivacional específico]"
+
+DÍA 9 - FAQ INTERACTIVO:
+"Pregúntame cualquier cosa sobre [tu área]
+Las 3 preguntas más frecuentes que recibo..."
+
+DÍA 10 - CASO DE ÉXITO:
+"Historia de transformación: Cuando [cliente] llegó con ${formData.problemas.slice(0, 60)}...
+Así fue su proceso..."
+
+🎯 SEMANA 3: PROMOCIÓN SUAVE
+
+DÍA 11 - REEL DE PROCESO:
+"¿Cómo funciona ${formData.producto.slice(0, 50)}?
+Te muestro paso a paso..."
+
+DÍA 12 - TESTIMONIAL:
+"Lo que dicen sobre trabajar conmigo:
+[Crear testimonial basado en el problema que resuelves]"
+
+DÍA 13 - POST DE VALOR:
+"🎁 Recurso gratuito: Descarga mi guía sobre 
+'Cómo [solucionar problema específico]'"
+
+DÍA 14 - REEL LLAMADA A LA ACCIÓN:
+"¿Lista/o para transformar ${formData.problemas.slice(0, 50)}?
+Escríbeme 'ME INTERESA' para más info 📩"
+
+DÍA 15 - AGRADECIMIENTO Y CIERRE:
+"Gracias por acompañarme estas 2 semanas
+¿Cuál fue tu contenido favorito?
+Seguimos creando valor juntos 💫"
+
+📝 NOTAS IMPORTANTES:
+- Adapta cada post a tu estilo: ${formData.estilo}
+- Incluye siempre un call-to-action
+- Usa hashtags relevantes a tu nicho
+- Programa tus publicaciones para consistencia${contactInfo()}`;
 
   // Generate content based on form data
   const socialMediaContent = `🌟 CONTENIDO PARA REDES SOCIALES - ${formData.marca}
@@ -207,10 +286,10 @@ Mi estilo es: ${formData.estilo}
         {/* Header */}
         <div className="text-center mb-8">
           <Badge className="mb-4 bg-green-500/20 text-green-200 border-green-400/50 px-4 py-2 text-lg">
-            ✅ ¡SuperPrompt Generado!
+            ✅ ¡Kit IA Generado!
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Tu contenido está listo
+            Tu Kit IA está listo
           </h1>
           <p className="text-purple-100 text-lg mb-6 max-w-2xl mx-auto">
             Aquí tienes todo el contenido personalizado para <strong className="text-white">{formData.marca}</strong>
@@ -221,15 +300,19 @@ Mi estilo es: ${formData.estilo}
             className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
           >
             <RefreshCw className="w-4 h-4 mr-2" />
-            Crear otro SuperPrompt
+            Crear otro Kit IA
           </Button>
         </div>
 
         {/* Results Tabs */}
         <Card className="max-w-6xl mx-auto bg-white/10 border-white/20 backdrop-blur-xl">
           <CardContent className="p-6">
-            <Tabs defaultValue="social" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 bg-white/10 backdrop-blur-lg">
+            <Tabs defaultValue="content-plan" className="w-full">
+              <TabsList className="grid w-full grid-cols-4 bg-white/10 backdrop-blur-lg">
+                <TabsTrigger value="content-plan" className="flex items-center gap-2 data-[state=active]:bg-purple-500/50 text-white">
+                  <Calendar className="w-4 h-4" />
+                  Plan 15 Días
+                </TabsTrigger>
                 <TabsTrigger value="social" className="flex items-center gap-2 data-[state=active]:bg-purple-500/50 text-white">
                   <MessageSquare className="w-4 h-4" />
                   Redes Sociales
@@ -243,6 +326,36 @@ Mi estilo es: ${formData.estilo}
                   Prompt ChatGPT
                 </TabsTrigger>
               </TabsList>
+
+              <TabsContent value="content-plan" className="mt-6">
+                <Card className="bg-white/5 border-white/10">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center justify-between">
+                      <span className="flex items-center gap-2">
+                        <Calendar className="w-6 h-6" />
+                        Plan de Contenido 15 Días
+                      </span>
+                      <Button
+                        onClick={() => copyToClipboard(contentPlan, "Plan de Contenido 15 Días")}
+                        variant="outline"
+                        size="sm"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
+                      >
+                        {copiedContent === "Plan de Contenido 15 Días" ? (
+                          <Check className="w-4 h-4" />
+                        ) : (
+                          <Copy className="w-4 h-4" />
+                        )}
+                      </Button>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <pre className="text-gray-100 whitespace-pre-wrap text-sm bg-black/20 p-4 rounded-lg overflow-auto max-h-96">
+                      {contentPlan}
+                    </pre>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
               <TabsContent value="social" className="mt-6">
                 <Card className="bg-white/5 border-white/10">
@@ -371,7 +484,7 @@ Mi estilo es: ${formData.estilo}
           <CardHeader>
             <CardTitle className="text-gray-800 text-center flex items-center justify-center gap-2">
               <TrendingUp className="w-6 h-6" />
-              🎉 ¡Próximos pasos!
+              🎉 ¡Tu Kit IA está completo!
             </CardTitle>
           </CardHeader>
           <CardContent className="text-center space-y-4">
@@ -381,10 +494,10 @@ Mi estilo es: ${formData.estilo}
             <div className="grid md:grid-cols-2 gap-4 text-left">
               <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                 <h4 className="text-gray-800 font-semibold mb-2 flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5" />
-                  📱 Redes Sociales
+                  <Calendar className="w-5 h-5" />
+                  📅 Plan de 15 Días
                 </h4>
-                <p className="text-gray-600 text-sm">Copia y adapta el contenido para tus reels y posts</p>
+                <p className="text-gray-600 text-sm">Contenido estructurado listo para usar en redes sociales</p>
               </div>
               <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                 <h4 className="text-gray-800 font-semibold mb-2 flex items-center gap-2">
@@ -396,7 +509,7 @@ Mi estilo es: ${formData.estilo}
             </div>
             <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
               <p className="text-blue-800 text-sm">
-                <strong>Tip:</strong> Guarda estos prompts y úsalos para generar contenido constantemente. 
+                <strong>Valor: USD 50</strong> • Guarda estos prompts y úsalos para generar contenido constantemente. 
                 ¡Tu marca ahora tiene una voz consistente y profesional!
               </p>
             </div>
@@ -406,7 +519,7 @@ Mi estilo es: ${formData.estilo}
         {/* Creator signature */}
         <div className="text-center mt-8">
           <p className="text-purple-300 text-sm">
-            Diseñado y desarrollado por <span className="font-semibold text-purple-200">Esteban Montenegro</span>
+            Kit IA diseñado y desarrollado por <span className="font-semibold text-purple-200">Esteban Montenegro</span>
           </p>
         </div>
       </div>
