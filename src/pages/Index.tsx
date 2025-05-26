@@ -6,6 +6,7 @@ import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, G
 import FormField from '@/components/FormField';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { toast } from "@/hooks/use-toast";
 
 interface FormData {
   marca: string;
@@ -59,15 +60,127 @@ const Index = () => {
     setNoInstagram(false);
   };
 
+  const sendEmailToAdmin = async (formData: FormData) => {
+    const BREVO_API_KEY = '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';
+    
+    try {
+      const emailData = {
+        sender: {
+          name: "Kit IA de Esteban",
+          email: "noreply@kitia.com"
+        },
+        to: [
+          {
+            email: "esteban.Montenegro@gmail.com",
+            name: "Esteban Montenegro"
+          }
+        ],
+        subject: `🚀 Nuevo Kit IA generado para: ${formData.marca}`,
+        htmlContent: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h1 style="color: #7C3AED; text-align: center;">🧠 Nuevo Kit IA Generado</h1>
+            
+            <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h2 style="color: #374151; margin-top: 0;">📊 Información de la Marca</h2>
+              <p><strong>Marca:</strong> ${formData.marca}</p>
+              <p><strong>Email:</strong> ${formData.email}</p>
+              <p><strong>Website:</strong> ${formData.website || 'No proporcionado'}</p>
+              <p><strong>Instagram:</strong> ${formData.instagram ? '@' + formData.instagram : 'No proporcionado'}</p>
+              <p><strong>Estilo:</strong> ${formData.estilo}</p>
+            </div>
+
+            <div style="background: #EFF6FF; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h2 style="color: #1E40AF; margin-top: 0;">👤 Quién es</h2>
+              <p>${formData.quien_eres}</p>
+            </div>
+
+            <div style="background: #FEF3C7; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h2 style="color: #D97706; margin-top: 0;">🎯 Problemas que resuelve</h2>
+              <p>${formData.problemas}</p>
+            </div>
+
+            <div style="background: #ECFDF5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h2 style="color: #059669; margin-top: 0;">❓ Preguntas frecuentes</h2>
+              <p>${formData.preguntas_frecuentes}</p>
+            </div>
+
+            <div style="background: #FDF2F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h2 style="color: #BE185D; margin-top: 0;">🚀 Producto principal</h2>
+              <p>${formData.producto}</p>
+            </div>
+
+            <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
+              <p style="margin: 0; color: #6B7280; font-size: 14px;">
+                Kit IA generado el ${new Date().toLocaleDateString('es-ES', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}
+              </p>
+            </div>
+          </div>
+        `
+      };
+
+      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'api-key': BREVO_API_KEY,
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(emailData)
+      });
+
+      if (response.ok) {
+        console.log('Email enviado exitosamente a Esteban');
+        toast({
+          title: "¡Email enviado!",
+          description: "Los datos del kit han sido enviados exitosamente",
+        });
+      } else {
+        const errorData = await response.json();
+        console.error('Error al enviar email:', errorData);
+        toast({
+          title: "Error al enviar email",
+          description: "Hubo un problema al enviar el email, pero el kit se generó correctamente",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error al enviar email:', error);
+      toast({
+        title: "Error al enviar email",
+        description: "Hubo un problema al enviar el email, pero el kit se generó correctamente",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsGenerating(true);
     
-    // Simulate AI generation process
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    
-    setIsGenerating(false);
-    setShowResults(true);
+    try {
+      // Simulate AI generation process
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      
+      // Send email to admin with form data
+      await sendEmailToAdmin(formData);
+      
+      setIsGenerating(false);
+      setShowResults(true);
+    } catch (error) {
+      console.error('Error during form submission:', error);
+      setIsGenerating(false);
+      toast({
+        title: "Error",
+        description: "Hubo un problema al procesar tu solicitud. Por favor, inténtalo de nuevo.",
+        variant: "destructive",
+      });
+    }
   };
 
   // Updated form validation to consider checkboxes
