@@ -66,13 +66,16 @@ const Index = () => {
     setShowResults(true);
   };
 
-  // Only the first 6 fields are required (marca, quien_eres, problemas, preguntas_frecuentes, estilo, producto)
+  // All fields are now required including contact information
   const isFormValid = formData.marca.trim() !== '' && 
                      formData.quien_eres.trim() !== '' && 
                      formData.problemas.trim() !== '' && 
                      formData.preguntas_frecuentes.trim() !== '' && 
                      formData.estilo !== '' && 
-                     formData.producto.trim() !== '';
+                     formData.producto.trim() !== '' &&
+                     formData.email.trim() !== '' &&
+                     formData.website.trim() !== '' &&
+                     formData.instagram.trim() !== '';
 
   if (showResults) {
     return <ResultsDisplay formData={formData} onReset={() => {
@@ -256,20 +259,20 @@ const Index = () => {
                   icon={Rocket}
                 />
 
-                {/* Contact information section */}
+                {/* Contact information section - now required */}
                 <div className="border-t border-white/20 pt-8">
                   <h3 className="text-white text-xl font-semibold mb-6 text-center flex items-center justify-center gap-2">
                     <Mail className="w-6 h-6" />
-                    Información de contacto (opcional pero recomendado)
+                    Información de contacto
                   </h3>
                   <p className="text-purple-200 text-center mb-6 text-sm">
-                    Estos datos mejorarán significativamente tus prompts personalizados
+                    Estos datos son obligatorios y mejorarán significativamente tus prompts personalizados
                   </p>
                   
                   <div className="space-y-6">
                     <FormField
                       type="input"
-                      label="Correo electrónico"
+                      label="7. Correo electrónico"
                       placeholder="Ej: info@tumarca.com"
                       name="email"
                       value={formData.email}
@@ -279,7 +282,7 @@ const Index = () => {
 
                     <FormField
                       type="input"
-                      label="Página web"
+                      label="8. Página web"
                       placeholder="Ej: www.tumarca.com"
                       name="website"
                       value={formData.website}
@@ -289,7 +292,7 @@ const Index = () => {
 
                     <FormField
                       type="input"
-                      label="Instagram (nombre de usuario)"
+                      label="9. Instagram (nombre de usuario)"
                       placeholder="Ej: tumarca (sin @)"
                       name="instagram"
                       value={formData.instagram}
