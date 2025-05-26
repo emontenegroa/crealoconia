@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp } from "lucide-react";
+import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap } from "lucide-react";
 import FormField from '@/components/FormField';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -33,6 +32,17 @@ const Index = () => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const loadExampleData = () => {
+    setFormData({
+      marca: 'Luz Interior Coaching',
+      quien_eres: 'Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras y profesionales que buscan reconectar con su propósito de vida y desarrollar todo su potencial. Disfruto profundamente crear espacios seguros donde mis clientas pueden explorar sus emociones, desbloquear sus miedos y diseñar la vida que realmente desean vivir.',
+      problemas: 'Mis clientas suelen llegar a mí sintiéndose bloqueadas emocionalmente, con una sensación constante de estar viviendo en piloto automático sin conexión con lo que realmente las hace felices. Muchas experimentan el síndrome del impostor, miedo al fracaso y dificultades para tomar decisiones importantes. Yo las ayudo a través de un proceso de autoconocimiento profundo, técnicas de PNL y ejercicios prácticos que les permiten recuperar su claridad mental, confianza y dirección en la vida.',
+      preguntas_frecuentes: 'Me preguntan constantemente si realmente es posible cambiar de vida después de los 35 o 40 años, especialmente cuando ya tienen responsabilidades familiares y económicas. También me consultan sobre cómo saber si están tomando la decisión correcta y cómo superar el miedo al juicio de otros. Me encanta explicar que la transformación es posible a cualquier edad y que el momento perfecto no existe, pero el momento presente sí.',
+      estilo: 'Inspirador',
+      producto: 'Mi programa insignia "Renace: Transforma tu Vida en 90 Días", un proceso de coaching integral que incluye 8 sesiones individuales, un workbook personalizado, meditaciones guiadas y acceso a mi comunidad privada de mujeres en transformación. El programa está diseñado para mujeres que quieren hacer cambios profundos y duraderos en su vida personal y profesional.'
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -113,6 +123,18 @@ const Index = () => {
             </p>
           </CardContent>
         </Card>
+
+        {/* Example data button */}
+        <div className="max-w-4xl mx-auto mb-8 text-center">
+          <Button 
+            onClick={loadExampleData}
+            variant="outline"
+            className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm"
+          >
+            <Zap className="w-4 h-4 mr-2" />
+            Cargar ejemplo para ver resultados
+          </Button>
+        </div>
 
         {/* Features */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
