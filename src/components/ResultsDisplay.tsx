@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -307,38 +306,34 @@ Mi estilo es: ${formData.estilo}
         <Card className="max-w-6xl mx-auto bg-white/10 border-white/20 backdrop-blur-xl">
           <CardContent className="p-3 sm:p-6">
             <Tabs defaultValue="content-plan" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 bg-white/10 backdrop-blur-lg gap-1 p-1">
+              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white/10 backdrop-blur-lg gap-1 p-1">
                 <TabsTrigger 
                   value="content-plan" 
-                  className="flex items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-2 min-h-[40px] sm:min-h-[44px]"
+                  className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-3 min-h-[50px] sm:min-h-[44px]"
                 >
-                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                  <span className="hidden sm:inline">Plan 15 Días</span>
-                  <span className="sm:hidden">Plan</span>
+                  <Calendar className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-center leading-tight">Plan 15 Días</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="social" 
-                  className="flex items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-2 min-h-[40px] sm:min-h-[44px]"
+                  className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-3 min-h-[50px] sm:min-h-[44px]"
                 >
-                  <MessageSquare className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                  <span className="hidden sm:inline">Redes Sociales</span>
-                  <span className="sm:hidden">Redes</span>
+                  <MessageSquare className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-center leading-tight">Redes Sociales</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="lovable" 
-                  className="flex items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-2 min-h-[40px] sm:min-h-[44px]"
+                  className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-3 min-h-[50px] sm:min-h-[44px]"
                 >
-                  <Rocket className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                  <span className="hidden sm:inline">Prompt Lovable</span>
-                  <span className="sm:hidden">Web</span>
+                  <Rocket className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-center leading-tight">Web Lovable</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="chatgpt" 
-                  className="flex items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-2 min-h-[40px] sm:min-h-[44px]"
+                  className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-3 min-h-[50px] sm:min-h-[44px]"
                 >
-                  <Brain className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                  <span className="hidden sm:inline">Prompt ChatGPT</span>
-                  <span className="sm:hidden">ChatGPT</span>
+                  <Brain className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-center leading-tight">ChatGPT</span>
                 </TabsTrigger>
               </TabsList>
 
@@ -354,14 +349,14 @@ Mi estilo es: ${formData.estilo}
                         onClick={() => copyToClipboard(contentPlan, "Plan de Contenido 15 Días")}
                         variant="outline"
                         size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 flex-shrink-0 text-xs sm:text-sm px-3 py-2"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 w-full sm:w-auto text-xs sm:text-sm px-3 py-2"
                       >
                         {copiedContent === "Plan de Contenido 15 Días" ? (
                           <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                         ) : (
                           <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                         )}
-                        <span className="ml-1 sm:ml-2">Copiar</span>
+                        <span className="ml-1 sm:ml-2">Copiar Todo</span>
                       </Button>
                     </CardTitle>
                   </CardHeader>
@@ -385,14 +380,14 @@ Mi estilo es: ${formData.estilo}
                         onClick={() => copyToClipboard(socialMediaContent, "Contenido de Redes Sociales")}
                         variant="outline"
                         size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 flex-shrink-0 text-xs sm:text-sm px-3 py-2"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 w-full sm:w-auto text-xs sm:text-sm px-3 py-2"
                       >
                         {copiedContent === "Contenido de Redes Sociales" ? (
                           <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                         ) : (
                           <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                         )}
-                        <span className="ml-1 sm:ml-2">Copiar</span>
+                        <span className="ml-1 sm:ml-2">Copiar Todo</span>
                       </Button>
                     </CardTitle>
                   </CardHeader>
@@ -424,7 +419,7 @@ Mi estilo es: ${formData.estilo}
                       <Button
                         onClick={() => window.open('https://lovable.dev', '_blank')}
                         size="sm"
-                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm px-3 py-2"
+                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm px-3 py-2 w-full sm:w-auto"
                       >
                         <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
                         Ir a Lovable
@@ -445,14 +440,14 @@ Mi estilo es: ${formData.estilo}
                         onClick={() => copyToClipboard(lovablePrompt, "Prompt para Lovable")}
                         variant="outline"
                         size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 flex-shrink-0 text-xs sm:text-sm px-3 py-2"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 w-full sm:w-auto text-xs sm:text-sm px-3 py-2"
                       >
                         {copiedContent === "Prompt para Lovable" ? (
                           <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                         ) : (
                           <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                         )}
-                        <span className="ml-1 sm:ml-2">Copiar</span>
+                        <span className="ml-1 sm:ml-2">Copiar Todo</span>
                       </Button>
                     </CardTitle>
                   </CardHeader>
@@ -476,14 +471,14 @@ Mi estilo es: ${formData.estilo}
                         onClick={() => copyToClipboard(chatGPTPrompt, "Prompt para ChatGPT")}
                         variant="outline"
                         size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 flex-shrink-0 text-xs sm:text-sm px-3 py-2"
+                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 w-full sm:w-auto text-xs sm:text-sm px-3 py-2"
                       >
                         {copiedContent === "Prompt para ChatGPT" ? (
                           <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                         ) : (
                           <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                         )}
-                        <span className="ml-1 sm:ml-2">Copiar</span>
+                        <span className="ml-1 sm:ml-2">Copiar Todo</span>
                       </Button>
                     </CardTitle>
                   </CardHeader>

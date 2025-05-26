@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -128,7 +129,7 @@ const Index = () => {
         `
       };
 
-      console.log('📧 Payload para email a Esteban:', JSON.stringify(emailData, null, 2));
+      console.log('📧 Enviando email a admin...', emailData.to[0].email);
 
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
@@ -140,7 +141,7 @@ const Index = () => {
         body: JSON.stringify(emailData)
       });
 
-      console.log('📬 Respuesta del servidor:', response.status, response.statusText);
+      console.log('📬 Respuesta del servidor (admin):', response.status, response.statusText);
       
       if (response.ok) {
         const responseData = await response.json();
@@ -225,7 +226,7 @@ const Index = () => {
         `
       };
 
-      console.log('📧 Payload para email de confirmación:', JSON.stringify(confirmationEmailData, null, 2));
+      console.log('📧 Enviando email de confirmación...', confirmationEmailData.to[0].email);
 
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
@@ -259,33 +260,47 @@ const Index = () => {
     setIsGenerating(true);
     
     try {
-      console.log('🔄 Iniciando proceso de envío de emails...');
+      console.log('🔄 Iniciando proceso de generación de Kit IA...');
       
-      // Simulate AI generation process
+      // Simular proceso de generación
       await new Promise(resolve => setTimeout(resolve, 3000));
       
-      // Send both emails
-      console.log('📤 Enviando emails...');
-      await Promise.all([
+      console.log('📤 Enviando emails de notificación...');
+      
+      // Enviar ambos emails en paralelo para mayor velocidad
+      const [adminResult, confirmationResult] = await Promise.allSettled([
         sendEmailToAdmin(formData),
         sendConfirmationEmail(formData)
       ]);
       
-      console.log('✅ Todos los emails enviados exitosamente');
+      console.log('📧 Resultado email admin:', adminResult);
+      console.log('📧 Resultado email confirmación:', confirmationResult);
+      
+      // Verificar que al menos uno se haya enviado correctamente
+      const emailsSent = [adminResult, confirmationResult].filter(
+        result => result.status === 'fulfilled'
+      ).length;
+      
+      if (emailsSent === 0) {
+        throw new Error('No se pudo enviar ningún email');
+      }
+      
+      console.log(`✅ ${emailsSent}/2 emails enviados correctamente`);
       
       setIsGenerating(false);
       setShowResults(true);
       
       toast({
-        title: "¡Kit generado exitosamente!",
-        description: "Los emails han sido enviados. Revisa tu bandeja de entrada.",
+        title: "¡Kit IA generado exitosamente!",
+        description: `${emailsSent === 2 ? 'Ambos emails enviados' : 'Al menos un email enviado'}. Revisa las bandejas de entrada.`,
       });
+      
     } catch (error) {
-      console.error('💥 Error durante el envío:', error);
+      console.error('💥 Error durante la generación del kit:', error);
       setIsGenerating(false);
       toast({
-        title: "Error al enviar emails",
-        description: `Hubo un problema: ${error instanceof Error ? error.message : 'Error desconocido'}`,
+        title: "Error al procesar el formulario",
+        description: `Problema detectado: ${error instanceof Error ? error.message : 'Error desconocido'}`,
         variant: "destructive",
       });
     }
