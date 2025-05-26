@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Brain, Rocket, Users, MessageSquare, Globe } from "lucide-react";
+import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp } from "lucide-react";
 import FormField from '@/components/FormField';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -84,16 +84,42 @@ const Index = () => {
             Crea tu presencia online en minutos con inteligencia artificial
           </p>
           <p className="text-lg text-purple-200 mt-4 max-w-3xl mx-auto">
-            Responde estas 6 preguntas para generar contenido para tus redes sociales, una página web completa y un prompt listo para usar en ChatGPT y Lovable.
+            Genera prompts optimizados para crear tu página web en Lovable, contenido para reels y posts de redes sociales que te ayuden a entender mejor tu negocio y vender más.
+          </p>
+          
+          {/* Special offer notice */}
+          <div className="mt-6 inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 border border-yellow-400/30 rounded-full px-6 py-3">
+            <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
+            <span className="text-yellow-100 font-medium">¡GRATIS por tiempo limitado!</span>
+            <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
+          </div>
+
+          {/* Creator credit */}
+          <p className="text-purple-300 mt-4 text-sm">
+            Creado por <span className="font-semibold text-purple-200">Esteban Montenegro</span>
           </p>
         </div>
+
+        {/* Important notice */}
+        <Card className="max-w-4xl mx-auto mb-8 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-blue-400/30 backdrop-blur-xl">
+          <CardContent className="p-6 text-center">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <Brain className="w-6 h-6 text-blue-300" />
+              <h3 className="text-xl font-semibold text-white">Tómate tu tiempo para responder</h3>
+            </div>
+            <p className="text-blue-100 text-lg leading-relaxed">
+              Entre más detalladas y reflexivas sean tus respuestas, mejor será el prompt generado. 
+              La calidad de tu contenido depende de la información que compartas.
+            </p>
+          </CardContent>
+        </Card>
 
         {/* Features */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {[
-            { icon: MessageSquare, title: "Contenido para Redes", desc: "Posts optimizados para todas las plataformas" },
-            { icon: Globe, title: "Página Web Completa", desc: "Diseño y contenido listo para publicar" },
-            { icon: Rocket, title: "Prompts de IA", desc: "Instrucciones para ChatGPT y Lovable" }
+            { icon: MessageSquare, title: "Contenido para Redes", desc: "Reels y posts optimizados para todas las plataformas" },
+            { icon: Rocket, title: "Prompt para Lovable", desc: "Instrucciones detalladas para crear tu página web" },
+            { icon: TrendingUp, title: "Estrategia de Negocio", desc: "Entiende mejor tu propuesta y mejora tus ventas" }
           ].map((feature, index) => (
             <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-lg hover:bg-white/20 transition-all duration-300 hover:scale-105">
               <CardContent className="p-6 text-center">
