@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe, Instagram } from "lucide-react";
 import FormField from '@/components/FormField';
 import ResultsDisplay from '@/components/ResultsDisplay';
@@ -32,6 +33,8 @@ const Index = () => {
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [noWebsite, setNoWebsite] = useState(false);
+  const [noInstagram, setNoInstagram] = useState(false);
 
   const handleInputChange = (name: string, value: string) => {
     setFormData(prev => ({
@@ -52,6 +55,8 @@ const Index = () => {
       estilo: 'Inspirador',
       producto: 'Mi programa insignia "Renace: Transforma tu Vida en 90 Días", un proceso de coaching integral que incluye 8 sesiones individuales, un workbook personalizado, meditaciones guiadas y acceso a mi comunidad privada de mujeres en transformación. El programa está diseñado para mujeres que quieren hacer cambios profundos y duraderos en su vida personal y profesional.'
     });
+    setNoWebsite(false);
+    setNoInstagram(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -65,7 +70,7 @@ const Index = () => {
     setShowResults(true);
   };
 
-  // All fields are now required including contact information
+  // Updated form validation to consider checkboxes
   const isFormValid = formData.marca.trim() !== '' && 
                      formData.quien_eres.trim() !== '' && 
                      formData.problemas.trim() !== '' && 
@@ -73,8 +78,8 @@ const Index = () => {
                      formData.estilo !== '' && 
                      formData.producto.trim() !== '' &&
                      formData.email.trim() !== '' &&
-                     formData.website.trim() !== '' &&
-                     formData.instagram.trim() !== '';
+                     (noWebsite || formData.website.trim() !== '') &&
+                     (noInstagram || formData.instagram.trim() !== '');
 
   if (showResults) {
     return <ResultsDisplay formData={formData} onReset={() => {
@@ -90,6 +95,8 @@ const Index = () => {
         website: '',
         instagram: ''
       });
+      setNoWebsite(false);
+      setNoInstagram(false);
     }} />;
   }
 
@@ -218,25 +225,59 @@ const Index = () => {
                   icon={Mail}
                 />
 
-                <FormField
-                  type="input"
-                  label="3. Página web"
-                  placeholder="Ej: www.tumarca.com"
-                  name="website"
-                  value={formData.website}
-                  onChange={handleInputChange}
-                  icon={Globe}
-                />
+                <div className="space-y-3 group">
+                  <FormField
+                    type="input"
+                    label="3. Página web"
+                    placeholder="Ej: www.tumarca.com"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleInputChange}
+                    icon={Globe}
+                  />
+                  <div className="flex items-center space-x-2 ml-8">
+                    <Checkbox 
+                      id="no-website" 
+                      checked={noWebsite}
+                      onCheckedChange={(checked) => {
+                        setNoWebsite(checked as boolean);
+                        if (checked) {
+                          setFormData(prev => ({ ...prev, website: '' }));
+                        }
+                      }}
+                    />
+                    <label htmlFor="no-website" className="text-purple-200 text-sm cursor-pointer">
+                      No tengo página web
+                    </label>
+                  </div>
+                </div>
 
-                <FormField
-                  type="input"
-                  label="4. Instagram (nombre de usuario)"
-                  placeholder="Ej: tumarca (sin @)"
-                  name="instagram"
-                  value={formData.instagram}
-                  onChange={handleInputChange}
-                  icon={Instagram}
-                />
+                <div className="space-y-3 group">
+                  <FormField
+                    type="input"
+                    label="4. Instagram (nombre de usuario)"
+                    placeholder="Ej: tumarca (sin @)"
+                    name="instagram"
+                    value={formData.instagram}
+                    onChange={handleInputChange}
+                    icon={Instagram}
+                  />
+                  <div className="flex items-center space-x-2 ml-8">
+                    <Checkbox 
+                      id="no-instagram" 
+                      checked={noInstagram}
+                      onCheckedChange={(checked) => {
+                        setNoInstagram(checked as boolean);
+                        if (checked) {
+                          setFormData(prev => ({ ...prev, instagram: '' }));
+                        }
+                      }}
+                    />
+                    <label htmlFor="no-instagram" className="text-purple-200 text-sm cursor-pointer">
+                      No tengo Instagram
+                    </label>
+                  </div>
+                </div>
 
                 <FormField
                   type="textarea"
