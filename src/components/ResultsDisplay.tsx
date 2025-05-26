@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -206,7 +205,7 @@ Mi estilo es: ${formData.estilo}
           <Button 
             onClick={onReset}
             variant="outline"
-            className="border-white/30 text-white hover:bg-white/10"
+            className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900"
           >
             <RefreshCw className="w-4 h-4 mr-2" />
             Crear otro SuperPrompt
