@@ -102,99 +102,120 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <FormField
-                  label="Nombre de tu marca *"
-                  icon={Building}
-                  placeholder="Ej: TuMarca Consulting"
-                >
-                  <Input
-                    value={formData.marca}
-                    onChange={(e) => handleInputChange('marca', e.target.value)}
-                    className="pl-10"
-                    required
-                  />
-                </FormField>
+                <div className="relative">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Nombre de tu marca *
+                  </label>
+                  <div className="relative">
+                    <Building className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                    <Input
+                      value={formData.marca}
+                      onChange={(e) => handleInputChange('marca', e.target.value)}
+                      className="pl-10"
+                      placeholder="Ej: TuMarca Consulting"
+                      required
+                    />
+                  </div>
+                </div>
 
-                <FormField
-                  label="Tu email *"
-                  icon={Mail}
-                  placeholder="tu@email.com"
-                >
-                  <Input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="pl-10"
-                    required
-                  />
-                </FormField>
+                <div className="relative">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Tu email *
+                  </label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                    <Input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      className="pl-10"
+                      placeholder="tu@email.com"
+                      required
+                    />
+                  </div>
+                </div>
               </div>
 
-              <FormField
-                label="¿Quién eres y a qué te dedicas? *"
-                icon={User}
-                placeholder="Ej: Soy coach de vida especializada en ayudar a mujeres emprendedoras a encontrar su propósito..."
-              >
-                <Textarea
-                  value={formData.quien_eres}
-                  onChange={(e) => handleInputChange('quien_eres', e.target.value)}
-                  className="pl-10 min-h-[100px]"
-                  required
-                />
-              </FormField>
+              <div className="relative">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  ¿Quién eres y a qué te dedicas? *
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                  <Textarea
+                    value={formData.quien_eres}
+                    onChange={(e) => handleInputChange('quien_eres', e.target.value)}
+                    className="pl-10 min-h-[100px]"
+                    placeholder="Ej: Soy coach de vida especializada en ayudar a mujeres emprendedoras a encontrar su propósito..."
+                    required
+                  />
+                </div>
+              </div>
 
-              <FormField
-                label="¿Qué problemas resuelves? *"
-                icon={Target}
-                placeholder="Ej: Ayudo a personas que se sienten perdidas en su carrera profesional, que no saben cómo monetizar sus talentos..."
-              >
-                <Textarea
-                  value={formData.problemas}
-                  onChange={(e) => handleInputChange('problemas', e.target.value)}
-                  className="pl-10 min-h-[100px]"
-                  required
-                />
-              </FormField>
+              <div className="relative">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  ¿Qué problemas resuelves? *
+                </label>
+                <div className="relative">
+                  <Target className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                  <Textarea
+                    value={formData.problemas}
+                    onChange={(e) => handleInputChange('problemas', e.target.value)}
+                    className="pl-10 min-h-[100px]"
+                    placeholder="Ej: Ayudo a personas que se sienten perdidas en su carrera profesional, que no saben cómo monetizar sus talentos..."
+                    required
+                  />
+                </div>
+              </div>
 
-              <FormField
-                label="¿Qué preguntas te hacen frecuentemente? *"
-                icon={HelpCircle}
-                placeholder="Ej: ¿Cómo puedo encontrar mi propósito? ¿Es posible cambiar de carrera a los 40? ¿Cómo empezar un negocio desde cero?"
-              >
-                <Textarea
-                  value={formData.preguntas_frecuentes}
-                  onChange={(e) => handleInputChange('preguntas_frecuentes', e.target.value)}
-                  className="pl-10 min-h-[100px]"
-                  required
-                />
-              </FormField>
+              <div className="relative">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  ¿Qué preguntas te hacen frecuentemente? *
+                </label>
+                <div className="relative">
+                  <HelpCircle className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                  <Textarea
+                    value={formData.preguntas_frecuentes}
+                    onChange={(e) => handleInputChange('preguntas_frecuentes', e.target.value)}
+                    className="pl-10 min-h-[100px]"
+                    placeholder="Ej: ¿Cómo puedo encontrar mi propósito? ¿Es posible cambiar de carrera a los 40? ¿Cómo empezar un negocio desde cero?"
+                    required
+                  />
+                </div>
+              </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <FormField
-                  label="¿Cuál es tu estilo de comunicación? *"
-                  icon={Palette}
-                  placeholder="Ej: Cercano, motivacional, profesional, divertido..."
-                >
-                  <Input
-                    value={formData.estilo}
-                    onChange={(e) => handleInputChange('estilo', e.target.value)}
-                    className="pl-10"
-                    required
-                  />
-                </FormField>
+                <div className="relative">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    ¿Cuál es tu estilo de comunicación? *
+                  </label>
+                  <div className="relative">
+                    <Palette className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                    <Input
+                      value={formData.estilo}
+                      onChange={(e) => handleInputChange('estilo', e.target.value)}
+                      className="pl-10"
+                      placeholder="Ej: Cercano, motivacional, profesional, divertido..."
+                      required
+                    />
+                  </div>
+                </div>
 
-                <FormField
-                  label="¿Cuál es tu producto/servicio principal? *"
-                  icon={Package}
-                  placeholder="Ej: Sesiones de coaching 1:1, Curso online de emprendimiento..."
-                >
-                  <Input
-                    value={formData.producto}
-                    onChange={(e) => handleInputChange('producto', e.target.value)}
-                    className="pl-10"
-                    required
-                  />
-                </FormField>
+                <div className="relative">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    ¿Cuál es tu producto/servicio principal? *
+                  </label>
+                  <div className="relative">
+                    <Package className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                    <Input
+                      value={formData.producto}
+                      onChange={(e) => handleInputChange('producto', e.target.value)}
+                      className="pl-10"
+                      placeholder="Ej: Sesiones de coaching 1:1, Curso online de emprendimiento..."
+                      required
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="border-t pt-6">
@@ -205,43 +226,52 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
                 <p className="text-sm text-gray-600 mb-4">Esta información se incluirá en tus prompts personalizados para generar contenido más relevante</p>
                 
                 <div className="grid md:grid-cols-3 gap-4">
-                  <FormField
-                    label="Sitio web"
-                    icon={Globe}
-                    placeholder="https://tumarca.com"
-                  >
-                    <Input
-                      type="url"
-                      value={formData.website}
-                      onChange={(e) => handleInputChange('website', e.target.value)}
-                      className="pl-10"
-                    />
-                  </FormField>
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Sitio web
+                    </label>
+                    <div className="relative">
+                      <Globe className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                      <Input
+                        type="url"
+                        value={formData.website}
+                        onChange={(e) => handleInputChange('website', e.target.value)}
+                        className="pl-10"
+                        placeholder="https://tumarca.com"
+                      />
+                    </div>
+                  </div>
 
-                  <FormField
-                    label="Instagram"
-                    icon={Instagram}
-                    placeholder="tuusuario"
-                  >
-                    <Input
-                      value={formData.instagram}
-                      onChange={(e) => handleInputChange('instagram', e.target.value)}
-                      className="pl-10"
-                    />
-                  </FormField>
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Instagram
+                    </label>
+                    <div className="relative">
+                      <Instagram className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                      <Input
+                        value={formData.instagram}
+                        onChange={(e) => handleInputChange('instagram', e.target.value)}
+                        className="pl-10"
+                        placeholder="tuusuario"
+                      />
+                    </div>
+                  </div>
 
-                  <FormField
-                    label="WhatsApp"
-                    icon={Phone}
-                    placeholder="+56912345678"
-                  >
-                    <Input
-                      type="tel"
-                      value={formData.whatsapp}
-                      onChange={(e) => handleInputChange('whatsapp', e.target.value)}
-                      className="pl-10"
-                    />
-                  </FormField>
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      WhatsApp
+                    </label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                      <Input
+                        type="tel"
+                        value={formData.whatsapp}
+                        onChange={(e) => handleInputChange('whatsapp', e.target.value)}
+                        className="pl-10"
+                        placeholder="+56912345678"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
 
