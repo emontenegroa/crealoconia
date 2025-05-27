@@ -85,23 +85,43 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
     setIsEnhancing(true);
 
     try {
-      // Incrementar uso en la base de datos
-      const { error: usageError } = await supabase
-        .from('ai_usage_tracking')
-        .upsert({
-          session_id: sessionId,
-          field_name: fieldType,
-          usage_count: usageCount + 1,
-        }, {
-          onConflict: 'session_id,field_name'
-        });
-
-      if (usageError) {
-        throw usageError;
-      }
-
       console.log('🧠 Enviando texto a IA para mejorar...');
       
+      // Primero intentamos actualizar el conteo en la base de datos
+      const newUsageCount = usageCount + 1;
+      
+      // Verificar si ya existe un registro
+      const { data: existingRecord } = await supabase
+        .from('ai_usage_tracking')
+        .select('id, usage_count')
+        .eq('session_id', sessionId)
+        .eq('field_name', fieldType)
+        .maybeSingle();
+
+      let updateResult;
+      if (existingRecord) {
+        // Actualizar registro existente
+        updateResult = await supabase
+          .from('ai_usage_tracking')
+          .update({ usage_count: newUsageCount, updated_at: new Date().toISOString() })
+          .eq('id', existingRecord.id);
+      } else {
+        // Crear nuevo registro
+        updateResult = await supabase
+          .from('ai_usage_tracking')
+          .insert({
+            session_id: sessionId,
+            field_name: fieldType,
+            usage_count: newUsageCount,
+          });
+      }
+
+      if (updateResult.error) {
+        console.error('Error updating usage count:', updateResult.error);
+        throw new Error('Error al actualizar el conteo de uso');
+      }
+
+      // Llamar a la función de IA
       const { data, error } = await supabase.functions.invoke('enhance-with-ai', {
         body: {
           userText: currentText,
@@ -118,22 +138,21 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
       if (data?.enhancedText) {
         console.log('✅ Texto mejorado recibido');
         onEnhanced(data.enhancedText);
-        const newCount = usageCount + 1;
-        setUsageCount(newCount);
-        onUsageUpdate(fieldType, newCount);
+        setUsageCount(newUsageCount);
+        onUsageUpdate(fieldType, newUsageCount);
         
         toast({
           title: "¡Texto mejorado! ✨",
           description: `${remainingUses - 1 === 0 ? 'Última mejora usada' : `Te quedan ${remainingUses - 1} mejoras`} para este campo.`,
         });
       } else {
-        throw new Error('No se recibió texto mejorado');
+        throw new Error('No se recibió texto mejorado de la IA');
       }
     } catch (error) {
       console.error('Error enhancing text:', error);
       toast({
         title: "Error al mejorar texto",
-        description: "Hubo un problema con la IA. Por favor intenta de nuevo.",
+        description: error instanceof Error ? error.message : "Hubo un problema con la IA. Por favor intenta de nuevo.",
         variant: "destructive",
       });
     } finally {
