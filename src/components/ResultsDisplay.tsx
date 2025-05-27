@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -55,24 +54,24 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
 
 DÍA 1 - REEL PRESENTACIÓN:
 "¡Hola! Soy parte de ${formData.marca} 👋
-${formData.quien_eres.slice(0, 100)}...
+${formData.quien_eres}
 ¿Te resuena? ¡Sígueme para más contenido! 💫"
 
 DÍA 2 - POST EDUCATIVO:
 "💡 Mito vs Realidad sobre [tu área]:
-${formData.preguntas_frecuentes.slice(0, 120)}...
+${formData.preguntas_frecuentes}
 ¿Qué opinas? Cuéntame en comentarios 👇"
 
 DÍA 3 - HISTORIA PERSONAL:
-"Mi historia: Por qué decidí ayudar con ${formData.problemas.slice(0, 80)}...
+"Mi historia: Por qué decidí ayudar con ${formData.problemas}
 Todo empezó cuando..."
 
 DÍA 4 - CONSEJO RÁPIDO:
-"⚡ Tip del día: Si sientes que ${formData.problemas.slice(0, 60)}...
+"⚡ Tip del día: Si sientes que ${formData.problemas}
 Prueba esto: [consejo específico]"
 
 DÍA 5 - REEL EDUCATIVO:
-"🔥 3 señales de que necesitas ${formData.producto.slice(0, 50)}...
+"🔥 3 señales de que necesitas ${formData.producto}
 1. [Señal relacionada con el problema]
 2. [Segunda señal]  
 3. [Tercera señal]"
@@ -80,7 +79,7 @@ DÍA 5 - REEL EDUCATIVO:
 🎯 SEMANA 2: VALOR Y AUTORIDAD
 
 DÍA 6 - POST REFLEXIVO:
-"¿Sabías que...? ${formData.preguntas_frecuentes.slice(0, 100)}...
+"¿Sabías que...? ${formData.preguntas_frecuentes}
 Mi experiencia me ha enseñado que..."
 
 DÍA 7 - CONTENIDO DETRÁS DE CÁMARAS:
@@ -88,7 +87,7 @@ DÍA 7 - CONTENIDO DETRÁS DE CÁMARAS:
 Así es como ayudo a [tu audiencia]..."
 
 DÍA 8 - REEL MOTIVACIONAL:
-"Para ti que sientes ${formData.problemas.slice(0, 80)}...
+"Para ti que sientes ${formData.problemas}
 Recuerda: [mensaje motivacional específico]"
 
 DÍA 9 - FAQ INTERACTIVO:
@@ -96,13 +95,13 @@ DÍA 9 - FAQ INTERACTIVO:
 Las 3 preguntas más frecuentes que recibo..."
 
 DÍA 10 - CASO DE ÉXITO:
-"Historia de transformación: Cuando [cliente] llegó con ${formData.problemas.slice(0, 60)}...
+"Historia de transformación: Cuando [cliente] llegó con ${formData.problemas}
 Así fue su proceso..."
 
 🎯 SEMANA 3: PROMOCIÓN SUAVE
 
 DÍA 11 - REEL DE PROCESO:
-"¿Cómo funciona ${formData.producto.slice(0, 50)}?
+"¿Cómo funciona ${formData.producto}?
 Te muestro paso a paso..."
 
 DÍA 12 - TESTIMONIAL:
@@ -114,7 +113,7 @@ DÍA 13 - POST DE VALOR:
 'Cómo [solucionar problema específico]'"
 
 DÍA 14 - REEL LLAMADA A LA ACCIÓN:
-"¿Lista/o para transformar ${formData.problemas.slice(0, 50)}?
+"¿Lista/o para transformar ${formData.problemas}?
 Escríbeme 'ME INTERESA' para más info 📩"
 
 DÍA 15 - AGRADECIMIENTO Y CIERRE:
@@ -324,39 +323,39 @@ Mi estilo es: ${formData.estilo}
           </CardHeader>
           <CardContent className="p-8">
             <Tabs defaultValue="plan" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white/10 mb-10 h-auto">
+              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white/10 mb-10 gap-2 p-2 h-auto">
                 <TabsTrigger 
                   value="plan" 
-                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-2 py-3 h-auto whitespace-normal text-center"
+                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-3 py-4 h-auto whitespace-normal text-center rounded-md"
                 >
-                  <div className="flex flex-col items-center gap-1">
+                  <div className="flex flex-col items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <span>Plan 15 días</span>
                   </div>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="social" 
-                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-2 py-3 h-auto whitespace-normal text-center"
+                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-3 py-4 h-auto whitespace-normal text-center rounded-md"
                 >
-                  <div className="flex flex-col items-center gap-1">
+                  <div className="flex flex-col items-center gap-2">
                     <MessageSquare className="w-4 h-4" />
                     <span>Info redes</span>
                   </div>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="lovable" 
-                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-2 py-3 h-auto whitespace-normal text-center"
+                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-3 py-4 h-auto whitespace-normal text-center rounded-md"
                 >
-                  <div className="flex flex-col items-center gap-1">
+                  <div className="flex flex-col items-center gap-2">
                     <Globe className="w-4 h-4" />
                     <span>Lovable.dev</span>
                   </div>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="chatgpt" 
-                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-2 py-3 h-auto whitespace-normal text-center"
+                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-3 py-4 h-auto whitespace-normal text-center rounded-md"
                 >
-                  <div className="flex flex-col items-center gap-1">
+                  <div className="flex flex-col items-center gap-2">
                     <Brain className="w-4 h-4" />
                     <span>ChatGPT Prompt</span>
                   </div>
