@@ -18,7 +18,7 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           </div>
         </div>
         
-        {/* Hook inmediato */}
+        {/* Hook emocional más fuerte */}
         <h1 className="text-4xl md:text-6xl font-black text-white mb-4 bg-gradient-to-r from-purple-200 to-blue-200 bg-clip-text text-transparent leading-tight">
           Kit IA de Esteban
         </h1>
@@ -26,16 +26,28 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           🚀 Tu negocio digital en 5 minutos
         </h2>
         
-        {/* Promesa clara */}
+        {/* Hook emocional conectando con el dolor real */}
         <p className="text-lg md:text-xl text-purple-100 max-w-4xl mx-auto leading-relaxed mb-6 font-medium">
-          <strong className="text-yellow-200">¿Necesitas contenido + web profesional YA?</strong> 
+          <strong className="text-red-300">¿Estás perdiendo clientes porque no tienes presencia digital profesional?</strong> 
           <br />
-          Este kit gratuito te da exactamente lo que usan las marcas exitosas para generar clientes todos los días.
+          <span className="text-yellow-200">¡Se acabó!</span> Este kit gratuito te da exactamente lo que usan las marcas exitosas para generar clientes todos los días.
           <br />
-          <span className="text-green-200">✨ Sin conocimientos técnicos. Sin complicaciones.</span>
+          <span className="text-green-200">✨ Sin conocimientos técnicos. Sin complicaciones. Sin excusas.</span>
         </p>
         
-        {/* Valor que reciben */}
+        {/* Urgencia mejorada */}
+        <div className="max-w-3xl mx-auto mb-6">
+          <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-300/40 backdrop-blur-lg rounded-xl p-4 mb-4">
+            <p className="text-orange-200 font-bold text-lg flex items-center justify-center gap-2">
+              ⏰ <strong>Disponible solo hasta fin de mes</strong>
+            </p>
+            <p className="text-red-200 text-sm mt-1">
+              Después de enero 2025, este kit será parte de nuestro programa premium
+            </p>
+          </div>
+        </div>
+        
+        {/* Valor que reciben - más específico */}
         <div className="max-w-3xl mx-auto mb-8">
           <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-300/30 backdrop-blur-lg rounded-xl p-6 mb-6">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -50,12 +62,12 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           </div>
         </div>
 
-        {/* Beneficios visuales */}
+        {/* Beneficios específicos mejorados */}
         <div className="max-w-4xl mx-auto mb-6">
           <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-xl p-6">
             <h3 className="text-white text-xl font-bold mb-6 flex items-center justify-center gap-2">
               <Sparkles className="w-8 h-8 text-yellow-300" />
-              ✅ Recibes inmediatamente:
+              ✅ Recibes en tu email en los próximos 5 minutos:
             </h3>
             
             <div className="grid md:grid-cols-2 gap-4 text-left">
@@ -63,8 +75,8 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
                 <div className="flex items-start gap-3">
                   <MessageSquare className="w-6 h-6 text-green-300 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="text-yellow-200 font-bold mb-1">15 días de contenido listo</h4>
-                    <p className="text-green-100 text-sm">Posts estratégicos para Instagram que generan ventas reales</p>
+                    <h4 className="text-yellow-200 font-bold mb-1">15 posts virales probados</h4>
+                    <p className="text-green-100 text-sm">+ 30 stories + 5 reels que generan ventas reales para Instagram</p>
                   </div>
                 </div>
               </div>
@@ -73,8 +85,8 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
                 <div className="flex items-start gap-3">
                   <Brain className="w-6 h-6 text-blue-300 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="text-yellow-200 font-bold mb-1">Tu asistente IA 24/7</h4>
-                    <p className="text-blue-100 text-sm">Prompt de ChatGPT que te ayuda siempre con marketing</p>
+                    <h4 className="text-yellow-200 font-bold mb-1">Tu asistente de marketing 24/7</h4>
+                    <p className="text-blue-100 text-sm">Especialista IA que crea contenido ilimitado para tu negocio</p>
                   </div>
                 </div>
               </div>
@@ -83,8 +95,8 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
                 <div className="flex items-start gap-3">
                   <Globe className="w-6 h-6 text-purple-300 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="text-yellow-200 font-bold mb-1">Web profesional en 2 min</h4>
-                    <p className="text-purple-100 text-sm">Código completo para Lovable - tu sitio listo ya</p>
+                    <h4 className="text-yellow-200 font-bold mb-1">Tu web profesional automática</h4>
+                    <p className="text-purple-100 text-sm">Código completo listo para usar - sitio profesional en 2 minutos</p>
                   </div>
                 </div>
               </div>
@@ -93,8 +105,8 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
                 <div className="flex items-start gap-3">
                   <Target className="w-6 h-6 text-pink-300 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="text-yellow-200 font-bold mb-1">Copy que convierte</h4>
-                    <p className="text-pink-100 text-sm">Textos persuasivos para todas tus redes sociales</p>
+                    <h4 className="text-yellow-200 font-bold mb-1">Textos que venden por ti</h4>
+                    <p className="text-pink-100 text-sm">Copy persuasivo para bio, posts y todas tus redes sociales</p>
                   </div>
                 </div>
               </div>
@@ -102,7 +114,10 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
             
             <div className="mt-6 pt-4 border-t border-white/20 text-center">
               <p className="text-yellow-200 font-bold text-lg">
-                🎁 <strong>100% GRATIS</strong> - Solo completa el formulario
+                📧 <strong>Todo llega a tu email automáticamente</strong>
+              </p>
+              <p className="text-green-300 text-sm mt-2">
+                ⚡ Listo para usar inmediatamente - Sin esperas, sin complicaciones
               </p>
             </div>
           </div>
