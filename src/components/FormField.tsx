@@ -21,6 +21,8 @@ interface FormFieldProps {
     marca?: string;
     estilo?: string;
   };
+  sessionId?: string;
+  onAIUsageUpdate?: (fieldName: string, count: number) => void;
 }
 
 const FormField = ({ 
@@ -33,7 +35,9 @@ const FormField = ({
   options, 
   icon: Icon,
   showAIEnhance = false,
-  context = {}
+  context = {},
+  sessionId = '',
+  onAIUsageUpdate = () => {}
 }: FormFieldProps) => {
   const handleChange = (newValue: string) => {
     onChange(name, newValue);
@@ -57,6 +61,8 @@ const FormField = ({
             fieldType={name}
             context={context}
             onEnhanced={handleAIEnhanced}
+            sessionId={sessionId}
+            onUsageUpdate={onAIUsageUpdate}
           />
         )}
       </div>
@@ -102,7 +108,7 @@ const FormField = ({
       {showAIEnhance && value.trim() && (
         <p className="text-purple-300 text-sm flex items-center gap-2">
           <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
-          Tip: Usa el botón "Mejorar con IA" para enriquecer tu respuesta
+          Tip: Usa el botón "Mejorar con IA" (máximo 2 veces por campo)
         </p>
       )}
     </div>

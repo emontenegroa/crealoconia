@@ -9,7 +9,63 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      ai_usage_tracking: {
+        Row: {
+          created_at: string
+          field_name: string
+          id: string
+          session_id: string
+          updated_at: string
+          usage_count: number
+        }
+        Insert: {
+          created_at?: string
+          field_name: string
+          id?: string
+          session_id: string
+          updated_at?: string
+          usage_count?: number
+        }
+        Update: {
+          created_at?: string
+          field_name?: string
+          id?: string
+          session_id?: string
+          updated_at?: string
+          usage_count?: number
+        }
+        Relationships: []
+      }
+      form_submissions: {
+        Row: {
+          attempt_number: number
+          completed: boolean
+          created_at: string
+          email: string
+          form_data: Json
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          attempt_number?: number
+          completed?: boolean
+          created_at?: string
+          email: string
+          form_data?: Json
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          attempt_number?: number
+          completed?: boolean
+          created_at?: string
+          email?: string
+          form_data?: Json
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

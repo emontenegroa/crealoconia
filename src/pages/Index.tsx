@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe, Instagram, Phone, Clock, Target, Star } from "lucide-react";
+import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe, Instagram, Phone, Clock, Target, Star, AlertCircle } from "lucide-react";
 import FormField from '@/components/FormField';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { toast } from "@/hooks/use-toast";
+import { useFormPersistence } from '@/hooks/useFormPersistence';
 
 interface FormData {
   marca: string;
@@ -38,12 +39,76 @@ const Index = () => {
   const [showResults, setShowResults] = useState(false);
   const [noWebsite, setNoWebsite] = useState(false);
   const [noInstagram, setNoInstagram] = useState(false);
+  const [showProgressDialog, setShowProgressDialog] = useState(false);
+  const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
+
+  const {
+    sessionId,
+    attemptCount,
+    loadPreviousProgress,
+    checkAttemptLimit,
+    saveProgress,
+    markAsCompleted,
+  } = useFormPersistence();
+
+  // Verificar progreso previo cuando se ingresa el email
+  useEffect(() => {
+    const checkPreviousProgress = async () => {
+      if (formData.email && formData.email.includes('@') && !showProgressDialog) {
+        const progress = await loadPreviousProgress(formData.email);
+        if (progress && Object.values(progress).some(value => value.trim() !== '')) {
+          setPreviousProgress(progress);
+          setShowProgressDialog(true);
+        }
+      }
+    };
+
+    const timeoutId = setTimeout(checkPreviousProgress, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [formData.email]);
+
+  // Guardar progreso automáticamente cada 30 segundos
+  useEffect(() => {
+    if (formData.email && Object.values(formData).some(value => value.trim() !== '')) {
+      const interval = setInterval(() => {
+        saveProgress(formData);
+      }, 30000);
+
+      return () => clearInterval(interval);
+    }
+  }, [formData]);
 
   const handleInputChange = (name: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleAIUsageUpdate = (fieldName: string, count: number) => {
+    // Actualizar el estado local si es necesario
+    console.log(`Campo ${fieldName} ha usado IA ${count} veces`);
+  };
+
+  const loadPreviousData = () => {
+    if (previousProgress) {
+      setFormData(previousProgress);
+      setNoWebsite(!previousProgress.website);
+      setNoInstagram(!previousProgress.instagram);
+      setShowProgressDialog(false);
+      toast({
+        title: "Progreso cargado",
+        description: "Hemos restaurado tu progreso anterior. Puedes continuar donde lo dejaste.",
+      });
+    }
+  };
+
+  const startFresh = () => {
+    setShowProgressDialog(false);
+    toast({
+      title: "Nuevo formulario",
+      description: "Comenzando un formulario nuevo desde cero.",
+    });
   };
 
   const loadExampleData = () => {
@@ -539,6 +604,18 @@ Mi estilo es: ${formData.estilo}
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Verificar límite de intentos
+    const canProceed = await checkAttemptLimit(formData.email);
+    if (!canProceed) {
+      toast({
+        title: "Límite alcanzado",
+        description: "Has completado el formulario 3 veces con este email. Usa otro email si necesitas generar más kits.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsGenerating(true);
     
     try {
@@ -568,6 +645,9 @@ Mi estilo es: ${formData.estilo}
       }
       
       console.log(`✅ ${emailsSent}/2 emails enviados correctamente`);
+      
+      // Marcar como completado
+      await markAsCompleted(formData);
       
       setIsGenerating(false);
       setShowResults(true);
@@ -628,6 +708,42 @@ Mi estilo es: ${formData.estilo}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-500"></div>
 
       <div className="relative z-10 container mx-auto px-4 py-8">
+        {/* Progress Dialog */}
+        {showProgressDialog && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <Card className="max-w-md w-full bg-white border-2 border-purple-300">
+              <CardHeader className="text-center pb-4">
+                <CardTitle className="text-xl text-gray-800 flex items-center justify-center gap-2">
+                  <AlertCircle className="w-6 h-6 text-blue-600" />
+                  ¿Continuar progreso anterior?
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-gray-600 text-center">
+                  Encontramos un formulario incompleto con este email. 
+                  <br />
+                  <strong>Intento #{attemptCount} de 3 permitidos</strong>
+                </p>
+                <div className="flex gap-3">
+                  <Button 
+                    onClick={loadPreviousData}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700"
+                  >
+                    Continuar donde lo dejé
+                  </Button>
+                  <Button 
+                    onClick={startFresh}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    Empezar de nuevo
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
           <div className="flex items-center justify-center mb-6">
@@ -722,12 +838,19 @@ Mi estilo es: ${formData.estilo}
               <Brain className="w-6 h-6 text-blue-600" />
               <h3 className="text-xl font-semibold text-gray-800">⚠️ Importante: Sé específico en tus respuestas</h3>
             </div>
-            <p className="text-gray-700 text-lg leading-relaxed">
+            <p className="text-gray-700 text-lg leading-relaxed mb-4">
               <strong>La calidad de tu Kit IA depende 100% de qué tan detalladas sean tus respuestas.</strong>
               <br />
               Entre más específico seas sobre tu negocio, mejor será el contenido que generes. 
               <span className="text-blue-600 font-semibold"> ¡No te apures, tómate el tiempo necesario!</span>
             </p>
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <p className="text-yellow-800 font-medium">
+                🧠 <strong>Nueva función IA:</strong> Desde la pregunta 6 puedes mejorar tus respuestas con inteligencia artificial
+                <br />
+                <span className="text-sm">Límite: 2 mejoras por campo | 3 formularios completos por email</span>
+              </p>
+            </div>
           </CardContent>
         </Card>
 
@@ -771,7 +894,9 @@ Mi estilo es: ${formData.estilo}
             <p className="text-purple-200 mt-4">
               ⏱️ <strong>Tiempo estimado: 3-5 minutos</strong> | 📧 <strong>Lo recibirás al instante en tu email</strong>
               <br />
-              <span className="text-yellow-200 font-medium">🧠 ¡Nuevo! Desde la pregunta 6 puedes usar IA para mejorar tus respuestas</span>
+              <span className="text-yellow-200 font-medium">🧠 ¡Nuevo! Usa IA para mejorar tus respuestas (2 veces por campo)</span>
+              <br />
+              <span className="text-green-200 text-sm">💾 Tu progreso se guarda automáticamente</span>
             </p>
           </CardHeader>
           <CardContent className="p-8">
@@ -876,6 +1001,8 @@ Mi estilo es: ${formData.estilo}
                     marca: formData.marca,
                     estilo: formData.estilo
                   }}
+                  sessionId={sessionId}
+                  onAIUsageUpdate={handleAIUsageUpdate}
                 />
 
                 <FormField
@@ -891,6 +1018,8 @@ Mi estilo es: ${formData.estilo}
                     marca: formData.marca,
                     estilo: formData.estilo
                   }}
+                  sessionId={sessionId}
+                  onAIUsageUpdate={handleAIUsageUpdate}
                 />
 
                 <FormField
@@ -906,6 +1035,8 @@ Mi estilo es: ${formData.estilo}
                     marca: formData.marca,
                     estilo: formData.estilo
                   }}
+                  sessionId={sessionId}
+                  onAIUsageUpdate={handleAIUsageUpdate}
                 />
 
                 <FormField
@@ -931,6 +1062,8 @@ Mi estilo es: ${formData.estilo}
                     marca: formData.marca,
                     estilo: formData.estilo
                   }}
+                  sessionId={sessionId}
+                  onAIUsageUpdate={handleAIUsageUpdate}
                 />
 
                 <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-300/30 rounded-xl p-6 mb-8">
