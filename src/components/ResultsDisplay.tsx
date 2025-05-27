@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -364,65 +365,73 @@ Mi estilo es: ${formData.estilo}
 
               <TabsContent value="plan" className="space-y-4">
                 <div className="bg-white/5 rounded-md p-4 text-white shadow-md backdrop-blur-sm">
-                  <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
-                    <Calendar className="w-5 h-5" />
-                    Plan de Contenido para 15 Días
-                  </h3>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-lg flex items-center gap-2">
+                      <Calendar className="w-5 h-5" />
+                      Plan de Contenido para 15 Días
+                    </h3>
+                    <Button variant="secondary" size="sm" onClick={() => copyToClipboard(contentPlan, 'plan')} disabled={copiedStates['plan']}>
+                      {copiedStates['plan'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                      {copiedStates['plan'] ? 'Copiado!' : 'Copiar'}
+                    </Button>
+                  </div>
                   <div className="bg-gray-800/80 rounded-md p-4 font-mono text-sm whitespace-pre-wrap break-words overflow-x-auto">
                     {contentPlan}
                   </div>
-                  <Button variant="secondary" size="sm" onClick={() => copyToClipboard(contentPlan, 'plan')} disabled={copiedStates['plan']}>
-                    {copiedStates['plan'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-                    {copiedStates['plan'] ? 'Copiado!' : 'Copiar'}
-                  </Button>
                 </div>
               </TabsContent>
 
               <TabsContent value="social" className="space-y-4">
                 <div className="bg-white/5 rounded-md p-4 text-white shadow-md backdrop-blur-sm">
-                  <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
-                    <MessageSquare className="w-5 h-5" />
-                    Contenido para Redes Sociales
-                  </h3>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-lg flex items-center gap-2">
+                      <MessageSquare className="w-5 h-5" />
+                      Contenido para Redes Sociales
+                    </h3>
+                    <Button variant="secondary" size="sm" onClick={() => copyToClipboard(socialMediaContent, 'social')} disabled={copiedStates['social']}>
+                      {copiedStates['social'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                      {copiedStates['social'] ? 'Copiado!' : 'Copiar'}
+                    </Button>
+                  </div>
                   <div className="bg-gray-800/80 rounded-md p-4 font-mono text-sm whitespace-pre-wrap break-words overflow-x-auto">
                     {socialMediaContent}
                   </div>
-                  <Button variant="secondary" size="sm" onClick={() => copyToClipboard(socialMediaContent, 'social')} disabled={copiedStates['social']}>
-                    {copiedStates['social'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-                    {copiedStates['social'] ? 'Copiado!' : 'Copiar'}
-                  </Button>
                 </div>
               </TabsContent>
 
               <TabsContent value="lovable" className="space-y-4">
                 <div className="bg-white/5 rounded-md p-4 text-white shadow-md backdrop-blur-sm">
-                  <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
-                    <Globe className="w-5 h-5" />
-                    Prompt para Lovable.dev (Web Automática)
-                  </h3>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-lg flex items-center gap-2">
+                      <Globe className="w-5 h-5" />
+                      Prompt para Lovable.dev (Web Automática)
+                    </h3>
+                    <Button variant="secondary" size="sm" onClick={() => copyToClipboard(lovablePrompt, 'lovable')} disabled={copiedStates['lovable']}>
+                      {copiedStates['lovable'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                      {copiedStates['lovable'] ? 'Copiado!' : 'Copiar'}
+                    </Button>
+                  </div>
                   <div className="bg-gray-800/80 rounded-md p-4 font-mono text-sm whitespace-pre-wrap break-words overflow-x-auto">
                     {lovablePrompt}
                   </div>
-                  <Button variant="secondary" size="sm" onClick={() => copyToClipboard(lovablePrompt, 'lovable')} disabled={copiedStates['lovable']}>
-                    {copiedStates['lovable'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-                    {copiedStates['lovable'] ? 'Copiado!' : 'Copiar'}
-                  </Button>
                 </div>
               </TabsContent>
 
               <TabsContent value="chatgpt" className="space-y-4">
                 <div className="bg-white/5 rounded-md p-4 text-white shadow-md backdrop-blur-sm">
-                  <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
-                    <Brain className="w-5 h-5" />
-                    Prompt para ChatGPT (Asistente IA)
-                  </h3>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-lg flex items-center gap-2">
+                      <Brain className="w-5 h-5" />
+                      Prompt para ChatGPT (Asistente IA)
+                    </h3>
+                    <Button variant="secondary" size="sm" onClick={() => copyToClipboard(chatGPTPrompt, 'chatgpt')} disabled={copiedStates['chatgpt']}>
+                      {copiedStates['chatgpt'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                      {copiedStates['chatgpt'] ? 'Copiado!' : 'Copiar'}
+                    </Button>
+                  </div>
                   <div className="bg-gray-800/80 rounded-md p-4 font-mono text-sm whitespace-pre-wrap break-words overflow-x-auto">
                     {chatGPTPrompt}
                   </div>
-                  <Button variant="secondary" size="sm" onClick={() => copyToClipboard(chatGPTPrompt, 'chatgpt')} disabled={copiedStates['chatgpt']}>
-                    {copiedStates['chatgpt'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-                    {copiedStates['chatgpt'] ? 'Copiado!' : 'Copiar'}
-                  </Button>
                 </div>
               </TabsContent>
 
