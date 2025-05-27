@@ -447,7 +447,8 @@ Mi estilo es: ${formData.estilo}
                 <h2 style="color: #1E40AF; margin-top: 0; font-size: 18px;">📋 Instrucciones de uso</h2>
                 <p style="color: #1E40AF; margin-bottom: 10px;"><strong>Plan de 15 días:</strong> Úsalo tal como está, solo adapta las fechas.</p>
                 <p style="color: #1E40AF; margin-bottom: 10px;"><strong>Contenido para redes:</strong> Copia y pega en tus publicaciones.</p>
-                <p style="color: #1E40AF; margin-bottom: 10px;"><strong>Prompt para Lovable:</strong> Ve a lovable.dev, crea un proyecto y pega todo el prompt.</p>
+                <p style="color: #1E40AF; margin-bottom: 10px;"><strong>Prompt para Lovable:</strong> Ve a lovable.dev, crea un proyecto y pega este prompt:</p>
+                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto;">${lovablePrompt}</div>
                 <p style="color: #1E40AF; margin: 0;"><strong>Prompt para ChatGPT:</strong> Úsalo como tu asistente personal de marketing.</p>
               </div>
 
@@ -769,6 +770,8 @@ Mi estilo es: ${formData.estilo}
             </CardTitle>
             <p className="text-purple-200 mt-4">
               ⏱️ <strong>Tiempo estimado: 3-5 minutos</strong> | 📧 <strong>Lo recibirás al instante en tu email</strong>
+              <br />
+              <span className="text-yellow-200 font-medium">🧠 ¡Nuevo! Desde la pregunta 6 puedes usar IA para mejorar tus respuestas</span>
             </p>
           </CardHeader>
           <CardContent className="p-8">
@@ -868,6 +871,11 @@ Mi estilo es: ${formData.estilo}
                   value={formData.quien_eres}
                   onChange={handleInputChange}
                   icon={Users}
+                  showAIEnhance={true}
+                  context={{
+                    marca: formData.marca,
+                    estilo: formData.estilo
+                  }}
                 />
 
                 <FormField
@@ -878,6 +886,11 @@ Mi estilo es: ${formData.estilo}
                   value={formData.problemas}
                   onChange={handleInputChange}
                   icon={Target}
+                  showAIEnhance={true}
+                  context={{
+                    marca: formData.marca,
+                    estilo: formData.estilo
+                  }}
                 />
 
                 <FormField
@@ -888,6 +901,11 @@ Mi estilo es: ${formData.estilo}
                   value={formData.preguntas_frecuentes}
                   onChange={handleInputChange}
                   icon={MessageSquare}
+                  showAIEnhance={true}
+                  context={{
+                    marca: formData.marca,
+                    estilo: formData.estilo
+                  }}
                 />
 
                 <FormField
@@ -908,6 +926,11 @@ Mi estilo es: ${formData.estilo}
                   value={formData.producto}
                   onChange={handleInputChange}
                   icon={Rocket}
+                  showAIEnhance={true}
+                  context={{
+                    marca: formData.marca,
+                    estilo: formData.estilo
+                  }}
                 />
 
                 <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-300/30 rounded-xl p-6 mb-8">

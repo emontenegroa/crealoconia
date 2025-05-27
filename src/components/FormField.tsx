@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { LucideIcon } from 'lucide-react';
+import AIEnhanceButton from './AIEnhanceButton';
 
 interface FormFieldProps {
   type: 'input' | 'textarea' | 'select';
@@ -15,19 +16,50 @@ interface FormFieldProps {
   placeholder?: string;
   options?: string[];
   icon: LucideIcon;
+  showAIEnhance?: boolean;
+  context?: {
+    marca?: string;
+    estilo?: string;
+  };
 }
 
-const FormField = ({ type, label, name, value, onChange, placeholder, options, icon: Icon }: FormFieldProps) => {
+const FormField = ({ 
+  type, 
+  label, 
+  name, 
+  value, 
+  onChange, 
+  placeholder, 
+  options, 
+  icon: Icon,
+  showAIEnhance = false,
+  context = {}
+}: FormFieldProps) => {
   const handleChange = (newValue: string) => {
     onChange(name, newValue);
   };
 
+  const handleAIEnhanced = (enhancedText: string) => {
+    onChange(name, enhancedText);
+  };
+
   return (
     <div className="space-y-3 group">
-      <Label className="text-white text-lg font-medium flex items-center gap-3">
-        <Icon className="w-5 h-5 text-purple-300 group-hover:text-purple-200 transition-colors" />
-        {label}
-      </Label>
+      <div className="flex items-center justify-between">
+        <Label className="text-white text-lg font-medium flex items-center gap-3">
+          <Icon className="w-5 h-5 text-purple-300 group-hover:text-purple-200 transition-colors" />
+          {label}
+        </Label>
+        
+        {showAIEnhance && (type === 'textarea' || type === 'input') && (
+          <AIEnhanceButton
+            currentText={value}
+            fieldType={name}
+            context={context}
+            onEnhanced={handleAIEnhanced}
+          />
+        )}
+      </div>
       
       {type === 'input' && (
         <Input
@@ -65,6 +97,13 @@ const FormField = ({ type, label, name, value, onChange, placeholder, options, i
             ))}
           </SelectContent>
         </Select>
+      )}
+      
+      {showAIEnhance && value.trim() && (
+        <p className="text-purple-300 text-sm flex items-center gap-2">
+          <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
+          Tip: Usa el botón "Mejorar con IA" para enriquecer tu respuesta
+        </p>
       )}
     </div>
   );
