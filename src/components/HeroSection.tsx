@@ -88,7 +88,7 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
               <Star className="w-5 h-5 text-yellow-400 fill-current" />
             </div>
             <p className="text-green-100 font-medium">
-              "En 2 días ya tenía mi web funcionando y contenido para todo el mes. ¡Increíble!" - Carolina M., Coach
+              "En minutos tenía mi web y contenido para 15 días. ¡Increíble!" - Carolina M., Coach
             </p>
           </div>
         </div>
