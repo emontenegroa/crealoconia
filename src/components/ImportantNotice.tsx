@@ -12,7 +12,8 @@ const ImportantNotice = () => {
           <strong>La calidad de tu Kit IA depende 100% de qué tan detalladas sean tus respuestas.</strong>
           <br />
           Entre más específico seas sobre tu negocio, mejor será el contenido que generes. 
-          <span className="text-blue-600 font-semibold"> ¡No te apures, tómate el tiempo necesario!</span>
+          <span className="text-blue-600 font-semibold">
+¡No te apures, tómate el tiempo necesario!</span>
         </p>
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
           <p className="text-yellow-800 font-medium">
