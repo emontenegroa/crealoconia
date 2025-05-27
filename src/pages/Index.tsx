@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe, Instagram, Phone } from "lucide-react";
+import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe, Instagram, Phone, Clock, Target, Star } from "lucide-react";
 import FormField from '@/components/FormField';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -184,24 +184,24 @@ const Index = () => {
 
 DÍA 1 - REEL PRESENTACIÓN:
 "¡Hola! Soy parte de ${formData.marca} 👋
-${formData.quien_eres.slice(0, 100)}...
+${formData.quien_eres}...
 ¿Te resuena? ¡Sígueme para más contenido! 💫"
 
 DÍA 2 - POST EDUCATIVO:
 "💡 Mito vs Realidad sobre [tu área]:
-${formData.preguntas_frecuentes.slice(0, 120)}...
+${formData.preguntas_frecuentes}...
 ¿Qué opinas? Cuéntame en comentarios 👇"
 
 DÍA 3 - HISTORIA PERSONAL:
-"Mi historia: Por qué decidí ayudar con ${formData.problemas.slice(0, 80)}...
+"Mi historia: Por qué decidí ayudar con ${formData.problemas}...
 Todo empezó cuando..."
 
 DÍA 4 - CONSEJO RÁPIDO:
-"⚡ Tip del día: Si sientes que ${formData.problemas.slice(0, 60)}...
+"⚡ Tip del día: Si sientes que ${formData.problemas}...
 Prueba esto: [consejo específico]"
 
 DÍA 5 - REEL EDUCATIVO:
-"🔥 3 señales de que necesitas ${formData.producto.slice(0, 50)}...
+"🔥 3 señales de que necesitas ${formData.producto}...
 1. [Señal relacionada con el problema]
 2. [Segunda señal]  
 3. [Tercera señal]"
@@ -209,7 +209,7 @@ DÍA 5 - REEL EDUCATIVO:
 🎯 SEMANA 2: VALOR Y AUTORIDAD
 
 DÍA 6 - POST REFLEXIVO:
-"¿Sabías que...? ${formData.preguntas_frecuentes.slice(0, 100)}...
+"¿Sabías que...? ${formData.preguntas_frecuentes}...
 Mi experiencia me ha enseñado que..."
 
 DÍA 7 - CONTENIDO DETRÁS DE CÁMARAS:
@@ -217,7 +217,7 @@ DÍA 7 - CONTENIDO DETRÁS DE CÁMARAS:
 Así es como ayudo a [tu audiencia]..."
 
 DÍA 8 - REEL MOTIVACIONAL:
-"Para ti que sientes ${formData.problemas.slice(0, 80)}...
+"Para ti que sientes ${formData.problemas}...
 Recuerda: [mensaje motivacional específico]"
 
 DÍA 9 - FAQ INTERACTIVO:
@@ -225,13 +225,13 @@ DÍA 9 - FAQ INTERACTIVO:
 Las 3 preguntas más frecuentes que recibo..."
 
 DÍA 10 - CASO DE ÉXITO:
-"Historia de transformación: Cuando [cliente] llegó con ${formData.problemas.slice(0, 60)}...
+"Historia de transformación: Cuando [cliente] llegó con ${formData.problemas}...
 Así fue su proceso..."
 
 🎯 SEMANA 3: PROMOCIÓN SUAVE
 
 DÍA 11 - REEL DE PROCESO:
-"¿Cómo funciona ${formData.producto.slice(0, 50)}?
+"¿Cómo funciona ${formData.producto}?
 Te muestro paso a paso..."
 
 DÍA 12 - TESTIMONIAL:
@@ -243,7 +243,7 @@ DÍA 13 - POST DE VALOR:
 'Cómo [solucionar problema específico]'"
 
 DÍA 14 - REEL LLAMADA A LA ACCIÓN:
-"¿Lista/o para transformar ${formData.problemas.slice(0, 50)}?
+"¿Lista/o para transformar ${formData.problemas}?
 Escríbeme 'ME INTERESA' para más info 📩"
 
 DÍA 15 - AGRADECIMIENTO Y CIERRE:
@@ -638,35 +638,79 @@ Mi estilo es: ${formData.estilo}
             Kit IA de Esteban
           </h1>
           <h2 className="text-2xl md:text-3xl text-white mb-6 font-semibold">
-            Lanza tu contenido y web con inteligencia artificial — gratis y en minutos
+            Transforma tu negocio en 5 minutos con inteligencia artificial
           </h2>
           <p className="text-lg text-purple-100 max-w-4xl mx-auto leading-relaxed mb-6">
-            Este kit gratuito está diseñado para emprendedores, coaches, freelancers y marcas personales que quieren tener presencia digital sin enredarse. Responde solo 6 preguntas y genera tu contenido, tu web y tu estrategia en segundos.
+            <strong>¿Te has preguntado cómo otros emprendedores generan tanto contenido de calidad?</strong> 
+            <br />La respuesta está aquí. Este kit te dará la misma estrategia que usan las marcas más exitosas para crear contenido profesional y conseguir clientes todos los días.
           </p>
           
+          {/* Urgency and scarcity elements */}
+          <div className="max-w-3xl mx-auto mb-8">
+            <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-300/30 backdrop-blur-lg rounded-xl p-6 mb-6">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <Clock className="w-6 h-6 text-red-300" />
+                <h3 className="text-white text-xl font-semibold">⏰ Solo hoy completamente gratis</h3>
+              </div>
+              <p className="text-red-100 font-medium">
+                Normalmente esto te costaría <span className="line-through text-red-300">$500 USD</span> con una agencia de marketing.
+                <br />
+                <strong className="text-yellow-200">Hoy es 100% gratis porque estoy validando esta herramienta.</strong>
+              </p>
+            </div>
+          </div>
+
           {/* Value proposition */}
           <div className="max-w-3xl mx-auto mb-6">
             <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-xl p-6">
               <h3 className="text-white text-xl font-semibold mb-4 flex items-center justify-center gap-2">
                 <Sparkles className="w-6 h-6 text-yellow-300" />
-                ✅ Recibirás tu Kit IA completo:
+                ✅ En menos de 5 minutos recibirás:
               </h3>
               <div className="text-purple-100 text-left space-y-3">
-                <p className="font-medium">• <span className="text-yellow-200">Un prompt profesional nivel agencia para ChatGPT</span> que te ayudará a generar contenido constantemente</p>
-                <p className="font-medium">• <span className="text-yellow-200">Estrategia de contenido para 15 días</span> (con estructura escalable para crear más)</p>
-                <p className="font-medium">• <span className="text-yellow-200">Todos los textos profesionales para tu página web</span> - copys, headlines, CTAs, FAQ</p>
-                <p className="font-medium">• <span className="text-yellow-200">Prompt completo para Lovable.dev</span> que crea tu sitio web automáticamente</p>
+                <div className="flex items-start gap-3">
+                  <Target className="w-5 h-5 text-green-300 mt-1 flex-shrink-0" />
+                  <p className="font-medium"><span className="text-yellow-200">Estrategia completa de contenido para 15 días</span> - Posts listos para copiar y pegar que generan engagement y ventas</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Brain className="w-5 h-5 text-blue-300 mt-1 flex-shrink-0" />
+                  <p className="font-medium"><span className="text-yellow-200">Tu asistente de marketing IA personalizado</span> - Un prompt profesional para ChatGPT que te ayudará siempre</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Globe className="w-5 h-5 text-purple-300 mt-1 flex-shrink-0" />
+                  <p className="font-medium"><span className="text-yellow-200">Página web automática y profesional</span> - Código completo para crear tu sitio en Lovable.dev en 2 minutos</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <MessageSquare className="w-5 h-5 text-pink-300 mt-1 flex-shrink-0" />
+                  <p className="font-medium"><span className="text-yellow-200">Textos persuasivos para todas tus redes</span> - Copys que convierten visitantes en clientes</p>
+                </div>
               </div>
-              <div className="mt-4 pt-4 border-t border-white/20">
-                <p className="text-yellow-200 font-medium">
-                  🎁 Esto es lo que las agencias cobran $200-500 USD – pero hoy lo recibes gratis.
+              <div className="mt-6 pt-4 border-t border-white/20">
+                <p className="text-yellow-200 font-medium text-lg">
+                  🎁 <strong>Valor real: $500 USD</strong> - Tuyo gratis hoy porque quiero que pruebes la calidad de mi trabajo.
                 </p>
               </div>
             </div>
           </div>
 
+          {/* Social proof */}
+          <div className="max-w-2xl mx-auto mb-6">
+            <div className="bg-green-500/10 border border-green-300/30 backdrop-blur-lg rounded-xl p-4">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                <Star className="w-5 h-5 text-yellow-400 fill-current" />
+              </div>
+              <p className="text-green-100 font-medium">
+                "En 2 días ya tenía mi web funcionando y contenido para todo el mes. ¡Increíble!" - Carolina M., Coach
+              </p>
+            </div>
+          </div>
+
           <p className="text-purple-300 text-sm">
-            Creado por <span className="font-semibold text-purple-200">Esteban Montenegro</span>
+            Creado por <span className="font-semibold text-purple-200">Esteban Montenegro</span> - Especialista en IA y Marketing Digital
           </p>
         </div>
 
@@ -675,11 +719,13 @@ Mi estilo es: ${formData.estilo}
           <CardContent className="p-6 text-center">
             <div className="flex items-center justify-center gap-3 mb-3">
               <Brain className="w-6 h-6 text-blue-600" />
-              <h3 className="text-xl font-semibold text-gray-800">Tómate tu tiempo para responder</h3>
+              <h3 className="text-xl font-semibold text-gray-800">⚠️ Importante: Sé específico en tus respuestas</h3>
             </div>
             <p className="text-gray-700 text-lg leading-relaxed">
-              Entre más detalladas y reflexivas sean tus respuestas, mejor será el kit generado. 
-              La calidad de tu contenido depende de la información que compartas.
+              <strong>La calidad de tu Kit IA depende 100% de qué tan detalladas sean tus respuestas.</strong>
+              <br />
+              Entre más específico seas sobre tu negocio, mejor será el contenido que generes. 
+              <span className="text-blue-600 font-semibold"> ¡No te apures, tómate el tiempo necesario!</span>
             </p>
           </CardContent>
         </Card>
@@ -688,22 +734,25 @@ Mi estilo es: ${formData.estilo}
           <Button 
             onClick={loadExampleData}
             variant="outline"
-            className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm"
+            className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm mb-4"
           >
             <Zap className="w-4 h-4 mr-2" />
-            Cargar ejemplo para ver resultados
+            Ver ejemplo completo (recomendado)
           </Button>
+          <p className="text-purple-200 text-sm">
+            👆 Recomendado: Mira primero el ejemplo para entender la calidad de respuestas que necesitas
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {[
-            { icon: MessageSquare, title: "Plan de Contenido", desc: "15 días de contenido para redes sociales listo para usar" },
-            { icon: Rocket, title: "Web Automática", desc: "Prompt para crear tu sitio profesional en Lovable" },
-            { icon: TrendingUp, title: "Estrategia de Negocio", desc: "Prompt personalizado para ChatGPT y crecimiento" }
+            { icon: MessageSquare, title: "Contenido que Vende", desc: "15 días de posts estratégicos que generan clientes reales", color: "text-green-300" },
+            { icon: Rocket, title: "Web en 2 Minutos", desc: "Página profesional automática con Lovable.dev", color: "text-blue-300" },
+            { icon: TrendingUp, title: "IA Personal 24/7", desc: "Tu asistente de marketing que nunca duerme", color: "text-purple-300" }
           ].map((feature, index) => (
             <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-lg hover:bg-white/20 transition-all duration-300 hover:scale-105">
               <CardContent className="p-6 text-center">
-                <feature.icon className="w-12 h-12 text-purple-300 mx-auto mb-4" />
+                <feature.icon className={`w-12 h-12 ${feature.color} mx-auto mb-4`} />
                 <h3 className="text-white font-semibold text-lg mb-2">{feature.title}</h3>
                 <p className="text-purple-200 text-sm">{feature.desc}</p>
               </CardContent>
@@ -716,8 +765,11 @@ Mi estilo es: ${formData.estilo}
           <CardHeader className="text-center pb-8">
             <CardTitle className="text-2xl text-white flex items-center justify-center gap-3">
               <Sparkles className="w-8 h-8 text-yellow-300" />
-              Completa estas preguntas para generar tu Kit IA personalizado
+              Completa estos 10 campos para recibir tu Kit IA personalizado
             </CardTitle>
+            <p className="text-purple-200 mt-4">
+              ⏱️ <strong>Tiempo estimado: 3-5 minutos</strong> | 📧 <strong>Lo recibirás al instante en tu email</strong>
+            </p>
           </CardHeader>
           <CardContent className="p-8">
             {isGenerating ? (
@@ -736,7 +788,7 @@ Mi estilo es: ${formData.estilo}
 
                 <FormField
                   type="input"
-                  label="2. Correo electrónico"
+                  label="2. Correo electrónico (donde recibirás tu Kit IA)"
                   placeholder="Ej: info@tumarca.com"
                   name="email"
                   value={formData.email}
@@ -746,7 +798,7 @@ Mi estilo es: ${formData.estilo}
 
                 <FormField
                   type="input"
-                  label="3. WhatsApp (para agregar botón en tu sitio web)"
+                  label="3. WhatsApp (para agregar botón de contacto en tu web)"
                   placeholder="Ej: 56945487423 (solo números, sin +)"
                   name="whatsapp"
                   value={formData.whatsapp}
@@ -757,7 +809,7 @@ Mi estilo es: ${formData.estilo}
                 <div className="space-y-3 group">
                   <FormField
                     type="input"
-                    label="4. Página web"
+                    label="4. Página web actual (si tienes)"
                     placeholder="Ej: www.tumarca.com"
                     name="website"
                     value={formData.website}
@@ -776,7 +828,7 @@ Mi estilo es: ${formData.estilo}
                       }}
                     />
                     <label htmlFor="no-website" className="text-purple-200 text-sm cursor-pointer">
-                      No tengo página web
+                      No tengo página web (se creará automáticamente)
                     </label>
                   </div>
                 </div>
@@ -784,8 +836,8 @@ Mi estilo es: ${formData.estilo}
                 <div className="space-y-3 group">
                   <FormField
                     type="input"
-                    label="5. Instagram (nombre de usuario)"
-                    placeholder="Ej: tumarca (sin @)"
+                    label="5. Instagram (nombre de usuario, sin @)"
+                    placeholder="Ej: tumarca"
                     name="instagram"
                     value={formData.instagram}
                     onChange={handleInputChange}
@@ -810,8 +862,8 @@ Mi estilo es: ${formData.estilo}
 
                 <FormField
                   type="textarea"
-                  label="6. ¿Quién eres y qué disfrutas hacer en tu trabajo? ¿A quién ayudas?"
-                  placeholder="Ej: Soy Carolina, coach de vida. Me encanta acompañar a mujeres que buscan reconectar con su propósito."
+                  label="6. ¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas? (Sé específico)"
+                  placeholder="Ej: Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras de 30-45 años que buscan reconectar con su propósito..."
                   name="quien_eres"
                   value={formData.quien_eres}
                   onChange={handleInputChange}
@@ -820,18 +872,18 @@ Mi estilo es: ${formData.estilo}
 
                 <FormField
                   type="textarea"
-                  label="7. ¿Qué problema frecuente tiene tu cliente ideal y cómo tú lo solucionas?"
-                  placeholder="Ej: Mis clientas suelen sentirse bloqueadas emocionalmente. Yo las ayudo a recuperar claridad con sesiones de coaching."
+                  label="7. ¿Qué problema específico vives día a día con tus clientes y cómo los ayudas a solucionarlo?"
+                  placeholder="Ej: Mis clientas llegan sintiéndose bloqueadas emocionalmente, con miedo al fracaso y síndrome del impostor. Yo las ayudo con un proceso de autoconocimiento profundo usando técnicas de PNL..."
                   name="problemas"
                   value={formData.problemas}
                   onChange={handleInputChange}
-                  icon={MessageSquare}
+                  icon={Target}
                 />
 
                 <FormField
                   type="textarea"
-                  label="8. ¿Qué te preguntan siempre o qué disfrutas explicar una y otra vez?"
-                  placeholder="Ej: Me preguntan si realmente es posible cambiar de vida después de los 40. Me encanta mostrar que siempre es posible."
+                  label="8. ¿Qué te preguntan siempre tus clientes o qué disfrutas explicar una y otra vez?"
+                  placeholder="Ej: Me preguntan constantemente si es posible cambiar de vida después de los 40 años cuando ya tienes responsabilidades. Me encanta mostrarles que siempre es posible..."
                   name="preguntas_frecuentes"
                   value={formData.preguntas_frecuentes}
                   onChange={handleInputChange}
@@ -850,30 +902,67 @@ Mi estilo es: ${formData.estilo}
 
                 <FormField
                   type="textarea"
-                  label="10. ¿Qué producto o servicio principal quieres vender o promover hoy?"
-                  placeholder="Ej: Mi programa 'Renace', un proceso de coaching de 8 semanas para mujeres que quieren recuperar su autoestima."
+                  label="10. ¿Cuál es tu producto o servicio principal que quieres vender más? (Describe beneficios específicos)"
+                  placeholder="Ej: Mi programa 'Renace', un proceso de coaching de 8 semanas que incluye sesiones individuales, workbook personalizado y comunidad privada. Está diseñado para mujeres que quieren cambios profundos en 90 días..."
                   name="producto"
                   value={formData.producto}
                   onChange={handleInputChange}
                   icon={Rocket}
                 />
 
+                <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-300/30 rounded-xl p-6 mb-8">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <Clock className="w-6 h-6 text-green-300" />
+                    <h3 className="text-white text-lg font-semibold">⚡ ¡Ya casi terminas!</h3>
+                  </div>
+                  <p className="text-center text-green-100">
+                    Tu Kit IA se generará al instante y llegará a tu email en menos de 30 segundos.
+                    <br />
+                    <strong>¡No olvides revisar tu carpeta de spam!</strong>
+                  </p>
+                </div>
+
                 <Button 
                   type="submit" 
-                  className="w-full py-6 text-lg font-semibold bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  className="w-full py-6 text-lg font-semibold bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
                   disabled={!isFormValid}
                 >
                   <Brain className="w-6 h-6 mr-3" />
-                  🧠 Generar mi Kit IA
+                  🚀 GENERAR MI KIT IA GRATIS AHORA
                 </Button>
 
-                <p className="text-center text-purple-200 text-sm mt-4">
-                  🔐 Sin trucos. Sin ventas forzadas. Solo valor real.
-                </p>
+                <div className="text-center space-y-2">
+                  <p className="text-purple-200 text-sm">
+                    🔐 <strong>100% seguro y sin spam.</strong> Solo recibirás tu Kit IA.
+                  </p>
+                  <p className="text-yellow-200 text-sm font-medium">
+                    ⏰ Esta oferta gratuita puede terminar en cualquier momento.
+                  </p>
+                </div>
               </form>
             )}
           </CardContent>
         </Card>
+
+        {/* Final CTA Section */}
+        <div className="max-w-3xl mx-auto mt-12 text-center">
+          <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-300/30 backdrop-blur-lg rounded-xl p-8">
+            <h3 className="text-white text-2xl font-bold mb-4">
+              ¿Por qué te doy esto gratis?
+            </h3>
+            <p className="text-purple-100 text-lg leading-relaxed mb-6">
+              Porque sé que cuando veas la calidad del contenido que genero, 
+              querrás trabajar conmigo en proyectos más grandes. 
+              <br />
+              <strong className="text-yellow-200">Esta es mi forma de mostrarte el poder de la IA aplicada correctamente.</strong>
+            </p>
+            <div className="flex items-center justify-center gap-4 text-sm text-purple-200">
+              <span>✅ Sin tarjeta de crédito</span>
+              <span>✅ Sin suscripciones</span>
+              <span>✅ Sin letra pequeña</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
