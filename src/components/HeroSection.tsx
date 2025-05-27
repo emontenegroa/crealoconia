@@ -37,9 +37,9 @@ const HeroSection = ({
         <div className="max-w-3xl mx-auto mb-6">
           <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-300/40 backdrop-blur-lg rounded-xl p-4 mb-4">
             <p className="text-orange-200 font-bold text-lg flex items-center justify-center gap-2">
-              ⏰ <strong>Disponible solo hasta fin de mes</strong>
+              ⏰ <strong>Disponible solo para algunas personas</strong>
             </p>
-            <p className="text-red-200 text-sm mt-1">Después de junio 2025, este kit será parte de nuestro programa premium</p>
+            <p className="text-red-200 text-sm mt-1">asi que te pido </p>
           </div>
         </div>
         
@@ -92,7 +92,7 @@ const HeroSection = ({
                   <Globe className="w-6 h-6 text-purple-300 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="text-yellow-200 font-bold mb-1">Tu web profesional automática</h4>
-                    <p className="text-purple-100 text-sm">Código completo listo para usar - sitio profesional en 2 minutos</p>
+                    <p className="text-purple-100 text-sm">Código completo listo para usar y generar tu sitio profesional en minutos con IA</p>
                   </div>
                 </div>
               </div>
