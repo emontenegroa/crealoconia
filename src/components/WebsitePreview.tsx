@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Eye, ExternalLink, Smartphone, Monitor, Code, Sparkles, Zap, Heart, TrendingUp } from 'lucide-react';
+import { Eye, ExternalLink, Smartphone, Monitor, Code, Sparkles, Zap, Heart, TrendingUp, Star } from 'lucide-react';
 
 interface FormData {
   marca: string;
