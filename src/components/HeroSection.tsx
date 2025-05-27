@@ -1,18 +1,16 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Brain, Sparkles, Target, Globe, MessageSquare, Clock, Star, Zap, TrendingUp, Heart } from "lucide-react";
 
 interface HeroSectionProps {
   onLoadExample: () => void;
-  onGetStarted: () => void;
 }
 
-const HeroSection = ({ onLoadExample, onGetStarted }: HeroSectionProps) => {
+const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
   return (
     <>
-      {/* Header optimizado para Instagram */}
+      {/* Header optimizado */}
       <div className="text-center mb-12 animate-fade-in">
         <div className="flex items-center justify-center mb-6">
           <div className="bg-gradient-to-r from-purple-400 to-blue-400 p-4 rounded-2xl shadow-2xl">
@@ -30,29 +28,29 @@ const HeroSection = ({ onLoadExample, onGetStarted }: HeroSectionProps) => {
         
         {/* Promesa clara */}
         <p className="text-lg md:text-xl text-purple-100 max-w-4xl mx-auto leading-relaxed mb-6 font-medium">
-          <strong className="text-yellow-200">¿Vienes de Instagram y necesitas contenido + web YA?</strong> 
+          <strong className="text-yellow-200">¿Necesitas contenido + web profesional YA?</strong> 
           <br />
-          Este kit te da exactamente lo que usan las marcas exitosas para generar clientes todos los días.
+          Este kit gratuito te da exactamente lo que usan las marcas exitosas para generar clientes todos los días.
           <br />
           <span className="text-green-200">✨ Sin conocimientos técnicos. Sin complicaciones.</span>
         </p>
         
-        {/* Urgency mejorada */}
+        {/* Valor que reciben */}
         <div className="max-w-3xl mx-auto mb-8">
-          <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-300/30 backdrop-blur-lg rounded-xl p-6 mb-6">
+          <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-300/30 backdrop-blur-lg rounded-xl p-6 mb-6">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <TrendingUp className="w-6 h-6 text-red-300 animate-pulse" />
-              <h3 className="text-white text-xl font-bold">🔥 Precio de lanzamiento limitado</h3>
+              <Heart className="w-6 h-6 text-green-300" />
+              <h3 className="text-white text-xl font-bold">💚 Completamente GRATIS</h3>
             </div>
-            <p className="text-red-100 font-medium text-center">
-              Valor real con una agencia: <span className="line-through text-red-300">$1,500+ USD</span>
+            <p className="text-green-100 font-medium text-center">
+              Valor real de este kit: <span className="text-yellow-200 text-lg font-bold">$197 USD</span>
               <br />
-              <strong className="text-yellow-200 text-lg">Tu precio de lanzamiento: $197 USD</strong>
+              <strong className="text-green-200">Tu precio hoy: $0 - Solo completa el formulario</strong>
             </p>
           </div>
         </div>
 
-        {/* Beneficios visuales para móvil */}
+        {/* Beneficios visuales */}
         <div className="max-w-4xl mx-auto mb-6">
           <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-xl p-6">
             <h3 className="text-white text-xl font-bold mb-6 flex items-center justify-center gap-2">
@@ -104,23 +102,10 @@ const HeroSection = ({ onLoadExample, onGetStarted }: HeroSectionProps) => {
             
             <div className="mt-6 pt-4 border-t border-white/20 text-center">
               <p className="text-yellow-200 font-bold text-lg">
-                🎁 <strong>Solo $197 USD</strong> por tiempo limitado
+                🎁 <strong>100% GRATIS</strong> - Solo completa el formulario
               </p>
             </div>
           </div>
-        </div>
-
-        {/* CTA principal */}
-        <div className="max-w-2xl mx-auto mb-6">
-          <Button 
-            onClick={onGetStarted}
-            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white text-xl px-8 py-4 rounded-full font-bold shadow-xl hover:scale-105 transform transition-all duration-200 mb-4"
-          >
-            🧠 Obtener Kit IA por $197
-          </Button>
-          <p className="text-green-200 text-sm">
-            💚 Garantía de reembolso 30 días
-          </p>
         </div>
 
         {/* Credibilidad personal */}
