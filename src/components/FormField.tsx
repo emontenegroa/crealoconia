@@ -78,21 +78,23 @@ const FormField = ({
 
   return (
     <div className="space-y-3 group">
-      <div className="flex items-center justify-between">
-        <Label className="text-white text-lg font-medium flex items-center gap-3">
-          <Icon className="w-5 h-5 text-purple-300 group-hover:text-purple-200 transition-colors" />
-          {label}
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+        <Label className="text-white text-base sm:text-lg font-medium flex items-center gap-3 flex-1 min-w-0">
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-purple-300 group-hover:text-purple-200 transition-colors flex-shrink-0" />
+          <span className="break-words">{label}</span>
         </Label>
         
         {showAIEnhance && (type === 'textarea' || type === 'input') && (
-          <AIEnhanceButton
-            currentText={value}
-            fieldType={name}
-            context={context}
-            onEnhanced={handleAIEnhanced}
-            sessionId={sessionId}
-            onUsageUpdate={onAIUsageUpdate}
-          />
+          <div className="flex-shrink-0">
+            <AIEnhanceButton
+              currentText={value}
+              fieldType={name}
+              context={context}
+              onEnhanced={handleAIEnhanced}
+              sessionId={sessionId}
+              onUsageUpdate={onAIUsageUpdate}
+            />
+          </div>
         )}
       </div>
       
@@ -101,7 +103,7 @@ const FormField = ({
           value={value}
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
-          className="bg-white/20 border-white/30 text-white placeholder:text-purple-200 focus:bg-white/30 focus:border-purple-300 transition-all duration-300 py-3 text-lg"
+          className="bg-white/20 border-white/30 text-white placeholder:text-purple-200 focus:bg-white/30 focus:border-purple-300 transition-all duration-300 py-3 text-base sm:text-lg"
         />
       )}
       
@@ -111,13 +113,13 @@ const FormField = ({
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
           rows={4}
-          className="bg-white/20 border-white/30 text-white placeholder:text-purple-200 focus:bg-white/30 focus:border-purple-300 transition-all duration-300 text-lg resize-none"
+          className="bg-white/20 border-white/30 text-white placeholder:text-purple-200 focus:bg-white/30 focus:border-purple-300 transition-all duration-300 text-base sm:text-lg resize-none"
         />
       )}
       
       {type === 'select' && (
         <Select value={value} onValueChange={handleChange}>
-          <SelectTrigger className="bg-white/20 border-white/30 text-white focus:bg-white/30 focus:border-purple-300 transition-all duration-300 py-3 text-lg">
+          <SelectTrigger className="bg-white/20 border-white/30 text-white focus:bg-white/30 focus:border-purple-300 transition-all duration-300 py-3 text-base sm:text-lg">
             <SelectValue placeholder="Selecciona tu estilo" className="text-purple-200" />
           </SelectTrigger>
           <SelectContent className="bg-purple-900/95 border-purple-500/50 backdrop-blur-lg">

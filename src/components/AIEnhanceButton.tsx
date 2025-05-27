@@ -265,9 +265,9 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-2 sm:mt-0">
       {canUseAI && !isEnhancing && usageCount > 0 && (
-        <div className="text-xs text-purple-300">
+        <div className="text-xs text-purple-300 whitespace-nowrap hidden sm:block">
           Próximo: {getModeLabel()}
         </div>
       )}
@@ -284,21 +284,30 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
           border-purple-400 text-white font-medium
           shadow-lg hover:shadow-xl
           transition-all duration-200
-          flex items-center gap-2
+          flex items-center gap-1.5 sm:gap-2
+          text-xs sm:text-sm
+          px-2 sm:px-3 py-1.5 sm:py-2
+          min-w-0 flex-shrink-0
           ${!canUseAI ? 'opacity-50 cursor-not-allowed' : ''}
           ${canUseAI && !isEnhancing ? 'hover:scale-105' : ''}
         `}
       >
         {isEnhancing ? (
           <>
-            <Loader2 className="w-4 h-4 animate-spin" />
-            Optimizando...
+            <Loader2 className="w-3 h-3 sm:w-4 sm:h-4 animate-spin flex-shrink-0" />
+            <span className="hidden sm:inline">Optimizando...</span>
+            <span className="sm:hidden">...</span>
           </>
         ) : (
           <>
-            <Brain className="w-4 h-4" />
-            {getModeIcon()}
-            {canUseAI ? `${getModeLabel()} con IA (${remainingUses})` : 'Límite alcanzado'}
+            <Brain className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+            <span className="hidden sm:inline">{getModeIcon()}</span>
+            <span className="hidden lg:inline">
+              {canUseAI ? `${getModeLabel()} con IA (${remainingUses})` : 'Límite alcanzado'}
+            </span>
+            <span className="lg:hidden">
+              {canUseAI ? `IA (${remainingUses})` : 'Límite'}
+            </span>
           </>
         )}
       </Button>
