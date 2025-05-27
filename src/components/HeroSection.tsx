@@ -126,17 +126,7 @@ const HeroSection = ({
       </div>
 
       {/* CTA para ver ejemplo */}
-      <div className="max-w-4xl mx-auto mb-8 text-center">
-        <Button onClick={onLoadExample} variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm mb-4 text-lg px-8 py-3">
-          <Zap className="w-5 h-5 mr-2" />
-          👀 Ver ejemplo completo (recomendado)
-        </Button>
-        <p className="text-purple-200 text-sm">
-          <strong>👆 IMPORTANTE:</strong> Mira el ejemplo para entender la calidad que recibirás
-          <br />
-          <span className="text-green-200">💡 Te ayudará a llenar mejor el formulario</span>
-        </p>
-      </div>
+      
     </>;
 };
 export default HeroSection;

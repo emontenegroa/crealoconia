@@ -1,17 +1,14 @@
-
 import React from 'react';
 import { Zap, TrendingUp, Clock, Star } from 'lucide-react';
-
 const SocialProof = () => {
-  return (
-    <div className="space-y-6">
+  return <div className="space-y-6">
       {/* Urgencia/Escasez */}
       <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-300/30 rounded-xl p-4 backdrop-blur-lg">
         <div className="flex items-center gap-3">
           <TrendingUp className="w-5 h-5 text-red-400 animate-pulse" />
           <div>
             <p className="text-white font-semibold">🔥 Precio de lanzamiento limitado</p>
-            <p className="text-red-200 text-sm">Solo para los primeros 100 usuarios</p>
+            <p className="text-red-200 text-sm">Solo para personas seleccionadas</p>
           </div>
         </div>
       </div>
@@ -37,8 +34,6 @@ const SocialProof = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default SocialProof;
