@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -74,6 +73,7 @@ const KitResults = () => {
     if (formData.email) contact += `📧 Email: ${formData.email}\n`;
     if (formData.website) contact += `🌐 Website: ${formData.website}\n`;
     if (formData.instagram) contact += `📱 Instagram: @${formData.instagram}\n`;
+    if (formData.whatsapp) contact += `📞 WhatsApp: ${formData.whatsapp}\n`;
     return contact ? `\n\nINFORMACIÓN DE CONTACTO:\n${contact}` : '';
   };
 
@@ -213,7 +213,7 @@ ESTRUCTURA REQUERIDA:
 4. Sección de servicios/productos con beneficios claros
 5. Testimonios (crear 3-4 ejemplos realistas y específicos)
 6. FAQ basada en las preguntas frecuentes mencionadas
-7. Footer con formulario de contacto y redes sociales${formData.email || formData.website || formData.instagram ? `\n   - Incluir enlaces a: ${formData.email ? `Email (${formData.email})` : ''}${formData.website ? `, Website (${formData.website})` : ''}${formData.instagram ? `, Instagram (@${formData.instagram})` : ''}` : ''}
+7. Footer con formulario de contacto y redes sociales${formData.email || formData.website || formData.instagram || formData.whatsapp ? `\n   - Incluir enlaces a: ${formData.email ? `Email (${formData.email})` : ''}${formData.website ? `, Website (${formData.website})` : ''}${formData.instagram ? `, Instagram (@${formData.instagram})` : ''}${formData.whatsapp ? `, WhatsApp (${formData.whatsapp})` : ''}` : ''}
 
 DISEÑO Y EXPERIENCIA:
 - Estilo moderno, profesional y ${formData.estilo.toLowerCase()}
@@ -231,7 +231,7 @@ FUNCIONALIDADES ESPECÍFICAS:
 - Modal para testimonios expandidos
 - Sección de preguntas frecuentes interactiva
 - Optimizado para conversión y generación de leads
-- Integración con redes sociales${formData.instagram ? ` (especialmente Instagram @${formData.instagram})` : ''}
+- Integración con redes sociales${formData.instagram ? ` (especialmente Instagram @${formData.instagram})` : ''}${formData.whatsapp ? `\n- Botón flotante de WhatsApp con enlace a: https://wa.me/${formData.whatsapp.replace(/[^0-9]/g, '')}" usando el icono de WhatsApp de lucide-react` : ''}
 
 CONTENIDO PERSONALIZADO:
 - Textos que reflejen el problema: "${formData.problemas}"
@@ -264,7 +264,7 @@ INSTRUCCIONES PRINCIPALES:
 3. Usa ejemplos y casos relacionados con mi experiencia
 4. Menciona "${formData.producto}" cuando sea relevante para la conversación
 5. Crea contenido que genere engagement, confianza y conversiones
-6. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)${formData.instagram ? `\n7. Cuando sea apropiado, menciona mi Instagram @${formData.instagram}` : ''}${formData.website ? `\n8. Dirige tráfico a mi website ${formData.website} cuando sea relevante` : ''}
+6. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)${formData.instagram ? `\n7. Cuando sea apropiado, menciona mi Instagram @${formData.instagram}` : ''}${formData.website ? `\n8. Dirige tráfico a mi website ${formData.website} cuando sea relevante` : ''}${formData.whatsapp ? `\n9. Incluye mi WhatsApp ${formData.whatsapp} para contacto directo cuando sea apropiado` : ''}
 
 ESPECIALIDADES EN LAS QUE PUEDES AYUDARME:
 📱 CONTENIDO PARA REDES SOCIALES:
@@ -278,7 +278,7 @@ ESPECIALIDADES EN LAS QUE PUEDES AYUDARME:
 - Emails de nurturing${formData.email ? ` (desde ${formData.email})` : ''}
 - Secuencias de follow-up
 - Newsletters semanales
-- Mensajes para WhatsApp Business
+- Mensajes para WhatsApp Business${formData.whatsapp ? ` (${formData.whatsapp})` : ''}
 
 🎯 ESTRATEGIA DE VENTAS:
 - Scripts para videollamadas
