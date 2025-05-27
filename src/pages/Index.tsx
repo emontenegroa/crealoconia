@@ -10,6 +10,7 @@ import ProgressDialog from '@/components/ProgressDialog';
 import SocialProof from '@/components/SocialProof';
 import MainForm from '@/components/MainForm';
 import FinalCTASection from '@/components/FinalCTASection';
+import PricingSection from '@/components/PricingSection';
 import { useFormHandler } from '@/hooks/useFormHandler';
 
 const Index = () => {
@@ -18,6 +19,8 @@ const Index = () => {
     setFormData,
     isGenerating,
     showResults,
+    showPricing,
+    setShowPricing,
     noWebsite,
     setNoWebsite,
     noInstagram,
@@ -31,6 +34,7 @@ const Index = () => {
     loadPreviousData,
     startFresh,
     loadExampleData,
+    handlePurchase,
     handleSubmit,
     resetForm,
     isFormValid
@@ -78,6 +82,11 @@ Usa React, TypeScript, Tailwind CSS y componentes modernos.
     });
   };
 
+  // Mostrar pricing por defecto
+  const handleGetStarted = () => {
+    setShowPricing(true);
+  };
+
   if (showResults) {
     return <ResultsDisplay formData={formData} onReset={resetForm} />;
   }
@@ -97,32 +106,41 @@ Usa React, TypeScript, Tailwind CSS y componentes modernos.
           onStartFresh={startFresh}
         />
 
-        <HeroSection onLoadExample={loadExampleData} />
+        <HeroSection onLoadExample={loadExampleData} onGetStarted={handleGetStarted} />
         
         <div className="max-w-4xl mx-auto mb-8">
           <SocialProof />
         </div>
 
         <FeatureCards />
-        <ImportantNotice />
-
-        {isGenerating ? (
-          <LoadingSpinner />
+        
+        {showPricing ? (
+          <>
+            <PricingSection onPurchase={handlePurchase} />
+            <ImportantNotice />
+          </>
         ) : (
-          <MainForm
-            formData={formData}
-            setFormData={setFormData}
-            onInputChange={handleInputChange}
-            onAIUsageUpdate={handleAIUsageUpdate}
-            sessionId={sessionId}
-            noWebsite={noWebsite}
-            setNoWebsite={setNoWebsite}
-            noInstagram={noInstagram}
-            setNoInstagram={setNoInstagram}
-            onSubmit={handleSubmit}
-            isFormValid={isFormValid}
-            onGenerateWebsite={handleGenerateWebsite}
-          />
+          <>
+            <ImportantNotice />
+            {isGenerating ? (
+              <LoadingSpinner />
+            ) : (
+              <MainForm
+                formData={formData}
+                setFormData={setFormData}
+                onInputChange={handleInputChange}
+                onAIUsageUpdate={handleAIUsageUpdate}
+                sessionId={sessionId}
+                noWebsite={noWebsite}
+                setNoWebsite={setNoWebsite}
+                noInstagram={noInstagram}
+                setNoInstagram={setNoInstagram}
+                onSubmit={handleSubmit}
+                isFormValid={isFormValid}
+                onGenerateWebsite={handleGenerateWebsite}
+              />
+            )}
+          </>
         )}
 
         <FinalCTASection />

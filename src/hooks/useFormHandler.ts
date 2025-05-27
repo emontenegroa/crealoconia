@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { toast } from "@/hooks/use-toast";
 import { useFormPersistence } from '@/hooks/useFormPersistence';
@@ -33,6 +32,7 @@ export const useFormHandler = () => {
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [showPricing, setShowPricing] = useState(false);
   const [noWebsite, setNoWebsite] = useState(false);
   const [noInstagram, setNoInstagram] = useState(false);
   const [showProgressDialog, setShowProgressDialog] = useState(false);
@@ -123,6 +123,19 @@ export const useFormHandler = () => {
     });
     setNoWebsite(false);
     setNoInstagram(false);
+  };
+
+  const handlePurchase = () => {
+    // Aquí iría la integración con Stripe o el procesador de pagos
+    console.log('🛒 Iniciando proceso de compra...');
+    
+    // Por ahora, simular compra exitosa y mostrar formulario
+    toast({
+      title: "¡Compra exitosa! 🎉",
+      description: "Ahora completa el formulario para generar tu Kit IA personalizado.",
+    });
+    
+    setShowPricing(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -220,6 +233,8 @@ export const useFormHandler = () => {
     setFormData,
     isGenerating,
     showResults,
+    showPricing,
+    setShowPricing,
     noWebsite,
     setNoWebsite,
     noInstagram,
@@ -233,6 +248,7 @@ export const useFormHandler = () => {
     loadPreviousData,
     startFresh,
     loadExampleData,
+    handlePurchase,
     handleSubmit,
     resetForm,
     isFormValid
