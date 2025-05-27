@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Copy, RefreshCw, MessageSquare, Rocket, Brain, Check, TrendingUp, Info, ExternalLink, Calendar } from 'lucide-react';
-import { toast } from "@/hooks/use-toast";
+import { Brain, Calendar, MessageSquare, Globe, Sparkles, ArrowLeft, Copy, Check, Mail, Phone } from "lucide-react";
 
 interface FormData {
   marca: string;
@@ -14,6 +12,7 @@ interface FormData {
   estilo: string;
   producto: string;
   email: string;
+  whatsapp: string;
   website: string;
   instagram: string;
 }
@@ -23,28 +22,32 @@ interface ResultsDisplayProps {
   onReset: () => void;
 }
 
-const ResultsDisplay = ({ formData, onReset }: ResultsDisplayProps) => {
-  const [copiedContent, setCopiedContent] = useState<string | null>(null);
+const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) => {
+  const [copiedStates, setCopiedStates] = useState<{[key: string]: boolean}>({});
 
-  const copyToClipboard = (content: string, type: string) => {
-    navigator.clipboard.writeText(content);
-    setCopiedContent(type);
-    toast({
-      title: "¡Copiado!",
-      description: `${type} copiado al portapapeles`,
-    });
-    setTimeout(() => setCopiedContent(null), 2000);
+  const copyToClipboard = async (text: string, key: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedStates(prev => ({ ...prev, [key]: true }));
+      setTimeout(() => {
+        setCopiedStates(prev => ({ ...prev, [key]: false }));
+      }, 2000);
+    } catch (err) {
+      console.error('Error copying to clipboard:', err);
+    }
   };
 
-  // Generate contact info section for prompts
+  // Generate contact info section
   const contactInfo = () => {
     let contact = '';
     if (formData.email) contact += `📧 Email: ${formData.email}\n`;
+    if (formData.whatsapp) contact += `📱 WhatsApp: +${formData.whatsapp}\n`;
     if (formData.website) contact += `🌐 Website: ${formData.website}\n`;
     if (formData.instagram) contact += `📱 Instagram: @${formData.instagram}\n`;
-    return contact ? `\nINFORMACIÓN DE CONTACTO:\n${contact}` : '';
+    return contact ? `${contact}` : '';
   };
 
+  // Generate all Kit IA content
   const contentPlan = `📅 PLAN DE CONTENIDO 15 DÍAS - ${formData.marca}
 
 🎯 SEMANA 1: PRESENTACIÓN Y CONEXIÓN
@@ -70,7 +73,7 @@ Prueba esto: [consejo específico]"
 DÍA 5 - REEL EDUCATIVO:
 "🔥 3 señales de que necesitas ${formData.producto.slice(0, 50)}...
 1. [Señal relacionada con el problema]
-2. [Segunda señal]
+2. [Segunda señal]  
 3. [Tercera señal]"
 
 🎯 SEMANA 2: VALOR Y AUTORIDAD
@@ -122,7 +125,8 @@ Seguimos creando valor juntos 💫"
 - Adapta cada post a tu estilo: ${formData.estilo}
 - Incluye siempre un call-to-action
 - Usa hashtags relevantes a tu nicho
-- Programa tus publicaciones para consistencia${contactInfo()}`;
+- Programa tus publicaciones para consistencia
+${contactInfo()}`;
 
   const socialMediaContent = `🌟 CONTENIDO PARA REDES SOCIALES - ${formData.marca}
 
@@ -155,19 +159,21 @@ ${formData.problemas}
 📊 POST DE VALOR:
 "🔥 3 señales de que necesitas ${formData.producto}:
 1. ${formData.problemas}
-2. Te sientes estancado/a en tu crecimiento
+2. Te sientes estancado/a en tu crecimiento  
 3. Buscas resultados reales y duraderos
 
 ¿Te identificas? Escríbeme 'ME INTERESA' 👇"
 
-#${formData.marca.replace(/\s+/g, '')} #transformacion #crecimiento #${formData.estilo.toLowerCase()}${contactInfo()}`;
+#${formData.marca.replace(/\s+/g, '')} #transformacion #crecimiento #${formData.estilo.toLowerCase()}
+${contactInfo()}`;
 
   const lovablePrompt = `Crea una página web profesional para "${formData.marca}" con las siguientes especificaciones:
 
 MARCA Y PERSONALIDAD:
 - Nombre: ${formData.marca}
 - Estilo de comunicación: ${formData.estilo}
-- Descripción: ${formData.quien_eres}${contactInfo()}
+- Descripción: ${formData.quien_eres}
+${contactInfo()}
 
 CONTENIDO PRINCIPAL:
 - Problema que resuelve: ${formData.problemas}
@@ -181,7 +187,7 @@ ESTRUCTURA REQUERIDA:
 4. Sección de servicios/productos con beneficios claros
 5. Testimonios (crear 3-4 ejemplos realistas y específicos)
 6. FAQ basada en las preguntas frecuentes mencionadas
-7. Footer con formulario de contacto y redes sociales${formData.email || formData.website || formData.instagram ? `\n   - Incluir enlaces a: ${formData.email ? `Email (${formData.email})` : ''}${formData.website ? `, Website (${formData.website})` : ''}${formData.instagram ? `, Instagram (@${formData.instagram})` : ''}` : ''}
+7. Footer con formulario de contacto y redes sociales${formData.email || formData.whatsapp || formData.website || formData.instagram ? `\n   - Incluir enlaces a: ${formData.email ? `Email (${formData.email})` : ''}${formData.whatsapp ? `, WhatsApp (+${formData.whatsapp})` : ''}${formData.website ? `, Website (${formData.website})` : ''}${formData.instagram ? `, Instagram (@${formData.instagram})` : ''}` : ''}
 
 DISEÑO Y EXPERIENCIA:
 - Estilo moderno, profesional y ${formData.estilo.toLowerCase()}
@@ -199,7 +205,7 @@ FUNCIONALIDADES ESPECÍFICAS:
 - Modal para testimonios expandidos
 - Sección de preguntas frecuentes interactiva
 - Optimizado para conversión y generación de leads
-- Integración con redes sociales${formData.instagram ? ` (especialmente Instagram @${formData.instagram})` : ''}
+- Integración con redes sociales${formData.instagram ? ` (especialmente Instagram @${formData.instagram})` : ''}${formData.whatsapp ? ` y WhatsApp (+${formData.whatsapp})` : ''}
 
 CONTENIDO PERSONALIZADO:
 - Textos que reflejen el problema: "${formData.problemas}"
@@ -224,7 +230,8 @@ CONTEXTO DE LA MARCA:
 - Problema que resuelvo: ${formData.problemas}
 - Preguntas que me hacen: ${formData.preguntas_frecuentes}
 - Estilo de comunicación: ${formData.estilo}
-- Producto principal: ${formData.producto}${contactInfo()}
+- Producto principal: ${formData.producto}
+${contactInfo()}
 
 INSTRUCCIONES PRINCIPALES:
 1. Siempre responde en un tono ${formData.estilo.toLowerCase()} y auténtico
@@ -232,7 +239,7 @@ INSTRUCCIONES PRINCIPALES:
 3. Usa ejemplos y casos relacionados con mi experiencia
 4. Menciona "${formData.producto}" cuando sea relevante para la conversación
 5. Crea contenido que genere engagement, confianza y conversiones
-6. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)${formData.instagram ? `\n7. Cuando sea apropiado, menciona mi Instagram @${formData.instagram}` : ''}${formData.website ? `\n8. Dirige tráfico a mi website ${formData.website} cuando sea relevante` : ''}
+6. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)${formData.instagram ? `\n7. Cuando sea apropiado, menciona mi Instagram @${formData.instagram}` : ''}${formData.website ? `\n8. Dirige tráfico a mi website ${formData.website} cuando sea relevante` : ''}${formData.whatsapp ? `\n9. Ofrece contacto directo por WhatsApp +${formData.whatsapp} cuando sea apropiado` : ''}
 
 ESPECIALIDADES EN LAS QUE PUEDES AYUDARME:
 📱 CONTENIDO PARA REDES SOCIALES:
@@ -276,266 +283,164 @@ Mi estilo es: ${formData.estilo}
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
-      {/* Background elements */}
+      {/* Floating background elements */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-500"></div>
 
-      <div className="relative z-10 container mx-auto px-4 py-4 sm:py-8">
+      <div className="relative z-10 container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="text-center mb-6 sm:mb-8">
-          <Badge className="mb-4 bg-green-500/20 text-green-200 border-green-400/50 px-3 py-2 text-sm sm:text-lg">
-            ✅ ¡Kit IA Generado!
-          </Badge>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-            Tu Kit IA está listo
+        <div className="text-center mb-12 animate-fade-in">
+          <div className="flex items-center justify-center mb-6">
+            <div className="bg-gradient-to-r from-purple-400 to-blue-400 p-4 rounded-2xl shadow-2xl">
+              <Brain className="w-12 h-12 text-white" />
+            </div>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-purple-200 to-blue-200 bg-clip-text text-transparent">
+            Kit IA de Esteban
           </h1>
-          <p className="text-purple-100 text-base sm:text-lg mb-4 sm:mb-6 max-w-2xl mx-auto px-4">
-            Aquí tienes todo el contenido personalizado para <strong className="text-white">{formData.marca}</strong>
+          <h2 className="text-2xl md:text-3xl text-white mb-6 font-semibold">
+            ¡Tu Kit IA está listo!
+          </h2>
+          <p className="text-lg text-purple-100 max-w-4xl mx-auto leading-relaxed mb-6">
+            Aquí tienes todo el contenido que necesitas para tu marca. ¡Úsalo con sabiduría!
           </p>
-          <Button 
-            onClick={onReset}
-            variant="outline"
-            className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 text-sm sm:text-base px-4 py-2"
-          >
-            <RefreshCw className="w-4 h-4 mr-2" />
-            Crear otro Kit IA
+          <Button onClick={onReset} variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Volver al formulario
           </Button>
         </div>
 
-        {/* Results Tabs */}
-        <Card className="max-w-6xl mx-auto bg-white/10 border-white/20 backdrop-blur-xl">
-          <CardContent className="p-3 sm:p-6">
-            <Tabs defaultValue="content-plan" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white/10 backdrop-blur-lg gap-1 p-1">
+        <Card className="max-w-6xl mx-auto bg-white/10 border-white/20 backdrop-blur-xl shadow-2xl">
+          <CardHeader className="text-center pb-6">
+            <CardTitle className="text-2xl text-white flex items-center justify-center gap-3">
+              <Sparkles className="w-8 h-8 text-yellow-300" />
+              ¡Tu Kit IA está listo! 🎉
+            </CardTitle>
+            <p className="text-purple-200 mt-4">
+              Hemos generado contenido personalizado para <strong>{formData.marca}</strong>
+            </p>
+          </CardHeader>
+          <CardContent className="p-8">
+            <Tabs defaultValue="plan" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white/10 mb-8">
                 <TabsTrigger 
-                  value="content-plan" 
-                  className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-3 min-h-[50px] sm:min-h-[44px]"
+                  value="plan" 
+                  className="data-[state=active]:bg-white/20 text-white flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
                 >
-                  <Calendar className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-center leading-tight">Plan 15 Días</span>
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Plan 15 días</span>
+                  <span className="sm:hidden">Plan</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="social" 
-                  className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-3 min-h-[50px] sm:min-h-[44px]"
+                  className="data-[state=active]:bg-white/20 text-white flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
                 >
-                  <MessageSquare className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-center leading-tight">Redes Sociales</span>
+                  <MessageSquare className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Redes Sociales</span>
+                  <span className="sm:hidden">Redes</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="lovable" 
-                  className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-3 min-h-[50px] sm:min-h-[44px]"
+                  className="data-[state=active]:bg-white/20 text-white flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
                 >
-                  <Rocket className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-center leading-tight">Web Lovable</span>
+                  <Globe className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Web Lovable</span>
+                  <span className="sm:hidden">Web</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="chatgpt" 
-                  className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 data-[state=active]:bg-purple-500/50 text-white text-xs sm:text-sm px-2 py-3 min-h-[50px] sm:min-h-[44px]"
+                  className="data-[state=active]:bg-white/20 text-white flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
                 >
-                  <Brain className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-center leading-tight">ChatGPT</span>
+                  <Brain className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">ChatGPT</span>
+                  <span className="sm:hidden">IA</span>
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="content-plan" className="mt-4 sm:mt-6">
-                <Card className="bg-white/5 border-white/10">
-                  <CardHeader className="pb-3 sm:pb-6">
-                    <CardTitle className="text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                      <span className="flex items-center gap-2 text-base sm:text-lg">
-                        <Calendar className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
-                        Plan de Contenido 15 Días
-                      </span>
-                      <Button
-                        onClick={() => copyToClipboard(contentPlan, "Plan de Contenido 15 Días")}
-                        variant="outline"
-                        size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 w-full sm:w-auto text-xs sm:text-sm px-3 py-2"
-                      >
-                        {copiedContent === "Plan de Contenido 15 Días" ? (
-                          <Check className="w-3 h-3 sm:w-4 sm:h-4" />
-                        ) : (
-                          <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
-                        )}
-                        <span className="ml-1 sm:ml-2">Copiar Todo</span>
-                      </Button>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <pre className="text-gray-100 whitespace-pre-wrap text-xs sm:text-sm bg-black/20 p-3 sm:p-4 rounded-lg overflow-auto max-h-60 sm:max-h-96">
-                      {contentPlan}
-                    </pre>
-                  </CardContent>
-                </Card>
+              <TabsContent value="plan" className="space-y-4">
+                <div className="bg-white/5 rounded-md p-4 text-white shadow-md backdrop-blur-sm">
+                  <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
+                    <Calendar className="w-5 h-5" />
+                    Plan de Contenido para 15 Días
+                  </h3>
+                  <div className="bg-gray-800/80 rounded-md p-4 font-mono text-sm whitespace-pre-wrap break-words overflow-x-auto">
+                    {contentPlan}
+                  </div>
+                  <Button variant="secondary" size="sm" onClick={() => copyToClipboard(contentPlan, 'plan')} disabled={copiedStates['plan']}>
+                    {copiedStates['plan'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                    {copiedStates['plan'] ? 'Copiado!' : 'Copiar'}
+                  </Button>
+                </div>
               </TabsContent>
 
-              <TabsContent value="social" className="mt-4 sm:mt-6">
-                <Card className="bg-white/5 border-white/10">
-                  <CardHeader className="pb-3 sm:pb-6">
-                    <CardTitle className="text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                      <span className="flex items-center gap-2 text-base sm:text-lg">
-                        <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
-                        Contenido para Redes Sociales
-                      </span>
-                      <Button
-                        onClick={() => copyToClipboard(socialMediaContent, "Contenido de Redes Sociales")}
-                        variant="outline"
-                        size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 w-full sm:w-auto text-xs sm:text-sm px-3 py-2"
-                      >
-                        {copiedContent === "Contenido de Redes Sociales" ? (
-                          <Check className="w-3 h-3 sm:w-4 sm:h-4" />
-                        ) : (
-                          <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
-                        )}
-                        <span className="ml-1 sm:ml-2">Copiar Todo</span>
-                      </Button>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <pre className="text-gray-100 whitespace-pre-wrap text-xs sm:text-sm bg-black/20 p-3 sm:p-4 rounded-lg overflow-auto max-h-60 sm:max-h-96">
-                      {socialMediaContent}
-                    </pre>
-                  </CardContent>
-                </Card>
+              <TabsContent value="social" className="space-y-4">
+                <div className="bg-white/5 rounded-md p-4 text-white shadow-md backdrop-blur-sm">
+                  <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
+                    <MessageSquare className="w-5 h-5" />
+                    Contenido para Redes Sociales
+                  </h3>
+                  <div className="bg-gray-800/80 rounded-md p-4 font-mono text-sm whitespace-pre-wrap break-words overflow-x-auto">
+                    {socialMediaContent}
+                  </div>
+                  <Button variant="secondary" size="sm" onClick={() => copyToClipboard(socialMediaContent, 'social')} disabled={copiedStates['social']}>
+                    {copiedStates['social'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                    {copiedStates['social'] ? 'Copiado!' : 'Copiar'}
+                  </Button>
+                </div>
               </TabsContent>
 
-              <TabsContent value="lovable" className="mt-4 sm:mt-6">
-                {/* How to use Lovable - Instructions */}
-                <Card className="bg-blue-500/20 border-blue-400/30 mb-4 sm:mb-6">
-                  <CardHeader className="pb-3 sm:pb-6">
-                    <CardTitle className="text-white flex items-center gap-2 text-base sm:text-lg">
-                      <Info className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                      🚀 Cómo usar este prompt en Lovable
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3 pt-0">
-                    <div className="text-blue-100 space-y-2 text-sm sm:text-base">
-                      <p><strong className="text-white">Paso 1:</strong> Ve a <span className="bg-blue-600/50 px-2 py-1 rounded text-blue-200">lovable.dev</span> y crea un nuevo proyecto</p>
-                      <p><strong className="text-white">Paso 2:</strong> En el chat de la izquierda, pega todo el prompt de abajo</p>
-                      <p><strong className="text-white">Paso 3:</strong> Espera a que Lovable genere tu página web completa</p>
-                      <p><strong className="text-white">Paso 4:</strong> Publica tu sitio con un solo clic</p>
-                    </div>
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mt-3">
-                      <Button
-                        onClick={() => window.open('https://lovable.dev', '_blank')}
-                        size="sm"
-                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm px-3 py-2 w-full sm:w-auto"
-                      >
-                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
-                        Ir a Lovable
-                      </Button>
-                      <span className="text-blue-200 text-xs sm:text-sm">↗️ Se abre en nueva pestaña</span>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-white/5 border-white/10">
-                  <CardHeader className="pb-3 sm:pb-6">
-                    <CardTitle className="text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                      <span className="flex items-center gap-2 text-base sm:text-lg">
-                        <Rocket className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
-                        Prompt para Lovable
-                      </span>
-                      <Button
-                        onClick={() => copyToClipboard(lovablePrompt, "Prompt para Lovable")}
-                        variant="outline"
-                        size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 w-full sm:w-auto text-xs sm:text-sm px-3 py-2"
-                      >
-                        {copiedContent === "Prompt para Lovable" ? (
-                          <Check className="w-3 h-3 sm:w-4 sm:h-4" />
-                        ) : (
-                          <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
-                        )}
-                        <span className="ml-1 sm:ml-2">Copiar Todo</span>
-                      </Button>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <pre className="text-gray-100 whitespace-pre-wrap text-xs sm:text-sm bg-black/20 p-3 sm:p-4 rounded-lg overflow-auto max-h-60 sm:max-h-96">
-                      {lovablePrompt}
-                    </pre>
-                  </CardContent>
-                </Card>
+              <TabsContent value="lovable" className="space-y-4">
+                <div className="bg-white/5 rounded-md p-4 text-white shadow-md backdrop-blur-sm">
+                  <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
+                    <Globe className="w-5 h-5" />
+                    Prompt para Lovable.dev (Web Automática)
+                  </h3>
+                  <div className="bg-gray-800/80 rounded-md p-4 font-mono text-sm whitespace-pre-wrap break-words overflow-x-auto">
+                    {lovablePrompt}
+                  </div>
+                  <Button variant="secondary" size="sm" onClick={() => copyToClipboard(lovablePrompt, 'lovable')} disabled={copiedStates['lovable']}>
+                    {copiedStates['lovable'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                    {copiedStates['lovable'] ? 'Copiado!' : 'Copiar'}
+                  </Button>
+                </div>
               </TabsContent>
 
-              <TabsContent value="chatgpt" className="mt-4 sm:mt-6">
-                <Card className="bg-white/5 border-white/10">
-                  <CardHeader className="pb-3 sm:pb-6">
-                    <CardTitle className="text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                      <span className="flex items-center gap-2 text-base sm:text-lg">
-                        <Brain className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
-                        Prompt para ChatGPT
-                      </span>
-                      <Button
-                        onClick={() => copyToClipboard(chatGPTPrompt, "Prompt para ChatGPT")}
-                        variant="outline"
-                        size="sm"
-                        className="bg-white/90 border-gray-300 text-gray-800 hover:bg-white hover:text-gray-900 w-full sm:w-auto text-xs sm:text-sm px-3 py-2"
-                      >
-                        {copiedContent === "Prompt para ChatGPT" ? (
-                          <Check className="w-3 h-3 sm:w-4 sm:h-4" />
-                        ) : (
-                          <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
-                        )}
-                        <span className="ml-1 sm:ml-2">Copiar Todo</span>
-                      </Button>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <pre className="text-gray-100 whitespace-pre-wrap text-xs sm:text-sm bg-black/20 p-3 sm:p-4 rounded-lg overflow-auto max-h-60 sm:max-h-96">
-                      {chatGPTPrompt}
-                    </pre>
-                  </CardContent>
-                </Card>
+              <TabsContent value="chatgpt" className="space-y-4">
+                <div className="bg-white/5 rounded-md p-4 text-white shadow-md backdrop-blur-sm">
+                  <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
+                    <Brain className="w-5 h-5" />
+                    Prompt para ChatGPT (Asistente IA)
+                  </h3>
+                  <div className="bg-gray-800/80 rounded-md p-4 font-mono text-sm whitespace-pre-wrap break-words overflow-x-auto">
+                    {chatGPTPrompt}
+                  </div>
+                  <Button variant="secondary" size="sm" onClick={() => copyToClipboard(chatGPTPrompt, 'chatgpt')} disabled={copiedStates['chatgpt']}>
+                    {copiedStates['chatgpt'] ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                    {copiedStates['chatgpt'] ? 'Copiado!' : 'Copiar'}
+                  </Button>
+                </div>
               </TabsContent>
+
             </Tabs>
-          </CardContent>
-        </Card>
 
-        {/* Next Steps */}
-        <Card className="max-w-4xl mx-auto mt-6 sm:mt-8 bg-white/95 border-gray-200 backdrop-blur-xl shadow-xl">
-          <CardHeader className="pb-3 sm:pb-6">
-            <CardTitle className="text-gray-800 text-center flex items-center justify-center gap-2 text-lg sm:text-xl">
-              <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6" />
-              🎉 ¡Tu Kit IA está completo!
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-center space-y-4 pt-0">
-            <p className="text-gray-700 text-base sm:text-lg px-4">
-              Ahora tienes todo lo necesario para potenciar tu presencia digital:
-            </p>
-            <div className="grid md:grid-cols-2 gap-4 text-left">
-              <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
-                <h4 className="text-gray-800 font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
-                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                  📅 Plan de 15 Días
-                </h4>
-                <p className="text-gray-600 text-xs sm:text-sm">Contenido estructurado listo para usar en redes sociales</p>
-              </div>
-              <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
-                <h4 className="text-gray-800 font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
-                  <Rocket className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                  🌐 Tu Página Web
-                </h4>
-                <p className="text-gray-600 text-xs sm:text-sm">Usa el prompt de Lovable para crear tu sitio profesional</p>
+            <div className="max-w-3xl mx-auto text-center text-purple-200">
+              <h3 className="text-xl font-semibold mb-4">¿Necesitas ayuda para implementar tu Kit IA?</h3>
+              <p className="mb-6">Contáctame y te ayudaré a sacarle el máximo provecho a tu contenido.</p>
+              <div className="flex items-center justify-center gap-4">
+                <a href={`mailto:esteban.montenegro@gmail.com?subject=Ayuda con mi Kit IA de ${formData.marca}`} className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded shadow-lg transition-colors duration-300 flex items-center gap-2">
+                  <Mail className="w-5 h-5" />
+                  Contactar por Email
+                </a>
+                <a href="https://wa.me/56945487423?text=Hola%20Esteban,%20necesito%20ayuda%20con%20mi%20Kit%20IA" target="_blank" rel="noopener noreferrer" className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded shadow-lg transition-colors duration-300 flex items-center gap-2">
+                  <Phone className="w-5 h-5" />
+                  Contactar por WhatsApp
+                </a>
               </div>
             </div>
-            <div className="mt-4 p-3 sm:p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <p className="text-blue-800 text-xs sm:text-sm px-2">
-                <strong>Valor: USD 50</strong> • Guarda estos prompts y úsalos para generar contenido constantemente. 
-                ¡Tu marca ahora tiene una voz consistente y profesional!
-              </p>
-            </div>
+
           </CardContent>
         </Card>
-
-        {/* Creator signature */}
-        <div className="text-center mt-6 sm:mt-8">
-          <p className="text-purple-300 text-xs sm:text-sm">
-            Kit IA diseñado y desarrollado por <span className="font-semibold text-purple-200">Esteban Montenegro</span>
-          </p>
-        </div>
       </div>
     </div>
   );
