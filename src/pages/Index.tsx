@@ -649,17 +649,17 @@ Mi estilo es: ${formData.estilo}
             <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-xl p-6">
               <h3 className="text-white text-xl font-semibold mb-4 flex items-center justify-center gap-2">
                 <Sparkles className="w-6 h-6 text-yellow-300" />
-                ✅ Recibirás:
+                ✅ Recibirás tu Kit IA completo:
               </h3>
-              <div className="text-purple-100 text-left space-y-2">
-                <p>• Un prompt profesional para ChatGPT</p>
-                <p>• Un plan de contenido para 15 días</p>
-                <p>• Los textos completos para tu web</p>
-                <p>• Un prompt para crear tu sitio automáticamente en Lovable</p>
+              <div className="text-purple-100 text-left space-y-3">
+                <p className="font-medium">• <span className="text-yellow-200">Un prompt profesional nivel agencia para ChatGPT</span> que te ayudará a generar contenido constantemente</p>
+                <p className="font-medium">• <span className="text-yellow-200">Estrategia de contenido para 15 días</span> (con estructura escalable para crear más)</p>
+                <p className="font-medium">• <span className="text-yellow-200">Todos los textos profesionales para tu página web</span> - copys, headlines, CTAs, FAQ</p>
+                <p className="font-medium">• <span className="text-yellow-200">Prompt completo para Lovable.dev</span> que crea tu sitio web automáticamente</p>
               </div>
               <div className="mt-4 pt-4 border-t border-white/20">
                 <p className="text-yellow-200 font-medium">
-                  🎁 Valor estimado: USD 50 – pero hoy lo recibes gratis como parte de esta comunidad.
+                  🎁 Esto es lo que las agencias cobran $200-500 USD – pero hoy lo recibes gratis.
                 </p>
               </div>
             </div>
@@ -864,7 +864,7 @@ Mi estilo es: ${formData.estilo}
                   disabled={!isFormValid}
                 >
                   <Brain className="w-6 h-6 mr-3" />
-                  🧠 Generar mi Kit IA personalizado
+                  🧠 Generar mi Kit IA
                 </Button>
 
                 <p className="text-center text-purple-200 text-sm mt-4">
