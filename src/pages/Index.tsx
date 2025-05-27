@@ -163,6 +163,11 @@ const Index = () => {
     try {
       console.log('📨 Enviando email de confirmación al usuario:', formData.email);
       
+      // Generar URL dinámica con los datos del kit
+      const kitData = { formData, timestamp: new Date().toISOString() };
+      const encodedData = btoa(JSON.stringify(kitData));
+      const kitUrl = `${window.location.origin}/kit/${encodedData}`;
+      
       const confirmationEmailData = {
         sender: {
           name: "Kit IA de Esteban",
@@ -186,9 +191,19 @@ const Index = () => {
                 ¡Excelente! Hemos generado tu Kit IA personalizado con todo el contenido que necesitas para potenciar tu presencia digital.
               </p>
 
+              <div style="background: #7C3AED; padding: 20px; border-radius: 12px; text-align: center; margin: 30px 0;">
+                <h2 style="color: white; margin: 0 0 15px 0; font-size: 20px;">🚀 Accede a tu Kit completo</h2>
+                <a href="${kitUrl}" style="background: white; color: #7C3AED; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block;">
+                  Ver mi Kit IA personalizado →
+                </a>
+                <p style="color: #E5D3FF; margin: 15px 0 0 0; font-size: 12px;">
+                  También puedes copiar este enlace: ${kitUrl}
+                </p>
+              </div>
+
               <div style="background: #EFF6FF; padding: 20px; border-radius: 8px; margin: 25px 0;">
                 <h2 style="color: #1E40AF; margin-top: 0; font-size: 20px;">📦 Tu Kit IA incluye:</h2>
-                <ul style="color: #374151; line-height: 1.8; padding-left: 20px;">
+                <ul style="color: #374151; line-height: 1.8; padding-left: 20px; margin: 0;">
                   <li>📅 <strong>Plan de contenido para 15 días</strong> - Listo para usar en redes sociales</li>
                   <li>📱 <strong>Contenido específico para redes sociales</strong> - Posts, reels y estrategias</li>
                   <li>🌐 <strong>Prompt para crear tu página web</strong> - Para usar en Lovable</li>
@@ -196,11 +211,23 @@ const Index = () => {
                 </ul>
               </div>
 
+              <div style="background: #FEF3C7; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                <h3 style="color: #92400E; margin-top: 0; font-size: 18px;">📊 Resumen de tu marca:</h3>
+                <div style="color: #451A03; line-height: 1.6;">
+                  <p><strong>Marca:</strong> ${formData.marca}</p>
+                  <p><strong>Estilo:</strong> ${formData.estilo}</p>
+                  <p><strong>Problema que resuelves:</strong> ${formData.problemas.slice(0, 100)}...</p>
+                  <p><strong>Producto principal:</strong> ${formData.producto.slice(0, 80)}...</p>
+                </div>
+              </div>
+
               <div style="background: #F0FDF4; padding: 20px; border-radius: 8px; margin: 25px 0; border-left: 4px solid #10B981;">
                 <p style="margin: 0; color: #065F46; font-size: 16px; line-height: 1.6;">
                   <strong>💡 Próximos pasos:</strong><br>
-                  Revisa el contenido generado en la plataforma y comienza a implementar tu estrategia digital. 
-                  ¡Tu nueva presencia online está a solo unos clics de distancia!
+                  1. Haz clic en el botón verde de arriba para acceder a tu kit completo<br>
+                  2. Copia los prompts y comienza a generar contenido<br>
+                  3. Usa el prompt de Lovable para crear tu página web<br>
+                  4. ¡Comienza a implementar tu estrategia digital!
                 </p>
               </div>
 
@@ -219,6 +246,9 @@ const Index = () => {
                     day: 'numeric'
                   })}
                 </p>
+                <p style="margin: 10px 0 0 0; color: #9CA3AF; font-size: 12px;">
+                  Guarda este email para acceder a tu kit cuando lo necesites
+                </p>
               </div>
             </div>
           </div>
@@ -226,6 +256,7 @@ const Index = () => {
       };
 
       console.log('📧 Enviando email de confirmación desde esteban.montenegro@gmail.com...');
+      console.log('🔗 URL del kit generada:', kitUrl);
 
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
