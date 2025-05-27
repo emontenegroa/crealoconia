@@ -142,40 +142,8 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
   };
 
   return (
-    <Button
-      type="button"
-      onClick={handleEnhance}
-      disabled={disabled || isEnhancing || !currentText.trim() || !canUseAI}
-      variant="outline"
-      size="sm"
-      className={`relative overflow-hidden bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-purple-300/50 text-purple-200 hover:from-purple-500/30 hover:to-pink-500/30 hover:border-purple-300/70 transition-all duration-300 flex items-center gap-2 ${
-        canUseAI && !isEnhancing ? 'animate-pulse shadow-lg shadow-purple-500/25' : ''
-      }`}
-    >
-      {/* Efecto brillante animado */}
-      {canUseAI && !isEnhancing && (
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine" 
-             style={{
-               animation: 'shine 2s infinite',
-               background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
-               transform: 'translateX(-100%)',
-             }} />
-      )}
-      
-      {isEnhancing ? (
-        <>
-          <Loader2 className="w-4 h-4 animate-spin" />
-          Mejorando...
-        </>
-      ) : (
-        <>
-          <Brain className="w-4 h-4" />
-          <Sparkles className="w-3 h-3" />
-          {canUseAI ? `Mejorar con IA (${remainingUses})` : 'Límite alcanzado'}
-        </>
-      )}
-      
-      <style jsx>{`
+    <>
+      <style>{`
         @keyframes shine {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }
@@ -184,7 +152,40 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
           animation: shine 2s infinite;
         }
       `}</style>
-    </Button>
+      <Button
+        type="button"
+        onClick={handleEnhance}
+        disabled={disabled || isEnhancing || !currentText.trim() || !canUseAI}
+        variant="outline"
+        size="sm"
+        className={`relative overflow-hidden bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-purple-300/50 text-purple-200 hover:from-purple-500/30 hover:to-pink-500/30 hover:border-purple-300/70 transition-all duration-300 flex items-center gap-2 ${
+          canUseAI && !isEnhancing ? 'animate-pulse shadow-lg shadow-purple-500/25' : ''
+        }`}
+      >
+        {canUseAI && !isEnhancing && (
+          <div 
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine"
+            style={{
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
+              transform: 'translateX(-100%)',
+            }} 
+          />
+        )}
+        
+        {isEnhancing ? (
+          <>
+            <Loader2 className="w-4 h-4 animate-spin" />
+            Mejorando...
+          </>
+        ) : (
+          <>
+            <Brain className="w-4 h-4" />
+            <Sparkles className="w-3 h-3" />
+            {canUseAI ? `Mejorar con IA (${remainingUses})` : 'Límite alcanzado'}
+          </>
+        )}
+      </Button>
+    </>
   );
 };
 

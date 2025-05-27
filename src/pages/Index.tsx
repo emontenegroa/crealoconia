@@ -767,12 +767,12 @@ Mi estilo es: ${formData.estilo}
             <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-300/30 backdrop-blur-lg rounded-xl p-6 mb-6">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <Clock className="w-6 h-6 text-red-300" />
-                <h3 className="text-white text-xl font-semibold">⏰ Solo hoy completamente gratis</h3>
+                <h3 className="text-white text-xl font-semibold">⏰ Por tiempo limitado completamente gratis</h3>
               </div>
               <p className="text-red-100 font-medium">
                 Normalmente esto te costaría <span className="line-through text-red-300">$500 USD</span> con una agencia de marketing.
                 <br />
-                <strong className="text-yellow-200">Hoy es 100% gratis porque estoy validando esta herramienta.</strong>
+                <strong className="text-yellow-200">Por tiempo limitado es 100% gratis porque estoy validando esta herramienta.</strong>
               </p>
             </div>
           </div>
@@ -781,7 +781,7 @@ Mi estilo es: ${formData.estilo}
           <div className="max-w-3xl mx-auto mb-6">
             <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-xl p-6">
               <h3 className="text-white text-xl font-semibold mb-4 flex items-center justify-center gap-2">
-                <Sparkles className="w-6 h-6 text-yellow-300" />
+                <Sparkles className="w-8 h-8 text-yellow-300" />
                 ✅ En menos de 5 minutos recibirás:
               </h3>
               <div className="text-purple-100 text-left space-y-3">

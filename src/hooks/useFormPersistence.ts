@@ -107,7 +107,7 @@ export const useFormPersistence = () => {
 
       if (data) {
         setAttemptCount(data.attempt_number);
-        return data.form_data as FormData;
+        return data.form_data as unknown as FormData;
       }
 
       return null;
@@ -147,7 +147,7 @@ export const useFormPersistence = () => {
         .from('form_submissions')
         .upsert({
           email: formData.email,
-          form_data: formData,
+          form_data: formData as any,
           attempt_number: attemptCount,
           completed: false,
         }, {
@@ -171,7 +171,7 @@ export const useFormPersistence = () => {
         .from('form_submissions')
         .insert({
           email: formData.email,
-          form_data: formData,
+          form_data: formData as any,
           attempt_number: attemptCount,
           completed: true,
         });
