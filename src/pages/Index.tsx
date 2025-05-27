@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe, Instagram } from "lucide-react";
+import { Sparkles, Brain, Rocket, Users, MessageSquare, TrendingUp, Zap, Mail, Globe, Instagram, Phone } from "lucide-react";
 import FormField from '@/components/FormField';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -16,9 +16,9 @@ interface FormData {
   estilo: string;
   producto: string;
   email: string;
+  whatsapp: string;
   website: string;
   instagram: string;
-  whatsapp?: string;
 }
 
 const Index = () => {
@@ -30,9 +30,9 @@ const Index = () => {
     estilo: '',
     producto: '',
     email: '',
+    whatsapp: '',
     website: '',
-    instagram: '',
-    whatsapp: ''
+    instagram: ''
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -50,9 +50,9 @@ const Index = () => {
     setFormData({
       marca: 'Luz Interior Coaching',
       email: 'carolina@luzinteriorcoaching.com',
+      whatsapp: '56945487423',
       website: 'www.luzinteriorcoaching.com',
       instagram: 'luzinteriorcoaching',
-      whatsapp: '56945487423',
       quien_eres: 'Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras y profesionales que buscan reconectar con su propósito de vida y desarrollar todo su potencial. Disfruto profundamente crear espacios seguros donde mis clientas pueden explorar sus emociones, desbloquear sus miedos y diseñar la vida que realmente desean vivir.',
       problemas: 'Mis clientas suelen llegar a mí sintiéndose bloqueadas emocionalmente, con una sensación constante de estar viviendo en piloto automático sin conexión con lo que realmente las hace felices. Muchas experimentan el síndrome del impostor, miedo al fracaso y dificultades para tomar decisiones importantes. Yo las ayudo a través de un proceso de autoconocimiento profundo, técnicas de PNL y ejercicios prácticos que les permiten recuperar su claridad mental, confianza y dirección en la vida.',
       preguntas_frecuentes: 'Me preguntan constantemente si realmente es posible cambiar de vida después de los 35 o 40 años, especialmente cuando ya tienen responsabilidades familiares y económicas. También me consultan sobre cómo saber si están tomando la decisión correcta y cómo superar el miedo al juicio de otros. Me encanta explicar que la transformación es posible a cualquier edad y que el momento perfecto no existe, pero el momento presente sí.',
@@ -90,6 +90,7 @@ const Index = () => {
                 <h2 style="color: #374151; margin-top: 0; font-size: 20px;">📊 Información de la Marca</h2>
                 <p style="margin: 8px 0;"><strong>Marca:</strong> ${formData.marca}</p>
                 <p style="margin: 8px 0;"><strong>Email:</strong> ${formData.email}</p>
+                <p style="margin: 8px 0;"><strong>WhatsApp:</strong> ${formData.whatsapp || 'No proporcionado'}</p>
                 <p style="margin: 8px 0;"><strong>Website:</strong> ${formData.website || 'No proporcionado'}</p>
                 <p style="margin: 8px 0;"><strong>Instagram:</strong> ${formData.instagram ? '@' + formData.instagram : 'No proporcionado'}</p>
                 <p style="margin: 8px 0;"><strong>Estilo:</strong> ${formData.estilo}</p>
@@ -170,9 +171,9 @@ const Index = () => {
       const contactInfo = () => {
         let contact = '';
         if (formData.email) contact += `📧 Email: ${formData.email}\n`;
+        if (formData.whatsapp) contact += `📱 WhatsApp: +${formData.whatsapp}\n`;
         if (formData.website) contact += `🌐 Website: ${formData.website}\n`;
         if (formData.instagram) contact += `📱 Instagram: @${formData.instagram}\n`;
-        if (formData.whatsapp) contact += `📱 WhatsApp: +${formData.whatsapp}\n`;
         return contact ? `${contact}` : '';
       };
 
@@ -316,7 +317,7 @@ ESTRUCTURA REQUERIDA:
 4. Sección de servicios/productos con beneficios claros
 5. Testimonios (crear 3-4 ejemplos realistas y específicos)
 6. FAQ basada en las preguntas frecuentes mencionadas
-7. Footer con formulario de contacto y redes sociales${formData.email || formData.website || formData.instagram || formData.whatsapp ? `\n   - Incluir enlaces a: ${formData.email ? `Email (${formData.email})` : ''}${formData.website ? `, Website (${formData.website})` : ''}${formData.instagram ? `, Instagram (@${formData.instagram})` : ''}${formData.whatsapp ? `, WhatsApp (+${formData.whatsapp})` : ''}` : ''}
+7. Footer con formulario de contacto y redes sociales${formData.email || formData.whatsapp || formData.website || formData.instagram ? `\n   - Incluir enlaces a: ${formData.email ? `Email (${formData.email})` : ''}${formData.whatsapp ? `, WhatsApp (+${formData.whatsapp})` : ''}${formData.website ? `, Website (${formData.website})` : ''}${formData.instagram ? `, Instagram (@${formData.instagram})` : ''}` : ''}
 
 DISEÑO Y EXPERIENCIA:
 - Estilo moderno, profesional y ${formData.estilo.toLowerCase()}
@@ -438,7 +439,7 @@ Mi estilo es: ${formData.estilo}
                 <h2 style="color: #374151; margin-top: 0; font-size: 20px;">📊 Resumen de tu marca</h2>
                 <p style="margin: 8px 0;"><strong>Marca:</strong> ${formData.marca}</p>
                 <p style="margin: 8px 0;"><strong>Estilo:</strong> ${formData.estilo}</p>
-                <p style="margin: 8px 0;"><strong>Contacto:</strong> ${formData.email}${formData.website ? ` | ${formData.website}` : ''}${formData.instagram ? ` | @${formData.instagram}` : ''}${formData.whatsapp ? ` | +${formData.whatsapp}` : ''}</p>
+                <p style="margin: 8px 0;"><strong>Contacto:</strong> ${formData.email}${formData.whatsapp ? ` | +${formData.whatsapp}` : ''}${formData.website ? ` | ${formData.website}` : ''}${formData.instagram ? ` | @${formData.instagram}` : ''}</p>
               </div>
 
               <!-- Instrucciones de uso -->
@@ -594,6 +595,7 @@ Mi estilo es: ${formData.estilo}
                      formData.estilo !== '' && 
                      formData.producto.trim() !== '' &&
                      formData.email.trim() !== '' &&
+                     formData.whatsapp.trim() !== '' &&
                      (noWebsite || formData.website.trim() !== '') &&
                      (noInstagram || formData.instagram.trim() !== '');
 
@@ -608,9 +610,9 @@ Mi estilo es: ${formData.estilo}
         estilo: '',
         producto: '',
         email: '',
+        whatsapp: '',
         website: '',
-        instagram: '',
-        whatsapp: ''
+        instagram: ''
       });
       setNoWebsite(false);
       setNoInstagram(false);
@@ -742,10 +744,20 @@ Mi estilo es: ${formData.estilo}
                   icon={Mail}
                 />
 
+                <FormField
+                  type="input"
+                  label="3. WhatsApp (para agregar botón en tu sitio web)"
+                  placeholder="Ej: 56945487423 (solo números, sin +)"
+                  name="whatsapp"
+                  value={formData.whatsapp}
+                  onChange={handleInputChange}
+                  icon={Phone}
+                />
+
                 <div className="space-y-3 group">
                   <FormField
                     type="input"
-                    label="3. Página web"
+                    label="4. Página web"
                     placeholder="Ej: www.tumarca.com"
                     name="website"
                     value={formData.website}
@@ -772,7 +784,7 @@ Mi estilo es: ${formData.estilo}
                 <div className="space-y-3 group">
                   <FormField
                     type="input"
-                    label="4. Instagram (nombre de usuario)"
+                    label="5. Instagram (nombre de usuario)"
                     placeholder="Ej: tumarca (sin @)"
                     name="instagram"
                     value={formData.instagram}
@@ -798,7 +810,7 @@ Mi estilo es: ${formData.estilo}
 
                 <FormField
                   type="textarea"
-                  label="5. ¿Quién eres y qué disfrutas hacer en tu trabajo? ¿A quién ayudas?"
+                  label="6. ¿Quién eres y qué disfrutas hacer en tu trabajo? ¿A quién ayudas?"
                   placeholder="Ej: Soy Carolina, coach de vida. Me encanta acompañar a mujeres que buscan reconectar con su propósito."
                   name="quien_eres"
                   value={formData.quien_eres}
@@ -808,7 +820,7 @@ Mi estilo es: ${formData.estilo}
 
                 <FormField
                   type="textarea"
-                  label="6. ¿Qué problema frecuente tiene tu cliente ideal y cómo tú lo solucionas?"
+                  label="7. ¿Qué problema frecuente tiene tu cliente ideal y cómo tú lo solucionas?"
                   placeholder="Ej: Mis clientas suelen sentirse bloqueadas emocionalmente. Yo las ayudo a recuperar claridad con sesiones de coaching."
                   name="problemas"
                   value={formData.problemas}
@@ -818,7 +830,7 @@ Mi estilo es: ${formData.estilo}
 
                 <FormField
                   type="textarea"
-                  label="7. ¿Qué te preguntan siempre o qué disfrutas explicar una y otra vez?"
+                  label="8. ¿Qué te preguntan siempre o qué disfrutas explicar una y otra vez?"
                   placeholder="Ej: Me preguntan si realmente es posible cambiar de vida después de los 40. Me encanta mostrar que siempre es posible."
                   name="preguntas_frecuentes"
                   value={formData.preguntas_frecuentes}
@@ -828,7 +840,7 @@ Mi estilo es: ${formData.estilo}
 
                 <FormField
                   type="select"
-                  label="8. ¿Cómo te gusta comunicarte en redes sociales?"
+                  label="9. ¿Cómo te gusta comunicarte en redes sociales?"
                   name="estilo"
                   value={formData.estilo}
                   onChange={handleInputChange}
@@ -838,7 +850,7 @@ Mi estilo es: ${formData.estilo}
 
                 <FormField
                   type="textarea"
-                  label="9. ¿Qué producto o servicio principal quieres vender o promover hoy?"
+                  label="10. ¿Qué producto o servicio principal quieres vender o promover hoy?"
                   placeholder="Ej: Mi programa 'Renace', un proceso de coaching de 8 semanas para mujeres que quieren recuperar su autoestima."
                   name="producto"
                   value={formData.producto}
