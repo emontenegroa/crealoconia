@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Eye, ExternalLink, Smartphone, Monitor, Code, Sparkles, Zap, Heart, TrendingUp, Star } from 'lucide-react';
+import { Eye, ExternalLink, Smartphone, Monitor, Code, Sparkles, Zap, Heart, TrendingUp } from 'lucide-react';
 
 interface FormData {
   marca: string;
@@ -44,11 +45,7 @@ const WebsitePreview = ({ formData, onGenerateWebsite }: WebsitePreviewProps) =>
         'Resultados en menos de 30 días',
         'Método probado y efectivo',
         'Acompañamiento personalizado'
-      ],
-      social: {
-        testimonial: '"Esto cambió mi vida completamente. En 30 días vi resultados que no había logrado en años."',
-        author: 'María José, cliente transformada'
-      }
+      ]
     };
   };
 
@@ -118,10 +115,6 @@ const WebsitePreview = ({ formData, onGenerateWebsite }: WebsitePreviewProps) =>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                   WhatsApp directo
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  Prueba social
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
@@ -223,30 +216,13 @@ const WebsitePreview = ({ formData, onGenerateWebsite }: WebsitePreviewProps) =>
                 </div>
               </section>
 
-              {/* Prueba social */}
-              <section className="p-8 bg-gray-800 text-white">
-                <div className="text-center max-w-2xl mx-auto">
-                  <div className="flex justify-center mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <blockquote className="text-xl italic mb-4">
-                    {content.social.testimonial}
-                  </blockquote>
-                  <p className="text-gray-300">
-                    - {content.social.author}
-                  </p>
-                </div>
-              </section>
-
               {/* CTA final */}
               <section className="p-8 bg-gradient-to-r from-green-500 to-blue-500 text-white text-center">
                 <h2 className="text-3xl font-bold mb-4">
                   ¿Listo para tu transformación?
                 </h2>
                 <p className="text-xl mb-6 opacity-90">
-                  Únete a las {Math.floor(Math.random() * 500 + 200)} personas que ya cambiaron su vida
+                  Da el primer paso hacia el cambio que necesitas
                 </p>
                 <Button className="bg-white text-green-600 hover:bg-gray-100 text-lg px-8 py-4 rounded-full font-bold shadow-xl hover:scale-105 transform transition-all duration-200 mb-4">
                   <Heart className="w-5 h-5 mr-2" />
@@ -263,7 +239,7 @@ const WebsitePreview = ({ formData, onGenerateWebsite }: WebsitePreviewProps) =>
                   💬 Contactar por WhatsApp
                 </Button>
                 <p className="text-gray-400 text-sm">
-                  © 2024 {formData.marca || "Tu Marca"}. Transformando vidas desde Instagram.
+                  © 2024 {formData.marca || "Tu Marca"}. Transformando vidas.
                 </p>
               </footer>
             </div>
