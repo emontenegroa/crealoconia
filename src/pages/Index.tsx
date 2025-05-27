@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -70,7 +69,7 @@ const Index = () => {
       const emailData = {
         sender: {
           name: "Kit IA de Esteban",
-          email: "noreply@kitia.com"
+          email: "esteban.montenegro@gmail.com"
         },
         to: [
           {
@@ -129,7 +128,7 @@ const Index = () => {
         `
       };
 
-      console.log('📧 Enviando email a admin...', emailData.to[0].email);
+      console.log('📧 Enviando email a admin desde esteban.montenegro@gmail.com...');
 
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
@@ -167,7 +166,7 @@ const Index = () => {
       const confirmationEmailData = {
         sender: {
           name: "Kit IA de Esteban",
-          email: "noreply@kitia.com"
+          email: "esteban.montenegro@gmail.com"
         },
         to: [
           {
@@ -226,7 +225,7 @@ const Index = () => {
         `
       };
 
-      console.log('📧 Enviando email de confirmación...', confirmationEmailData.to[0].email);
+      console.log('📧 Enviando email de confirmación desde esteban.montenegro@gmail.com...');
 
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
