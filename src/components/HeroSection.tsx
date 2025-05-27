@@ -1,15 +1,13 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Brain, Sparkles, Target, Globe, MessageSquare, Clock, Star, Zap, TrendingUp, Heart } from "lucide-react";
-
 interface HeroSectionProps {
   onLoadExample: () => void;
 }
-
-const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
-  return (
-    <>
+const HeroSection = ({
+  onLoadExample
+}: HeroSectionProps) => {
+  return <>
       {/* Header optimizado */}
       <div className="text-center mb-12 animate-fade-in">
         <div className="flex items-center justify-center mb-6">
@@ -41,9 +39,7 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
             <p className="text-orange-200 font-bold text-lg flex items-center justify-center gap-2">
               ⏰ <strong>Disponible solo hasta fin de mes</strong>
             </p>
-            <p className="text-red-200 text-sm mt-1">
-              Después de enero 2025, este kit será parte de nuestro programa premium
-            </p>
+            <p className="text-red-200 text-sm mt-1">Después de junio 2025, este kit será parte de nuestro programa premium</p>
           </div>
         </div>
         
@@ -131,11 +127,7 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
 
       {/* CTA para ver ejemplo */}
       <div className="max-w-4xl mx-auto mb-8 text-center">
-        <Button 
-          onClick={onLoadExample}
-          variant="outline"
-          className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm mb-4 text-lg px-8 py-3"
-        >
+        <Button onClick={onLoadExample} variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm mb-4 text-lg px-8 py-3">
           <Zap className="w-5 h-5 mr-2" />
           👀 Ver ejemplo completo (recomendado)
         </Button>
@@ -145,8 +137,6 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           <span className="text-green-200">💡 Te ayudará a llenar mejor el formulario</span>
         </p>
       </div>
-    </>
-  );
+    </>;
 };
-
 export default HeroSection;
