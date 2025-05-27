@@ -39,7 +39,7 @@ const HeroSection = ({
             <p className="text-orange-200 font-bold text-lg flex items-center justify-center gap-2">
               ⏰ <strong>Disponible solo para algunas personas</strong>
             </p>
-            <p className="text-red-200 text-sm mt-1">asi que te pido </p>
+            <p className="text-red-200 text-sm mt-1">Si estas aquí es por que te he seleccionado para que lo utilices </p>
           </div>
         </div>
         

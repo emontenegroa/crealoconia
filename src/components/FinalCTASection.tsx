@@ -1,9 +1,6 @@
-
 import React from 'react';
-
 const FinalCTASection = () => {
-  return (
-    <div className="max-w-3xl mx-auto mt-12 text-center">
+  return <div className="max-w-3xl mx-auto mt-12 text-center">
       <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-300/30 backdrop-blur-lg rounded-xl p-8">
         <h3 className="text-white text-2xl font-bold mb-4">
           ¿Por qué este kit completo vale $197 USD?
@@ -39,13 +36,9 @@ const FinalCTASection = () => {
         
         {/* Recordatorio de urgencia */}
         <div className="mt-6 bg-red-500/20 border border-red-300/30 rounded-lg p-3">
-          <p className="text-red-200 font-bold text-sm">
-            ⏰ Disponible solo hasta fin de enero 2025
-          </p>
+          <p className="text-red-200 font-bold text-sm">⏰ Disponible GRATIS por muy poco tiempo</p>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default FinalCTASection;
