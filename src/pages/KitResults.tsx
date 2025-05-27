@@ -17,10 +17,22 @@ const KitResults = () => {
   const decodedData = React.useMemo(() => {
     try {
       if (!id) return null;
-      const decoded = atob(id);
-      return JSON.parse(decoded);
+      console.log("🔍 Decodificando ID:", id);
+      
+      // Primero decodificar URI y luego base64
+      const decodedUri = decodeURIComponent(id);
+      console.log("🔍 URI decodificado:", decodedUri);
+      
+      const decoded = atob(decodedUri);
+      console.log("🔍 Base64 decodificado:", decoded);
+      
+      const parsed = JSON.parse(decoded);
+      console.log("🔍 JSON parseado:", parsed);
+      
+      return parsed;
     } catch (error) {
-      console.error('Error decodificando datos:', error);
+      console.error('❌ Error decodificando datos:', error);
+      console.error('❌ ID original:', id);
       return null;
     }
   }, [id]);
@@ -42,6 +54,12 @@ const KitResults = () => {
           <CardContent className="p-8 text-center">
             <h1 className="text-2xl font-bold text-white mb-4">Kit IA no encontrado</h1>
             <p className="text-purple-200">El enlace no es válido o ha expirado.</p>
+            <Button 
+              onClick={() => window.location.href = '/'} 
+              className="mt-4 bg-purple-600 hover:bg-purple-700"
+            >
+              Volver al inicio
+            </Button>
           </CardContent>
         </Card>
       </div>
