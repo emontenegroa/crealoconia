@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Brain, Clock } from "lucide-react";
+import { Sparkles, Brain, Clock, ArrowRight, ArrowLeft } from "lucide-react";
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import HeroSection from '@/components/HeroSection';
@@ -9,6 +9,9 @@ import FeatureCards from '@/components/FeatureCards';
 import ImportantNotice from '@/components/ImportantNotice';
 import ProgressDialog from '@/components/ProgressDialog';
 import FormFields from '@/components/FormFields';
+import FormWizard from '@/components/FormWizard';
+import SocialProof from '@/components/SocialProof';
+import WebsitePreview from '@/components/WebsitePreview';
 import { toast } from "@/hooks/use-toast";
 import { useFormPersistence } from '@/hooks/useFormPersistence';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
@@ -45,6 +48,20 @@ const Index = () => {
   const [noInstagram, setNoInstagram] = useState(false);
   const [showProgressDialog, setShowProgressDialog] = useState(false);
   const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [showWizard, setShowWizard] = useState(false);
+
+  const stepLabels = [
+    "Información Básica",
+    "Perfil Personal", 
+    "Finalizar"
+  ];
+
+  const stepFields = [
+    ['marca', 'email', 'whatsapp', 'website', 'instagram'], // Paso 1: Info básica
+    ['quien_eres', 'problemas', 'preguntas_frecuentes', 'estilo'], // Paso 2: Perfil
+    ['producto'] // Paso 3: Producto y finalizar
+  ];
 
   const {
     sessionId,
@@ -205,6 +222,71 @@ const Index = () => {
                      (noWebsite || formData.website.trim() !== '') &&
                      (noInstagram || formData.instagram.trim() !== '');
 
+  const handleNextStep = () => {
+    if (currentStep < stepFields.length - 1) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const handlePrevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const isCurrentStepComplete = () => {
+    const currentFields = stepFields[currentStep];
+    return currentFields.every(field => {
+      if (field === 'website' && noWebsite) return true;
+      if (field === 'instagram' && noInstagram) return true;
+      return formData[field as keyof FormData].trim() !== '';
+    });
+  };
+
+  const handleGenerateWebsite = () => {
+    // Generar código para Lovable
+    const lovablePrompt = `
+Crea una página web profesional para ${formData.marca} con las siguientes características:
+
+INFORMACIÓN DEL NEGOCIO:
+- Marca: ${formData.marca}
+- Descripción: ${formData.quien_eres}
+- Problemas que resuelve: ${formData.problemas}
+- FAQ: ${formData.preguntas_frecuentes}
+- Estilo de comunicación: ${formData.estilo}
+- Producto principal: ${formData.producto}
+
+CONTACTO:
+- WhatsApp: ${formData.whatsapp}
+- Instagram: ${formData.instagram}
+- Website actual: ${formData.website}
+
+CARACTERÍSTICAS REQUERIDAS:
+- Diseño responsive y moderno
+- Sección hero con llamada a la acción
+- Sección "Sobre mí" con la descripción personal
+- Sección de problemas/soluciones
+- FAQ con preguntas frecuentes
+- Sección del producto/servicio principal
+- Botón de WhatsApp flotante
+- Enlaces a redes sociales
+- Formulario de contacto
+- Colores que reflejen el estilo ${formData.estilo}
+- Optimización SEO básica
+
+Usa React, TypeScript, Tailwind CSS y componentes modernos.
+`;
+
+    // Copiar al clipboard y abrir Lovable
+    navigator.clipboard.writeText(lovablePrompt);
+    window.open('https://lovable.dev', '_blank');
+    
+    toast({
+      title: "¡Prompt copiado! 📋",
+      description: "Se abrió Lovable.dev. Pega el prompt en el chat para generar tu sitio web.",
+    });
+  };
+
   if (showResults) {
     return <ResultsDisplay formData={formData} onReset={() => {
       setShowResults(false);
@@ -222,6 +304,8 @@ const Index = () => {
       });
       setNoWebsite(false);
       setNoInstagram(false);
+      setCurrentStep(0);
+      setShowWizard(false);
     }} />;
   }
 
@@ -241,6 +325,12 @@ const Index = () => {
         />
 
         <HeroSection onLoadExample={loadExampleData} />
+        
+        {/* Social Proof */}
+        <div className="max-w-4xl mx-auto mb-8">
+          <SocialProof />
+        </div>
+
         <FeatureCards />
         <ImportantNotice />
 
@@ -263,49 +353,95 @@ const Index = () => {
             {isGenerating ? (
               <LoadingSpinner />
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <FormFields
-                  formData={formData}
-                  onInputChange={handleInputChange}
-                  onAIUsageUpdate={handleAIUsageUpdate}
-                  sessionId={sessionId}
-                  noWebsite={noWebsite}
-                  noInstagram={noInstagram}
-                  setNoWebsite={setNoWebsite}
-                  setNoInstagram={setNoInstagram}
-                  setFormData={setFormData}
-                />
+              <>
+                {/* Wizard de progreso */}
+                {showWizard && (
+                  <FormWizard 
+                    currentStep={currentStep}
+                    totalSteps={stepFields.length}
+                    stepLabels={stepLabels}
+                  />
+                )}
 
-                <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-300/30 rounded-xl p-6 mb-8">
-                  <div className="flex items-center justify-center gap-3 mb-4">
-                    <Clock className="w-6 h-6 text-green-300" />
-                    <h3 className="text-white text-lg font-semibold">⚡ ¡Ya casi terminas!</h3>
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <FormFields
+                    formData={formData}
+                    onInputChange={handleInputChange}
+                    onAIUsageUpdate={handleAIUsageUpdate}
+                    sessionId={sessionId}
+                    noWebsite={noWebsite}
+                    noInstagram={noInstagram}
+                    setNoWebsite={setNoWebsite}
+                    setNoInstagram={setNoInstagram}
+                    setFormData={setFormData}
+                  />
+
+                  {/* Navegación del wizard */}
+                  {showWizard && (
+                    <div className="flex justify-between items-center py-6">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handlePrevStep}
+                        disabled={currentStep === 0}
+                        className="bg-white/10 border-white/30 text-white hover:bg-white/20"
+                      >
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Anterior
+                      </Button>
+
+                      {currentStep < stepFields.length - 1 ? (
+                        <Button
+                          type="button"
+                          onClick={handleNextStep}
+                          disabled={!isCurrentStepComplete()}
+                          className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
+                        >
+                          Siguiente
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      ) : (
+                        <div className="flex gap-3">
+                          <WebsitePreview 
+                            formData={formData}
+                            onGenerateWebsite={handleGenerateWebsite}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-300/30 rounded-xl p-6 mb-8">
+                    <div className="flex items-center justify-center gap-3 mb-4">
+                      <Clock className="w-6 h-6 text-green-300" />
+                      <h3 className="text-white text-lg font-semibold">⚡ ¡Ya casi terminas!</h3>
+                    </div>
+                    <p className="text-center text-green-100">
+                      Tu Kit IA se generará al instante y llegará a tu email en menos de 30 segundos.
+                      <br />
+                      <strong>¡No olvides revisar tu carpeta de spam!</strong>
+                    </p>
                   </div>
-                  <p className="text-center text-green-100">
-                    Tu Kit IA se generará al instante y llegará a tu email en menos de 30 segundos.
-                    <br />
-                    <strong>¡No olvides revisar tu carpeta de spam!</strong>
-                  </p>
-                </div>
 
-                <Button 
-                  type="submit" 
-                  className="w-full py-6 text-lg font-semibold bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-                  disabled={!isFormValid}
-                >
-                  <Brain className="w-6 h-6 mr-3" />
-                  🚀 GENERAR MI KIT IA GRATIS AHORA
-                </Button>
+                  <Button 
+                    type="submit" 
+                    className="w-full py-6 text-lg font-semibold bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                    disabled={!isFormValid}
+                  >
+                    <Brain className="w-6 h-6 mr-3" />
+                    🚀 GENERAR MI KIT IA GRATIS AHORA
+                  </Button>
 
-                <div className="text-center space-y-2">
-                  <p className="text-purple-200 text-sm">
-                    🔐 <strong>100% seguro y sin spam.</strong> Solo recibirás tu Kit IA.
-                  </p>
-                  <p className="text-yellow-200 text-sm font-medium">
-                    ⏰ Esta oferta gratuita puede terminar en cualquier momento.
-                  </p>
-                </div>
-              </form>
+                  <div className="text-center space-y-2">
+                    <p className="text-purple-200 text-sm">
+                      🔐 <strong>100% seguro y sin spam.</strong> Solo recibirás tu Kit IA.
+                    </p>
+                    <p className="text-yellow-200 text-sm font-medium">
+                      ⏰ Esta oferta gratuita puede terminar en cualquier momento.
+                    </p>
+                  </div>
+                </form>
+              </>
             )}
           </CardContent>
         </Card>

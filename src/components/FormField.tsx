@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { LucideIcon } from 'lucide-react';
 import AIEnhanceButton from './AIEnhanceButton';
+import SmartValidation from './SmartValidation';
 
 interface FormFieldProps {
   type: 'input' | 'textarea' | 'select';
@@ -45,6 +46,34 @@ const FormField = ({
 
   const handleAIEnhanced = (enhancedText: string) => {
     onChange(name, enhancedText);
+  };
+
+  const getSuggestions = () => {
+    switch (name) {
+      case 'quien_eres':
+        return [
+          "Menciona años de experiencia específicos",
+          "Define claramente a quién ayudas (edad, profesión, situación)",
+          "Incluye tu metodología o enfoque único",
+          "Agrega logros o resultados específicos"
+        ];
+      case 'problemas':
+        return [
+          "Describe emociones específicas que viven tus clientes",
+          "Menciona el 'antes y después' de trabajar contigo",
+          "Incluye herramientas o técnicas que usas",
+          "Agrega casos de éxito o transformaciones"
+        ];
+      case 'producto':
+        return [
+          "Especifica duración del programa/servicio",
+          "Menciona qué incluye exactamente",
+          "Define el resultado específico que obtendrán",
+          "Agrega garantías o testimonios"
+        ];
+      default:
+        return [];
+    }
   };
 
   return (
@@ -105,12 +134,12 @@ const FormField = ({
         </Select>
       )}
       
-      {showAIEnhance && value.trim() && (
-        <p className="text-purple-300 text-sm flex items-center gap-2">
-          <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
-          Tip: Usa el botón "Mejorar con IA" (máximo 2 veces por campo)
-        </p>
-      )}
+      {/* Validación inteligente */}
+      <SmartValidation 
+        value={value} 
+        fieldType={name} 
+        suggestions={showAIEnhance ? getSuggestions() : []}
+      />
     </div>
   );
 };

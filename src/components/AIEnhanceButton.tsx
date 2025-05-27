@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Brain, Loader2, Sparkles } from "lucide-react";
+import { Brain, Loader2, Sparkles, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
@@ -29,6 +28,7 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
 }) => {
   const [isEnhancing, setIsEnhancing] = useState(false);
   const [usageCount, setUsageCount] = useState(0);
+  const [enhanceMode, setEnhanceMode] = useState<'improve' | 'expand' | 'optimize'>('improve');
 
   useEffect(() => {
     const fetchUsageCount = async () => {
@@ -53,6 +53,87 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
 
   const canUseAI = usageCount < 2;
   const remainingUses = 2 - usageCount;
+
+  const getEnhancementPrompt = () => {
+    const baseContext = `
+Marca: ${context.marca || 'Sin especificar'}
+Estilo de comunicación: ${context.estilo || 'Sin especificar'}
+Campo: ${fieldType}
+Modo: ${enhanceMode}
+`;
+
+    switch (fieldType) {
+      case 'quien_eres':
+        return `${baseContext}
+Como experto en marketing personal y branding, mejora este texto sobre "quién eres":
+"${currentText}"
+
+INSTRUCCIONES ESPECÍFICAS:
+- Hazlo más magnético y diferenciador
+- Incluye elementos de autoridad y credibilidad
+- Menciona el resultado específico que generas
+- Usa un tono ${context.estilo?.toLowerCase() || 'profesional'}
+- Que suene auténtico, no promocional
+- Máximo 150 palabras
+
+ESTRUCTURA SUGERIDA:
+[Credencial/Experiencia] + [Pasión/Misión] + [A quién ayudas específicamente] + [Resultado que generas]`;
+
+      case 'problemas':
+        return `${baseContext}
+Como especialista en copywriting y psicología del consumidor, mejora este texto sobre problemas que resuelves:
+"${currentText}"
+
+INSTRUCCIONES ESPECÍFICAS:
+- Usa el principio "Antes-Durante-Después"
+- Incluye emociones específicas que viven tus clientes
+- Menciona tu metodología única
+- Tono ${context.estilo?.toLowerCase() || 'empático'} pero profesional
+- Que genere conexión emocional inmediata
+- Máximo 150 palabras
+
+ESTRUCTURA SUGERIDA:
+[Situación problemática específica] + [Emociones que genera] + [Tu enfoque único] + [Transformación que logras]`;
+
+      case 'preguntas_frecuentes':
+        return `${baseContext}
+Como experto en objeción handling y ventas consultivas, mejora este texto sobre preguntas frecuentes:
+"${currentText}"
+
+INSTRUCCIONES ESPECÍFICAS:
+- Convierte las preguntas en ventajas de tu servicio
+- Incluye social proof sutil
+- Tono ${context.estilo?.toLowerCase() || 'cercano'} y tranquilizador
+- Que genere confianza y reduzca fricción
+- Máximo 150 palabras
+
+ESTRUCTURA SUGERIDA:
+[Preocupación común] + [Tu experiencia con eso] + [Cómo lo resuelves] + [Resultado/tranquilidad]`;
+
+      case 'producto':
+        return `${baseContext}
+Como especialista en marketing de productos y copy de ventas, mejora este texto sobre tu producto/servicio:
+"${currentText}"
+
+INSTRUCCIONES ESPECÍFICAS:
+- Enfócate en beneficios emocionales, no características
+- Incluye especificidad en tiempos y resultados
+- Menciona qué incluye exactamente
+- Tono ${context.estilo?.toLowerCase() || 'convincente'} pero no agresivo
+- Que genere deseo de acción inmediata
+- Máximo 200 palabras
+
+ESTRUCTURA SUGERIDA:
+[Nombre del producto] + [Para quién es específicamente] + [Qué incluye] + [Resultado específico] + [Tiempo/garantía]`;
+
+      default:
+        return `${baseContext}
+Mejora este texto para que sea más claro, persuasivo y profesional:
+"${currentText}"
+
+Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más impactante.`;
+    }
+  };
 
   const handleEnhance = async () => {
     if (!currentText.trim()) {
@@ -85,7 +166,7 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
     setIsEnhancing(true);
 
     try {
-      console.log('🧠 Enviando texto a IA para mejorar...');
+      console.log(`🧠 Mejorando texto con IA (modo: ${enhanceMode})...`);
       
       // Primero intentamos actualizar el conteo en la base de datos
       const newUsageCount = usageCount + 1;
@@ -121,12 +202,14 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
         throw new Error('Error al actualizar el conteo de uso');
       }
 
-      // Llamar a la función de IA
+      // Llamar a la función de IA con prompt especializado
       const { data, error } = await supabase.functions.invoke('enhance-with-ai', {
         body: {
           userText: currentText,
           fieldType: fieldType,
-          context: context
+          context: context,
+          customPrompt: getEnhancementPrompt(),
+          enhanceMode: enhanceMode
         }
       });
 
@@ -142,9 +225,14 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
         onUsageUpdate(fieldType, newUsageCount);
         
         toast({
-          title: "¡Texto mejorado! ✨",
-          description: `${remainingUses - 1 === 0 ? 'Última mejora usada' : `Te quedan ${remainingUses - 1} mejoras`} para este campo.`,
+          title: "¡Texto optimizado! ✨",
+          description: `Modo ${enhanceMode}. ${remainingUses - 1 === 0 ? 'Última mejora usada' : `Te quedan ${remainingUses - 1} mejoras`} para este campo.`,
         });
+
+        // Rotar automáticamente el modo para la próxima mejora
+        const modes: ('improve' | 'expand' | 'optimize')[] = ['improve', 'expand', 'optimize'];
+        const currentIndex = modes.indexOf(enhanceMode);
+        setEnhanceMode(modes[(currentIndex + 1) % modes.length]);
       } else {
         throw new Error('No se recibió texto mejorado de la IA');
       }
@@ -160,37 +248,61 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
     }
   };
 
+  const getModeIcon = () => {
+    switch (enhanceMode) {
+      case 'improve': return <Sparkles className="w-3 h-3" />;
+      case 'expand': return <Zap className="w-3 h-3" />;
+      case 'optimize': return <Brain className="w-3 h-3" />;
+    }
+  };
+
+  const getModeLabel = () => {
+    switch (enhanceMode) {
+      case 'improve': return 'Mejorar';
+      case 'expand': return 'Expandir';
+      case 'optimize': return 'Optimizar';
+    }
+  };
+
   return (
-    <Button
-      type="button"
-      onClick={handleEnhance}
-      disabled={disabled || isEnhancing || !currentText.trim() || !canUseAI}
-      variant="outline"
-      size="sm"
-      className={`
-        bg-gradient-to-r from-purple-600 to-pink-600 
-        hover:from-purple-700 hover:to-pink-700
-        border-purple-400 text-white font-medium
-        shadow-lg hover:shadow-xl
-        transition-all duration-200
-        flex items-center gap-2
-        ${!canUseAI ? 'opacity-50 cursor-not-allowed' : ''}
-        ${canUseAI && !isEnhancing ? 'hover:scale-105' : ''}
-      `}
-    >
-      {isEnhancing ? (
-        <>
-          <Loader2 className="w-4 h-4 animate-spin" />
-          Mejorando...
-        </>
-      ) : (
-        <>
-          <Brain className="w-4 h-4" />
-          <Sparkles className="w-3 h-3" />
-          {canUseAI ? `Mejorar con IA (${remainingUses})` : 'Límite alcanzado'}
-        </>
+    <div className="flex items-center gap-2">
+      {canUseAI && !isEnhancing && usageCount > 0 && (
+        <div className="text-xs text-purple-300">
+          Próximo: {getModeLabel()}
+        </div>
       )}
-    </Button>
+      
+      <Button
+        type="button"
+        onClick={handleEnhance}
+        disabled={disabled || isEnhancing || !currentText.trim() || !canUseAI}
+        variant="outline"
+        size="sm"
+        className={`
+          bg-gradient-to-r from-purple-600 to-pink-600 
+          hover:from-purple-700 hover:to-pink-700
+          border-purple-400 text-white font-medium
+          shadow-lg hover:shadow-xl
+          transition-all duration-200
+          flex items-center gap-2
+          ${!canUseAI ? 'opacity-50 cursor-not-allowed' : ''}
+          ${canUseAI && !isEnhancing ? 'hover:scale-105' : ''}
+        `}
+      >
+        {isEnhancing ? (
+          <>
+            <Loader2 className="w-4 h-4 animate-spin" />
+            Optimizando...
+          </>
+        ) : (
+          <>
+            <Brain className="w-4 h-4" />
+            {getModeIcon()}
+            {canUseAI ? `${getModeLabel()} con IA (${remainingUses})` : 'Límite alcanzado'}
+          </>
+        )}
+      </Button>
+    </div>
   );
 };
 
