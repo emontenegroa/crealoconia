@@ -50,7 +50,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
     e.preventDefault();
     
     // Validación básica
-    if (!formData.marca || !formData.quien_eres || !formData.problemas || !formData.preguntas_frecuentes || !formData.estilo || !formData.producto) {
+    if (!formData.marca || !formData.quien_eres || !formData.problemas || !formData.preguntas_frecuentes || !formData.estilo || !formData.producto || !formData.email) {
       toast({
         title: "Campos requeridos",
         description: "Por favor completa todos los campos obligatorios marcados con *",
@@ -104,7 +104,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
               <div className="grid md:grid-cols-2 gap-6">
                 <FormField
                   label="Nombre de tu marca *"
-                  icon={<Building className="w-4 h-4" />}
+                  icon={Building}
                   placeholder="Ej: TuMarca Consulting"
                 >
                   <Input
@@ -117,7 +117,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
 
                 <FormField
                   label="Tu email *"
-                  icon={<Mail className="w-4 h-4" />}
+                  icon={Mail}
                   placeholder="tu@email.com"
                 >
                   <Input
@@ -132,7 +132,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
 
               <FormField
                 label="¿Quién eres y a qué te dedicas? *"
-                icon={<User className="w-4 h-4" />}
+                icon={User}
                 placeholder="Ej: Soy coach de vida especializada en ayudar a mujeres emprendedoras a encontrar su propósito..."
               >
                 <Textarea
@@ -145,7 +145,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
 
               <FormField
                 label="¿Qué problemas resuelves? *"
-                icon={<Target className="w-4 h-4" />}
+                icon={Target}
                 placeholder="Ej: Ayudo a personas que se sienten perdidas en su carrera profesional, que no saben cómo monetizar sus talentos..."
               >
                 <Textarea
@@ -158,7 +158,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
 
               <FormField
                 label="¿Qué preguntas te hacen frecuentemente? *"
-                icon={<HelpCircle className="w-4 h-4" />}
+                icon={HelpCircle}
                 placeholder="Ej: ¿Cómo puedo encontrar mi propósito? ¿Es posible cambiar de carrera a los 40? ¿Cómo empezar un negocio desde cero?"
               >
                 <Textarea
@@ -172,7 +172,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
               <div className="grid md:grid-cols-2 gap-6">
                 <FormField
                   label="¿Cuál es tu estilo de comunicación? *"
-                  icon={<Palette className="w-4 h-4" />}
+                  icon={Palette}
                   placeholder="Ej: Cercano, motivacional, profesional, divertido..."
                 >
                   <Input
@@ -185,7 +185,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
 
                 <FormField
                   label="¿Cuál es tu producto/servicio principal? *"
-                  icon={<Package className="w-4 h-4" />}
+                  icon={Package}
                   placeholder="Ej: Sesiones de coaching 1:1, Curso online de emprendimiento..."
                 >
                   <Input
@@ -207,7 +207,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
                 <div className="grid md:grid-cols-3 gap-4">
                   <FormField
                     label="Sitio web"
-                    icon={<Globe className="w-4 h-4" />}
+                    icon={Globe}
                     placeholder="https://tumarca.com"
                   >
                     <Input
@@ -220,7 +220,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
 
                   <FormField
                     label="Instagram"
-                    icon={<Instagram className="w-4 h-4" />}
+                    icon={Instagram}
                     placeholder="tuusuario"
                   >
                     <Input
@@ -232,7 +232,7 @@ const ContactForm = ({ onSubmit, isLoading }: ContactFormProps) => {
 
                   <FormField
                     label="WhatsApp"
-                    icon={<Phone className="w-4 h-4" />}
+                    icon={Phone}
                     placeholder="+56912345678"
                   >
                     <Input
