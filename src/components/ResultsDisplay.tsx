@@ -323,38 +323,42 @@ Mi estilo es: ${formData.estilo}
           </CardHeader>
           <CardContent className="p-8">
             <Tabs defaultValue="plan" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white/10 mb-8">
+              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white/10 mb-10 h-auto">
                 <TabsTrigger 
                   value="plan" 
-                  className="data-[state=active]:bg-white/20 text-white flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
+                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-2 py-3 h-auto whitespace-normal text-center"
                 >
-                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">Plan 15 días</span>
-                  <span className="sm:hidden">Plan</span>
+                  <div className="flex flex-col items-center gap-1">
+                    <Calendar className="w-4 h-4" />
+                    <span>Plan 15 días</span>
+                  </div>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="social" 
-                  className="data-[state=active]:bg-white/20 text-white flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
+                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-2 py-3 h-auto whitespace-normal text-center"
                 >
-                  <MessageSquare className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">Redes Sociales</span>
-                  <span className="sm:hidden">Redes</span>
+                  <div className="flex flex-col items-center gap-1">
+                    <MessageSquare className="w-4 h-4" />
+                    <span>Info redes</span>
+                  </div>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="lovable" 
-                  className="data-[state=active]:bg-white/20 text-white flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
+                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-2 py-3 h-auto whitespace-normal text-center"
                 >
-                  <Globe className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">Web Lovable</span>
-                  <span className="sm:hidden">Web</span>
+                  <div className="flex flex-col items-center gap-1">
+                    <Globe className="w-4 h-4" />
+                    <span>Lovable.dev</span>
+                  </div>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="chatgpt" 
-                  className="data-[state=active]:bg-white/20 text-white flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
+                  className="data-[state=active]:bg-white/20 text-white text-xs sm:text-sm px-2 py-3 h-auto whitespace-normal text-center"
                 >
-                  <Brain className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">ChatGPT</span>
-                  <span className="sm:hidden">IA</span>
+                  <div className="flex flex-col items-center gap-1">
+                    <Brain className="w-4 h-4" />
+                    <span>ChatGPT Prompt</span>
+                  </div>
                 </TabsTrigger>
               </TabsList>
 
@@ -424,7 +428,7 @@ Mi estilo es: ${formData.estilo}
 
             </Tabs>
 
-            <div className="max-w-3xl mx-auto text-center text-purple-200">
+            <div className="max-w-3xl mx-auto text-center text-purple-200 mt-12">
               <h3 className="text-xl font-semibold mb-4">¿Necesitas ayuda para implementar tu Kit IA?</h3>
               <p className="mb-6">Contáctame y te ayudaré a sacarle el máximo provecho a tu contenido.</p>
               <div className="flex items-center justify-center gap-4">
