@@ -1,32 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { Users, Sparkles, TrendingUp, Clock } from 'lucide-react';
+import { Star, Zap, TrendingUp, Clock } from 'lucide-react';
 
 const SocialProof = () => {
-  const [stats, setStats] = useState({
-    todayUsers: 47,
-    totalKits: 1203,
-    avgTime: 3.2
-  });
-
-  useEffect(() => {
-    // Simular actualización en tiempo real
-    const interval = setInterval(() => {
-      setStats(prev => ({
-        ...prev,
-        todayUsers: prev.todayUsers + Math.floor(Math.random() * 2),
-        totalKits: prev.totalKits + Math.floor(Math.random() * 3)
-      }));
-    }, 30000); // Actualizar cada 30 segundos
-
-    return () => clearInterval(interval);
-  }, []);
-
   const testimonials = [
     {
       name: "Carolina M.",
       business: "Coach de Vida",
-      text: "En 3 minutos tenía contenido para todo el mes. ¡Increíble!",
+      text: "En minutos tenía mi web y contenido para 15 días. ¡Increíble!",
       avatar: "C"
     },
     {
@@ -54,25 +35,6 @@ const SocialProof = () => {
 
   return (
     <div className="space-y-6">
-      {/* Estadísticas en tiempo real */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4 text-center border border-white/20">
-          <Users className="w-6 h-6 text-green-400 mx-auto mb-2" />
-          <div className="text-2xl font-bold text-white">{stats.todayUsers}</div>
-          <div className="text-xs text-green-300">Kits generados hoy</div>
-        </div>
-        <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4 text-center border border-white/20">
-          <Sparkles className="w-6 h-6 text-purple-400 mx-auto mb-2" />
-          <div className="text-2xl font-bold text-white">{stats.totalKits.toLocaleString()}</div>
-          <div className="text-xs text-purple-300">Kits totales</div>
-        </div>
-        <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4 text-center border border-white/20">
-          <Clock className="w-6 h-6 text-blue-400 mx-auto mb-2" />
-          <div className="text-2xl font-bold text-white">{stats.avgTime}</div>
-          <div className="text-xs text-blue-300">min promedio</div>
-        </div>
-      </div>
-
       {/* Testimonial rotativo */}
       <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-300/30 rounded-xl p-6 backdrop-blur-lg">
         <div className="flex items-start gap-4">
@@ -110,6 +72,28 @@ const SocialProof = () => {
           <div>
             <p className="text-white font-semibold">🔥 Oferta gratuita limitada</p>
             <p className="text-red-200 text-sm">Esta herramienta premium será de pago pronto. ¡Aprovecha ahora!</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Beneficios clave */}
+      <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-300/30 rounded-xl p-4 backdrop-blur-lg">
+        <div className="flex items-center gap-3 mb-3">
+          <Zap className="w-5 h-5 text-yellow-400" />
+          <p className="text-white font-semibold">✅ Resultados garantizados en minutos</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+          <div className="flex items-center gap-2 text-green-200">
+            <Clock className="w-4 h-4" />
+            <span>Contenido listo</span>
+          </div>
+          <div className="flex items-center gap-2 text-blue-200">
+            <Star className="w-4 h-4" />
+            <span>Web profesional</span>
+          </div>
+          <div className="flex items-center gap-2 text-purple-200">
+            <Zap className="w-4 h-4" />
+            <span>IA personalizada</span>
           </div>
         </div>
       </div>

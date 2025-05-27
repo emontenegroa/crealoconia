@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Brain, Sparkles, Target, Globe, MessageSquare, Clock, Star, Zap } from "lucide-react";
+import { Brain, Sparkles, Target, Globe, MessageSquare, Clock, Star, Zap, TrendingUp, Heart } from "lucide-react";
 
 interface HeroSectionProps {
   onLoadExample: () => void;
@@ -11,73 +11,105 @@ interface HeroSectionProps {
 const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
   return (
     <>
-      {/* Header */}
+      {/* Header optimizado para Instagram */}
       <div className="text-center mb-12 animate-fade-in">
         <div className="flex items-center justify-center mb-6">
           <div className="bg-gradient-to-r from-purple-400 to-blue-400 p-4 rounded-2xl shadow-2xl">
             <Brain className="w-12 h-12 text-white" />
           </div>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-purple-200 to-blue-200 bg-clip-text text-transparent">
+        
+        {/* Hook inmediato */}
+        <h1 className="text-4xl md:text-6xl font-black text-white mb-4 bg-gradient-to-r from-purple-200 to-blue-200 bg-clip-text text-transparent leading-tight">
           Kit IA de Esteban
         </h1>
-        <h2 className="text-2xl md:text-3xl text-white mb-6 font-semibold">
-          Transforma tu negocio en 5 minutos con inteligencia artificial
+        <h2 className="text-2xl md:text-4xl text-white mb-6 font-bold">
+          🚀 Tu negocio digital en 5 minutos
         </h2>
-        <p className="text-lg text-purple-100 max-w-4xl mx-auto leading-relaxed mb-6">
-          <strong>¿Te has preguntado cómo otros emprendedores generan tanto contenido de calidad?</strong> 
-          <br />La respuesta está aquí. Este kit te dará la misma estrategia que usan las marcas más exitosas para crear contenido profesional y conseguir clientes todos los días.
+        
+        {/* Promesa clara */}
+        <p className="text-lg md:text-xl text-purple-100 max-w-4xl mx-auto leading-relaxed mb-6 font-medium">
+          <strong className="text-yellow-200">¿Vienes de Instagram y necesitas contenido + web YA?</strong> 
+          <br />
+          Este kit te da exactamente lo que usan las marcas exitosas para generar clientes todos los días.
+          <br />
+          <span className="text-green-200">✨ Sin conocimientos técnicos. Sin complicaciones.</span>
         </p>
         
-        {/* Urgency and scarcity elements */}
+        {/* Urgency mejorada */}
         <div className="max-w-3xl mx-auto mb-8">
           <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-300/30 backdrop-blur-lg rounded-xl p-6 mb-6">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <Clock className="w-6 h-6 text-red-300" />
-              <h3 className="text-white text-xl font-semibold">⏰ Por tiempo limitado completamente gratis</h3>
+              <TrendingUp className="w-6 h-6 text-red-300 animate-pulse" />
+              <h3 className="text-white text-xl font-bold">🔥 Oferta limitada - Solo para seguidores de Instagram</h3>
             </div>
-            <p className="text-red-100 font-medium">
-              Normalmente esto te costaría <span className="line-through text-red-300">$500 USD</span> con una agencia de marketing.
+            <p className="text-red-100 font-medium text-center">
+              Valor real: <span className="line-through text-red-300">$497 USD</span> con una agencia
               <br />
-              <strong className="text-yellow-200">Por tiempo limitado es 100% gratis porque estoy validando esta herramienta.</strong>
+              <strong className="text-yellow-200 text-lg">Tuyo GRATIS porque estoy validando esta herramienta</strong>
             </p>
           </div>
         </div>
 
-        {/* Value proposition */}
-        <div className="max-w-3xl mx-auto mb-6">
+        {/* Beneficios visuales para móvil */}
+        <div className="max-w-4xl mx-auto mb-6">
           <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-xl p-6">
-            <h3 className="text-white text-xl font-semibold mb-4 flex items-center justify-center gap-2">
+            <h3 className="text-white text-xl font-bold mb-6 flex items-center justify-center gap-2">
               <Sparkles className="w-8 h-8 text-yellow-300" />
-              ✅ En menos de 5 minutos recibirás:
+              ✅ Recibes en menos de 5 minutos:
             </h3>
-            <div className="text-purple-100 text-left space-y-3">
-              <div className="flex items-start gap-3">
-                <Target className="w-5 h-5 text-green-300 mt-1 flex-shrink-0" />
-                <p className="font-medium"><span className="text-yellow-200">Estrategia completa de contenido para 15 días</span> - Posts listos para copiar y pegar que generan engagement y ventas</p>
+            
+            <div className="grid md:grid-cols-2 gap-4 text-left">
+              <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 p-4 rounded-lg border border-green-300/30">
+                <div className="flex items-start gap-3">
+                  <MessageSquare className="w-6 h-6 text-green-300 mt-1 flex-shrink-0" />
+                  <div>
+                    <h4 className="text-yellow-200 font-bold mb-1">15 días de contenido listo</h4>
+                    <p className="text-green-100 text-sm">Posts estratégicos para Instagram que generan ventas reales</p>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-start gap-3">
-                <Brain className="w-5 h-5 text-blue-300 mt-1 flex-shrink-0" />
-                <p className="font-medium"><span className="text-yellow-200">Tu asistente de marketing IA personalizado</span> - Un prompt profesional para ChatGPT que te ayudará siempre</p>
+              
+              <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 p-4 rounded-lg border border-blue-300/30">
+                <div className="flex items-start gap-3">
+                  <Brain className="w-6 h-6 text-blue-300 mt-1 flex-shrink-0" />
+                  <div>
+                    <h4 className="text-yellow-200 font-bold mb-1">Tu asistente IA 24/7</h4>
+                    <p className="text-blue-100 text-sm">Prompt de ChatGPT que te ayuda siempre con marketing</p>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-start gap-3">
-                <Globe className="w-5 h-5 text-purple-300 mt-1 flex-shrink-0" />
-                <p className="font-medium"><span className="text-yellow-200">Página web automática y profesional</span> - Código completo para crear tu sitio en Lovable.dev en 2 minutos</p>
+              
+              <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 p-4 rounded-lg border border-purple-300/30">
+                <div className="flex items-start gap-3">
+                  <Globe className="w-6 h-6 text-purple-300 mt-1 flex-shrink-0" />
+                  <div>
+                    <h4 className="text-yellow-200 font-bold mb-1">Web profesional en 2 min</h4>
+                    <p className="text-purple-100 text-sm">Código completo para Lovable - tu sitio listo ya</p>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-start gap-3">
-                <MessageSquare className="w-5 h-5 text-pink-300 mt-1 flex-shrink-0" />
-                <p className="font-medium"><span className="text-yellow-200">Textos persuasivos para todas tus redes</span> - Copys que convierten visitantes en clientes</p>
+              
+              <div className="bg-gradient-to-r from-pink-500/20 to-rose-500/20 p-4 rounded-lg border border-pink-300/30">
+                <div className="flex items-start gap-3">
+                  <Target className="w-6 h-6 text-pink-300 mt-1 flex-shrink-0" />
+                  <div>
+                    <h4 className="text-yellow-200 font-bold mb-1">Copy que convierte</h4>
+                    <p className="text-pink-100 text-sm">Textos persuasivos para todas tus redes sociales</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="mt-6 pt-4 border-t border-white/20">
-              <p className="text-yellow-200 font-medium text-lg">
-                🎁 <strong>Valor real: $500 USD</strong> - Tuyo gratis hoy porque quiero que pruebes la calidad de mi trabajo.
+            
+            <div className="mt-6 pt-4 border-t border-white/20 text-center">
+              <p className="text-yellow-200 font-bold text-lg">
+                🎁 <strong>Valor: $497 USD</strong> - Gratis por tiempo limitado
               </p>
             </div>
           </div>
         </div>
 
-        {/* Social proof */}
+        {/* Social proof simplificado */}
         <div className="max-w-2xl mx-auto mb-6">
           <div className="bg-green-500/10 border border-green-300/30 backdrop-blur-lg rounded-xl p-4">
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -93,22 +125,28 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           </div>
         </div>
 
-        <p className="text-purple-300 text-sm">
+        {/* Credibilidad personal */}
+        <p className="text-purple-300 text-sm mb-8">
           Creado por <span className="font-semibold text-purple-200">Esteban Montenegro</span> - Especialista en IA y Marketing Digital
+          <br />
+          <span className="text-xs text-purple-400">💎 Resultados reales para emprendedores como tú</span>
         </p>
       </div>
 
+      {/* CTA para ver ejemplo */}
       <div className="max-w-4xl mx-auto mb-8 text-center">
         <Button 
           onClick={onLoadExample}
           variant="outline"
-          className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm mb-4"
+          className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm mb-4 text-lg px-8 py-3"
         >
-          <Zap className="w-4 h-4 mr-2" />
-          Ver ejemplo completo (recomendado)
+          <Zap className="w-5 h-5 mr-2" />
+          👀 Ver ejemplo completo (recomendado)
         </Button>
         <p className="text-purple-200 text-sm">
-          👆 Recomendado: Mira primero el ejemplo para entender la calidad de respuestas que necesitas
+          <strong>👆 IMPORTANTE:</strong> Mira el ejemplo para entender la calidad que recibirás
+          <br />
+          <span className="text-green-200">💡 Te ayudará a llenar mejor el formulario</span>
         </p>
       </div>
     </>
