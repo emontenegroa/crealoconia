@@ -6,9 +6,10 @@ import { Brain, Sparkles, Target, Globe, MessageSquare, Clock, Star, Zap, Trendi
 
 interface HeroSectionProps {
   onLoadExample: () => void;
+  onGetStarted: () => void;
 }
 
-const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
+const HeroSection = ({ onLoadExample, onGetStarted }: HeroSectionProps) => {
   return (
     <>
       {/* Header optimizado para Instagram */}
@@ -41,12 +42,12 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-300/30 backdrop-blur-lg rounded-xl p-6 mb-6">
             <div className="flex items-center justify-center gap-3 mb-4">
               <TrendingUp className="w-6 h-6 text-red-300 animate-pulse" />
-              <h3 className="text-white text-xl font-bold">🔥 Oferta limitada - Solo para seguidores de Instagram</h3>
+              <h3 className="text-white text-xl font-bold">🔥 Precio de lanzamiento limitado</h3>
             </div>
             <p className="text-red-100 font-medium text-center">
-              Valor real: <span className="line-through text-red-300">$497 USD</span> con una agencia
+              Valor real con una agencia: <span className="line-through text-red-300">$1,500+ USD</span>
               <br />
-              <strong className="text-yellow-200 text-lg">Tuyo GRATIS porque estoy validando esta herramienta</strong>
+              <strong className="text-yellow-200 text-lg">Tu precio de lanzamiento: $197 USD</strong>
             </p>
           </div>
         </div>
@@ -56,7 +57,7 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-xl p-6">
             <h3 className="text-white text-xl font-bold mb-6 flex items-center justify-center gap-2">
               <Sparkles className="w-8 h-8 text-yellow-300" />
-              ✅ Recibes en menos de 5 minutos:
+              ✅ Recibes inmediatamente:
             </h3>
             
             <div className="grid md:grid-cols-2 gap-4 text-left">
@@ -103,33 +104,28 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
             
             <div className="mt-6 pt-4 border-t border-white/20 text-center">
               <p className="text-yellow-200 font-bold text-lg">
-                🎁 <strong>Valor: $497 USD</strong> - Gratis por tiempo limitado
+                🎁 <strong>Solo $197 USD</strong> por tiempo limitado
               </p>
             </div>
           </div>
         </div>
 
-        {/* Social proof simplificado */}
+        {/* CTA principal */}
         <div className="max-w-2xl mx-auto mb-6">
-          <div className="bg-green-500/10 border border-green-300/30 backdrop-blur-lg rounded-xl p-4">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Star className="w-5 h-5 text-yellow-400 fill-current" />
-              <Star className="w-5 h-5 text-yellow-400 fill-current" />
-              <Star className="w-5 h-5 text-yellow-400 fill-current" />
-              <Star className="w-5 h-5 text-yellow-400 fill-current" />
-              <Star className="w-5 h-5 text-yellow-400 fill-current" />
-            </div>
-            <p className="text-green-100 font-medium">
-              "En minutos tenía mi web y contenido para 15 días. ¡Increíble!" - Carolina M., Coach
-            </p>
-          </div>
+          <Button 
+            onClick={onGetStarted}
+            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white text-xl px-8 py-4 rounded-full font-bold shadow-xl hover:scale-105 transform transition-all duration-200 mb-4"
+          >
+            🧠 Obtener Kit IA por $197
+          </Button>
+          <p className="text-green-200 text-sm">
+            💚 Garantía de reembolso 30 días
+          </p>
         </div>
 
         {/* Credibilidad personal */}
         <p className="text-purple-300 text-sm mb-8">
           Creado por <span className="font-semibold text-purple-200">Esteban Montenegro</span> - Especialista en IA y Marketing Digital
-          <br />
-          <span className="text-xs text-purple-400">💎 Resultados reales para emprendedores como tú</span>
         </p>
       </div>
 

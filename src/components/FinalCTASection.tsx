@@ -6,10 +6,9 @@ const FinalCTASection = () => {
     <div className="max-w-3xl mx-auto mt-12 text-center">
       <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-300/30 backdrop-blur-lg rounded-xl p-8">
         <h3 className="text-white text-2xl font-bold mb-4">
-          ¿Por qué cambié de gratuito a $197?
+          ¿Por qué $197 USD es una inversión inteligente?
         </h3>
         <p className="text-purple-100 text-lg leading-relaxed mb-6">
-          Después de ver los resultados increíbles que generaba este kit, me di cuenta del valor real que entrega. 
           Te ahorra semanas de trabajo que te costarían +$1,500 USD si contrataras profesionales.
           <br />
           <strong className="text-yellow-200">$197 USD es una inversión mínima para el valor que obtienes.</strong>
@@ -24,7 +23,7 @@ const FinalCTASection = () => {
             🚀 Precio de lanzamiento: Solo los primeros 100 usuarios pagarán $197
           </p>
           <p className="text-green-300 text-sm mt-2">
-            Después el precio subirá a $497 USD (precio real de mercado)
+            Después el precio subirá a su valor real de mercado
           </p>
         </div>
       </div>
