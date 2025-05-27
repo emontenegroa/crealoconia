@@ -16,7 +16,6 @@ interface FormData {
   email: string;
   website: string;
   instagram: string;
-  whatsapp: string;
 }
 
 interface ResultsDisplayProps {
@@ -43,7 +42,6 @@ const ResultsDisplay = ({ formData, onReset }: ResultsDisplayProps) => {
     if (formData.email) contact += `📧 Email: ${formData.email}\n`;
     if (formData.website) contact += `🌐 Website: ${formData.website}\n`;
     if (formData.instagram) contact += `📱 Instagram: @${formData.instagram}\n`;
-    if (formData.whatsapp) contact += `📞 WhatsApp: ${formData.whatsapp}\n`;
     return contact ? `\nINFORMACIÓN DE CONTACTO:\n${contact}` : '';
   };
 
@@ -183,7 +181,7 @@ ESTRUCTURA REQUERIDA:
 4. Sección de servicios/productos con beneficios claros
 5. Testimonios (crear 3-4 ejemplos realistas y específicos)
 6. FAQ basada en las preguntas frecuentes mencionadas
-7. Footer con formulario de contacto y redes sociales${formData.email || formData.website || formData.instagram || formData.whatsapp ? `\n   - Incluir enlaces a: ${formData.email ? `Email (${formData.email})` : ''}${formData.website ? `, Website (${formData.website})` : ''}${formData.instagram ? `, Instagram (@${formData.instagram})` : ''}${formData.whatsapp ? `, WhatsApp (${formData.whatsapp})` : ''}` : ''}
+7. Footer con formulario de contacto y redes sociales${formData.email || formData.website || formData.instagram ? `\n   - Incluir enlaces a: ${formData.email ? `Email (${formData.email})` : ''}${formData.website ? `, Website (${formData.website})` : ''}${formData.instagram ? `, Instagram (@${formData.instagram})` : ''}` : ''}
 
 DISEÑO Y EXPERIENCIA:
 - Estilo moderno, profesional y ${formData.estilo.toLowerCase()}
@@ -201,7 +199,7 @@ FUNCIONALIDADES ESPECÍFICAS:
 - Modal para testimonios expandidos
 - Sección de preguntas frecuentes interactiva
 - Optimizado para conversión y generación de leads
-- Integración con redes sociales${formData.instagram ? ` (especialmente Instagram @${formData.instagram})` : ''}${formData.whatsapp ? `\n- Botón flotante de WhatsApp con enlace a: https://wa.me/${formData.whatsapp.replace(/[^0-9]/g, '')}" usando el icono de WhatsApp de lucide-react` : ''}
+- Integración con redes sociales${formData.instagram ? ` (especialmente Instagram @${formData.instagram})` : ''}
 
 CONTENIDO PERSONALIZADO:
 - Textos que reflejen el problema: "${formData.problemas}"
@@ -234,7 +232,7 @@ INSTRUCCIONES PRINCIPALES:
 3. Usa ejemplos y casos relacionados con mi experiencia
 4. Menciona "${formData.producto}" cuando sea relevante para la conversación
 5. Crea contenido que genere engagement, confianza y conversiones
-6. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)${formData.instagram ? `\n7. Cuando sea apropiado, menciona mi Instagram @${formData.instagram}` : ''}${formData.website ? `\n8. Dirige tráfico a mi website ${formData.website} cuando sea relevante` : ''}${formData.whatsapp ? `\n9. Incluye mi WhatsApp ${formData.whatsapp} para contacto directo cuando sea apropiado` : ''}
+6. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)${formData.instagram ? `\n7. Cuando sea apropiado, menciona mi Instagram @${formData.instagram}` : ''}${formData.website ? `\n8. Dirige tráfico a mi website ${formData.website} cuando sea relevante` : ''}
 
 ESPECIALIDADES EN LAS QUE PUEDES AYUDARME:
 📱 CONTENIDO PARA REDES SOCIALES:
@@ -248,7 +246,7 @@ ESPECIALIDADES EN LAS QUE PUEDES AYUDARME:
 - Emails de nurturing${formData.email ? ` (desde ${formData.email})` : ''}
 - Secuencias de follow-up
 - Newsletters semanales
-- Mensajes para WhatsApp Business${formData.whatsapp ? ` (${formData.whatsapp})` : ''}
+- Mensajes para WhatsApp Business
 
 🎯 ESTRATEGIA DE VENTAS:
 - Scripts para videollamadas
@@ -523,30 +521,6 @@ Mi estilo es: ${formData.estilo}
                 <p className="text-gray-600 text-xs sm:text-sm">Usa el prompt de Lovable para crear tu sitio profesional</p>
               </div>
             </div>
-
-            {/* Support Section */}
-            <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-4 sm:p-6 rounded-lg border border-purple-200 mt-6">
-              <h4 className="text-gray-800 font-semibold mb-3 text-base sm:text-lg">¿Necesitas ayuda implementando tu Kit IA?</h4>
-              <p className="text-gray-600 text-sm sm:text-base mb-4">Estoy aquí para ayudarte a sacar el máximo provecho de tu contenido</p>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                <Button
-                  onClick={() => window.open('mailto:esteban.montenegro@gmail.com', '_blank')}
-                  size="sm"
-                  className="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm px-4 py-2 w-full sm:w-auto"
-                >
-                  📧 Enviar Email
-                </Button>
-                <Button
-                  onClick={() => window.open(`https://wa.me/56945487423?text=Hola%20Esteban,%20necesito%20ayuda%20con%20mi%20Kit%20IA%20para%20${encodeURIComponent(formData.marca)}`, '_blank')}
-                  size="sm"
-                  className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm px-4 py-2 w-full sm:w-auto"
-                >
-                  📱 WhatsApp
-                </Button>
-              </div>
-            </div>
-
             <div className="mt-4 p-3 sm:p-4 bg-blue-50 rounded-lg border border-blue-200">
               <p className="text-blue-800 text-xs sm:text-sm px-2">
                 <strong>Valor: USD 50</strong> • Guarda estos prompts y úsalos para generar contenido constantemente. 
