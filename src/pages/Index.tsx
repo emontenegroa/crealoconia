@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { toast } from "@/hooks/use-toast";
 import ResultsDisplay from '@/components/ResultsDisplay';
@@ -35,48 +34,6 @@ const Index = () => {
     resetForm,
     isFormValid
   } = useFormHandler();
-
-  const handleGenerateWebsite = () => {
-    const lovablePrompt = `
-Crea una página web profesional para ${formData.marca} con las siguientes características:
-
-INFORMACIÓN DEL NEGOCIO:
-- Marca: ${formData.marca}
-- Descripción: ${formData.quien_eres}
-- Problemas que resuelve: ${formData.problemas}
-- FAQ: ${formData.preguntas_frecuentes}
-- Estilo de comunicación: ${formData.estilo}
-- Producto principal: ${formData.producto}
-
-CONTACTO:
-- WhatsApp: ${formData.whatsapp}
-- Instagram: ${formData.instagram}
-- Website actual: ${formData.website}
-
-CARACTERÍSTICAS REQUERIDAS:
-- Diseño responsive y moderno
-- Sección hero con llamada a la acción
-- Sección "Sobre mí" con la descripción personal
-- Sección de problemas/soluciones
-- FAQ con preguntas frecuentes
-- Sección del producto/servicio principal
-- Botón de WhatsApp flotante
-- Enlaces a redes sociales
-- Formulario de contacto
-- Colores que reflejen el estilo ${formData.estilo}
-- Optimización SEO básica
-
-Usa React, TypeScript, Tailwind CSS y componentes modernos.
-`;
-
-    navigator.clipboard.writeText(lovablePrompt);
-    window.open('https://lovable.dev', '_blank');
-    
-    toast({
-      title: "¡Prompt copiado! 📋",
-      description: "Se abrió Lovable.dev. Pega el prompt en el chat para generar tu sitio web.",
-    });
-  };
 
   if (showResults) {
     return <ResultsDisplay formData={formData} onReset={resetForm} />;
@@ -122,7 +79,6 @@ Usa React, TypeScript, Tailwind CSS y componentes modernos.
             setNoInstagram={setNoInstagram}
             onSubmit={handleSubmit}
             isFormValid={isFormValid}
-            onGenerateWebsite={handleGenerateWebsite}
           />
         )}
 
