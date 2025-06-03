@@ -68,13 +68,7 @@ const MainForm = ({
 
           <FormStepWizard showWizard={false} currentStep={0} setCurrentStep={() => {}} stepFields={stepFields} stepLabels={stepLabels} formData={formData} noWebsite={noWebsite} noInstagram={noInstagram} onGenerateWebsite={onGenerateWebsite} />
 
-          <div className="bg-emerald-50 border border-emerald-200 p-6 mb-8 rounded-xl">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Clock className="w-6 h-6 text-emerald-600" />
-              <h3 className="text-gray-900 text-lg font-semibold">⚡ ¡Ya casi terminas!</h3>
-            </div>
-            
-          </div>
+          
 
           <Button type="submit" className="w-full py-6 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" disabled={!isFormValid}>
             <Brain className="w-6 h-6 mr-3" />
