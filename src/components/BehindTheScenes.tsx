@@ -4,7 +4,7 @@ import { CheckCircle, Rocket } from 'lucide-react';
 
 const BehindTheScenes = () => {
   return (
-    <div className="max-w-3xl mx-auto mb-20">
+    <div>
       <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">🔧 ¿Cómo lo hacemos?</h2>
       
       <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 mb-8">

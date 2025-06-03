@@ -1,6 +1,9 @@
+
 import React from 'react';
+
 const HowItWorks = () => {
-  return <div className="max-w-3xl mx-auto mb-20">
+  return (
+    <div>
       <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">¿Cómo funciona el Kit IA?</h2>
       
       <div className="space-y-8">
@@ -44,6 +47,8 @@ Nuestro equipo revisa cada sitio antes de enviártelo para garantizar que reciba
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default HowItWorks;
