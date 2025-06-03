@@ -20,7 +20,7 @@ const HowItWorks = () => {
           <div className="space-y-8 pt-4">
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                   1
                 </div>
               </div>
@@ -34,7 +34,7 @@ const HowItWorks = () => {
 
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                <div className="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                   2
                 </div>
               </div>
@@ -48,7 +48,7 @@ const HowItWorks = () => {
 
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                <div className="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                   3
                 </div>
               </div>

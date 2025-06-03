@@ -32,8 +32,8 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
       </div>
 
       {/* CTA principal simplificado */}
-      <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 max-w-xl mx-auto">
-        <p className="text-blue-600 font-bold text-xl mb-3">
+      <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-8 max-w-xl mx-auto">
+        <p className="text-emerald-600 font-bold text-xl mb-3">
           🎁 Gratis
         </p>
         <p className="text-gray-700 text-lg">

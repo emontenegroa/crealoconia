@@ -46,9 +46,9 @@ const TypewriterText = () => {
   }, [currentText, isDeleting, isPaused, currentPhraseIndex, phrases]);
 
   return (
-    <span className="text-blue-600 inline-block min-w-[400px] text-left">
+    <span className="text-emerald-600 inline-block min-w-[400px] text-left">
       {currentText}
-      <span className="animate-pulse text-blue-400">|</span>
+      <span className="animate-pulse text-emerald-400">|</span>
     </span>
   );
 };
