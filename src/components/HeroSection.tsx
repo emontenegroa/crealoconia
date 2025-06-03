@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import TypewriterText from './TypewriterText';
@@ -18,13 +19,14 @@ const HeroSection = ({
       {/* Botón de ejemplo */}
       
 
-      {/* CTA principal simplificado */}
+      {/* CTA principal actualizado */}
       <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-8 max-w-xl mx-auto">
         <p className="text-emerald-600 font-bold text-xl mb-3">
-          🎁 Gratis
+          🎁 Genera tu Kit IA sin costo
         </p>
         <p className="text-gray-700 text-lg">
-          Sin agencias. Sin plantillas. Tu web única.
+          Definimos tu contenido, estructura y base de tu web profesional.
+          Luego podrás decidir si deseas publicarla y personalizarla.
         </p>
       </div>
     </div>;
