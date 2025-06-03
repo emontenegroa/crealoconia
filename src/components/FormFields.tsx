@@ -93,7 +93,7 @@ const FormFields = ({
               }
             }}
           />
-          <label htmlFor="no-website" className="text-purple-200 text-sm cursor-pointer">
+          <label htmlFor="no-website" className="text-gray-700 text-sm cursor-pointer">
             No tengo página web (se creará automáticamente)
           </label>
         </div>
@@ -120,7 +120,7 @@ const FormFields = ({
               }
             }}
           />
-          <label htmlFor="no-instagram" className="text-purple-200 text-sm cursor-pointer">
+          <label htmlFor="no-instagram" className="text-gray-700 text-sm cursor-pointer">
             No tengo Instagram
           </label>
         </div>
