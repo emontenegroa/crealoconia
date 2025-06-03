@@ -44,7 +44,6 @@ const FAQ = () => {
           <AccordionContent className="text-emerald-700">
             Sí. Una vez que recibas tu sitio web, puedes solicitar una reunión para ajustes finales. El Kit IA también te permite generar contenido nuevo cuando lo necesites.
           </AccordionContent>
-        </AccordionContent>
         </AccordionItem>
 
         <AccordionItem value="item-5" className="border border-teal-200 rounded-lg px-6 bg-teal-50/50">
