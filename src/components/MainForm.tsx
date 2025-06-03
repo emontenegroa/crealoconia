@@ -51,9 +51,7 @@ const MainForm = ({
           <p className="flex items-center justify-center gap-2">
             📧 <strong>Recibirás tu contenido inicial por correo apenas completes el formulario.</strong>
           </p>
-          <p className="flex items-center justify-center gap-2 text-blue-700">
-            🧠 <strong>Nuevo: Puedes usar IA para optimizar tus respuestas hasta 2 veces por pregunta.</strong>
-          </p>
+          
           <p className="flex items-center justify-center gap-2 text-emerald-700">
             💾 <strong>Tu progreso se guarda automáticamente mientras avanzas.</strong>
           </p>
