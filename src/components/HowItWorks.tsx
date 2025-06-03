@@ -32,7 +32,7 @@ const HowItWorks = () => {
           <div>
             <h3 className="font-bold text-gray-900 mb-3 text-xl">Recibes tu Kit IA</h3>
             <p className="text-gray-700 text-lg leading-relaxed">
-              Al instante en tu email: prompts personalizados para generar contenido ilimitado y textos para tu web.
+              Inmediatamente después de completar el formulario recibes en tu email prompts personalizados para generar contenido ilimitado.
             </p>
           </div>
         </div>
@@ -44,9 +44,9 @@ const HowItWorks = () => {
             </div>
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 mb-3 text-xl">Nosotros creamos tu web</h3>
+            <h3 className="font-bold text-gray-900 mb-3 text-xl">Tu sitio web estará listo</h3>
             <p className="text-gray-700 text-lg leading-relaxed">
-              En 24-48 horas tienes tu sitio web funcionando, optimizado y listo para recibir clientes.
+              Dentro de máximo 4 horas (casi siempre es en minutos pero también dormimos). Te entregamos 95% terminado y funcionando.
             </p>
           </div>
         </div>
