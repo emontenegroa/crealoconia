@@ -138,6 +138,14 @@ export const useFormHandler = () => {
     setShowPricing(false);
   };
 
+  const onGenerateWebsite = () => {
+    console.log('🌐 Generando sitio web...');
+    toast({
+      title: "Sitio web en proceso",
+      description: "Tu sitio web se está generando y será enviado por email.",
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -251,6 +259,7 @@ export const useFormHandler = () => {
     handlePurchase,
     handleSubmit,
     resetForm,
-    isFormValid
+    isFormValid,
+    onGenerateWebsite
   };
 };

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { toast } from "@/hooks/use-toast";
 import ResultsDisplay from '@/components/ResultsDisplay';
@@ -32,7 +33,8 @@ const Index = () => {
     loadExampleData,
     handleSubmit,
     resetForm,
-    isFormValid
+    isFormValid,
+    onGenerateWebsite
   } = useFormHandler();
 
   if (showResults) {
@@ -79,6 +81,7 @@ const Index = () => {
             setNoInstagram={setNoInstagram}
             onSubmit={handleSubmit}
             isFormValid={isFormValid}
+            onGenerateWebsite={onGenerateWebsite}
           />
         )}
 
