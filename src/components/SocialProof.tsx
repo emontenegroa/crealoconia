@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Zap, TrendingUp, Clock, Star, Users, Award } from 'lucide-react';
 const SocialProof = () => {
@@ -8,7 +7,7 @@ const SocialProof = () => {
         <div className="flex items-center gap-3">
           <TrendingUp className="w-5 h-5 text-red-400 animate-pulse" />
           <div>
-            <p className="text-white font-semibold">🔥 Acceso exclusivo en beta</p>
+            <p className="text-white font-semibold">🔥 Acceso exclusivo</p>
             <p className="text-red-200 text-sm">Solo disponible para emprendedores seleccionados</p>
           </div>
         </div>
