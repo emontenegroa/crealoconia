@@ -5,7 +5,7 @@ import { Brain } from "lucide-react";
 
 const ImportantNotice = () => {
   return (
-    <Card className="max-w-4xl mx-auto mb-8 bg-white/95 border-emerald-200 shadow-xl">
+    <Card className="max-w-4xl mx-auto mb-8 bg-white border-emerald-200 shadow-xl">
       <CardContent className="p-6 text-center">
         <div className="flex items-center justify-center gap-3 mb-3">
           <Brain className="w-6 h-6 text-emerald-600" />

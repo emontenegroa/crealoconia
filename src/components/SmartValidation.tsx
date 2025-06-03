@@ -35,42 +35,42 @@ const SmartValidation = ({ value, fieldType, suggestions = [] }: SmartValidation
       case 'excellent':
         return {
           icon: CheckCircle2,
-          color: 'text-green-400',
-          bgColor: 'bg-green-500/20',
+          color: 'text-green-600',
+          bgColor: 'bg-green-50',
           message: '¡Excelente! Tu respuesta es muy completa.',
-          borderColor: 'border-green-400/50'
+          borderColor: 'border-green-200'
         };
       case 'valid':
         return {
           icon: CheckCircle2,
-          color: 'text-green-400',
-          bgColor: 'bg-green-500/20',
+          color: 'text-green-600',
+          bgColor: 'bg-green-50',
           message: 'Perfecto ✓',
-          borderColor: 'border-green-400/50'
+          borderColor: 'border-green-200'
         };
       case 'medium':
         return {
           icon: Lightbulb,
-          color: 'text-yellow-400',
-          bgColor: 'bg-yellow-500/20',
+          color: 'text-yellow-600',
+          bgColor: 'bg-yellow-50',
           message: 'Bien, pero puedes agregar más detalles para mejores resultados.',
-          borderColor: 'border-yellow-400/50'
+          borderColor: 'border-yellow-200'
         };
       case 'short':
         return {
           icon: AlertCircle,
-          color: 'text-orange-400',
-          bgColor: 'bg-orange-500/20',
+          color: 'text-orange-600',
+          bgColor: 'bg-orange-50',
           message: 'Muy corto. Agrega más información para mejores resultados.',
-          borderColor: 'border-orange-400/50'
+          borderColor: 'border-orange-200'
         };
       case 'invalid':
         return {
           icon: AlertCircle,
-          color: 'text-red-400',
-          bgColor: 'bg-red-500/20',
+          color: 'text-red-600',
+          bgColor: 'bg-red-50',
           message: 'Formato inválido. Verifica la información.',
-          borderColor: 'border-red-400/50'
+          borderColor: 'border-red-200'
         };
       default:
         return null;
@@ -92,8 +92,8 @@ const SmartValidation = ({ value, fieldType, suggestions = [] }: SmartValidation
           </p>
           {suggestions.length > 0 && (
             <div className="mt-2">
-              <p className="text-xs text-purple-300 mb-1">💡 Sugerencias:</p>
-              <ul className="text-xs text-purple-200 space-y-1">
+              <p className="text-xs text-purple-600 mb-1">💡 Sugerencias:</p>
+              <ul className="text-xs text-gray-600 space-y-1">
                 {suggestions.map((suggestion, index) => (
                   <li key={index}>• {suggestion}</li>
                 ))}
