@@ -4,12 +4,11 @@ import { toast } from "@/hooks/use-toast";
 import ResultsDisplay from '@/components/ResultsDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import HeroSection from '@/components/HeroSection';
-import FeatureCards from '@/components/FeatureCards';
 import ImportantNotice from '@/components/ImportantNotice';
 import ProgressDialog from '@/components/ProgressDialog';
-import SocialProof from '@/components/SocialProof';
 import MainForm from '@/components/MainForm';
-import FinalCTASection from '@/components/FinalCTASection';
+import HowItWorks from '@/components/HowItWorks';
+import FAQ from '@/components/FAQ';
 import { useFormHandler } from '@/hooks/useFormHandler';
 
 const Index = () => {
@@ -53,11 +52,7 @@ const Index = () => {
 
         <HeroSection onLoadExample={loadExampleData} />
         
-        <div className="mb-16">
-          <SocialProof />
-        </div>
-
-        <FeatureCards />
+        <HowItWorks />
         
         <ImportantNotice />
         
@@ -80,7 +75,7 @@ const Index = () => {
           />
         )}
 
-        <FinalCTASection />
+        <FAQ />
       </div>
     </div>
   );

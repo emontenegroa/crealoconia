@@ -4,12 +4,10 @@ import React, { useState, useEffect } from 'react';
 const TypewriterText = () => {
   const phrases = [
     "Bienvenidos a mi página web oficial",
-    "Somos una empresa líder en el mercado",
+    "Somos una empresa líder en el mercado", 
     "Ofrecemos los mejores servicios del rubro",
     "Contamos con años de experiencia",
-    "Nuestro equipo está altamente capacitado",
-    "Brindamos soluciones innovadoras",
-    "Tenemos la mejor calidad del mercado"
+    "Nuestro equipo está altamente capacitado"
   ];
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -49,19 +47,19 @@ const TypewriterText = () => {
   }, [currentText, isDeleting, isPaused, currentPhraseIndex, phrases]);
 
   return (
-    <div className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
+    <div className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
       <strong className="text-gray-900">¿Cansado de escribir lo mismo que todos?</strong>
       <br />
-      <div className="mt-6 mb-6 min-h-[2em] flex items-center justify-center">
+      <div className="mt-4 mb-4 min-h-[1.5em] flex items-center justify-center">
         <span className="text-blue-600 font-medium italic">
           "{currentText}"
           <span className="animate-pulse text-blue-400">|</span>
         </span>
       </div>
       <span className="text-gray-900 font-semibold">
-        Creamos esta plataforma para hacerte la vida fácil.
+        Creamos tu sitio web único en minutos.
         <br />
-        Sin perder tiempo en agencias. Sin textos genéricos. Tu web única en minutos.
+        Sin plantillas. Sin textos genéricos.
       </span>
     </div>
   );
