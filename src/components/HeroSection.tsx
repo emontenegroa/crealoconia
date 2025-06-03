@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Brain, Sparkles, Target, Globe, MessageSquare, Clock, Star, Zap, TrendingUp, Heart } from "lucide-react";
@@ -21,14 +22,14 @@ const HeroSection = ({
           Kit IA de Esteban
         </h1>
         <h2 className="text-2xl md:text-4xl text-white mb-6 font-bold">
-          🚀 Tu negocio digital en 5 minutos
+          🚀 Tu presencia digital profesional en minutos
         </h2>
         
         {/* Hook emocional conectando con el dolor real */}
         <p className="text-lg md:text-xl text-purple-100 max-w-4xl mx-auto leading-relaxed mb-6 font-medium">
-          <strong className="text-red-300">¿Estás perdiendo clientes porque no tienes presencia digital profesional?</strong> 
+          <strong className="text-red-300">¿Sigues perdiendo clientes porque no tienes presencia digital profesional?</strong> 
           <br />
-          <span className="text-yellow-200">¡Se acabó!</span> Este kit gratuito te da exactamente lo que usan las marcas exitosas para generar clientes todos los días.
+          <span className="text-yellow-200">¡Se acabó!</span> Este kit te entrega exactamente lo que usan las marcas exitosas para atraer clientes automáticamente.
           <br />
           <span className="text-green-200">✨ Sin conocimientos técnicos. Sin complicaciones. Sin excusas.</span>
         </p>
@@ -37,9 +38,9 @@ const HeroSection = ({
         <div className="max-w-3xl mx-auto mb-6">
           <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-300/40 backdrop-blur-lg rounded-xl p-4 mb-4">
             <p className="text-orange-200 font-bold text-lg flex items-center justify-center gap-2">
-              ⏰ <strong>Disponible solo para algunas personas</strong>
+              ⚡ <strong>Acceso exclusivo por tiempo limitado</strong>
             </p>
-            <p className="text-red-200 text-sm mt-1">Si estas aquí es por que te he seleccionado para que lo utilices </p>
+            <p className="text-red-200 text-sm mt-1">Solo para emprendedores que quieren resultados reales</p>
           </div>
         </div>
         
@@ -48,12 +49,12 @@ const HeroSection = ({
           <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-300/30 backdrop-blur-lg rounded-xl p-6 mb-6">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Heart className="w-6 h-6 text-green-300" />
-              <h3 className="text-white text-xl font-bold">💚 Completamente GRATIS</h3>
+              <h3 className="text-white text-xl font-bold">💚 Kit IA Completo - Acceso Inmediato</h3>
             </div>
             <p className="text-green-100 font-medium text-center">
-              Valor real de este kit: <span className="text-yellow-200 text-lg font-bold">$197 USD</span>
+              <strong className="text-green-200">Completa el formulario y accede inmediatamente a tu kit personalizado</strong>
               <br />
-              <strong className="text-green-200">Tu precio hoy: $0 - Solo completa el formulario</strong>
+              <span className="text-yellow-200">+ Bonus especial: Tu sitio web profesional en producción</span>
             </p>
           </div>
         </div>
@@ -63,16 +64,16 @@ const HeroSection = ({
           <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-xl p-6">
             <h3 className="text-white text-xl font-bold mb-6 flex items-center justify-center gap-2">
               <Sparkles className="w-8 h-8 text-yellow-300" />
-              ✅ Recibes en tu email en los próximos 5 minutos:
+              ✅ Esto es lo que vas a recibir (en orden):
             </h3>
             
-            <div className="grid md:grid-cols-2 gap-4 text-left">
+            <div className="grid md:grid-cols-2 gap-4 text-left mb-6">
               <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 p-4 rounded-lg border border-green-300/30">
                 <div className="flex items-start gap-3">
                   <MessageSquare className="w-6 h-6 text-green-300 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="text-yellow-200 font-bold mb-1">15 posts virales probados</h4>
-                    <p className="text-green-100 text-sm">+ 30 stories + 5 reels que generan ventas reales para Instagram</p>
+                    <h4 className="text-yellow-200 font-bold mb-1">📧 1. Kit IA inmediato (email)</h4>
+                    <p className="text-green-100 text-sm">15 posts virales + 30 stories + 5 reels + copy persuasivo personalizado</p>
                   </div>
                 </div>
               </div>
@@ -81,8 +82,8 @@ const HeroSection = ({
                 <div className="flex items-start gap-3">
                   <Brain className="w-6 h-6 text-blue-300 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="text-yellow-200 font-bold mb-1">Tu asistente de marketing 24/7</h4>
-                    <p className="text-blue-100 text-sm">Especialista IA que crea contenido ilimitado para tu negocio</p>
+                    <h4 className="text-yellow-200 font-bold mb-1">🤖 2. Tu asistente IA 24/7</h4>
+                    <p className="text-blue-100 text-sm">Prompt especialista que genera contenido ilimitado para tu marca</p>
                   </div>
                 </div>
               </div>
@@ -91,8 +92,8 @@ const HeroSection = ({
                 <div className="flex items-start gap-3">
                   <Globe className="w-6 h-6 text-purple-300 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="text-yellow-200 font-bold mb-1">Tu web profesional automática</h4>
-                    <p className="text-purple-100 text-sm">Código completo listo para usar y generar tu sitio profesional en minutos con IA</p>
+                    <h4 className="text-yellow-200 font-bold mb-1">🌐 3. Textos de tu web profesional</h4>
+                    <p className="text-purple-100 text-sm">Títulos, propuesta de valor y copy completo listo para implementar</p>
                   </div>
                 </div>
               </div>
@@ -101,19 +102,30 @@ const HeroSection = ({
                 <div className="flex items-start gap-3">
                   <Target className="w-6 h-6 text-pink-300 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="text-yellow-200 font-bold mb-1">Textos que venden por ti</h4>
-                    <p className="text-pink-100 text-sm">Copy persuasivo para bio, posts y todas tus redes sociales</p>
+                    <h4 className="text-yellow-200 font-bold mb-1">🎁 4. BONUS: Tu sitio web real</h4>
+                    <p className="text-pink-100 text-sm">URL funcionando que podrás revisar y personalizar</p>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* Proceso paso a paso */}
+            <div className="bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border border-indigo-300/30 rounded-lg p-4">
+              <h4 className="text-indigo-200 font-bold mb-3 text-center">📋 Cómo funciona:</h4>
+              <div className="space-y-2 text-indigo-100 text-sm">
+                <p><strong>Paso 1:</strong> Completas el formulario (5 minutos) ⏱️</p>
+                <p><strong>Paso 2:</strong> Recibes tu Kit IA por email (inmediato) 📧</p>
+                <p><strong>Paso 3:</strong> Te enviamos la URL de tu sitio web para revisión 🌐</p>
+                <p><strong>Paso 4:</strong> Puedes solicitar ajustes y personalizaciones 🎨</p>
               </div>
             </div>
             
             <div className="mt-6 pt-4 border-t border-white/20 text-center">
               <p className="text-yellow-200 font-bold text-lg">
-                📧 <strong>Todo llega a tu email automáticamente</strong>
+                🎯 <strong>Todo personalizado para TU negocio específico</strong>
               </p>
               <p className="text-green-300 text-sm mt-2">
-                ⚡ Listo para usar inmediatamente - Sin esperas, sin complicaciones
+                ⚡ No son plantillas genéricas - Es contenido pensado para ti
               </p>
             </div>
           </div>
@@ -125,7 +137,7 @@ const HeroSection = ({
         </p>
       </div>
 
-      {/* CTA para ver ejemplo */}
+      {/* CTA para ver ejemplo - removido precio */}
       
     </>;
 };
