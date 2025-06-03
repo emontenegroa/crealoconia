@@ -24,7 +24,7 @@ const FAQ = () => {
             ¿Cuánto tiempo toma tener mi sitio web listo?
           </AccordionTrigger>
           <AccordionContent className="text-gray-800 font-medium">
-            Recibes el Kit IA inmediatamente después de completar el formulario. Tu sitio web estará listo en 24-48 horas, 95% terminado y funcionando.
+            Recibes el Kit IA inmediatamente después de completar el formulario. Tu sitio web normalmente está listo en minutos, aunque dependiendo de la demanda puede tardar máximo 4 horas.
           </AccordionContent>
         </AccordionItem>
 
