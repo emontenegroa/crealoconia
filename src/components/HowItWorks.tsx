@@ -25,9 +25,7 @@ const HowItWorks = () => {
           <div>
             <h3 className="font-bold text-gray-900 mb-3 text-xl">Recibes tu Kit IA</h3>
             <p className="text-gray-700 text-lg leading-relaxed">Apenas terminas el formulario, generamos y te enviamos: 
-• Los textos base para tu web profesional 
-• Un prompt exclusivo para seguir creando contenido con IA 
-• 15 días de publicaciones (posts, reels y stories listos para usar) Todo lo que necesitas para empezar a construir tu presencia online con claridad.</p>
+• Los textos base para tu web profesional • Un prompt exclusivo para seguir creando contenido con IA • 15 días de publicaciones (posts, reels y stories listos para usar) Todo lo que necesitas para empezar a construir tu presencia online con claridad.</p>
           </div>
         </div>
 
