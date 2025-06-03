@@ -49,7 +49,7 @@ const MainForm = ({
   ];
 
   return (
-    <Card className="max-w-4xl mx-auto bg-white/10 border-white/20 backdrop-blur-xl shadow-2xl">
+    <Card className="max-w-4xl mx-auto bg-gradient-to-br from-purple-900 to-blue-900 border-purple-700 shadow-2xl">
       <CardHeader className="text-center pb-8">
         <CardTitle className="text-2xl text-white flex items-center justify-center gap-3">
           <Sparkles className="w-8 h-8 text-yellow-300" />
