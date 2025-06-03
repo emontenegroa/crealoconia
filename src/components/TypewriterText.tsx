@@ -3,13 +3,13 @@ import React, { useState, useEffect } from 'react';
 
 const TypewriterText = () => {
   const phrases = [
-    "mi nombre es Juan Pablo y vendo cursos online",
-    "soy María y ofrezco consultoría en marketing",
-    "me llamo Carlos y tengo un negocio de coaching",
-    "soy Ana y vendo productos digitales",
-    "mi nombre es Luis y ofrezco servicios de diseño",
-    "soy Patricia y tengo una tienda de ropa",
-    "me llamo Roberto y doy clases particulares"
+    "Bienvenidos a mi página web oficial",
+    "Somos una empresa líder en el mercado",
+    "Ofrecemos los mejores servicios del rubro",
+    "Contamos con años de experiencia",
+    "Nuestro equipo está altamente capacitado",
+    "Brindamos soluciones innovadoras",
+    "Tenemos la mejor calidad del mercado"
   ];
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -50,7 +50,7 @@ const TypewriterText = () => {
 
   return (
     <div className="text-xl md:text-2xl text-purple-200 mb-8 max-w-4xl mx-auto leading-relaxed">
-      <strong>¿Cansado de buscar plantillas y escribir textos para tu web?</strong>
+      <strong>¿Cansado de escribir lo mismo que todos?</strong>
       <br />
       <div className="mt-4 mb-4 min-h-[2em] flex items-center justify-center">
         <span className="text-yellow-300 font-medium italic">
@@ -59,9 +59,9 @@ const TypewriterText = () => {
         </span>
       </div>
       <span className="text-white font-semibold">
-        Solo respondes 10 preguntas específicas y nosotros generamos tu sitio web completo.
+        Creamos esta plataforma para hacerte la vida fácil.
         <br />
-        Sin plantillas genéricas. Sin agencias. Directo al resultado.
+        Sin perder tiempo en agencias. Sin textos genéricos. Tu web única en minutos.
       </span>
     </div>
   );
