@@ -134,12 +134,12 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
 
               {/* Mientras tanto */}
               <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">🎯 Mientras esperás tu sitio web:</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">🎯 Mientras esperas tu sitio web:</h3>
                 <div className="space-y-2 text-gray-700 text-left">
                   <p>📧 Revisa tu Kit IA en el email</p>
                   <p>📱 Empieza a usar el contenido en redes sociales</p>
                   <p>🤖 Prueba tu asistente IA en ChatGPT</p>
-                  <p>⏳ Estate atento al email con la URL de tu sitio</p>
+                  <p>📬 Te pedimos estar atento al email con la URL de tu sitio</p>
                 </div>
               </div>
 
