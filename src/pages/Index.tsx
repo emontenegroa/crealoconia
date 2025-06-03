@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { toast } from "@/hooks/use-toast";
 import ResultsDisplay from '@/components/ResultsDisplay';
@@ -9,6 +8,7 @@ import ProgressDialog from '@/components/ProgressDialog';
 import MainForm from '@/components/MainForm';
 import HowItWorks from '@/components/HowItWorks';
 import FAQ from '@/components/FAQ';
+import BehindTheScenes from '@/components/BehindTheScenes';
 import { useFormHandler } from '@/hooks/useFormHandler';
 
 const Index = () => {
@@ -53,6 +53,8 @@ const Index = () => {
         <HeroSection onLoadExample={loadExampleData} />
         
         <HowItWorks />
+        
+        <BehindTheScenes />
         
         <ImportantNotice />
         
