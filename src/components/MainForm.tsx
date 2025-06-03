@@ -53,15 +53,30 @@ const MainForm = ({
       <CardHeader className="text-center pb-8 bg-gray-50 border-b border-gray-200">
         <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-3">
           <Sparkles className="w-8 h-8 text-blue-600" />
-          Completa estos 10 campos para recibir tu Kit IA personalizado
+          Responde estas 10 preguntas para generar tu Kit IA personalizado
         </CardTitle>
-        <p className="text-gray-700 mt-4">
-          ⏱️ <strong>Tiempo estimado: 3-5 minutos</strong> | 📧 <strong>Lo recibirás al instante en tu email</strong>
-          <br />
-          <span className="text-blue-700 font-medium">🧠 ¡Nuevo! Usa IA para mejorar tus respuestas (2 veces por campo)</span>
-          <br />
-          <span className="text-emerald-700 text-sm">💾 Tu progreso se guarda automáticamente</span>
+        <p className="text-gray-700 mt-4 text-lg leading-relaxed">
+          Cada respuesta nos permite construir los textos, estructura y contenido de tu sitio profesional basado en tu negocio.
         </p>
+        <div className="mt-6 space-y-2 text-gray-700">
+          <p className="flex items-center justify-center gap-2">
+            ⏱️ <strong>Tiempo estimado: 3-5 minutos</strong>
+          </p>
+          <p className="flex items-center justify-center gap-2">
+            📧 <strong>Recibirás tu contenido inicial por correo apenas completes el formulario.</strong>
+          </p>
+          <p className="flex items-center justify-center gap-2 text-blue-700">
+            🧠 <strong>Nuevo: Puedes usar IA para optimizar tus respuestas hasta 2 veces por pregunta.</strong>
+          </p>
+          <p className="flex items-center justify-center gap-2 text-emerald-700">
+            💾 <strong>Tu progreso se guarda automáticamente mientras avanzas.</strong>
+          </p>
+        </div>
+        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <p className="text-blue-800 font-medium">
+            🔎 <strong>Recuerda:</strong> cuanto más claro seas en tus respuestas, mejor será el resultado que generemos para ti.
+          </p>
+        </div>
       </CardHeader>
       <CardContent className="p-8 bg-white">
         <form onSubmit={onSubmit} className="space-y-8">
