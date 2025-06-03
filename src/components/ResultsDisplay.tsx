@@ -104,7 +104,10 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
                     Nuestro sistema ya está generando tu sitio web personalizado.
                   </p>
                   <p className="text-base text-center">
-                    <strong>Dentro de máximo 4 horas recibirás:</strong>
+                    <strong>Normalmente lo tenemos listo en minutos, aunque dependiendo de la demanda puede tardar máximo 4 horas.</strong>
+                  </p>
+                  <p className="text-base text-center">
+                    <strong>Recibirás:</strong>
                   </p>
                   <div className="bg-white border border-blue-200 rounded-lg p-4 text-left space-y-2 text-sm">
                     <p>🌐 URL de tu sitio web funcionando</p>
