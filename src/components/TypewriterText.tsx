@@ -49,16 +49,16 @@ const TypewriterText = () => {
   }, [currentText, isDeleting, isPaused, currentPhraseIndex, phrases]);
 
   return (
-    <div className="text-xl md:text-2xl text-purple-200 mb-8 max-w-4xl mx-auto leading-relaxed">
-      <strong>¿Cansado de escribir lo mismo que todos?</strong>
+    <div className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
+      <strong className="text-gray-900">¿Cansado de escribir lo mismo que todos?</strong>
       <br />
-      <div className="mt-4 mb-4 min-h-[2em] flex items-center justify-center">
-        <span className="text-yellow-300 font-medium italic">
+      <div className="mt-6 mb-6 min-h-[2em] flex items-center justify-center">
+        <span className="text-blue-600 font-medium italic">
           "{currentText}"
-          <span className="animate-pulse text-yellow-400">|</span>
+          <span className="animate-pulse text-blue-400">|</span>
         </span>
       </div>
-      <span className="text-white font-semibold">
+      <span className="text-gray-900 font-semibold">
         Creamos esta plataforma para hacerte la vida fácil.
         <br />
         Sin perder tiempo en agencias. Sin textos genéricos. Tu web única en minutos.
