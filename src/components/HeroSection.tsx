@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Sparkles, Zap, Clock } from "lucide-react";
+import TypewriterText from './TypewriterText';
 
 interface HeroSectionProps {
   onLoadExample: () => void;
@@ -16,15 +16,7 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           <br />
           para crear tu sitio web
         </h1>
-        <p className="text-xl md:text-2xl text-purple-200 mb-8 max-w-4xl mx-auto leading-relaxed">
-          <strong>¿Cansado de buscar plantillas y escribir textos para tu web?</strong>
-          <br />
-          Respondes 10 preguntas específicas sobre tu negocio y nosotros generamos tu sitio web completo.
-          <br />
-          <span className="text-white font-semibold">
-            Sin plantillas genéricas. Sin agencias. Directo al resultado.
-          </span>
-        </p>
+        <TypewriterText />
       </div>
 
       {/* Proceso simplificado */}
