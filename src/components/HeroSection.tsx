@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Sparkles, Zap, Clock } from "lucide-react";
@@ -16,20 +17,12 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           para crear tu sitio web
         </h1>
         <p className="text-xl md:text-2xl text-purple-200 mb-8 max-w-4xl mx-auto leading-relaxed">
-          <strong>¿Cansado de pasar semanas eligiendo entre miles de plantillas que nunca te convencen?</strong>
+          <strong>¿Cansado de buscar plantillas y escribir textos para tu web?</strong>
           <br />
-          ¿Frustrado escribiendo textos que no suenan profesionales? ¿Abrumado por la tecnología?
+          Respondes 10 preguntas específicas sobre tu negocio y nosotros generamos tu sitio web completo.
           <br />
-          <span className="text-yellow-200 font-bold text-2xl md:text-3xl">
-            ✨ Esto cambió para siempre. 
-          </span>
-          <br />
-          <span className="text-white">
-            Después de meses perfeccionando este sistema, creamos algo único: respondes 10 preguntas y nosotros construimos tu sitio web completo.
-          </span>
-          <br />
-          <span className="text-green-300 font-semibold">
-            Sin plantillas. Sin redacción. Sin tecnología. Sin agencias.
+          <span className="text-white font-semibold">
+            Sin plantillas genéricas. Sin agencias. Directo al resultado.
           </span>
         </p>
       </div>
@@ -108,10 +101,10 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
       {/* CTA principal mejorado */}
       <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-300/30 backdrop-blur-lg rounded-xl p-6 max-w-2xl mx-auto">
         <p className="text-yellow-200 font-bold text-lg mb-2">
-          🎁 El futuro de crear sitios web está aquí
+          🎁 Empieza ahora
         </p>
         <p className="text-orange-200">
-          10 preguntas. 95% automatizado. Tu presencia digital revolucionada.
+          10 preguntas. Sitio web funcionando. Así de simple.
         </p>
       </div>
     </div>
