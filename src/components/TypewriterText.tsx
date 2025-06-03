@@ -3,11 +3,10 @@ import React, { useState, useEffect } from 'react';
 
 const TypewriterText = () => {
   const phrases = [
-    "Bienvenidos a mi página web oficial",
-    "Somos una empresa líder en el mercado", 
-    "Ofrecemos los mejores servicios del rubro",
-    "Contamos con años de experiencia",
-    "Nuestro equipo está altamente capacitado"
+    "crear tu sitio web",
+    "diseñar y lanzar tu producto", 
+    "vender tus servicios",
+    "publicitar tu agencia"
   ];
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -47,21 +46,10 @@ const TypewriterText = () => {
   }, [currentText, isDeleting, isPaused, currentPhraseIndex, phrases]);
 
   return (
-    <div className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-      <strong className="text-gray-900">¿Cansado de escribir lo mismo que todos?</strong>
-      <br />
-      <div className="mt-4 mb-4 min-h-[1.5em] flex items-center justify-center">
-        <span className="text-blue-600 font-medium italic">
-          "{currentText}"
-          <span className="animate-pulse text-blue-400">|</span>
-        </span>
-      </div>
-      <span className="text-gray-900 font-semibold">
-        Creamos tu sitio web único en minutos.
-        <br />
-        Sin plantillas. Sin textos genéricos.
-      </span>
-    </div>
+    <span className="text-blue-600 inline-block min-w-[400px] text-left">
+      {currentText}
+      <span className="animate-pulse text-blue-400">|</span>
+    </span>
   );
 };
 
