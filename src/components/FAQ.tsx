@@ -60,7 +60,21 @@ const FAQ = () => {
             ¿Realmente es gratis?
           </AccordionTrigger>
           <AccordionContent className="text-gray-800 font-medium">
-            Sí, el Kit IA es completamente gratis. Es nuestro lead magnet para demostrar el valor que podemos entregar. No hay costos ocultos para recibir tu Kit IA personalizado.
+            <div className="space-y-3">
+              <p className="font-semibold text-emerald-700">✅ Sí. El Kit IA es 100% gratuito.</p>
+              <p>Recibes sin costo:</p>
+              <ul className="list-disc list-inside space-y-1 ml-4">
+                <li>Los textos base de tu sitio web.</li>
+                <li>El prompt personalizado para ChatGPT.</li>
+                <li>15 días de contenido para tus redes sociales.</li>
+              </ul>
+              
+              <div className="mt-4 pt-3 border-t border-gray-200">
+                <p className="font-semibold text-blue-700">🎯 ¿Y el sitio web?</p>
+                <p className="mt-2">Generamos una versión preliminar de tu sitio web profesional a partir de tus respuestas, que también podrás revisar sin compromiso.</p>
+                <p className="mt-2">Si después decides avanzar para personalizar, publicar y dejar tu sitio funcionando, ahí sí tendrás un costo fijo por el servicio de publicación profesional.</p>
+              </div>
+            </div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
