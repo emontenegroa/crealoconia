@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 
 const TypewriterText = () => {
   const phrases = [
-    "crear tu sitio web",
-    "diseñar y lanzar tu producto", 
-    "vender tus servicios",
-    "publicitar tu agencia"
+    "crear tu web profesional",
+    "lanzar tu negocio online", 
+    "vender más servicios",
+    "generar más clientes"
   ];
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -46,9 +46,9 @@ const TypewriterText = () => {
   }, [currentText, isDeleting, isPaused, currentPhraseIndex, phrases]);
 
   return (
-    <span className="text-purple-600 font-bold inline-block min-w-[300px] sm:min-w-[450px] text-left min-h-[2.4em] sm:min-h-[1.2em] leading-tight">
+    <span className="text-blue-600 font-bold inline-block min-w-[280px] sm:min-w-[350px] text-left min-h-[1.2em] leading-tight">
       {currentText}
-      <span className="animate-pulse text-purple-400">|</span>
+      <span className="animate-pulse text-blue-400">|</span>
     </span>
   );
 };

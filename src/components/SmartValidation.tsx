@@ -35,26 +35,26 @@ const SmartValidation = ({ value, fieldType, suggestions = [] }: SmartValidation
       case 'excellent':
         return {
           icon: CheckCircle2,
-          color: 'text-green-600',
-          bgColor: 'bg-green-50',
+          color: 'text-emerald-600',
+          bgColor: 'bg-emerald-50',
           message: '¡Excelente! Tu respuesta es muy completa.',
-          borderColor: 'border-green-200'
+          borderColor: 'border-emerald-200'
         };
       case 'valid':
         return {
           icon: CheckCircle2,
-          color: 'text-green-600',
-          bgColor: 'bg-green-50',
+          color: 'text-emerald-600',
+          bgColor: 'bg-emerald-50',
           message: 'Perfecto ✓',
-          borderColor: 'border-green-200'
+          borderColor: 'border-emerald-200'
         };
       case 'medium':
         return {
           icon: Lightbulb,
-          color: 'text-yellow-600',
-          bgColor: 'bg-yellow-50',
+          color: 'text-amber-600',
+          bgColor: 'bg-amber-50',
           message: 'Bien, pero puedes agregar más detalles para mejores resultados.',
-          borderColor: 'border-yellow-200'
+          borderColor: 'border-amber-200'
         };
       case 'short':
         return {
@@ -92,7 +92,7 @@ const SmartValidation = ({ value, fieldType, suggestions = [] }: SmartValidation
           </p>
           {suggestions.length > 0 && (
             <div className="mt-2">
-              <p className="text-xs text-purple-600 mb-1">💡 Sugerencias:</p>
+              <p className="text-xs text-blue-600 mb-1">💡 Sugerencias:</p>
               <ul className="text-xs text-gray-600 space-y-1">
                 {suggestions.map((suggestion, index) => (
                   <li key={index}>• {suggestion}</li>
