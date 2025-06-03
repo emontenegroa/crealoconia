@@ -17,11 +17,11 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           para crear tu sitio web
         </h1>
         <p className="text-xl md:text-2xl text-purple-200 mb-8 max-w-4xl mx-auto leading-relaxed">
-          <strong>Contesta 10 preguntas y recibe:</strong>
+          <strong>¿Cansado de buscar entre miles de plantillas, escribir textos y lidiar con la tecnología?</strong>
           <br />
-          ✅ Kit IA con contenido listo para usar
+          ¡Se acabó el estrés! Solo respondes unas preguntas y nosotros creamos tu sitio web completo.
           <br />
-          🌐 Tu sitio web creado automáticamente
+          ✨ Sin plantillas genéricas. Sin tecnicismos. Sin contratar agencias.
         </p>
       </div>
 
