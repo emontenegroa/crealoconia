@@ -80,7 +80,7 @@ const FormField = ({
     <div className="space-y-3 group">
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
         <Label className="text-gray-900 text-base sm:text-lg font-medium flex items-center gap-3 flex-1 min-w-0">
-          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600 group-hover:text-purple-700 transition-colors flex-shrink-0" />
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 group-hover:text-blue-700 transition-colors flex-shrink-0" />
           <span className="break-words">{label}</span>
         </Label>
         
@@ -103,7 +103,7 @@ const FormField = ({
           value={value}
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
-          className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500 focus:bg-white focus:border-purple-500 transition-all duration-300 py-3 text-base sm:text-lg"
+          className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500 focus:bg-white focus:border-blue-500 transition-all duration-300 py-3 text-base sm:text-lg"
         />
       )}
       
@@ -113,13 +113,13 @@ const FormField = ({
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
           rows={4}
-          className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500 focus:bg-white focus:border-purple-500 transition-all duration-300 text-base sm:text-lg resize-none"
+          className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500 focus:bg-white focus:border-blue-500 transition-all duration-300 text-base sm:text-lg resize-none"
         />
       )}
       
       {type === 'select' && (
         <Select value={value} onValueChange={handleChange}>
-          <SelectTrigger className="bg-gray-50 border-gray-300 text-gray-900 focus:bg-white focus:border-purple-500 transition-all duration-300 py-3 text-base sm:text-lg">
+          <SelectTrigger className="bg-gray-50 border-gray-300 text-gray-900 focus:bg-white focus:border-blue-500 transition-all duration-300 py-3 text-base sm:text-lg">
             <SelectValue placeholder="Selecciona tu estilo" className="text-gray-500" />
           </SelectTrigger>
           <SelectContent className="bg-white border-gray-300">
@@ -127,7 +127,7 @@ const FormField = ({
               <SelectItem 
                 key={option} 
                 value={option}
-                className="text-gray-900 hover:bg-purple-50 focus:bg-purple-50 cursor-pointer"
+                className="text-gray-900 hover:bg-blue-50 focus:bg-blue-50 cursor-pointer"
               >
                 {option}
               </SelectItem>

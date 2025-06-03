@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Brain, Loader2, Sparkles, Zap } from "lucide-react";
@@ -267,7 +268,7 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-2 sm:mt-0">
       {canUseAI && !isEnhancing && usageCount > 0 && (
-        <div className="text-xs text-purple-300 whitespace-nowrap hidden sm:block">
+        <div className="text-xs text-blue-300 whitespace-nowrap hidden sm:block">
           Próximo: {getModeLabel()}
         </div>
       )}
@@ -279,9 +280,8 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
         variant="outline"
         size="sm"
         className={`
-          bg-gradient-to-r from-purple-600 to-pink-600 
-          hover:from-purple-700 hover:to-pink-700
-          border-purple-400 text-white font-medium
+          bg-blue-600 hover:bg-blue-700
+          border-blue-400 text-white font-medium
           shadow-lg hover:shadow-xl
           transition-all duration-200
           flex items-center gap-1.5 sm:gap-2
