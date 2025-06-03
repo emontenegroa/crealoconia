@@ -38,9 +38,9 @@ Todo lo que necesitas para empezar a construir tu presencia online con claridad.
           </div>
           <div>
             <h3 className="font-bold text-gray-900 mb-3 text-xl">Tu sitio web estará listo</h3>
-            <p className="text-gray-700 text-lg leading-relaxed">
-              Dentro de máximo 4 horas (casi siempre es en minutos pero también dormimos). Te entregamos 95% terminado y funcionando.
-            </p>
+            <p className="text-gray-700 text-lg leading-relaxed">Con tus respuestas generamos internamente la primera versión de tu sitio web, listo para revisar.
+Normalmente lo tenemos en minutos, aunque en horas de alta demanda puede tardar un máximo de 4 horas.
+Nuestro equipo revisa cada sitio antes de enviártelo para garantizar que recibas una base profesional, no solo una plantilla genérica.</p>
           </div>
         </div>
       </div>
