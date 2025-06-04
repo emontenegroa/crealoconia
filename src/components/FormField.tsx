@@ -1,10 +1,11 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { LucideIcon } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { LucideIcon, Maximize2, Minimize2 } from 'lucide-react';
 import AIEnhanceButton from './AIEnhanceButton';
 import SmartValidation from './SmartValidation';
 
@@ -40,6 +41,8 @@ const FormField = ({
   sessionId = '',
   onAIUsageUpdate = () => {}
 }: FormFieldProps) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const handleChange = (newValue: string) => {
     onChange(name, newValue);
   };
@@ -84,8 +87,30 @@ const FormField = ({
           <span className="break-words">{label}</span>
         </Label>
         
-        {showAIEnhance && (type === 'textarea' || type === 'input') && (
-          <div className="flex-shrink-0">
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {type === 'textarea' && (
+            <Button
+              type="button"
+              onClick={() => setIsExpanded(!isExpanded)}
+              variant="outline"
+              size="sm"
+              className="border-gray-300 text-gray-600 hover:text-gray-800 hover:border-gray-400 transition-all duration-200"
+            >
+              {isExpanded ? (
+                <>
+                  <Minimize2 className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline ml-1">Contraer</span>
+                </>
+              ) : (
+                <>
+                  <Maximize2 className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline ml-1">Expandir</span>
+                </>
+              )}
+            </Button>
+          )}
+          
+          {showAIEnhance && (type === 'textarea' || type === 'input') && (
             <AIEnhanceButton
               currentText={value}
               fieldType={name}
@@ -94,8 +119,8 @@ const FormField = ({
               sessionId={sessionId}
               onUsageUpdate={onAIUsageUpdate}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
       
       {type === 'input' && (
@@ -112,7 +137,7 @@ const FormField = ({
           value={value}
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
-          rows={4}
+          rows={isExpanded ? 8 : 4}
           className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500 focus:bg-white focus:border-blue-500 transition-all duration-300 text-base sm:text-lg resize-none"
         />
       )}

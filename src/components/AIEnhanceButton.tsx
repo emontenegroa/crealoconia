@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Brain, Loader2, Sparkles, Zap } from "lucide-react";
@@ -302,10 +301,13 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
           <>
             <Brain className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
             <span className="hidden sm:inline">{getModeIcon()}</span>
-            <span className="hidden lg:inline">
+            <span className="hidden md:inline">
               {canUseAI ? `${getModeLabel()} con IA (${remainingUses})` : 'Límite alcanzado'}
             </span>
-            <span className="lg:hidden">
+            <span className="md:hidden sm:inline">
+              {canUseAI ? `Mejorar IA (${remainingUses})` : 'Límite'}
+            </span>
+            <span className="sm:hidden">
               {canUseAI ? `IA (${remainingUses})` : 'Límite'}
             </span>
           </>
