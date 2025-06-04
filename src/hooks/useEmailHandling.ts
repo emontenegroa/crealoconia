@@ -89,7 +89,7 @@ El objetivo es crear una experiencia web que genere confianza, eduque al visitan
 
       const emailData = {
         sender: {
-          name: "Kit IA de Esteban",
+          name: "Hazlo con IA",
           email: "esteban.montenegro@gmail.com"
         },
         to: [
@@ -98,11 +98,11 @@ El objetivo es crear una experiencia web que genere confianza, eduque al visitan
             name: "Esteban Montenegro"
           }
         ],
-        subject: `🚀 Nuevo Kit IA generado para: ${formData.marca} - CREAR WEB MANUALMENTE`,
+        subject: `🚀 Nuevo sitio generado para: ${formData.marca} - CREAR WEB MANUALMENTE`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
             <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🧠 Nuevo Kit IA Generado</h1>
+              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🚀 Nuevo sitio generado con Hazlo con IA</h1>
               
               <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h2 style="color: #374151; margin-top: 0; font-size: 20px;">📊 Información de la Marca</h2>
@@ -142,7 +142,7 @@ El objetivo es crear una experiencia web que genere confianza, eduque al visitan
 
               <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
                 <p style="margin: 0; color: #6B7280; font-size: 14px;">
-                  Kit IA generado el ${new Date().toLocaleDateString('es-ES', { 
+                  Sitio generado con Hazlo con IA el ${new Date().toLocaleDateString('es-ES', { 
                     year: 'numeric', 
                     month: 'long', 
                     day: 'numeric',
@@ -345,7 +345,7 @@ ${contactInfo()}`;
       
       const confirmationEmailData = {
         sender: {
-          name: "Kit IA de Esteban",
+          name: "Hazlo con IA",
           email: "esteban.montenegro@gmail.com"
         },
         to: [
@@ -354,11 +354,11 @@ ${contactInfo()}`;
             name: formData.marca
           }
         ],
-        subject: `🎯 Tu Kit IA está listo (y esto recién comienza)`,
+        subject: `🎯 Tu sitio web ya está en proceso (esto recién comienza)`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
             <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🎯 Tu Kit IA está listo (y esto recién comienza)</h1>
+              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🎯 Tu sitio web ya está en proceso (esto recién comienza)</h1>
               
               <p style="font-size: 18px; color: #374151; margin-bottom: 20px;">Hola <strong>${formData.marca}</strong>,</p>
               
@@ -415,15 +415,9 @@ ${contactInfo()}`;
                 </p>
               </div>
 
-              <div style="text-align: center; margin: 30px 0;">
-                <p style="color: #6B7280; font-size: 14px; margin: 0;">
-                  Valor del kit: <strong style="color: #7C3AED;">USD $50</strong> - ¡Completamente gratis para ti!
-                </p>
-              </div>
-
               <div style="background: #F9FAFB; padding: 20px; border-radius: 8px; text-align: center; margin-top: 30px;">
                 <p style="margin: 0; color: #6B7280; font-size: 14px;">
-                  El equipo de <strong>Kit IA</strong><br>
+                  El equipo de <strong>Hazlo con IA</strong><br>
                   ${new Date().toLocaleDateString('es-ES', { 
                     year: 'numeric', 
                     month: 'long', 
