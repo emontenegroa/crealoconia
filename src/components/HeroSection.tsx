@@ -2,9 +2,11 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import TypewriterText from './TypewriterText';
+
 interface HeroSectionProps {
   onLoadExample: () => void;
 }
+
 const HeroSection = ({
   onLoadExample
 }: HeroSectionProps) => {
@@ -31,4 +33,5 @@ const HeroSection = ({
       </div>
     </div>;
 };
+
 export default HeroSection;
