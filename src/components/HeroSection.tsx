@@ -1,18 +1,15 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import TypewriterText from './TypewriterText';
-
 interface HeroSectionProps {
   onLoadExample: () => void;
 }
-
 const HeroSection = ({
   onLoadExample
 }: HeroSectionProps) => {
   return <div className="text-center mb-20">
       <div className="mb-16">
-        <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight">
+        <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight text-center">
           🧠 Tu Kit IA personalizado<br />
           para <span className="inline-block min-h-[1.2em] align-top"><TypewriterText /></span>
         </h1>
@@ -33,5 +30,4 @@ const HeroSection = ({
       </div>
     </div>;
 };
-
 export default HeroSection;
