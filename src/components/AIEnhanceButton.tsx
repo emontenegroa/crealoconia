@@ -168,10 +168,8 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
     try {
       console.log(`🧠 Mejorando texto con IA (modo: ${enhanceMode})...`);
       
-      // Primero intentamos actualizar el conteo en la base de datos
       const newUsageCount = usageCount + 1;
       
-      // Verificar si ya existe un registro
       const { data: existingRecord } = await supabase
         .from('ai_usage_tracking')
         .select('id, usage_count')
@@ -181,13 +179,11 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
 
       let updateResult;
       if (existingRecord) {
-        // Actualizar registro existente
         updateResult = await supabase
           .from('ai_usage_tracking')
           .update({ usage_count: newUsageCount, updated_at: new Date().toISOString() })
           .eq('id', existingRecord.id);
       } else {
-        // Crear nuevo registro
         updateResult = await supabase
           .from('ai_usage_tracking')
           .insert({
@@ -202,7 +198,6 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
         throw new Error('Error al actualizar el conteo de uso');
       }
 
-      // Llamar a la función de IA con prompt especializado
       const { data, error } = await supabase.functions.invoke('enhance-with-ai', {
         body: {
           userText: currentText,
@@ -229,7 +224,6 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
           description: `Modo ${enhanceMode}. ${remainingUses - 1 === 0 ? 'Última mejora usada' : `Te quedan ${remainingUses - 1} mejoras`} para este campo.`,
         });
 
-        // Rotar automáticamente el modo para la próxima mejora
         const modes: ('improve' | 'expand' | 'optimize')[] = ['improve', 'expand', 'optimize'];
         const currentIndex = modes.indexOf(enhanceMode);
         setEnhanceMode(modes[(currentIndex + 1) % modes.length]);
@@ -301,13 +295,10 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
           <>
             <Brain className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
             <span className="hidden lg:inline">
-              {canUseAI ? `Mejorar con IA (${remainingUses})` : 'Límite alcanzado'}
+              {canUseAI ? `Mejorar texto con IA (${remainingUses})` : 'Límite alcanzado'}
             </span>
-            <span className="lg:hidden sm:inline">
-              {canUseAI ? `Mejorar IA (${remainingUses})` : 'Límite'}
-            </span>
-            <span className="sm:hidden">
-              {canUseAI ? `IA (${remainingUses})` : 'Sin usos'}
+            <span className="lg:hidden">
+              {canUseAI ? `Mejorar texto con IA (${remainingUses})` : 'Sin usos'}
             </span>
           </>
         )}

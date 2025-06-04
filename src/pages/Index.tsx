@@ -72,6 +72,7 @@ const Index = () => {
             onSubmit={handleSubmit}
             isFormValid={isFormValid}
             onGenerateWebsite={onGenerateWebsite}
+            onLoadExample={loadExampleData}
           />
         )}
 

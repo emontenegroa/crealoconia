@@ -20,6 +20,7 @@ interface MainFormProps {
   onSubmit: (e: React.FormEvent) => void;
   isFormValid: boolean;
   onGenerateWebsite: () => void;
+  onLoadExample: () => void;
 }
 
 const MainForm = ({
@@ -34,7 +35,8 @@ const MainForm = ({
   setNoInstagram,
   onSubmit,
   isFormValid,
-  onGenerateWebsite
+  onGenerateWebsite,
+  onLoadExample
 }: MainFormProps) => {
   const stepLabels = ["Información Básica", "Perfil Personal", "Finalizar"];
   const stepFields = [['marca', 'email', 'whatsapp', 'website', 'instagram'], ['quien_eres', 'problemas', 'preguntas_frecuentes', 'estilo'], ['producto']];
@@ -65,6 +67,18 @@ const MainForm = ({
           <p className="text-blue-800 font-medium">
             🔎 <strong>Recuerda:</strong> cuanto más claro seas en tus respuestas, mejor será el resultado que generemos para ti.
           </p>
+        </div>
+
+        {/* Botón de prueba */}
+        <div className="mt-6">
+          <Button 
+            type="button" 
+            onClick={onLoadExample}
+            variant="outline"
+            className="border-gray-300 text-gray-700 hover:bg-gray-50"
+          >
+            Ver ejemplo de respuestas
+          </Button>
         </div>
       </CardHeader>
       <CardContent className="p-8 bg-white">
@@ -99,7 +113,7 @@ const MainForm = ({
             disabled={!isFormValid}
           >
             <Brain className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 flex-shrink-0" />
-            <span className="whitespace-nowrap">🚀 GENERAR MI KIT IA AHORA</span>
+            <span className="whitespace-nowrap">GENERAR MI KIT IA AHORA</span>
           </Button>
 
           <div className="text-center space-y-2">

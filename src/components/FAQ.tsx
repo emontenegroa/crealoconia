@@ -15,7 +15,15 @@ const FAQ = () => {
             ¿Qué incluye exactamente el Kit IA?
           </AccordionTrigger>
           <AccordionContent className="text-gray-800 font-medium">
-            Tu Kit IA incluye prompts personalizados para ChatGPT que generan contenido para redes sociales (15 días), textos completos para tu sitio web, y un segundo prompt para construir automáticamente tu web en Lovable.
+            <div className="space-y-3">
+              <p>El Kit IA genera para ti:</p>
+              <ul className="list-disc list-inside space-y-1 ml-4">
+                <li>Los textos base estructurados para tu sitio web profesional.</li>
+                <li>Un prompt personalizado para seguir generando contenido en ChatGPT adaptado a tu negocio.</li>
+                <li>15 días de contenido inicial para tus redes (posts, reels y stories).</li>
+                <li>Y, en base a tus respuestas, generamos la primera versión estructurada de tu sitio web para revisión.</li>
+              </ul>
+            </div>
           </AccordionContent>
         </AccordionItem>
 
@@ -24,7 +32,11 @@ const FAQ = () => {
             ¿Cuánto tiempo toma tener mi sitio web listo?
           </AccordionTrigger>
           <AccordionContent className="text-gray-800 font-medium">
-            Recibes el Kit IA inmediatamente después de completar el formulario. Tu sitio web normalmente está listo en minutos, aunque dependiendo de la demanda puede tardar máximo 4 horas.
+            <div className="space-y-3">
+              <p>Recibes tu Kit IA de forma automática apenas completas el formulario.</p>
+              <p>Luego, procesamos tus respuestas con inteligencia artificial para construir la primera versión de tu sitio web profesional.</p>
+              <p>En la mayoría de los casos el sitio está listo en minutos, aunque en períodos de alta demanda puede demorar hasta un máximo de 4 horas.</p>
+            </div>
           </AccordionContent>
         </AccordionItem>
 
@@ -33,7 +45,12 @@ const FAQ = () => {
             ¿Necesito conocimientos técnicos?
           </AccordionTrigger>
           <AccordionContent className="text-gray-800 font-medium">
-            No. Nosotros nos encargamos de toda la parte técnica. Solo necesitas completar el formulario con información sobre tu negocio y nosotros hacemos el resto.
+            <div className="space-y-3">
+              <p>No.</p>
+              <p>El sistema está diseñado para que no tengas que manejar ninguna parte técnica.</p>
+              <p>Solo completas el formulario con información de tu negocio.</p>
+              <p>Nosotros estructuramos, generamos el contenido y construimos la web por ti.</p>
+            </div>
           </AccordionContent>
         </AccordionItem>
 
@@ -42,7 +59,17 @@ const FAQ = () => {
             ¿Puedo hacer cambios después?
           </AccordionTrigger>
           <AccordionContent className="text-gray-800 font-medium">
-            Sí. Una vez que recibas tu sitio web, puedes solicitar una reunión para ajustes finales. El Kit IA también te permite generar contenido nuevo cuando lo necesites.
+            <div className="space-y-3">
+              <p>Sí.</p>
+              <p>Cuando recibas la primera versión de tu sitio web, podrás agendar una reunión personalizada para realizar ajustes finales de:</p>
+              <ul className="list-disc list-inside space-y-1 ml-4">
+                <li>Textos</li>
+                <li>Imágenes</li>
+                <li>Secciones adicionales</li>
+                <li>Configuración de dominio y detalles de publicación.</li>
+              </ul>
+              <p>El objetivo es entregarte un sitio completamente ajustado a tu negocio antes de publicarlo.</p>
+            </div>
           </AccordionContent>
         </AccordionItem>
 
@@ -51,7 +78,11 @@ const FAQ = () => {
             ¿Qué pasa si no tengo Instagram o sitio web actual?
           </AccordionTrigger>
           <AccordionContent className="text-gray-800 font-medium">
-            No hay problema. El formulario está diseñado para emprendedores que están comenzando. Podemos crear todo desde cero basándonos en la información que nos proporciones.
+            <div className="space-y-3">
+              <p>Ningún problema.</p>
+              <p>Este sistema está pensado justamente para emprendedores, profesionales y negocios que están comenzando o quieren profesionalizar su presencia digital desde cero.</p>
+              <p>Toda la estructura se genera en base a la información que completes en el formulario.</p>
+            </div>
           </AccordionContent>
         </AccordionItem>
 
@@ -60,19 +91,23 @@ const FAQ = () => {
             ¿Realmente es gratis?
           </AccordionTrigger>
           <AccordionContent className="text-gray-800 font-medium">
-            <div className="space-y-3">
-              <p className="font-semibold text-emerald-700">✅ Sí. El Kit IA es 100% gratuito.</p>
-              <p>Recibes sin costo:</p>
-              <ul className="list-disc list-inside space-y-1 ml-4">
-                <li>Los textos base de tu sitio web.</li>
-                <li>El prompt personalizado para ChatGPT.</li>
-                <li>15 días de contenido para tus redes sociales.</li>
-              </ul>
+            <div className="space-y-4">
+              <div>
+                <p className="font-semibold text-emerald-700">✅ Sí, el Kit IA es totalmente gratuito para generar:</p>
+                <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
+                  <li>Los textos base de tu sitio.</li>
+                  <li>El prompt personalizado para ChatGPT.</li>
+                  <li>Los 15 días de contenido inicial para tus redes.</li>
+                </ul>
+              </div>
               
-              <div className="mt-4 pt-3 border-t border-gray-200">
+              <div className="pt-3 border-t border-gray-200">
                 <p className="font-semibold text-blue-700">🎯 ¿Y el sitio web?</p>
-                <p className="mt-2">Generamos una versión preliminar de tu sitio web profesional a partir de tus respuestas, que también podrás revisar sin compromiso.</p>
-                <p className="mt-2">Si después decides avanzar para personalizar, publicar y dejar tu sitio funcionando, ahí sí tendrás un costo fijo por el servicio de publicación profesional.</p>
+                <div className="mt-2 space-y-2">
+                  <p>Generamos la primera versión estructurada de tu sitio web profesional en base a tus respuestas.</p>
+                  <p>Esta etapa no tiene costo y podrás revisarla sin ningún compromiso de compra.</p>
+                  <p className="font-medium">👉 Si luego decides avanzar para personalizar, ajustar los detalles finales, configurar tu dominio y dejar el sitio completamente publicado y operativo, aplicamos un pago único por el servicio de publicación profesional.</p>
+                </div>
               </div>
             </div>
           </AccordionContent>
