@@ -14,7 +14,7 @@ const HeroSection = ({
       <div className="mb-16">
         <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight">
           🧠 Tu Kit IA personalizado<br />
-          para <TypewriterText />
+          para <span className="inline-block min-h-[1.2em] align-top"><TypewriterText /></span>
         </h1>
       </div>
 
