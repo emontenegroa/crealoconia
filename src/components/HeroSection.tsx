@@ -1,15 +1,13 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import TypewriterText from './TypewriterText';
-
 interface HeroSectionProps {
   onLoadExample: () => void;
 }
-
-const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
-  return (
-    <div className="text-center mb-20">
+const HeroSection = ({
+  onLoadExample
+}: HeroSectionProps) => {
+  return <div className="text-center mb-20">
       <div className="mb-16">
         <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight text-center">
           🌐 Tu web lista para <span className="inline-block min-h-[1.2em] align-top"><TypewriterText /></span>
@@ -56,23 +54,7 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
       </div>
 
       {/* CTA urgencia */}
-      <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-2xl p-8 max-w-4xl mx-auto">
-        <h3 className="text-2xl font-bold text-red-800 mb-4">
-          🔥 Tu competencia ya tiene sitio web profesional
-        </h3>
-        <p className="text-red-700 text-lg mb-6">
-          Mientras ellos capturan TUS clientes con presencia digital estratégica, 
-          ¿vas a seguir esperando o tendrás tu sitio HOY?
-        </p>
-        <Button 
-          onClick={onLoadExample}
-          className="bg-red-600 hover:bg-red-700 text-white text-lg py-6 px-8 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300"
-        >
-          ⚡ Ver ejemplo del formulario
-        </Button>
-      </div>
-    </div>
-  );
+      
+    </div>;
 };
-
 export default HeroSection;
