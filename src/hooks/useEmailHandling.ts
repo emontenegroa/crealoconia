@@ -15,13 +15,157 @@ interface FormData {
 }
 
 export const useEmailHandling = () => {
+  const enhanceWithChatGPT = async (content: string, context: string) => {
+    try {
+      const response = await fetch('/functions/v1/enhance-with-chatgpt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content,
+          context,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.enhancedContent;
+      } else {
+        console.log('ChatGPT enhancement failed, using original content');
+        return content;
+      }
+    } catch (error) {
+      console.log('ChatGPT enhancement error, using original content:', error);
+      return content;
+    }
+  };
+
+  const generateBrandDocumentation = async (formData: FormData) => {
+    const rawDocumentation = `
+📋 DOCUMENTACIÓN DE MARCA
+
+🎯 Nombre de la marca: ${formData.marca}
+
+👤 Quién es: ${formData.quien_eres}
+
+🎯 Público objetivo: Personas que ${formData.problemas.toLowerCase()}
+
+❗ Problema que resuelve: ${formData.problemas}
+
+✅ Cómo lo soluciona: A través de ${formData.producto}
+
+🚀 Producto principal: ${formData.producto}
+
+💎 Beneficios principales:
+- Solución personalizada y efectiva
+- Acompañamiento profesional durante el proceso
+- Metodología probada con resultados reales
+- Transformación profunda y duradera
+
+❓ Preguntas frecuentes: ${formData.preguntas_frecuentes}
+
+🎨 Estilo de comunicación: ${formData.estilo}
+    `;
+
+    return await enhanceWithChatGPT(
+      rawDocumentation,
+      `Actúa como estratega de marca personal. Reescribe profesionalmente esta documentación de marca para ${formData.marca}. Mejora la redacción, estructura mejor los puntos y hazlo más profesional y claro. Mantén el formato con emojis.`
+    );
+  };
+
+  const generateContentIdeas = async (formData: FormData) => {
+    const rawContent = `
+📱 IDEAS DE CONTENIDO INICIAL
+
+🎬 REELS (5 ideas):
+1. "3 señales de que necesitas ${formData.producto}" - Hook fuerte con ejemplos específicos
+2. "Mi historia: Por qué me dedico a resolver ${formData.problemas}" - Historia personal
+3. "El error más común cuando intentas solucionar ${formData.problemas}" - Educativo
+4. "Antes vs Después: Transformación real con ${formData.producto}" - Social proof
+5. "¿Sabías que...? Mito vs Realidad sobre [tu área]" - Educativo viral
+
+📖 STORIES (5 ideas):
+1. "Detrás de cámaras: Un día ayudando a resolver ${formData.problemas}"
+2. "Pregunta del día: ¿Cuál es tu mayor desafío con [tu área]?" + Sticker de pregunta
+3. "Consejo rápido: Qué hacer cuando sientes ${formData.problemas}"
+4. "Testimonial destacado: Historia de transformación real"
+5. "Encuesta: ¿Has experimentado [situación específica]?" + Llamada a la acción
+
+📝 POSTS (5 ideas):
+1. "Las 5 creencias limitantes que te impiden superar ${formData.problemas}"
+2. "Mi metodología paso a paso para lograr [resultado específico]"
+3. "Señales de que estás listo/a para ${formData.producto}"
+4. "La diferencia entre intentar solo vs tener acompañamiento profesional"
+5. "Por qué ${formData.estilo.toLowerCase()} es la clave para resultados duraderos"
+    `;
+
+    return await enhanceWithChatGPT(
+      rawContent,
+      `Actúa como creador de contenido para redes sociales. Mejora estas ideas de contenido para ${formData.marca}, haciendo cada idea más específica, atractiva y accionable. Mantén el tono ${formData.estilo.toLowerCase()}. Incluye hooks más poderosos y llamadas a la acción claras.`
+    );
+  };
+
+  const generateAIAssistant = async (formData: FormData) => {
+    const contactInfo = () => {
+      let contact = '';
+      if (formData.email) contact += `- Email: ${formData.email}\n`;
+      if (formData.whatsapp) contact += `- WhatsApp: +${formData.whatsapp}\n`;
+      if (formData.website) contact += `- Website: ${formData.website}\n`;
+      if (formData.instagram) contact += `- Instagram: @${formData.instagram}\n`;
+      return contact;
+    };
+
+    const rawPrompt = `
+🧠 TU ASISTENTE PERSONAL IA
+
+Eres un experto en creación de contenido, marketing digital, ventas y posicionamiento de marca personal.
+
+DATOS DEL NEGOCIO:
+- Marca: ${formData.marca}
+- Profesional: ${formData.quien_eres}
+- Público objetivo: Personas que ${formData.problemas.toLowerCase()}
+- Problema que resuelve: ${formData.problemas}
+- Método de solución: A través de ${formData.producto}
+- Producto principal: ${formData.producto}
+- Beneficios principales: Transformación profunda, acompañamiento personalizado, metodología probada
+- Preguntas frecuentes: ${formData.preguntas_frecuentes}
+- Estilo de comunicación: ${formData.estilo}
+${contactInfo()}
+
+INSTRUCCIONES DE CONTENIDO:
+- Mantén tono ${formData.estilo.toLowerCase()}, profesional y cercano
+- Genera contenido educativo, emocional, de venta y autoridad
+- Aplica microhistorias y ejemplos reales
+- Menciona ${formData.producto} cuando sea relevante
+- Crea material adaptable para Instagram, Reels, Stories, LinkedIn, Facebook y correos
+- Dirige tráfico a website o WhatsApp cuando sea apropiado
+- Siempre incluye llamadas a la acción claras
+- No repitas textualmente las respuestas, reescríbelas profesionalmente
+
+ESPECIALIDADES EN LAS QUE PUEDES AYUDARME:
+📱 Contenido para redes sociales (posts, reels, stories)
+📧 Marketing directo y email marketing
+🎯 Estrategia de ventas y conversión
+📝 Contenido educativo y de autoridad
+🔥 Promoción y lanzamientos
+💬 Scripts para WhatsApp y atención al cliente
+
+¿En qué área específica te gustaría que te ayude hoy con el contenido de ${formData.marca}?
+    `;
+
+    return await enhanceWithChatGPT(
+      rawPrompt,
+      `Actúa como experto en prompts para ChatGPT. Mejora este prompt para hacerlo más específico, efectivo y profesional. Asegúrate de que el ChatGPT resultante genere contenido de alta calidad para ${formData.marca} con estilo ${formData.estilo.toLowerCase()}.`
+    );
+  };
+
   const sendEmailToAdmin = async (formData: FormData) => {
     const BREVO_API_KEY = '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';
     
     try {
       console.log('🚀 Enviando email a Esteban con datos del formulario y prompt técnico...');
       
-      // Generate contact info section
       const contactInfo = () => {
         let contact = '';
         if (formData.email) contact += `📧 Email: ${formData.email}\n`;
@@ -190,158 +334,12 @@ El objetivo es crear una experiencia web que genere confianza, eduque al visitan
     
     try {
       console.log('📨 Enviando email de confirmación al usuario:', formData.email);
+      console.log('🧠 Generando contenido mejorado con ChatGPT...');
       
-      // Generate contact info section
-      const contactInfo = () => {
-        let contact = '';
-        if (formData.email) contact += `📧 Email: ${formData.email}\n`;
-        if (formData.whatsapp) contact += `📱 WhatsApp: +${formData.whatsapp}\n`;
-        if (formData.website) contact += `🌐 Website: ${formData.website}\n`;
-        if (formData.instagram) contact += `📱 Instagram: @${formData.instagram}\n`;
-        return contact ? `${contact}` : '';
-      };
-
-      // 1️⃣ TEXTOS BASE PARA EL SITIO WEB
-      const websiteTexts = `📄 TEXTOS BASE PARA TU SITIO WEB - ${formData.marca}
-
-🎯 TÍTULO PRINCIPAL:
-${formData.marca} - ${formData.estilo === 'Profesional' ? 'Soluciones Profesionales' : formData.estilo === 'Cercano' ? 'Acompañamiento Personalizado' : formData.estilo === 'Inspirador' ? 'Transforma Tu Vida' : 'Expertos en Resultados'}
-
-💡 SUBTÍTULO/PROPUESTA DE VALOR:
-Ayudamos a personas que ${formData.problemas.toLowerCase()} a través de ${formData.producto}
-
-📋 DESCRIPCIÓN DE SERVICIOS:
-${formData.quien_eres}
-
-Nos especializamos en resolver: ${formData.problemas}
-
-🎁 BENEFICIOS CLAVE:
-✅ Solución personalizada para tu situación específica
-✅ Metodología probada con resultados reales
-✅ Acompañamiento ${formData.estilo.toLowerCase()} durante todo el proceso
-✅ Respuestas a tus principales dudas: ${formData.preguntas_frecuentes}
-
-${contactInfo()}`;
-
-      // 2️⃣ PROMPT PARA CHATGPT
-      const chatGPTPrompt = `🧠 TU ASISTENTE PERSONAL PARA CHATGPT - ${formData.marca}
-
-Eres un experto en marketing digital y creación de contenido para "${formData.marca}".
-
-CONTEXTO DE LA MARCA:
-- Nombre: ${formData.marca}
-- Quién soy: ${formData.quien_eres}
-- Problema que resuelvo: ${formData.problemas}
-- Preguntas que me hacen: ${formData.preguntas_frecuentes}
-- Estilo de comunicación: ${formData.estilo}
-- Producto principal: ${formData.producto}
-${contactInfo()}
-
-INSTRUCCIONES PRINCIPALES:
-1. Siempre responde en un tono ${formData.estilo.toLowerCase()} y auténtico
-2. Enfócate en resolver este problema específico: ${formData.problemas}
-3. Usa ejemplos y casos relacionados con mi experiencia
-4. Menciona "${formData.producto}" cuando sea relevante para la conversación
-5. Crea contenido que genere engagement, confianza y conversiones
-6. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)${formData.instagram ? `\n7. Cuando sea apropiado, menciona mi Instagram @${formData.instagram}` : ''}${formData.website ? `\n8. Dirige tráfico a mi website ${formData.website} cuando sea relevante` : ''}${formData.whatsapp ? `\n9. Ofrece contacto directo por WhatsApp +${formData.whatsapp} cuando sea apropiado` : ''}
-
-ESPECIALIDADES EN LAS QUE PUEDES AYUDARME:
-📱 CONTENIDO PARA REDES SOCIALES
-📧 MARKETING DIRECTO
-🎯 ESTRATEGIA DE VENTAS
-📝 CONTENIDO EDUCATIVO
-🔥 PROMOCIÓN Y LANZAMIENTOS
-
-CONTEXTO ADICIONAL:
-Mi audiencia ideal son personas que: ${formData.problemas}
-Frecuentemente me preguntan: ${formData.preguntas_frecuentes}
-Mi estilo es: ${formData.estilo}
-
-¿En qué área específica te gustaría que te ayude hoy con el contenido de ${formData.marca}?`;
-
-      // 3️⃣ CALENDARIO DE CONTENIDO 15 DÍAS
-      const contentCalendar = `📅 CALENDARIO DE CONTENIDO 15 DÍAS - ${formData.marca}
-
-🎯 POSTS EDUCATIVOS Y DE AUTORIDAD (5):
-
-POST 1 - EDUCATIVO:
-"💡 ¿Sabías que...? ${formData.preguntas_frecuentes}
-En ${formData.marca}, hemos aprendido que la clave está en [tu experiencia específica].
-¿Te has sentido identificado/a con esto? Cuéntame en comentarios 👇"
-
-POST 2 - AUTORIDAD:
-"Mi experiencia me ha enseñado que cuando alguien siente ${formData.problemas}, lo primero que necesita es [consejo específico].
-Esto es lo que hago en ${formData.producto}..."
-
-POST 3 - PROBLEMA/SOLUCIÓN:
-"Señales de que podrías necesitar ayuda con ${formData.problemas}:
-1. [Señal específica]
-2. [Segunda señal]
-3. [Tercera señal]
-Si te identificas con al menos 2, hablemos 📩"
-
-POST 4 - HISTORIA PERSONAL:
-"Mi historia: Por qué decidí especializarme en ${formData.problemas}.
-Todo comenzó cuando [tu historia personal]...
-Hoy ayudo a personas como tú a través de ${formData.producto}"
-
-POST 5 - LLAMADA A LA ACCIÓN:
-"¿Listo/a para transformar ${formData.problemas}?
-Te presento ${formData.producto}.
-Escríbeme 'ME INTERESA' para conocer más 📱"
-
-🎬 GUIONES DE REELS (5):
-
-REEL 1 - PRESENTACIÓN (15-30 seg):
-"¡Hola! Soy [tu nombre] de ${formData.marca} 👋
-Mi misión: ayudarte con ${formData.problemas}
-¿Te resuena? ¡Sígueme! 💫"
-
-REEL 2 - EDUCATIVO (30 seg):
-"3 mitos sobre [tu área]:
-❌ Mito 1: [mito común]
-✅ Realidad: [tu verdad]
-[Continúa con otros 2 mitos]"
-
-REEL 3 - PROCESO (45 seg):
-"¿Cómo funciona ${formData.producto}?
-Paso 1: [primer paso]
-Paso 2: [segundo paso]
-Paso 3: [resultado]"
-
-REEL 4 - TESTIMONIAL (30 seg):
-"Lo que dicen quienes han trabajado conmigo:
-'[Crear testimonial realista basado en tu problema]'
-¿Quieres ser el/la siguiente? 📩"
-
-REEL 5 - MOTIVACIONAL (20 seg):
-"Para ti que sientes ${formData.problemas}:
-Recuerda que [mensaje motivacional específico]
-No estás solo/a en esto 💙"
-
-📱 IDEAS DE STORIES (5):
-
-STORY 1 - DETRÁS DE CÁMARAS:
-"Un día en mi vida ayudando con ${formData.problemas}"
-
-STORY 2 - PREGUNTA INTERACTIVA:
-"¿Cuál es tu mayor desafío con [tu área]?" + sticker de pregunta
-
-STORY 3 - CONSEJO RÁPIDO:
-"Tip del día: Si sientes [problema específico], prueba esto..."
-
-STORY 4 - ENCUESTA:
-"¿Has experimentado [situación relacionada con tu problema]?" + sticker de encuesta
-
-STORY 5 - LLAMADA A LA ACCIÓN:
-"¿Necesitas ayuda con ${formData.problemas}? Escríbeme 📩"
-
-📝 NOTAS IMPORTANTES:
-- Adapta cada contenido a tu estilo: ${formData.estilo}
-- Programa las publicaciones para mantener consistencia
-- Usa hashtags relevantes a tu nicho
-- Siempre incluye una llamada a la acción clara
-${contactInfo()}`;
+      // Generar contenido mejorado con ChatGPT
+      const brandDocumentation = await generateBrandDocumentation(formData);
+      const contentIdeas = await generateContentIdeas(formData);
+      const aiAssistant = await generateAIAssistant(formData);
       
       const confirmationEmailData = {
         sender: {
@@ -354,64 +352,60 @@ ${contactInfo()}`;
             name: formData.marca
           }
         ],
-        subject: `🎯 Tu sitio web ya está en proceso (esto recién comienza)`,
+        subject: `🎯 Tu contenido profesional está listo (revisión en proceso)`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
             <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🎯 Tu sitio web ya está en proceso (esto recién comienza)</h1>
+              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🎯 Tu contenido profesional está listo</h1>
               
               <p style="font-size: 18px; color: #374151; margin-bottom: 20px;">Hola <strong>${formData.marca}</strong>,</p>
               
               <p style="font-size: 16px; color: #6B7280; line-height: 1.6; margin-bottom: 25px;">
-                Primero: felicitaciones por dar el primer paso.<br>
-                No es solo un formulario. Lo que completaste es la base real para profesionalizar tu marca digital.
-              </p>
-
-              <p style="font-size: 16px; color: #6B7280; line-height: 1.6; margin-bottom: 25px;">
-                Aquí tienes el material inicial que armamos para ti:
+                Ya tienes todo el material base para profesionalizar tu presencia digital.<br>
+                Este es tu contenido estratégico personalizado:
               </p>
 
               <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 25px 0; border-left: 4px solid #3B82F6;">
-                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Textos base para tu sitio web</p>
-                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Prompt personalizado para que sigas creando contenido en ChatGPT</p>
-                <p style="color: #1E40AF; margin-bottom: 0; font-weight: bold;">✅ 15 días de contenido para tus redes (posts, stories y reels)</p>
+                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Documentación completa de tu marca</p>
+                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Ideas de contenido para 15 días</p>
+                <p style="color: #1E40AF; margin-bottom: 0; font-weight: bold;">✅ Asistente IA personalizado para ChatGPT</p>
               </div>
 
-              <!-- Textos Base para Sitio Web -->
+              <!-- Documentación de Marca -->
               <div style="background: #FEF3C7; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                <h2 style="color: #D97706; margin-top: 0; font-size: 18px;">📄 Textos Base para tu Sitio Web</h2>
-                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto;">${websiteTexts}</div>
+                <h2 style="color: #D97706; margin-top: 0; font-size: 18px;">📋 BLOQUE 1: Documentación de Marca</h2>
+                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto;">${brandDocumentation}</div>
               </div>
 
-              <!-- Prompt para ChatGPT -->
-              <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                <h2 style="color: #0369A1; margin-top: 0; font-size: 18px;">🧠 Tu Asistente Personal para ChatGPT</h2>
-                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto;">${chatGPTPrompt}</div>
-              </div>
-
-              <!-- Calendario de Contenido -->
+              <!-- Ideas de Contenido -->
               <div style="background: #ECFDF5; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                <h2 style="color: #059669; margin-top: 0; font-size: 18px;">📅 15 Días de Contenido para tus Redes</h2>
-                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto;">${contentCalendar}</div>
+                <h2 style="color: #059669; margin-top: 0; font-size: 18px;">📱 BLOQUE 2: Ideas de Contenido Inicial</h2>
+                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto;">${contentIdeas}</div>
+              </div>
+
+              <!-- Asistente IA -->
+              <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                <h2 style="color: #0369A1; margin-top: 0; font-size: 18px;">🧠 BLOQUE 3: Tu Asistente Personal IA</h2>
+                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto;">${aiAssistant}</div>
+                <p style="color: #0369A1; margin: 10px 0 0 0; font-size: 14px;">💡 Copia este prompt en ChatGPT para tener tu asistente personalizado</p>
               </div>
 
               <p style="font-size: 16px; color: #6B7280; line-height: 1.6; margin: 25px 0;">
-                Este material te permite empezar a construir tu presencia online con dirección y claridad.
+                Con este material ya puedes empezar a crear contenido profesional y consistente para tu marca.
               </p>
 
-              <!-- Información sobre sitio web en producción -->
+              <!-- Información sobre sitio web en proceso -->
               <div style="background: #FDF2F8; padding: 25px; border-radius: 8px; margin: 30px 0; border: 2px solid #EC4899;">
-                <h3 style="color: #BE185D; margin-top: 0; margin-bottom: 15px; font-size: 20px;">🚀 Ahora, atención:</h3>
+                <h3 style="color: #BE185D; margin-top: 0; margin-bottom: 15px; font-size: 20px;">🚀 Tu sitio web está en proceso</h3>
                 <p style="color: #BE185D; margin-bottom: 15px; font-size: 16px; line-height: 1.6;">
-                  En base a lo que completaste, ya estamos trabajando en generar la primera versión de tu sitio web profesional.
+                  Estamos creando tu página web profesional basada en toda la información que nos proporcionaste.
                 </p>
                 <p style="color: #BE185D; margin-bottom: 15px; font-size: 16px; line-height: 1.6;">
-                  <strong>Muy pronto te enviaremos el acceso directo para revisarlo.</strong><br>
-                  Queremos asegurarnos de que el resultado refleje realmente lo que haces, por eso revisamos cada caso manualmente antes de la entrega final.
+                  <strong>En las próximas 24-48 horas recibirás el enlace directo</strong> para que puedas revisar tu sitio web antes de la publicación final.
                 </p>
                 <p style="color: #BE185D; margin: 0; font-size: 16px; font-weight: bold;">
-                  Seguimos trabajando en tu proyecto.<br>
-                  Pronto recibirás novedades.
+                  Mientras tanto, ya puedes empezar a usar todo este contenido.<br>
+                  Pronto tendrás tu presencia digital completa.
                 </p>
               </div>
 

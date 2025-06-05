@@ -162,12 +162,15 @@ export const useFormHandler = () => {
 
     setIsGenerating(true);
     
+    // Scroll al principio para mostrar el loading
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     try {
-      console.log('🔄 Iniciando proceso de generación de Kit IA...');
+      console.log('🔄 Iniciando proceso de generación con ChatGPT...');
       
       await new Promise(resolve => setTimeout(resolve, 3000));
       
-      console.log('📤 Enviando emails de notificación...');
+      console.log('📤 Enviando emails con contenido mejorado...');
       
       const [adminResult, confirmationResult] = await Promise.allSettled([
         sendEmailToAdmin(formData),
@@ -192,13 +195,18 @@ export const useFormHandler = () => {
       setIsGenerating(false);
       setShowResults(true);
       
+      // Scroll a la sección de resultados
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+      
       toast({
-        title: "¡Kit IA generado exitosamente!",
-        description: `${emailsSent === 2 ? 'Ambos emails enviados' : 'Al menos un email enviado'}. Revisa las bandejas de entrada.`,
+        title: "¡Contenido generado exitosamente!",
+        description: `Material profesional enviado por email. Tu sitio web estará listo pronto.`,
       });
       
     } catch (error) {
-      console.error('💥 Error durante la generación del kit:', error);
+      console.error('💥 Error durante la generación del contenido:', error);
       setIsGenerating(false);
       toast({
         title: "Error al procesar el formulario",
