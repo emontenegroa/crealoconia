@@ -133,7 +133,7 @@ export const useFormHandler = () => {
     // Por ahora, simular compra exitosa y mostrar formulario
     toast({
       title: "¡Compra exitosa! 🎉",
-      description: "Ahora completa el formulario para generar tu Kit IA personalizado.",
+      description: "Ahora completa el formulario para generar Hazlo con IA personalizado.",
     });
     
     setShowPricing(false);

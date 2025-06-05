@@ -113,7 +113,7 @@ const MainForm = ({
             disabled={!isFormValid}
           >
             <Brain className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
-            <span className="text-xs sm:text-sm lg:text-base leading-tight">GENERAR MI CONTENIDO AHORA</span>
+            <span className="text-xs sm:text-sm lg:text-base leading-tight">GENERAR HAZLO CON IA AHORA</span>
           </Button>
 
           <div className="text-center space-y-2">

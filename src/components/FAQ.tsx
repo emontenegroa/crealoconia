@@ -12,11 +12,11 @@ const FAQ = () => {
       <Accordion type="single" collapsible className="space-y-4">
         <AccordionItem value="item-1" className="border border-emerald-200 rounded-lg px-6 bg-emerald-50/50">
           <AccordionTrigger className="text-left hover:no-underline text-emerald-800 font-semibold">
-            ¿Qué incluye exactamente el Kit IA?
+            ¿Qué incluye exactamente Hazlo con IA?
           </AccordionTrigger>
           <AccordionContent className="text-gray-800 font-medium">
             <div className="space-y-3">
-              <p>El Kit IA genera para ti:</p>
+              <p>Hazlo con IA genera para ti:</p>
               <ul className="list-disc list-inside space-y-1 ml-4">
                 <li>Los textos base estructurados para tu sitio web profesional.</li>
                 <li>Un prompt personalizado para seguir generando contenido en ChatGPT adaptado a tu negocio.</li>
@@ -33,7 +33,7 @@ const FAQ = () => {
           </AccordionTrigger>
           <AccordionContent className="text-gray-800 font-medium">
             <div className="space-y-3">
-              <p>Recibes tu Kit IA de forma automática apenas completas el formulario.</p>
+              <p>Recibes Hazlo con IA de forma automática apenas completas el formulario.</p>
               <p>Luego, procesamos tus respuestas con inteligencia artificial para construir la primera versión de tu sitio web profesional.</p>
               <p>En la mayoría de los casos el sitio está listo en minutos, aunque en períodos de alta demanda puede demorar hasta un máximo de 4 horas.</p>
             </div>
@@ -93,7 +93,7 @@ const FAQ = () => {
           <AccordionContent className="text-gray-800 font-medium">
             <div className="space-y-4">
               <div>
-                <p className="font-semibold text-emerald-700">✅ Sí, el Kit IA es totalmente gratuito para generar:</p>
+                <p className="font-semibold text-emerald-700">✅ Sí, Hazlo con IA es totalmente gratuito para generar:</p>
                 <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
                   <li>Los textos base de tu sitio.</li>
                   <li>El prompt personalizado para ChatGPT.</li>
