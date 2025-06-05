@@ -20,66 +20,110 @@ export const useEmailHandling = () => {
       console.log('Enviando email al admin...');
       
       const emailContent = `NUEVO CLIENTE: ${formData.marca}
-
+      
 Email: ${formData.email}
 WhatsApp: ${formData.whatsapp}
-Website: ${formData.website || 'No especificado'}
-Instagram: ${formData.instagram || 'No especificado'}
+Website: ${formData.website || 'No tiene'}
+Instagram: ${formData.instagram || 'No tiene'}
 
-DATOS COMPLETOS:
-Marca: ${formData.marca}
-Quien es: ${formData.quien_eres}
-Problemas: ${formData.problemas}
-Preguntas frecuentes: ${formData.preguntas_frecuentes}
-Estilo: ${formData.estilo}
-Producto: ${formData.producto}`;
+QUIEN ES: ${formData.quien_eres}
 
-      const emailData = {
-        to: 'estebanbonansea@gmail.com',
-        subject: `Nuevo cliente: ${formData.marca}`,
-        content: emailContent,
-        formData: formData
-      };
+PROBLEMAS QUE RESUELVE: ${formData.problemas}
+
+PRODUCTO: ${formData.producto}
+
+PREGUNTAS FRECUENTES: ${formData.preguntas_frecuentes}
+
+ESTILO: ${formData.estilo}`;
+
+      const { data, error } = await supabase.functions.invoke('send-admin-email', {
+        body: {
+          to: 'estebanbonansea@gmail.com',
+          subject: `Nuevo cliente: ${formData.marca}`,
+          content: emailContent,
+          formData: formData
+        }
+      });
+
+      if (error) {
+        console.error('Error enviando email al admin:', error);
+        throw new Error(`Error del servidor: ${error.message}`);
+      }
 
       console.log('Email enviado al admin exitosamente');
-      return { success: true };
+      return { success: true, data };
     } catch (error) {
       console.error('Error en sendEmailToAdmin:', error);
-      return { success: false, error };
+      throw error;
     }
   };
 
-  const sendConfirmationEmail = async (formData: FormData, strategicContent: string) => {
+  const sendConfirmationEmail = async (formData: FormData) => {
     try {
-      console.log('Enviando email de confirmación...');
+      console.log('Generando contenido estrategico...');
       
-      const emailContent = `🧠 TU KIT IA PERSONALIZADO ESTÁ LISTO
+      const baseContent = `TU KIT IA PERSONALIZADO ESTA LISTO
 
-¡Hola!
+Hola! Aqui tienes tu material personalizado para ${formData.marca}.
 
-Tu material estratégico para ${formData.marca} está listo. A continuación encontrarás tu Kit IA personalizado:
+DATOS DE TU MARCA:
+- Marca: ${formData.marca}
+- Email: ${formData.email}
+- WhatsApp: ${formData.whatsapp}
+- Website: ${formData.website || 'No especificado'}
+- Instagram: ${formData.instagram || 'No especificado'}
 
-${strategicContent}
+PERFIL: ${formData.quien_eres}
 
----
+PROBLEMA QUE RESUELVES: ${formData.problemas}
 
-🚀 PRÓXIMOS PASOS:
+PRODUCTO PRINCIPAL: ${formData.producto}
 
-1. Guarda este email en una carpeta especial
-2. Usa el prompt personalizado de ChatGPT para generar más contenido
-3. Implementa las ideas de contenido en tus redes sociales
-4. Si necesitas ayuda, puedes contactarme por WhatsApp
+PREGUNTAS FRECUENTES: ${formData.preguntas_frecuentes}
 
-¡Éxito en tu estrategia digital!
+ESTILO DE COMUNICACION: ${formData.estilo}
 
-Esteban Bonansea
-Kit IA de Esteban`;
+PROXIMOS PASOS:
+1. Guarda este contenido para crear tu estrategia
+2. Tu sitio web estara listo pronto
+3. Revisa tu email para mas detalles
+
+Tu presencia digital profesional esta en camino!`;
+
+      const context = `El cliente es ${formData.marca}, mejora este contenido para que sea profesional y estrategico.`;
+
+      console.log('Mejorando contenido...');
       
-      console.log('Email de confirmación preparado');
-      return { success: true, strategicContent };
+      const { data: enhancedData, error: enhanceError } = await supabase.functions.invoke('enhance-with-chatgpt', {
+        body: {
+          content: baseContent,
+          context: context
+        }
+      });
+
+      const finalContent = enhancedData?.enhancedContent || baseContent;
+
+      console.log('Enviando email de confirmacion...');
+
+      const { data, error } = await supabase.functions.invoke('send-confirmation-email', {
+        body: {
+          to: formData.email,
+          subject: `Tu Kit IA esta listo - ${formData.marca}`,
+          content: finalContent,
+          formData: formData
+        }
+      });
+
+      if (error) {
+        console.error('Error enviando email:', error);
+        throw new Error(`Error del servidor: ${error.message}`);
+      }
+
+      console.log('Email enviado exitosamente');
+      return { success: true, data };
     } catch (error) {
       console.error('Error en sendConfirmationEmail:', error);
-      return { success: false, error };
+      throw error;
     }
   };
 
