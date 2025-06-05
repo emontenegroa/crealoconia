@@ -40,7 +40,7 @@ const HeroSection = ({
           </div>
           
           <div className="bg-white border border-purple-200 rounded-xl p-6">
-            <div className="text-purple-600 text-3xl mb-3">🎯</div>
+            <div className="text-purple-600 text-3xl mb-3">Optimizado para encantar a tus clientes desde el primer día</div>
             <h3 className="font-bold text-gray-900 mb-2">Diseñado para Vender</h3>
             <p className="text-gray-700 text-sm">Optimizado para convertir visitantes en clientes desde el primer día</p>
           </div>
