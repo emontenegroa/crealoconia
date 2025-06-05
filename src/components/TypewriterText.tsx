@@ -1,18 +1,35 @@
+
 import React, { useState, useEffect } from 'react';
+
 const TypewriterText = () => {
-  const phrases = ["crear tu web", "conseguir clientes", "vender servicios", "generar contenido"];
+  const phrases = [
+    "vender tus servicios",
+    "captar clientes", 
+    "escalar tu negocio",
+    "posicionarte como experto",
+    "cerrar mentorías",
+    "vender tus cursos",
+    "atraer leads calificados",
+    "automatizar ventas",
+    "lanzar programas online",
+    "destacar tu marca"
+  ];
+  
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex];
+    
     const timeout = setTimeout(() => {
       if (isPaused) {
         setIsPaused(false);
         setIsDeleting(true);
         return;
       }
+
       if (isDeleting) {
         setCurrentText(currentPhrase.substring(0, currentText.length - 1));
         if (currentText === '') {
@@ -26,11 +43,16 @@ const TypewriterText = () => {
         }
       }
     }, isDeleting ? 50 : isPaused ? 2000 : 100);
+
     return () => clearTimeout(timeout);
   }, [currentText, isDeleting, isPaused, currentPhraseIndex, phrases]);
-  return <span className="text-blue-600 font-bold inline-block min-w-[280px] sm:min-w-[320px] h-[2.4em] sm:h-[1.2em] leading-tight align-top text-center">
+
+  return (
+    <span className="text-blue-600 font-bold inline-block min-w-[280px] sm:min-w-[380px] h-[2.4em] sm:h-[1.2em] leading-tight align-top text-center">
       {currentText}
       <span className="animate-pulse text-blue-400">|</span>
-    </span>;
+    </span>
+  );
 };
+
 export default TypewriterText;
