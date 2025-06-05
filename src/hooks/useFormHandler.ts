@@ -81,36 +81,71 @@ export const useFormHandler = () => {
         throw new Error('Faltan datos obligatorios en el formulario');
       }
       
-      console.log('Datos del formulario validados:', {
-        marca: formData.marca,
-        email: formData.email,
-        hasQuienEres: !!formData.quien_eres
-      });
+      console.log('Datos del formulario validados');
       
-      // Enviar email al admin primero
+      // Generar contenido básico en lugar de usar IA
+      const basicContent = `**BLOQUE 1 - DOCUMENTACIÓN DE MARCA**
+Nombre de la marca: ${formData.marca}
+Quién es: ${formData.quien_eres}
+Público objetivo: [Definir basándose en el contexto proporcionado]
+Problema que resuelve: ${formData.problemas}
+Producto principal: ${formData.producto}
+Estilo de comunicación: ${formData.estilo}
+Preguntas frecuentes: ${formData.preguntas_frecuentes}
+
+**BLOQUE 2 - IDEAS DE CONTENIDO INICIAL**
+Reels (5 ideas específicas para captar atención):
+1. Día en la vida de un coach exitoso
+2. Antes y después de transformaciones
+3. Mitos vs. realidades en coaching
+4. Proceso paso a paso de transformación
+5. Testimonios reales de clientes
+
+Stories (5 ideas para mostrar proceso y generar empatía):
+1. Detrás de escenas de sesiones
+2. Reflexiones matutinas
+3. Momentos de inspiración diaria
+4. Preguntas frecuentes respondidas
+5. Tips rápidos de crecimiento
+
+Posts (5 ideas educativas/inspiradoras):
+1. Guía paso a paso para superar bloqueos
+2. Las 5 creencias limitantes más comunes
+3. Cómo identificar tu propósito de vida
+4. Ejercicios prácticos de autoconocimiento
+5. Hábitos que transforman tu mentalidad
+
+**BLOQUE 3 - ASISTENTE PERSONAL IA**
+Prompt para ChatGPT:
+
+"Eres un experto en creación de contenido y marketing digital especializado en ${formData.estilo.toLowerCase()}.
+
+PERFIL DEL NEGOCIO:
+- Marca: ${formData.marca}
+- Profesional: ${formData.quien_eres}
+- Problema: ${formData.problemas}
+- Producto: ${formData.producto}
+- Estilo: ${formData.estilo}
+
+INSTRUCCIONES:
+Genera contenido educativo, inspirador y de venta. Mantén un tono ${formData.estilo.toLowerCase()}. Incluye llamados a la acción. Adapta el contenido para Instagram, Stories, LinkedIn y email marketing."`;
+
+      // Enviar emails
       await emailHandling.sendEmailToAdmin(formData);
-      console.log('Email al admin enviado exitosamente');
+      await emailHandling.sendConfirmationEmail(formData, basicContent);
       
-      // Generar contenido estratégico y enviar email de confirmación
-      const result = await emailHandling.sendConfirmationEmail(formData);
-      console.log('Email de confirmación enviado exitosamente');
+      setStrategicContent(basicContent);
+      setIsGenerating(false);
+      setShowResults(true);
       
-      if (result.strategicContent) {
-        setStrategicContent(result.strategicContent);
-        setIsGenerating(false);
-        setShowResults(true);
-        
-        setTimeout(() => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 100);
-        
-        toast({
-          title: "¡Kit IA generado exitosamente!",
-          description: "Tu contenido estratégico ha sido enviado por email.",
-        });
-      } else {
-        throw new Error('No se pudo generar el contenido estratégico');
-      }
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+      
+      toast({
+        title: "¡Kit IA generado exitosamente!",
+        description: "Tu contenido estratégico ha sido enviado por email.",
+      });
       
     } catch (error) {
       console.error('Error en handleSubmit:', error);
