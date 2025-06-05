@@ -46,7 +46,14 @@ const FormStepWizard = ({
     return currentFields.every(field => {
       if (field === 'website' && noWebsite) return true;
       if (field === 'instagram' && noInstagram) return true;
-      return formData[field as keyof FormData].trim() !== '';
+      
+      const fieldValue = formData[field as keyof FormData];
+      // Handle both string fields and the generatedPrompts object
+      if (typeof fieldValue === 'string') {
+        return fieldValue.trim() !== '';
+      }
+      // For non-string fields (like generatedPrompts), consider them as complete
+      return true;
     });
   };
 
