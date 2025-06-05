@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,7 +5,6 @@ import { Sparkles, Brain, Clock } from "lucide-react";
 import FormFields from '@/components/FormFields';
 import FormStepWizard from '@/components/FormStepWizard';
 import { FormData } from '@/hooks/useFormHandler';
-
 interface MainFormProps {
   formData: FormData;
   setFormData: (data: FormData) => void;
@@ -22,7 +20,6 @@ interface MainFormProps {
   onGenerateWebsite: () => void;
   onLoadExample: () => void;
 }
-
 const MainForm = ({
   formData,
   setFormData,
@@ -40,9 +37,7 @@ const MainForm = ({
 }: MainFormProps) => {
   const stepLabels = ["Información Básica", "Perfil Personal", "Finalizar"];
   const stepFields = [['marca', 'email', 'whatsapp', 'website', 'instagram'], ['quien_eres', 'problemas', 'preguntas_frecuentes', 'estilo'], ['producto']];
-  
-  return (
-    <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-xl">
+  return <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-xl">
       <CardHeader className="text-center pb-8 bg-gray-50 border-b border-gray-200">
         <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-3">
           <Sparkles className="w-8 h-8 text-blue-600" />
@@ -71,47 +66,16 @@ const MainForm = ({
 
         {/* Botón de prueba */}
         <div className="mt-6">
-          <Button 
-            type="button" 
-            onClick={onLoadExample}
-            variant="outline"
-            className="border-gray-300 text-gray-700 hover:bg-gray-50"
-          >
-            Ver ejemplo de respuestas
-          </Button>
+          
         </div>
       </CardHeader>
       <CardContent className="p-8 bg-white">
         <form onSubmit={onSubmit} className="space-y-8">
-          <FormFields 
-            formData={formData} 
-            onInputChange={onInputChange} 
-            onAIUsageUpdate={onAIUsageUpdate} 
-            sessionId={sessionId} 
-            noWebsite={noWebsite} 
-            noInstagram={noInstagram} 
-            setNoWebsite={setNoWebsite} 
-            setNoInstagram={setNoInstagram} 
-            setFormData={setFormData} 
-          />
+          <FormFields formData={formData} onInputChange={onInputChange} onAIUsageUpdate={onAIUsageUpdate} sessionId={sessionId} noWebsite={noWebsite} noInstagram={noInstagram} setNoWebsite={setNoWebsite} setNoInstagram={setNoInstagram} setFormData={setFormData} />
 
-          <FormStepWizard 
-            showWizard={false} 
-            currentStep={0} 
-            setCurrentStep={() => {}} 
-            stepFields={stepFields} 
-            stepLabels={stepLabels} 
-            formData={formData} 
-            noWebsite={noWebsite} 
-            noInstagram={noInstagram} 
-            onGenerateWebsite={onGenerateWebsite} 
-          />
+          <FormStepWizard showWizard={false} currentStep={0} setCurrentStep={() => {}} stepFields={stepFields} stepLabels={stepLabels} formData={formData} noWebsite={noWebsite} noInstagram={noInstagram} onGenerateWebsite={onGenerateWebsite} />
 
-          <Button 
-            type="submit" 
-            className="w-full py-4 sm:py-6 text-base sm:text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" 
-            disabled={!isFormValid}
-          >
+          <Button type="submit" className="w-full py-4 sm:py-6 text-base sm:text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" disabled={!isFormValid}>
             <Brain className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 flex-shrink-0" />
             <span className="whitespace-nowrap">GENERAR MI KIT IA AHORA</span>
           </Button>
@@ -123,8 +87,6 @@ const MainForm = ({
           </div>
         </form>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
-
 export default MainForm;
