@@ -90,7 +90,7 @@ Genera un sitio web profesional de una página (landing page) que incluya:
       const { data, error } = await supabase.functions.invoke('send-admin-email', {
         body: {
           to: 'estebanbonansea@gmail.com',
-          subject: `🚀 Nuevo cliente: ${formData.marca}`,
+          subject: `Nuevo cliente: ${formData.marca}`,
           content: tecnicalPromptForLovable,
           formData: formData
         }
@@ -113,45 +113,45 @@ Genera un sitio web profesional de una página (landing page) que incluya:
     try {
       console.log('📤 Generando contenido estratégico...');
       
-      const baseContent = `# 🎯 TU KIT IA PERSONALIZADO ESTÁ LISTO
+      const baseContent = `TU KIT IA PERSONALIZADO ESTÁ LISTO
 
-¡Hola! Aquí tienes tu material "Hazlo con IA" personalizado para ${formData.marca}.
-
----
-
-## 📋 BLOQUE 1 - DOCUMENTACIÓN DE MARCA
-
-**Nombre de la marca:** ${formData.marca}
-
-**Quién eres:** ${formData.quien_eres}
-
-**Problema que resuelves:** ${formData.problemas}
-
-**Producto principal:** ${formData.producto}
-
-**Preguntas frecuentes clave:** ${formData.preguntas_frecuentes}
-
-**Estilo de comunicación:** ${formData.estilo}
+Hola! Aquí tienes tu material "Hazlo con IA" personalizado para ${formData.marca}.
 
 ---
 
-## 💡 BLOQUE 2 - IDEAS DE CONTENIDO INICIAL
+BLOQUE 1 - DOCUMENTACIÓN DE MARCA
 
-### Reels (5 ideas)
+Nombre de la marca: ${formData.marca}
+
+Quién eres: ${formData.quien_eres}
+
+Problema que resuelves: ${formData.problemas}
+
+Producto principal: ${formData.producto}
+
+Preguntas frecuentes clave: ${formData.preguntas_frecuentes}
+
+Estilo de comunicación: ${formData.estilo}
+
+---
+
+BLOQUE 2 - IDEAS DE CONTENIDO INICIAL
+
+Reels (5 ideas)
 1. "Un día en la vida de..." - Muestra tu proceso de trabajo
 2. "Mito vs Realidad" - Desmiente creencias limitantes de tu nicho
 3. "Antes y después" - Transformación de un cliente (con permiso)
 4. "3 errores que cometes..." - Errores comunes en tu área
 5. "Mi historia personal" - Cómo llegaste a hacer lo que haces
 
-### Stories (5 ideas)
-1. Pregunta & respuesta con tu audiencia
+Stories (5 ideas)
+1. Pregunta y respuesta con tu audiencia
 2. "Detrás de escena" de una sesión/consulta
 3. Reflexión del día con mensaje inspirador
 4. Testimonial de cliente en formato historia
 5. Tips rápidos en formato carrusel
 
-### Posts (5 ideas)
+Posts (5 ideas)
 1. Post educativo: "5 pasos para..." relacionado a tu método
 2. Post inspiracional con tu filosofía de vida/trabajo
 3. Post de autoridad: "Por qué creo que..." (opinión experta)
@@ -160,9 +160,9 @@ Genera un sitio web profesional de una página (landing page) que incluya:
 
 ---
 
-## 🤖 BLOQUE 3 - ASISTENTE PERSONAL IA
+BLOQUE 3 - ASISTENTE PERSONAL IA
 
-**Copia este prompt en ChatGPT y úsalo como tu generador de contenido:**
+Copia este prompt en ChatGPT y úsalo como tu generador de contenido:
 
 Eres un experto en creación de contenido, marketing digital, ventas y posicionamiento de marca personal.
 
@@ -191,13 +191,13 @@ Cuando el usuario te pida contenido, genera ideas específicas, textos completos
 
 ---
 
-## 🚀 PRÓXIMOS PASOS
+PRÓXIMOS PASOS
 
-1. **Guarda este prompt** en ChatGPT para generar contenido ilimitado
-2. **Úsalo diariamente** pidiendo posts, reels, emails, etc.
-3. **Tu sitio web profesional** estará listo en las próximas horas y lo recibirás por email
+1. Guarda este prompt en ChatGPT para generar contenido ilimitado
+2. Úsalo diariamente pidiendo posts, reels, emails, etc.
+3. Tu sitio web profesional estará listo en las próximas horas y lo recibirás por email
 
-¡Tu presencia digital profesional está en camino! 💪`;
+Tu presencia digital profesional está en camino!`;
 
       const context = `El cliente es ${formData.marca}, que se dedica a: ${formData.quien_eres}. Su estilo de comunicación debe ser: ${formData.estilo}. Mejora este contenido para que sea más profesional, estratégico y accionable.`;
 
@@ -217,7 +217,7 @@ Cuando el usuario te pida contenido, genera ideas específicas, textos completos
       const { data, error } = await supabase.functions.invoke('send-confirmation-email', {
         body: {
           to: formData.email,
-          subject: `🎯 Tu material "Hazlo con IA" está listo - ${formData.marca}`,
+          subject: `Tu material "Hazlo con IA" está listo - ${formData.marca}`,
           content: finalContent,
           formData: formData
         }
