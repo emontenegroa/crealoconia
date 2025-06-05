@@ -80,6 +80,54 @@ INSTRUCCIONES PARA CREAR CONTENIDO:
 
 ¿En qué área específica de contenido o estrategia te gustaría que te ayude hoy para ${data.marca}?${gapsSection}`;
 
+    // Generar prompt de Lovable mejorado
+    const lovablePrompt = `Crea un sitio web profesional y altamente efectivo para ${data.marca}.
+
+INFORMACIÓN DEL NEGOCIO:
+- Marca: ${data.marca}
+- Especialista: ${data.quien_eres}
+- Problema que resuelve: ${data.problemas}
+- Producto principal: ${data.producto}
+- Estilo de comunicación: ${data.estilo}
+- Instagram: ${data.instagram || 'No proporcionado'}
+- Website actual: ${data.website || 'No tiene'}
+- WhatsApp: ${data.whatsapp}
+
+OBJETIVO DEL SITIO:
+Crear una landing page que posicione a ${data.marca} como la autoridad definitiva en su nicho y convierta visitantes en clientes potenciales cualificados.
+
+ESTRUCTURA REQUERIDA:
+1. **Header navegable** con logo, menú y CTA principal
+2. **Hero section impactante** con propuesta de valor clara y CTA prominente
+3. **Sección "Quién soy"** que genere credibilidad y conexión emocional
+4. **Problema-Solución** mostrando pain points específicos y cómo los resuelve
+5. **Metodología/Proceso** explicando su sistema único de trabajo
+6. **Testimonios sociales** (crear 3-4 testimonios realistas y específicos)
+7. **Producto/Servicio principal** con beneficios claros y urgencia
+8. **FAQ estratégicas** respondiendo: ${data.preguntas_frecuentes}
+9. **Formulario de contacto/captación** optimizado para conversión
+10. **Footer completo** con redes sociales y información de contacto
+
+ESPECIFICACIONES TÉCNICAS:
+- Diseño moderno, limpio y 100% responsive
+- Optimizado para conversión con múltiples CTAs estratégicos
+- Paleta de colores profesional y coherente con el nicho
+- Tipografía legible y jerarquía visual clara
+- Animaciones sutiles y micro-interacciones
+- Imágenes placeholder apropiadas para el sector
+- Formularios funcionales con validación
+- Optimización SEO básica
+
+COPY Y CONTENIDO:
+- Headlines magnéticos que capturen atención inmediata
+- Copy emocional que conecte con dolores específicos del público
+- Prueba social estratégicamente distribuida
+- CTAs irresistibles con urgencia y claridad
+- Beneficios orientados a resultados, no características
+- Lenguaje ${data.estilo.toLowerCase()} pero persuasivo
+
+El sitio debe transmitir autoridad, generar confianza y motivar acción inmediata para contactar o contratar los servicios de ${data.marca}.`;
+
     try {
       // Intentar mejorar el prompt usando la integración con ChatGPT
       console.log('🤖 Mejorando Super Prompt con ChatGPT...');
@@ -105,54 +153,18 @@ INSTRUCCIONES PARA CREAR CONTENIDO:
         console.warn('⚠️ No se pudo mejorar con ChatGPT, usando versión base');
       }
 
-      // Generar prompt de Lovable (solo para admin)
-      const lovablePrompt = `Crea un sitio web profesional para ${data.marca}.
-
-INFORMACIÓN DEL NEGOCIO:
-- Marca: ${data.marca}
-- Especialista: ${data.quien_eres}
-- Problema que resuelve: ${data.problemas}
-- Producto principal: ${data.producto}
-- Estilo: ${data.estilo}
-- Instagram: ${data.instagram || 'No proporcionado'}
-- Website actual: ${data.website || 'No tiene'}
-- WhatsApp: ${data.whatsapp}
-
-ESTRUCTURA REQUERIDA:
-1. Header con navegación clara
-2. Hero section con propuesta de valor potente
-3. Sección "Sobre mí" profesional
-4. Problemas que resuelve
-5. Metodología/proceso de trabajo
-6. Testimonios (crear 3 testimonios creíbles)
-7. Producto principal con beneficios
-8. FAQ respondiendo: ${data.preguntas_frecuentes}
-9. Formulario de contacto
-10. Footer con redes sociales
-
-CARACTERÍSTICAS TÉCNICAS:
-- Diseño moderno, profesional y responsive
-- Optimizado para conversión
-- CTA claros en cada sección
-- Paleta de colores coherente con el nicho
-- Tipografía legible y profesional
-- Imágenes placeholder apropiadas
-- Formulario funcional de contacto
-
-El sitio debe posicionar a ${data.marca} como autoridad en su nicho y convertir visitantes en leads cualificados.`;
-
       return {
         superPrompt: enhancedSuperPrompt,
-        lovablePrompt // Solo para envío al admin
+        lovablePrompt // Siempre devuelve el prompt completo de Lovable
       };
       
     } catch (error) {
       console.error('❌ Error al generar prompts:', error);
       
-      // Fallback: devolver prompt base si falla la mejora
+      // Fallback: devolver prompts base si falla la mejora
       return {
         superPrompt: baseSuperPrompt,
-        lovablePrompt: `Prompt de Lovable para ${data.marca} - Error en generación automática`
+        lovablePrompt // Devuelve el prompt completo, no un mensaje de error
       };
     }
   };
