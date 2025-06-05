@@ -4,112 +4,112 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 const FAQ = () => {
   return (
-    <div className="max-w-3xl mx-auto mt-20">
-      <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-        Preguntas frecuentes
+    <div className="max-w-4xl mx-auto mt-20">
+      <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+        🤔 Preguntas frecuentes
       </h2>
       
       <Accordion type="single" collapsible className="space-y-4">
-        <AccordionItem value="item-1" className="border border-emerald-200 rounded-lg px-6 bg-emerald-50/50">
-          <AccordionTrigger className="text-left hover:no-underline text-emerald-800 font-semibold">
-            ¿Qué incluye exactamente el Kit IA?
+        <AccordionItem value="item-1" className="bg-white border border-gray-200 rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
+            ¿Realmente es gratis? ¿Cuál es la trampa?
           </AccordionTrigger>
-          <AccordionContent className="text-gray-800 font-medium">
-            <div className="space-y-3">
-              <p>El Kit IA genera para ti:</p>
-              <ul className="list-disc list-inside space-y-1 ml-4">
-                <li>Los textos base estructurados para tu sitio web profesional.</li>
-                <li>Un prompt personalizado para seguir generando contenido en ChatGPT adaptado a tu negocio.</li>
-                <li>15 días de contenido inicial para tus redes (posts, reels y stories).</li>
-                <li>Y, en base a tus respuestas, generamos la primera versión estructurada de tu sitio web para revisión.</li>
-              </ul>
-            </div>
+          <AccordionContent className="px-6 pb-4 text-gray-700">
+            <p className="mb-3">
+              <strong>100% gratis, sin letra pequeña.</strong> Recibes tu Kit IA personalizado y tu sitio web sin pagar absolutamente nada.
+            </p>
+            <p>
+              Mi objetivo es que compruebes el poder de las estrategias con IA para tu negocio. 
+              Cuando veas los resultados, naturalmente querrás llevarlo al siguiente nivel con servicios más avanzados.
+            </p>
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-2" className="border border-teal-200 rounded-lg px-6 bg-teal-50/50">
-          <AccordionTrigger className="text-left hover:no-underline text-teal-800 font-semibold">
-            ¿Cuánto tiempo toma tener mi sitio web listo?
+        <AccordionItem value="item-2" className="bg-white border border-gray-200 rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
+            ¿Qué pasa si no sé usar ChatGPT?
           </AccordionTrigger>
-          <AccordionContent className="text-gray-800 font-medium">
-            <div className="space-y-3">
-              <p>Recibes tu Kit IA de forma automática apenas completas el formulario.</p>
-              <p>Luego, procesamos tus respuestas con inteligencia artificial para construir la primera versión de tu sitio web profesional.</p>
-              <p>En la mayoría de los casos el sitio está listo en minutos, aunque en períodos de alta demanda puede demorar hasta un máximo de 4 horas.</p>
-            </div>
+          <AccordionContent className="px-6 pb-4 text-gray-700">
+            <p className="mb-3">
+              Te envío <strong>instrucciones paso a paso súper simples</strong> para usar tu Kit IA, 
+              incluso si nunca has usado ChatGPT antes.
+            </p>
+            <p>
+              Además, tienes soporte directo conmigo via WhatsApp para resolver cualquier duda.
+            </p>
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-3" className="border border-cyan-200 rounded-lg px-6 bg-cyan-50/50">
-          <AccordionTrigger className="text-left hover:no-underline text-cyan-800 font-semibold">
+        <AccordionItem value="item-3" className="bg-white border border-gray-200 rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
+            ¿Mi sitio web será único o usarán una plantilla?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-gray-700">
+            <p className="mb-3">
+              <strong>Tu sitio web es 100% único y personalizado</strong> basado en tus respuestas del formulario.
+            </p>
+            <p>
+              No uso plantillas genéricas. Cada sitio se genera específicamente para tu negocio, 
+              tu audiencia y tus objetivos de venta.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-4" className="bg-white border border-gray-200 rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
+            ¿Cuánto tiempo tengo que esperar para recibir todo?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-gray-700">
+            <ul className="space-y-2">
+              <li><strong>Kit IA para ChatGPT:</strong> Inmediato en tu email</li>
+              <li><strong>Sitio web funcionando:</strong> 24-48 horas máximo</li>
+              <li><strong>Soporte y ajustes:</strong> Disponible desde el primer día</li>
+            </ul>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-5" className="bg-white border border-gray-200 rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
+            ¿Funcionará para mi tipo de negocio específico?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-gray-700">
+            <p className="mb-3">
+              <strong>Sí, funciona para cualquier negocio de servicios profesionales:</strong> 
+              coaches, consultores, terapeutas, freelancers, agencias, productos digitales, etc.
+            </p>
+            <p>
+              El sistema se personaliza 100% según tu nicho, audiencia y modelo de negocio.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-6" className="bg-white border border-gray-200 rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
+            ¿Qué pasa si no me gusta el resultado?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-gray-700">
+            <p className="mb-3">
+              <strong>Simple: lo arreglamos hasta que quedes 100% satisfecho.</strong>
+            </p>
+            <p>
+              Mi compromiso es entregarte herramientas que realmente funcionen para tu negocio. 
+              Si algo no está perfecto, trabajamos juntos para mejorarlo.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-7" className="bg-white border border-gray-200 rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
             ¿Necesito conocimientos técnicos?
           </AccordionTrigger>
-          <AccordionContent className="text-gray-800 font-medium">
-            <div className="space-y-3">
-              <p>No.</p>
-              <p>El sistema está diseñado para que no tengas que manejar ninguna parte técnica.</p>
-              <p>Solo completas el formulario con información de tu negocio.</p>
-              <p>Nosotros estructuramos, generamos el contenido y construimos la web por ti.</p>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-4" className="border border-emerald-200 rounded-lg px-6 bg-emerald-50/50">
-          <AccordionTrigger className="text-left hover:no-underline text-emerald-800 font-semibold">
-            ¿Puedo hacer cambios después?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-800 font-medium">
-            <div className="space-y-3">
-              <p>Sí.</p>
-              <p>Cuando recibas la primera versión de tu sitio web, podrás agendar una reunión personalizada para realizar ajustes finales de:</p>
-              <ul className="list-disc list-inside space-y-1 ml-4">
-                <li>Textos</li>
-                <li>Imágenes</li>
-                <li>Secciones adicionales</li>
-                <li>Configuración de dominio y detalles de publicación.</li>
-              </ul>
-              <p>El objetivo es entregarte un sitio completamente ajustado a tu negocio antes de publicarlo.</p>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-5" className="border border-teal-200 rounded-lg px-6 bg-teal-50/50">
-          <AccordionTrigger className="text-left hover:no-underline text-teal-800 font-semibold">
-            ¿Qué pasa si no tengo Instagram o sitio web actual?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-800 font-medium">
-            <div className="space-y-3">
-              <p>Ningún problema.</p>
-              <p>Este sistema está pensado justamente para emprendedores, profesionales y negocios que están comenzando o quieren profesionalizar su presencia digital desde cero.</p>
-              <p>Toda la estructura se genera en base a la información que completes en el formulario.</p>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-6" className="border border-cyan-200 rounded-lg px-6 bg-cyan-50/50">
-          <AccordionTrigger className="text-left hover:no-underline text-cyan-800 font-semibold">
-            ¿Realmente es gratis?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-800 font-medium">
-            <div className="space-y-4">
-              <div>
-                <p className="font-semibold text-emerald-700">✅ Sí, el Kit IA es totalmente gratuito para generar:</p>
-                <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
-                  <li>Los textos base de tu sitio.</li>
-                  <li>El prompt personalizado para ChatGPT.</li>
-                  <li>Los 15 días de contenido inicial para tus redes.</li>
-                </ul>
-              </div>
-              
-              <div className="pt-3 border-t border-gray-200">
-                <p className="font-semibold text-blue-700">🎯 ¿Y el sitio web?</p>
-                <div className="mt-2 space-y-2">
-                  <p>Generamos la primera versión estructurada de tu sitio web profesional en base a tus respuestas.</p>
-                  <p>Esta etapa no tiene costo y podrás revisarla sin ningún compromiso de compra.</p>
-                  <p className="font-medium">👉 Si luego decides avanzar para personalizar, ajustar los detalles finales, configurar tu dominio y dejar el sitio completamente publicado y operativo, aplicamos un pago único por el servicio de publicación profesional.</p>
-                </div>
-              </div>
-            </div>
+          <AccordionContent className="px-6 pb-4 text-gray-700">
+            <p className="mb-3">
+              <strong>Cero conocimientos técnicos necesarios.</strong>
+            </p>
+            <p>
+              Solo necesitas saber copiar y pegar en ChatGPT. Todo lo demás está automatizado 
+              y viene con instrucciones súper simples.
+            </p>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
