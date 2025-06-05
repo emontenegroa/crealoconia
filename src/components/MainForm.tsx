@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Brain } from "lucide-react";
+import { Sparkles, Brain, Clock } from "lucide-react";
 import FormFields from '@/components/FormFields';
 import FormStepWizard from '@/components/FormStepWizard';
 import { FormData } from '@/hooks/useFormHandler';
@@ -113,7 +113,7 @@ const MainForm = ({
             disabled={!isFormValid}
           >
             <Brain className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 flex-shrink-0" />
-            <span className="text-sm sm:text-base lg:text-lg">GENERAR MI KIT IA AHORA</span>
+            <span className="whitespace-nowrap">GENERAR MI KIT IA AHORA</span>
           </Button>
 
           <div className="text-center space-y-2">

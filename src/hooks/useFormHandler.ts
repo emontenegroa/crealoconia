@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { toast } from "@/hooks/use-toast";
 import { useFormPersistence } from '@/hooks/useFormPersistence';
@@ -162,15 +161,12 @@ export const useFormHandler = () => {
 
     setIsGenerating(true);
     
-    // Scroll al principio para mostrar el loading
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
     try {
-      console.log('🔄 Iniciando proceso de generación con ChatGPT...');
+      console.log('🔄 Iniciando proceso de generación de Kit IA...');
       
       await new Promise(resolve => setTimeout(resolve, 3000));
       
-      console.log('📤 Enviando emails con contenido mejorado...');
+      console.log('📤 Enviando emails de notificación...');
       
       const [adminResult, confirmationResult] = await Promise.allSettled([
         sendEmailToAdmin(formData),
@@ -195,18 +191,13 @@ export const useFormHandler = () => {
       setIsGenerating(false);
       setShowResults(true);
       
-      // Scroll a la sección de resultados
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 100);
-      
       toast({
-        title: "¡Contenido generado exitosamente!",
-        description: `Material profesional enviado por email. Tu sitio web estará listo pronto.`,
+        title: "¡Kit IA generado exitosamente!",
+        description: `${emailsSent === 2 ? 'Ambos emails enviados' : 'Al menos un email enviado'}. Revisa las bandejas de entrada.`,
       });
       
     } catch (error) {
-      console.error('💥 Error durante la generación del contenido:', error);
+      console.error('💥 Error durante la generación del kit:', error);
       setIsGenerating(false);
       toast({
         title: "Error al procesar el formulario",
