@@ -12,8 +12,7 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
     <div className="text-center mb-20">
       <div className="mb-16">
         <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight text-center">
-          🌐 Tu sitio web profesional<br />
-          listo para <span className="inline-block min-h-[1.2em] align-top"><TypewriterText /></span>
+          🌐 Tu web lista para <span className="inline-block min-h-[1.2em] align-top"><TypewriterText /></span>
         </h1>
         
         <p className="text-xl md:text-2xl text-gray-700 mb-12 max-w-4xl mx-auto leading-relaxed">
