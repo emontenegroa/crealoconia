@@ -1,5 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
+import { useStrategicContent } from "./useStrategicContent";
 
 interface FormData {
   marca: string;
@@ -15,6 +16,8 @@ interface FormData {
 }
 
 export const useEmailHandling = () => {
+  const { generateStrategicContent } = useStrategicContent();
+
   const sendEmailToAdmin = async (formData: FormData) => {
     try {
       console.log('Enviando email al admin...');
@@ -22,7 +25,15 @@ export const useEmailHandling = () => {
       const emailData = {
         to: 'estebanbonansea@gmail.com',
         subject: 'Nuevo cliente: ' + formData.marca,
-        content: 'NUEVO CLIENTE: ' + formData.marca + '\n\nEmail: ' + formData.email,
+        content: `NUEVO CLIENTE: ${formData.marca}
+
+Email: ${formData.email}
+WhatsApp: ${formData.whatsapp}
+Website: ${formData.website || 'No especificado'}
+Instagram: ${formData.instagram || 'No especificado'}
+
+DATOS COMPLETOS:
+${JSON.stringify(formData, null, 2)}`,
         formData: formData
       };
 
@@ -45,13 +56,38 @@ export const useEmailHandling = () => {
 
   const sendConfirmationEmail = async (formData: FormData) => {
     try {
-      console.log('Generando contenido estrategico...');
+      console.log('Generando contenido estratégico...');
       
-      const emailContent = 'TU KIT IA PERSONALIZADO ESTA LISTO\n\nHola! Tu material para ' + formData.marca + ' esta listo.';
+      // Generar contenido estratégico usando OpenAI
+      const strategicContent = await generateStrategicContent(formData);
+      
+      console.log('Enviando email de confirmación con contenido...');
+      
+      const emailContent = `🧠 TU KIT IA PERSONALIZADO ESTÁ LISTO
+
+¡Hola!
+
+Tu material estratégico para ${formData.marca} está listo. A continuación encontrarás tu Kit IA personalizado:
+
+${strategicContent}
+
+---
+
+🚀 PRÓXIMOS PASOS:
+
+1. Guarda este email en una carpeta especial
+2. Usa el prompt personalizado de ChatGPT para generar más contenido
+3. Implementa las ideas de contenido en tus redes sociales
+4. Si necesitas ayuda, puedes contactarme por WhatsApp
+
+¡Éxito en tu estrategia digital!
+
+Esteban Bonansea
+Kit IA de Esteban`;
       
       const emailData = {
         to: formData.email,
-        subject: 'Tu Kit IA esta listo - ' + formData.marca,
+        subject: `🧠 Tu Kit IA está listo - ${formData.marca}`,
         content: emailContent,
         formData: formData
       };
@@ -66,7 +102,7 @@ export const useEmailHandling = () => {
       }
 
       console.log('Email enviado exitosamente');
-      return { success: true, data };
+      return { success: true, data, strategicContent };
     } catch (error) {
       console.error('Error en sendConfirmationEmail:', error);
       throw error;

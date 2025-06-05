@@ -1,7 +1,6 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { toast } from "@/hooks/use-toast";
-import { useFormPersistence } from '@/hooks/useFormPersistence';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
 
 export interface FormData {
@@ -34,13 +33,10 @@ export const useFormHandler = () => {
   const [formData, setFormData] = useState<FormData>(emptyForm);
   const [isGenerating, setIsGenerating] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [showPricing, setShowPricing] = useState(false);
+  const [strategicContent, setStrategicContent] = useState<string>('');
   const [noWebsite, setNoWebsite] = useState(false);
   const [noInstagram, setNoInstagram] = useState(false);
-  const [showProgressDialog, setShowProgressDialog] = useState(false);
-  const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
 
-  const persistence = useFormPersistence();
   const emailHandling = useEmailHandling();
 
   const handleInputChange = (name: string, value: string) => {
@@ -52,27 +48,6 @@ export const useFormHandler = () => {
 
   const handleAIUsageUpdate = (fieldName: string, count: number) => {
     console.log('Campo ' + fieldName + ' ha usado IA ' + count + ' veces');
-  };
-
-  const loadPreviousData = () => {
-    if (previousProgress) {
-      setFormData(previousProgress);
-      setNoWebsite(!previousProgress.website);
-      setNoInstagram(!previousProgress.instagram);
-      setShowProgressDialog(false);
-      toast({
-        title: "Progreso cargado",
-        description: "Hemos restaurado tu progreso anterior.",
-      });
-    }
-  };
-
-  const startFresh = () => {
-    setShowProgressDialog(false);
-    toast({
-      title: "Nuevo formulario",
-      description: "Comenzando desde cero.",
-    });
   };
 
   const loadExampleData = () => {
@@ -92,23 +67,6 @@ export const useFormHandler = () => {
     setNoInstagram(false);
   };
 
-  const handlePurchase = () => {
-    console.log('Proceso de compra...');
-    toast({
-      title: "Compra exitosa!",
-      description: "Completa el formulario para generar tu Kit IA.",
-    });
-    setShowPricing(false);
-  };
-
-  const onGenerateWebsite = () => {
-    console.log('Generando sitio web...');
-    toast({
-      title: "Sitio web en proceso",
-      description: "Tu sitio web sera enviado por email.",
-    });
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -116,14 +74,22 @@ export const useFormHandler = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
     try {
-      console.log('Iniciando proceso...');
+      console.log('Iniciando proceso de generación...');
       
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      // Simular proceso de carga
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
-      console.log('Enviando emails...');
+      console.log('Enviando emails y generando contenido...');
       
+      // Enviar email al admin
       await emailHandling.sendEmailToAdmin(formData);
-      await emailHandling.sendConfirmationEmail(formData);
+      
+      // Generar contenido estratégico y enviar email de confirmación
+      const result = await emailHandling.sendConfirmationEmail(formData);
+      
+      if (result.strategicContent) {
+        setStrategicContent(result.strategicContent);
+      }
       
       setIsGenerating(false);
       setShowResults(true);
@@ -133,8 +99,8 @@ export const useFormHandler = () => {
       }, 100);
       
       toast({
-        title: "Material generado!",
-        description: "Contenido enviado por email.",
+        title: "¡Kit IA generado exitosamente!",
+        description: "Tu contenido estratégico ha sido enviado por email.",
       });
       
     } catch (error) {
@@ -142,7 +108,7 @@ export const useFormHandler = () => {
       setIsGenerating(false);
       toast({
         title: "Error al procesar",
-        description: "Problema: " + (error instanceof Error ? error.message : 'Error desconocido'),
+        description: "Hubo un problema: " + (error instanceof Error ? error.message : 'Error desconocido'),
         variant: "destructive",
       });
     }
@@ -150,6 +116,7 @@ export const useFormHandler = () => {
 
   const resetForm = () => {
     setShowResults(false);
+    setStrategicContent('');
     setFormData(emptyForm);
     setNoWebsite(false);
     setNoInstagram(false);
@@ -171,23 +138,14 @@ export const useFormHandler = () => {
     setFormData,
     isGenerating,
     showResults,
-    showPricing,
-    setShowPricing,
+    strategicContent,
     noWebsite,
     setNoWebsite,
     noInstagram,
     setNoInstagram,
-    showProgressDialog,
-    previousProgress,
-    attemptCount: 1,
-    sessionId: 'session-1',
     handleInputChange,
     handleAIUsageUpdate,
-    loadPreviousData,
-    startFresh,
     loadExampleData,
-    handlePurchase,
-    onGenerateWebsite,
     handleSubmit,
     resetForm,
     isFormValid
