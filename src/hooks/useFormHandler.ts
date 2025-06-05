@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { toast } from "@/hooks/use-toast";
 import { useFormPersistence } from '@/hooks/useFormPersistence';
@@ -49,6 +50,7 @@ export const useFormHandler = () => {
 
   const { sendEmailToAdmin, sendConfirmationEmail } = useEmailHandling();
 
+  // Verificar progreso previo cuando se ingresa el email
   useEffect(() => {
     const checkPreviousProgress = async () => {
       if (formData.email && formData.email.includes('@') && !showProgressDialog) {
@@ -64,6 +66,7 @@ export const useFormHandler = () => {
     return () => clearTimeout(timeoutId);
   }, [formData.email]);
 
+  // Guardar progreso automáticamente cada 30 segundos
   useEffect(() => {
     if (formData.email && Object.values(formData).some(value => value.trim() !== '')) {
       const interval = setInterval(() => {
@@ -93,7 +96,7 @@ export const useFormHandler = () => {
       setShowProgressDialog(false);
       toast({
         title: "Progreso cargado",
-        description: "Hemos restaurado tu progreso anterior.",
+        description: "Hemos restaurado tu progreso anterior. Puedes continuar donde lo dejaste.",
       });
     }
   };
@@ -102,7 +105,7 @@ export const useFormHandler = () => {
     setShowProgressDialog(false);
     toast({
       title: "Nuevo formulario",
-      description: "Comenzando desde cero.",
+      description: "Comenzando un formulario nuevo desde cero.",
     });
   };
 
@@ -113,30 +116,34 @@ export const useFormHandler = () => {
       whatsapp: '56945487423',
       website: 'www.luzinteriorcoaching.com',
       instagram: 'luzinteriorcoaching',
-      quien_eres: 'Soy Carolina, coach de vida certificada con 8 años de experiencia.',
-      problemas: 'Mis clientas suelen llegar bloqueadas emocionalmente.',
-      preguntas_frecuentes: 'Me preguntan si es posible cambiar de vida después de los 35 años.',
+      quien_eres: 'Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras y profesionales que buscan reconectar con su propósito de vida y desarrollar todo su potencial. Disfruto profundamente crear espacios seguros donde mis clientas pueden explorar sus emociones, desbloquear sus miedos y diseñar la vida que realmente desean vivir.',
+      problemas: 'Mis clientas suelen llegar a mí sintiéndose bloqueadas emocionalmente, con una sensación constante de estar viviendo en piloto automático sin conexión con lo que realmente las hace felices. Muchas experimentan el síndrome del impostor, miedo al fracaso y dificultades para tomar decisiones importantes. Yo las ayudo a través de un proceso de autoconocimiento profundo, técnicas de PNL y ejercicios prácticos que les permiten recuperar su claridad mental, confianza y dirección en la vida.',
+      preguntas_frecuentes: 'Me preguntan constantemente si realmente es posible cambiar de vida después de los 35 o 40 años, especialmente cuando ya tienen responsabilidades familiares y económicas. También me consultan sobre cómo saber si están tomando la decisión correcta y cómo superar el miedo al juicio de otros. Me encanta explicar que la transformación es posible a cualquier edad y que el momento perfecto no existe, pero el momento presente sí.',
       estilo: 'Inspirador',
-      producto: 'Mi programa "Renace: Transforma tu Vida en 90 Días".'
+      producto: 'Mi programa insignia "Renace: Transforma tu Vida en 90 Días", un proceso de coaching integral que incluye 8 sesiones individuales, un workbook personalizado, meditaciones guiadas y acceso a mi comunidad privada de mujeres en transformación. El programa está diseñado para mujeres que quieren hacer cambios profundos y duraderos en su vida personal y profesional.'
     });
     setNoWebsite(false);
     setNoInstagram(false);
   };
 
   const handlePurchase = () => {
-    console.log('Proceso de compra...');
+    // Aquí iría la integración con Stripe o el procesador de pagos
+    console.log('🛒 Iniciando proceso de compra...');
+    
+    // Por ahora, simular compra exitosa y mostrar formulario
     toast({
-      title: "Compra exitosa!",
-      description: "Completa el formulario para generar tu Kit IA.",
+      title: "¡Compra exitosa! 🎉",
+      description: "Ahora completa el formulario para generar tu Kit IA personalizado.",
     });
+    
     setShowPricing(false);
   };
 
   const onGenerateWebsite = () => {
-    console.log('Generando sitio web...');
+    console.log('🌐 Generando sitio web...');
     toast({
       title: "Sitio web en proceso",
-      description: "Tu sitio web sera enviado por email.",
+      description: "Tu sitio web se está generando y será enviado por email.",
     });
   };
 
@@ -147,57 +154,63 @@ export const useFormHandler = () => {
     if (!canProceed) {
       toast({
         title: "Límite alcanzado",
-        description: "Has completado el formulario 3 veces.",
+        description: "Has completado el formulario 3 veces con este email. Usa otro email si necesitas generar más kits.",
         variant: "destructive",
       });
       return;
     }
 
     setIsGenerating(true);
+    
+    // Scroll al principio para mostrar el loading
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
     try {
-      console.log('Iniciando proceso...');
+      console.log('🔄 Iniciando proceso de generación con ChatGPT...');
       
       await new Promise(resolve => setTimeout(resolve, 3000));
       
-      console.log('Enviando emails...');
+      console.log('📤 Enviando emails con contenido mejorado...');
       
       const [adminResult, confirmationResult] = await Promise.allSettled([
         sendEmailToAdmin(formData),
         sendConfirmationEmail(formData)
       ]);
       
+      console.log('📧 Resultado email admin:', adminResult);
+      console.log('📧 Resultado email confirmación:', confirmationResult);
+      
       const emailsSent = [adminResult, confirmationResult].filter(
         result => result.status === 'fulfilled'
       ).length;
       
       if (emailsSent === 0) {
-        throw new Error('No se pudo enviar ningun email');
+        throw new Error('No se pudo enviar ningún email');
       }
       
-      console.log(`${emailsSent}/2 emails enviados`);
+      console.log(`✅ ${emailsSent}/2 emails enviados correctamente`);
       
       await markAsCompleted(formData);
       
       setIsGenerating(false);
       setShowResults(true);
       
+      // Scroll a la sección de resultados
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 100);
       
       toast({
-        title: "Material generado!",
-        description: "Contenido enviado por email.",
+        title: "¡Contenido generado exitosamente!",
+        description: `Material profesional enviado por email. Tu sitio web estará listo pronto.`,
       });
       
     } catch (error) {
-      console.error('Error:', error);
+      console.error('💥 Error durante la generación del contenido:', error);
       setIsGenerating(false);
       toast({
-        title: "Error al procesar",
-        description: `Problema: ${error instanceof Error ? error.message : 'Error desconocido'}`,
+        title: "Error al procesar el formulario",
+        description: `Problema detectado: ${error instanceof Error ? error.message : 'Error desconocido'}`,
         variant: "destructive",
       });
     }
@@ -253,9 +266,9 @@ export const useFormHandler = () => {
     startFresh,
     loadExampleData,
     handlePurchase,
-    onGenerateWebsite,
     handleSubmit,
     resetForm,
-    isFormValid
+    isFormValid,
+    onGenerateWebsite
   };
 };
