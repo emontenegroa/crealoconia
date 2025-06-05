@@ -1,16 +1,11 @@
-
 import React from 'react';
 import { CheckCircle, Rocket } from 'lucide-react';
-
 const BehindTheScenes = () => {
-  return (
-    <div>
+  return <div>
       <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">🔧 ¿Cómo lo hacemos?</h2>
       
       <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8 mb-8">
-        <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">
-          🔬 Detrás del Kit IA: la combinación de datos + estructura + inteligencia artificial
-        </h3>
+        <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">🔬 Detrás de Hazlo con IA : la combinación de datos + estructura + inteligencia artificial</h3>
         
         <p className="text-gray-700 text-lg mb-8 text-center">
           Cuando completas el formulario, no solo capturamos tus respuestas. Lo que realmente hacemos es:
@@ -94,8 +89,6 @@ const BehindTheScenes = () => {
           </p>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default BehindTheScenes;
