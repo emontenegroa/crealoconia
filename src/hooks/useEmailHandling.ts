@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 
 interface FormData {
@@ -201,12 +200,6 @@ export const useEmailHandling = () => {
                 </p>
                 <p style="color: #D97706; font-weight: bold; margin: 0;">
                   ✨ Sin compromiso, sin pagos adelantados, sin letra pequeña
-                </p>
-              </div>
-
-              <div style="text-align: center; margin: 30px 0;">
-                <p style="color: #6B7280; font-size: 14px; margin: 0;">
-                  Super Prompt valorado en <strong style="color: #7C3AED;">$2,000+ USD</strong> - ¡Completamente gratis!
                 </p>
               </div>
 
