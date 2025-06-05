@@ -154,7 +154,7 @@ export const useFormHandler = () => {
     if (!canProceed) {
       toast({
         title: "Límite alcanzado",
-        description: "Has completado el formulario 3 veces con este email. Usa otro email si necesitas generar más kits.",
+        description: "Has completado el formulario 3 veces con este email. Usa otro email si necesitas generar más contenido.",
         variant: "destructive",
       });
       return;
@@ -163,11 +163,11 @@ export const useFormHandler = () => {
     setIsGenerating(true);
     
     try {
-      console.log('🔄 Iniciando proceso de generación de Kit IA...');
+      console.log('🔄 Iniciando generación de contenido...');
       
       await new Promise(resolve => setTimeout(resolve, 3000));
       
-      console.log('📤 Enviando emails de notificación...');
+      console.log('📤 Enviando emails...');
       
       const [adminResult, confirmationResult] = await Promise.allSettled([
         sendEmailToAdmin(formData),
@@ -193,16 +193,16 @@ export const useFormHandler = () => {
       setShowResults(true);
       
       toast({
-        title: "¡Kit IA generado exitosamente!",
-        description: `${emailsSent === 2 ? 'Ambos emails enviados' : 'Al menos un email enviado'}. Revisa las bandejas de entrada.`,
+        title: "¡Contenido generado exitosamente!",
+        description: `${emailsSent === 2 ? 'Emails enviados' : 'Al menos un email enviado'}. Revisa tu bandeja de entrada.`,
       });
       
     } catch (error) {
-      console.error('💥 Error durante la generación del kit:', error);
+      console.error('💥 Error durante la generación:', error);
       setIsGenerating(false);
       toast({
-        title: "Error al procesar el formulario",
-        description: `Problema detectado: ${error instanceof Error ? error.message : 'Error desconocido'}`,
+        title: "Error al procesar",
+        description: `Problema: ${error instanceof Error ? error.message : 'Error desconocido'}`,
         variant: "destructive",
       });
     }
