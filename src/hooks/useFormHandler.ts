@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { toast } from "@/hooks/use-toast";
 import { useFormPersistence } from '@/hooks/useFormPersistence';
@@ -16,20 +17,21 @@ export interface FormData {
   instagram: string;
 }
 
-export const useFormHandler = () => {
-  const [formData, setFormData] = useState<FormData>({
-    marca: '',
-    quien_eres: '',
-    problemas: '',
-    preguntas_frecuentes: '',
-    estilo: '',
-    producto: '',
-    email: '',
-    whatsapp: '',
-    website: '',
-    instagram: ''
-  });
+const initialFormData: FormData = {
+  marca: '',
+  quien_eres: '',
+  problemas: '',
+  preguntas_frecuentes: '',
+  estilo: '',
+  producto: '',
+  email: '',
+  whatsapp: '',
+  website: '',
+  instagram: ''
+};
 
+export const useFormHandler = () => {
+  const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isGenerating, setIsGenerating] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
@@ -62,7 +64,7 @@ export const useFormHandler = () => {
 
     const timeoutId = setTimeout(checkPreviousProgress, 1000);
     return () => clearTimeout(timeoutId);
-  }, [formData.email]);
+  }, [formData.email, showProgressDialog, loadPreviousProgress]);
 
   useEffect(() => {
     if (formData.email && Object.values(formData).some(value => value.trim() !== '')) {
@@ -72,7 +74,7 @@ export const useFormHandler = () => {
 
       return () => clearInterval(interval);
     }
-  }, [formData]);
+  }, [formData, saveProgress]);
 
   const handleInputChange = (name: string, value: string) => {
     setFormData(prev => ({
@@ -205,18 +207,7 @@ export const useFormHandler = () => {
 
   const resetForm = () => {
     setShowResults(false);
-    setFormData({
-      marca: '',
-      quien_eres: '',
-      problemas: '',
-      preguntas_frecuentes: '',
-      estilo: '',
-      producto: '',
-      email: '',
-      whatsapp: '',
-      website: '',
-      instagram: ''
-    });
+    setFormData(initialFormData);
     setNoWebsite(false);
     setNoInstagram(false);
   };

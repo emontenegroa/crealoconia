@@ -19,7 +19,7 @@ export const useEmailHandling = () => {
     try {
       console.log('Enviando email al admin...');
       
-      const emailContent = `NUEVO CLIENTE: ${formData.marca}
+      const content = `NUEVO CLIENTE: ${formData.marca}
       
 Email: ${formData.email}
 WhatsApp: ${formData.whatsapp}
@@ -40,7 +40,7 @@ ESTILO: ${formData.estilo}`;
         body: {
           to: 'estebanbonansea@gmail.com',
           subject: `Nuevo cliente: ${formData.marca}`,
-          content: emailContent,
+          content: content,
           formData: formData
         }
       });
@@ -62,7 +62,7 @@ ESTILO: ${formData.estilo}`;
     try {
       console.log('Generando contenido estrategico...');
       
-      const baseContent = `TU KIT IA PERSONALIZADO ESTA LISTO
+      const content = `TU KIT IA PERSONALIZADO ESTA LISTO
 
 Hola! Aqui tienes tu material personalizado para ${formData.marca}.
 
@@ -96,12 +96,12 @@ Tu presencia digital profesional esta en camino!`;
       
       const { data: enhancedData, error: enhanceError } = await supabase.functions.invoke('enhance-with-chatgpt', {
         body: {
-          content: baseContent,
+          content: content,
           context: context
         }
       });
 
-      const finalContent = enhancedData?.enhancedContent || baseContent;
+      const finalContent = enhancedData?.enhancedContent || content;
 
       console.log('Enviando email de confirmacion...');
 
