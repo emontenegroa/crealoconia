@@ -1,13 +1,17 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import TypewriterText from './TypewriterText';
+
 interface HeroSectionProps {
   onLoadExample: () => void;
 }
+
 const HeroSection = ({
   onLoadExample
 }: HeroSectionProps) => {
-  return <div className="text-center mb-20">
+  return (
+    <div className="text-center mb-20">
       <div className="mb-16">
         <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight text-center">
           🌐 Tu web lista para <span className="inline-block min-h-[1.2em] align-top"><TypewriterText /></span>
@@ -40,7 +44,7 @@ const HeroSection = ({
           </div>
           
           <div className="bg-white border border-purple-200 rounded-xl p-6">
-            <div className="text-purple-600 text-3xl mb-3">Optimizado para encantar a tus clientes desde el primer día</div>
+            <div className="text-purple-600 text-3xl mb-3">💰</div>
             <h3 className="font-bold text-gray-900 mb-2">Diseñado para Vender</h3>
             <p className="text-gray-700 text-sm">Optimizado para convertir visitantes en clientes desde el primer día</p>
           </div>
@@ -55,6 +59,8 @@ const HeroSection = ({
 
       {/* CTA urgencia */}
       
-    </div>;
+    </div>
+  );
 };
+
 export default HeroSection;
