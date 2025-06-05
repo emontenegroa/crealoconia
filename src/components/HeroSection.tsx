@@ -26,12 +26,12 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
       {/* Propuesta de valor principal */}
       <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-2xl p-8 max-w-4xl mx-auto mb-12">
         <p className="text-blue-600 font-bold text-2xl mb-4">
-          🎁 Recibes GRATIS al completar el formulario:
+          🎁 Al completar el formulario obtienes:
         </p>
         <div className="grid md:grid-cols-2 gap-6 text-left">
           <div className="bg-white border border-blue-200 rounded-xl p-6">
             <h3 className="font-bold text-blue-800 text-lg mb-3 flex items-center gap-2">
-              🤖 Tu Asistente IA Personal
+              🤖 Tu Super Prompt IA Personal
             </h3>
             <ul className="text-gray-700 space-y-2">
               <li>• Genera contenido viral para redes sociales</li>
@@ -50,7 +50,7 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
               <li>• Optimizado para atraer clientes</li>
               <li>• Textos de ventas ya escritos</li>
               <li>• Diseño responsive profesional</li>
-              <li>• <strong>Listo en 24-48 horas máximo</strong></li>
+              <li>• <strong>Listo en máximo 4 horas</strong></li>
             </ul>
           </div>
         </div>

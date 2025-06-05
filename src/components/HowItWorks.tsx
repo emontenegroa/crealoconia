@@ -14,8 +14,8 @@ const HowItWorks = () => {
             </div>
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 mb-3 text-xl">Completas el formulario</h3>
-            <p className="text-gray-700 text-lg leading-relaxed">Respondes 10 preguntas simples sobre tu negocio, tus servicios y el tipo de presencia digital que quieres construir. Nos das la información clave para crear contenido alineado a lo que realmente ofreces.</p>
+            <h3 className="font-bold text-gray-900 mb-3 text-xl">Completa el formulario</h3>
+            <p className="text-gray-700 text-lg leading-relaxed">Respondes 10 preguntas simples sobre tu negocio, tus servicios y la presencia digital que quieres construir. Con esta información recopilamos los datos clave para generar el contenido alineado a lo que realmente ofreces.</p>
           </div>
         </div>
 
@@ -26,10 +26,8 @@ const HowItWorks = () => {
             </div>
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 mb-3 text-xl">Recibes tu Kit IA</h3>
-            <p className="text-gray-700 text-lg leading-relaxed">Apenas terminas el formulario, generamos y te enviamos:  
-Los textos base para tu web profesional,  Un prompt exclusivo para seguir creando contenido con IA asociado a tu información,  15 días de publicaciones. 
-Todo lo que necesitas para empezar a construir tu presencia online con claridad.</p>
+            <h3 className="font-bold text-gray-900 mb-3 text-xl">Recibes tu Super Prompt IA</h3>
+            <p className="text-gray-700 text-lg leading-relaxed">Apenas terminas el formulario, generamos y te enviamos tu Super Prompt personalizado para ChatGPT. Este prompt está diseñado específicamente para tu negocio, y te permite crear contenido profesional, publicaciones, ideas de venta y materiales de marketing con IA de forma ilimitada. Te lo entregamos listo para copiar y usar directamente en ChatGPT.</p>
           </div>
         </div>
 
@@ -40,10 +38,8 @@ Todo lo que necesitas para empezar a construir tu presencia online con claridad.
             </div>
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 mb-3 text-xl">Tu sitio web estará listo</h3>
-            <p className="text-gray-700 text-lg leading-relaxed">Con tus respuestas generamos internamente la primera versión de tu sitio web, listo para revisar.
-Normalmente lo tenemos en minutos, aunque en horas de alta demanda puede tardar un máximo de 4 horas.
-Nuestro equipo revisa cada sitio antes de enviártelo para garantizar que recibas una base profesional, no solo una plantilla genérica.</p>
+            <h3 className="font-bold text-gray-900 mb-3 text-xl">Generamos tu sitio web profesional</h3>
+            <p className="text-gray-700 text-lg leading-relaxed">Con tus respuestas generamos internamente la primera versión de tu sitio web. Normalmente lo tenemos listo en minutos, aunque dependiendo de la demanda puede tardar hasta un máximo de 4 horas. Nuestro equipo revisa y ajusta cada sitio antes de enviártelo, para garantizarte una base profesional, no una plantilla genérica. Cuando tu sitio esté listo, recibirás por email la URL para que lo revises y valides.</p>
           </div>
         </div>
       </div>

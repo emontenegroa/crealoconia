@@ -16,7 +16,7 @@ const FAQ = () => {
           </AccordionTrigger>
           <AccordionContent className="px-6 pb-4 text-gray-700">
             <p className="mb-3">
-              <strong>100% gratis, sin letra pequeña.</strong> Recibes tu Kit IA personalizado y tu sitio web sin pagar absolutamente nada.
+              <strong>100% gratis, sin letra pequeña.</strong> Obtienes tu Super Prompt IA personalizado y tu sitio web sin pagar absolutamente nada.
             </p>
             <p>
               Mi objetivo es que compruebes el poder de las estrategias con IA para tu negocio. 
@@ -31,11 +31,11 @@ const FAQ = () => {
           </AccordionTrigger>
           <AccordionContent className="px-6 pb-4 text-gray-700">
             <p className="mb-3">
-              Te envío <strong>instrucciones paso a paso súper simples</strong> para usar tu Kit IA, 
+              Te envío <strong>instrucciones paso a paso súper simples</strong> para usar tu Super Prompt IA, 
               incluso si nunca has usado ChatGPT antes.
             </p>
             <p>
-              Además, tienes soporte directo conmigo via WhatsApp para resolver cualquier duda.
+              Además, tienes soporte directo via email para resolver cualquier duda.
             </p>
           </AccordionContent>
         </AccordionItem>
@@ -61,8 +61,8 @@ const FAQ = () => {
           </AccordionTrigger>
           <AccordionContent className="px-6 pb-4 text-gray-700">
             <ul className="space-y-2">
-              <li><strong>Kit IA para ChatGPT:</strong> Inmediato en tu email</li>
-              <li><strong>Sitio web funcionando:</strong> 24-48 horas máximo</li>
+              <li><strong>Super Prompt IA para ChatGPT:</strong> Inmediato en tu email</li>
+              <li><strong>Sitio web funcionando:</strong> Máximo 4 horas</li>
               <li><strong>Soporte y ajustes:</strong> Disponible desde el primer día</li>
             </ul>
           </AccordionContent>
