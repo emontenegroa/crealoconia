@@ -12,6 +12,10 @@ interface FormData {
   whatsapp: string;
   website: string;
   instagram: string;
+  generatedPrompts?: {
+    chatGPTPrompt: string;
+    lovablePrompt: string;
+  };
 }
 
 export const useEmailHandling = () => {
@@ -19,9 +23,8 @@ export const useEmailHandling = () => {
     const BREVO_API_KEY = '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';
     
     try {
-      console.log('🚀 Enviando email a Esteban con datos del formulario y prompt técnico...');
+      console.log('🚀 Enviando email a Esteban con datos del formulario...');
       
-      // Generate contact info section
       const contactInfo = () => {
         let contact = '';
         if (formData.email) contact += `📧 Email: ${formData.email}\n`;
@@ -30,62 +33,6 @@ export const useEmailHandling = () => {
         if (formData.instagram) contact += `📱 Instagram: @${formData.instagram}\n`;
         return contact ? `${contact}` : '';
       };
-
-      // PROMPT TÉCNICO PARA LOVABLE (SOLO PARA ADMIN)
-      const lovablePrompt = `Crea una página web profesional para "${formData.marca}" con las siguientes especificaciones:
-
-MARCA Y PERSONALIDAD:
-- Nombre: ${formData.marca}
-- Estilo de comunicación: ${formData.estilo}
-- Descripción: ${formData.quien_eres}
-${contactInfo()}
-
-CONTENIDO PRINCIPAL:
-- Problema que resuelve: ${formData.problemas}
-- Preguntas frecuentes: ${formData.preguntas_frecuentes}
-- Producto/servicio principal: ${formData.producto}
-
-ESTRUCTURA REQUERIDA:
-1. Header con navegación y llamada a la acción prominente
-2. Sección hero con propuesta de valor clara y emotiva
-3. Sección "Sobre mí/nosotros" con historia personal
-4. Sección de servicios/productos con beneficios claros
-5. Testimonios (crear 3-4 ejemplos realistas y específicos)
-6. FAQ basada en las preguntas frecuentes mencionadas
-7. Footer con formulario de contacto y redes sociales${formData.email || formData.whatsapp || formData.website || formData.instagram ? `\n   - Incluir enlaces a: ${formData.email ? `Email (${formData.email})` : ''}${formData.whatsapp ? `, WhatsApp (+${formData.whatsapp})` : ''}${formData.website ? `, Website (${formData.website})` : ''}${formData.instagram ? `, Instagram (@${formData.instagram})` : ''}` : ''}
-
-DISEÑO Y EXPERIENCIA:
-- Estilo moderno, profesional y ${formData.estilo.toLowerCase()}
-- Paleta de colores que refleje la personalidad de la marca
-- Gradientes sutiles y elementos visuales atractivos
-- Animaciones suaves y transiciones elegantes
-- Diseño completamente responsive
-- Botones de llamada a la acción estratégicamente ubicados
-- Secciones con testimonios reales y casos de éxito
-
-FUNCIONALIDADES ESPECÍFICAS:
-- Formulario de contacto funcional con validación${formData.email ? ` (enviar a ${formData.email})` : ''}
-- Navegación suave entre secciones (smooth scroll)
-- Efectos hover en botones, tarjetas e imágenes
-- Modal para testimonios expandidos
-- Sección de preguntas frecuentes interactiva
-- Optimizado para conversión y generación de leads
-- Integración con redes sociales${formData.instagram ? ` (especialmente Instagram @${formData.instagram})` : ''}${formData.whatsapp ? ` y WhatsApp (+${formData.whatsapp})` : ''}
-
-CONTENIDO PERSONALIZADO:
-- Textos que reflejen el problema: "${formData.problemas}"
-- FAQ que responda: "${formData.preguntas_frecuentes}"
-- CTA enfocados en: "${formData.producto}"
-- Tono de comunicación: ${formData.estilo}
-
-COMPONENTES TÉCNICOS:
-- Usa componentes de shadcn/ui para consistencia
-- Implementa Tailwind CSS para el diseño
-- Añade animaciones con framer-motion si es necesario
-- Crea componentes reutilizables y modulares
-- Optimiza para SEO básico (meta tags, estructura)
-
-El objetivo es crear una experiencia web que genere confianza, eduque al visitante sobre el problema que resuelves, y los motive a contactarte o comprar tu producto/servicio.`;
 
       const emailData = {
         sender: {
@@ -98,7 +45,7 @@ El objetivo es crear una experiencia web que genere confianza, eduque al visitan
             name: "Esteban Montenegro"
           }
         ],
-        subject: `🚀 Nuevo Kit IA generado para: ${formData.marca} - CREAR WEB MANUALMENTE`,
+        subject: `🚀 Nuevo Kit IA generado: ${formData.marca} - Crear sitio web`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
             <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
@@ -115,7 +62,7 @@ El objetivo es crear una experiencia web que genere confianza, eduque al visitan
               </div>
 
               <div style="background: #EFF6FF; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h2 style="color: #1E40AF; margin-top: 0; font-size: 18px;">👤 Quién es</h2>
+                <h2 style="color: #1E40AF; margin-top: 0; font-size: 18px;">👤 Descripción del negocio</h2>
                 <p style="line-height: 1.6;">${formData.quien_eres}</p>
               </div>
 
@@ -125,20 +72,22 @@ El objetivo es crear una experiencia web que genere confianza, eduque al visitan
               </div>
 
               <div style="background: #ECFDF5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h2 style="color: #059669; margin-top: 0; font-size: 18px;">❓ Preguntas frecuentes</h2>
+                <h2 style="color: #059669; margin-top: 0; font-size: 18px;">❓ Preguntas frecuentes de su audiencia</h2>
                 <p style="line-height: 1.6;">${formData.preguntas_frecuentes}</p>
               </div>
 
               <div style="background: #FDF2F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h2 style="color: #BE185D; margin-top: 0; font-size: 18px;">🚀 Producto principal</h2>
+                <h2 style="color: #BE185D; margin-top: 0; font-size: 18px;">🚀 Producto/servicio principal</h2>
                 <p style="line-height: 1.6;">${formData.producto}</p>
               </div>
 
+              ${formData.generatedPrompts ? `
               <div style="background: #FEF3C7; padding: 20px; border-radius: 8px; margin: 20px 0; border: 3px solid #F59E0B;">
-                <h2 style="color: #92400E; margin-top: 0; font-size: 18px;">🔧 PROMPT TÉCNICO PARA LOVABLE (CREAR WEB MANUALMENTE)</h2>
-                <div style="background: #FFF; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto; border: 1px solid #E5E7EB;">${lovablePrompt}</div>
-                <p style="color: #92400E; margin: 10px 0 0 0; font-weight: bold;">⚠️ El usuario NO recibe este prompt. Crear web manualmente en Lovable y enviar enlace cuando esté listo.</p>
+                <h2 style="color: #92400E; margin-top: 0; font-size: 18px;">🤖 PROMPT TÉCNICO PARA LOVABLE</h2>
+                <div style="background: #FFF; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto; border: 1px solid #E5E7EB;">${formData.generatedPrompts.lovablePrompt}</div>
+                <p style="color: #92400E; margin: 10px 0 0 0; font-weight: bold;">💡 Crear sitio web usando este prompt en Lovable</p>
               </div>
+              ` : ''}
 
               <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
                 <p style="margin: 0; color: #6B7280; font-size: 14px;">
@@ -156,8 +105,6 @@ El objetivo es crear una experiencia web que genere confianza, eduque al visitan
         `
       };
 
-      console.log('📧 Enviando email a admin desde esteban.montenegro@gmail.com...');
-
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
         headers: {
@@ -168,8 +115,6 @@ El objetivo es crear una experiencia web que genere confianza, eduque al visitan
         body: JSON.stringify(emailData)
       });
 
-      console.log('📬 Respuesta del servidor (admin):', response.status, response.statusText);
-      
       if (response.ok) {
         const responseData = await response.json();
         console.log('✅ Email enviado exitosamente a Esteban:', responseData);
@@ -191,158 +136,6 @@ El objetivo es crear una experiencia web que genere confianza, eduque al visitan
     try {
       console.log('📨 Enviando email de confirmación al usuario:', formData.email);
       
-      // Generate contact info section
-      const contactInfo = () => {
-        let contact = '';
-        if (formData.email) contact += `📧 Email: ${formData.email}\n`;
-        if (formData.whatsapp) contact += `📱 WhatsApp: +${formData.whatsapp}\n`;
-        if (formData.website) contact += `🌐 Website: ${formData.website}\n`;
-        if (formData.instagram) contact += `📱 Instagram: @${formData.instagram}\n`;
-        return contact ? `${contact}` : '';
-      };
-
-      // 1️⃣ TEXTOS BASE PARA EL SITIO WEB
-      const websiteTexts = `📄 TEXTOS BASE PARA TU SITIO WEB - ${formData.marca}
-
-🎯 TÍTULO PRINCIPAL:
-${formData.marca} - ${formData.estilo === 'Profesional' ? 'Soluciones Profesionales' : formData.estilo === 'Cercano' ? 'Acompañamiento Personalizado' : formData.estilo === 'Inspirador' ? 'Transforma Tu Vida' : 'Expertos en Resultados'}
-
-💡 SUBTÍTULO/PROPUESTA DE VALOR:
-Ayudamos a personas que ${formData.problemas.toLowerCase()} a través de ${formData.producto}
-
-📋 DESCRIPCIÓN DE SERVICIOS:
-${formData.quien_eres}
-
-Nos especializamos en resolver: ${formData.problemas}
-
-🎁 BENEFICIOS CLAVE:
-✅ Solución personalizada para tu situación específica
-✅ Metodología probada con resultados reales
-✅ Acompañamiento ${formData.estilo.toLowerCase()} durante todo el proceso
-✅ Respuestas a tus principales dudas: ${formData.preguntas_frecuentes}
-
-${contactInfo()}`;
-
-      // 2️⃣ PROMPT PARA CHATGPT
-      const chatGPTPrompt = `🧠 TU ASISTENTE PERSONAL PARA CHATGPT - ${formData.marca}
-
-Eres un experto en marketing digital y creación de contenido para "${formData.marca}".
-
-CONTEXTO DE LA MARCA:
-- Nombre: ${formData.marca}
-- Quién soy: ${formData.quien_eres}
-- Problema que resuelvo: ${formData.problemas}
-- Preguntas que me hacen: ${formData.preguntas_frecuentes}
-- Estilo de comunicación: ${formData.estilo}
-- Producto principal: ${formData.producto}
-${contactInfo()}
-
-INSTRUCCIONES PRINCIPALES:
-1. Siempre responde en un tono ${formData.estilo.toLowerCase()} y auténtico
-2. Enfócate en resolver este problema específico: ${formData.problemas}
-3. Usa ejemplos y casos relacionados con mi experiencia
-4. Menciona "${formData.producto}" cuando sea relevante para la conversación
-5. Crea contenido que genere engagement, confianza y conversiones
-6. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)${formData.instagram ? `\n7. Cuando sea apropiado, menciona mi Instagram @${formData.instagram}` : ''}${formData.website ? `\n8. Dirige tráfico a mi website ${formData.website} cuando sea relevante` : ''}${formData.whatsapp ? `\n9. Ofrece contacto directo por WhatsApp +${formData.whatsapp} cuando sea apropiado` : ''}
-
-ESPECIALIDADES EN LAS QUE PUEDES AYUDARME:
-📱 CONTENIDO PARA REDES SOCIALES
-📧 MARKETING DIRECTO
-🎯 ESTRATEGIA DE VENTAS
-📝 CONTENIDO EDUCATIVO
-🔥 PROMOCIÓN Y LANZAMIENTOS
-
-CONTEXTO ADICIONAL:
-Mi audiencia ideal son personas que: ${formData.problemas}
-Frecuentemente me preguntan: ${formData.preguntas_frecuentes}
-Mi estilo es: ${formData.estilo}
-
-¿En qué área específica te gustaría que te ayude hoy con el contenido de ${formData.marca}?`;
-
-      // 3️⃣ CALENDARIO DE CONTENIDO 15 DÍAS
-      const contentCalendar = `📅 CALENDARIO DE CONTENIDO 15 DÍAS - ${formData.marca}
-
-🎯 POSTS EDUCATIVOS Y DE AUTORIDAD (5):
-
-POST 1 - EDUCATIVO:
-"💡 ¿Sabías que...? ${formData.preguntas_frecuentes}
-En ${formData.marca}, hemos aprendido que la clave está en [tu experiencia específica].
-¿Te has sentido identificado/a con esto? Cuéntame en comentarios 👇"
-
-POST 2 - AUTORIDAD:
-"Mi experiencia me ha enseñado que cuando alguien siente ${formData.problemas}, lo primero que necesita es [consejo específico].
-Esto es lo que hago en ${formData.producto}..."
-
-POST 3 - PROBLEMA/SOLUCIÓN:
-"Señales de que podrías necesitar ayuda con ${formData.problemas}:
-1. [Señal específica]
-2. [Segunda señal]
-3. [Tercera señal]
-Si te identificas con al menos 2, hablemos 📩"
-
-POST 4 - HISTORIA PERSONAL:
-"Mi historia: Por qué decidí especializarme en ${formData.problemas}.
-Todo comenzó cuando [tu historia personal]...
-Hoy ayudo a personas como tú a través de ${formData.producto}"
-
-POST 5 - LLAMADA A LA ACCIÓN:
-"¿Listo/a para transformar ${formData.problemas}?
-Te presento ${formData.producto}.
-Escríbeme 'ME INTERESA' para conocer más 📱"
-
-🎬 GUIONES DE REELS (5):
-
-REEL 1 - PRESENTACIÓN (15-30 seg):
-"¡Hola! Soy [tu nombre] de ${formData.marca} 👋
-Mi misión: ayudarte con ${formData.problemas}
-¿Te resuena? ¡Sígueme! 💫"
-
-REEL 2 - EDUCATIVO (30 seg):
-"3 mitos sobre [tu área]:
-❌ Mito 1: [mito común]
-✅ Realidad: [tu verdad]
-[Continúa con otros 2 mitos]"
-
-REEL 3 - PROCESO (45 seg):
-"¿Cómo funciona ${formData.producto}?
-Paso 1: [primer paso]
-Paso 2: [segundo paso]
-Paso 3: [resultado]"
-
-REEL 4 - TESTIMONIAL (30 seg):
-"Lo que dicen quienes han trabajado conmigo:
-'[Crear testimonial realista basado en tu problema]'
-¿Quieres ser el/la siguiente? 📩"
-
-REEL 5 - MOTIVACIONAL (20 seg):
-"Para ti que sientes ${formData.problemas}:
-Recuerda que [mensaje motivacional específico]
-No estás solo/a en esto 💙"
-
-📱 IDEAS DE STORIES (5):
-
-STORY 1 - DETRÁS DE CÁMARAS:
-"Un día en mi vida ayudando con ${formData.problemas}"
-
-STORY 2 - PREGUNTA INTERACTIVA:
-"¿Cuál es tu mayor desafío con [tu área]?" + sticker de pregunta
-
-STORY 3 - CONSEJO RÁPIDO:
-"Tip del día: Si sientes [problema específico], prueba esto..."
-
-STORY 4 - ENCUESTA:
-"¿Has experimentado [situación relacionada con tu problema]?" + sticker de encuesta
-
-STORY 5 - LLAMADA A LA ACCIÓN:
-"¿Necesitas ayuda con ${formData.problemas}? Escríbeme 📩"
-
-📝 NOTAS IMPORTANTES:
-- Adapta cada contenido a tu estilo: ${formData.estilo}
-- Programa las publicaciones para mantener consistencia
-- Usa hashtags relevantes a tu nicho
-- Siempre incluye una llamada a la acción clara
-${contactInfo()}`;
-      
       const confirmationEmailData = {
         sender: {
           name: "Kit IA de Esteban",
@@ -354,70 +147,53 @@ ${contactInfo()}`;
             name: formData.marca
           }
         ],
-        subject: `🎯 Tu Kit IA está listo (y esto recién comienza)`,
+        subject: `🎯 ${formData.marca}, tu Kit IA está listo`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
             <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🎯 Tu Kit IA está listo (y esto recién comienza)</h1>
+              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🎯 Tu Kit IA está listo</h1>
               
               <p style="font-size: 18px; color: #374151; margin-bottom: 20px;">Hola <strong>${formData.marca}</strong>,</p>
               
               <p style="font-size: 16px; color: #6B7280; line-height: 1.6; margin-bottom: 25px;">
-                Primero: felicitaciones por dar el primer paso.<br>
-                No es solo un formulario. Lo que completaste es la base real para profesionalizar tu marca digital.
-              </p>
-
-              <p style="font-size: 16px; color: #6B7280; line-height: 1.6; margin-bottom: 25px;">
-                Aquí tienes el material inicial que armamos para ti:
+                Tu kit personalizado ya está generado y listo para usar.<br>
+                Esto es lo que incluye:
               </p>
 
               <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 25px 0; border-left: 4px solid #3B82F6;">
-                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Textos base para tu sitio web</p>
-                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Prompt personalizado para que sigas creando contenido en ChatGPT</p>
-                <p style="color: #1E40AF; margin-bottom: 0; font-weight: bold;">✅ 15 días de contenido para tus redes (posts, stories y reels)</p>
+                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Tu asistente IA personalizado para ChatGPT</p>
+                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Prompt técnico para crear tu sitio web</p>
+                <p style="color: #1E40AF; margin-bottom: 0; font-weight: bold;">✅ Estrategia de contenido personalizada</p>
               </div>
 
-              <!-- Textos Base para Sitio Web -->
-              <div style="background: #FEF3C7; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                <h2 style="color: #D97706; margin-top: 0; font-size: 18px;">📄 Textos Base para tu Sitio Web</h2>
-                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto;">${websiteTexts}</div>
-              </div>
-
+              ${formData.generatedPrompts ? `
               <!-- Prompt para ChatGPT -->
               <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                <h2 style="color: #0369A1; margin-top: 0; font-size: 18px;">🧠 Tu Asistente Personal para ChatGPT</h2>
-                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto;">${chatGPTPrompt}</div>
+                <h2 style="color: #0369A1; margin-top: 0; font-size: 18px;">🧠 Tu Asistente IA para ChatGPT</h2>
+                <p style="color: #1E40AF; margin-bottom: 15px;">Copia este prompt y úsalo en ChatGPT para generar contenido personalizado:</p>
+                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto; border: 1px solid #E5E7EB;">${formData.generatedPrompts.chatGPTPrompt}</div>
               </div>
 
-              <!-- Calendario de Contenido -->
+              <!-- Prompt para Lovable -->
               <div style="background: #ECFDF5; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                <h2 style="color: #059669; margin-top: 0; font-size: 18px;">📅 15 Días de Contenido para tus Redes</h2>
-                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto;">${contentCalendar}</div>
+                <h2 style="color: #059669; margin-top: 0; font-size: 18px;">🌐 Prompt para crear tu sitio web</h2>
+                <p style="color: #065F46; margin-bottom: 15px;">Usa este prompt en Lovable.dev para crear tu sitio web automáticamente:</p>
+                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto; border: 1px solid #E5E7EB;">${formData.generatedPrompts.lovablePrompt}</div>
               </div>
+              ` : ''}
 
-              <p style="font-size: 16px; color: #6B7280; line-height: 1.6; margin: 25px 0;">
-                Este material te permite empezar a construir tu presencia online con dirección y claridad.
-              </p>
-
-              <!-- Información sobre sitio web en producción -->
               <div style="background: #FDF2F8; padding: 25px; border-radius: 8px; margin: 30px 0; border: 2px solid #EC4899;">
-                <h3 style="color: #BE185D; margin-top: 0; margin-bottom: 15px; font-size: 20px;">🚀 Ahora, atención:</h3>
-                <p style="color: #BE185D; margin-bottom: 15px; font-size: 16px; line-height: 1.6;">
-                  En base a lo que completaste, ya estamos trabajando en generar la primera versión de tu sitio web profesional.
-                </p>
-                <p style="color: #BE185D; margin-bottom: 15px; font-size: 16px; line-height: 1.6;">
-                  <strong>Muy pronto te enviaremos el acceso directo para revisarlo.</strong><br>
-                  Queremos asegurarnos de que el resultado refleje realmente lo que haces, por eso revisamos cada caso manualmente antes de la entrega final.
-                </p>
-                <p style="color: #BE185D; margin: 0; font-size: 16px; font-weight: bold;">
-                  Seguimos trabajando en tu proyecto.<br>
-                  Pronto recibirás novedades.
-                </p>
+                <h3 style="color: #BE185D; margin-top: 0; margin-bottom: 15px; font-size: 20px;">🚀 Próximos pasos:</h3>
+                <div style="color: #BE185D; margin-bottom: 15px; font-size: 16px; line-height: 1.6;">
+                  <p style="margin-bottom: 10px;"><strong>1. Contenido inmediato:</strong> Usa tu asistente IA en ChatGPT</p>
+                  <p style="margin-bottom: 10px;"><strong>2. Sitio web:</strong> Copia el prompt en Lovable.dev para crear tu web</p>
+                  <p style="margin-bottom: 0;"><strong>3. Implementación:</strong> Estás listo para lanzar tu presencia digital</p>
+                </div>
               </div>
 
               <div style="text-align: center; margin: 30px 0;">
                 <p style="color: #6B7280; font-size: 14px; margin: 0;">
-                  Valor del kit: <strong style="color: #7C3AED;">USD $50</strong> - ¡Completamente gratis para ti!
+                  Kit completo valorado en <strong style="color: #7C3AED;">$97 USD</strong> - ¡Completamente gratis!
                 </p>
               </div>
 
@@ -436,8 +212,6 @@ ${contactInfo()}`;
         `
       };
 
-      console.log('📧 Enviando email de confirmación desde esteban.montenegro@gmail.com...');
-
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
         headers: {
@@ -448,8 +222,6 @@ ${contactInfo()}`;
         body: JSON.stringify(confirmationEmailData)
       });
 
-      console.log('📬 Respuesta del servidor (confirmación):', response.status, response.statusText);
-      
       if (response.ok) {
         const responseData = await response.json();
         console.log('✅ Email de confirmación enviado exitosamente:', responseData);
