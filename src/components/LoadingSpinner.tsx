@@ -1,10 +1,15 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Brain, Sparkles, Zap } from 'lucide-react';
 
 const LoadingSpinner = () => {
+  useEffect(() => {
+    // Scroll to top immediately when loading starts
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white fixed inset-0 z-50 overflow-y-auto">
       <div className="container mx-auto px-4 py-12">
         <div className="flex flex-col items-center justify-center py-16 space-y-8">
           {/* Main spinner */}
