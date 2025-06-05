@@ -13,8 +13,7 @@ interface FormData {
   website: string;
   instagram: string;
   generatedPrompts?: {
-    chatGPTPrompt: string;
-    lovablePrompt: string;
+    superPrompt: string;
   };
 }
 
@@ -25,15 +24,6 @@ export const useEmailHandling = () => {
     try {
       console.log('🚀 Enviando email a Esteban con datos del formulario...');
       
-      const contactInfo = () => {
-        let contact = '';
-        if (formData.email) contact += `📧 Email: ${formData.email}\n`;
-        if (formData.whatsapp) contact += `📱 WhatsApp: +${formData.whatsapp}\n`;
-        if (formData.website) contact += `🌐 Website: ${formData.website}\n`;
-        if (formData.instagram) contact += `📱 Instagram: @${formData.instagram}\n`;
-        return contact ? `${contact}` : '';
-      };
-
       const emailData = {
         sender: {
           name: "Kit IA de Esteban",
@@ -45,11 +35,11 @@ export const useEmailHandling = () => {
             name: "Esteban Montenegro"
           }
         ],
-        subject: `🚀 Nuevo Kit IA generado: ${formData.marca} - Crear sitio web`,
+        subject: `🚀 Nuevo Super Prompt generado: ${formData.marca}`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
             <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🧠 Nuevo Kit IA Generado</h1>
+              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🧠 Nuevo Super Prompt Generado</h1>
               
               <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h2 style="color: #374151; margin-top: 0; font-size: 20px;">📊 Información de la Marca</h2>
@@ -62,7 +52,7 @@ export const useEmailHandling = () => {
               </div>
 
               <div style="background: #EFF6FF; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h2 style="color: #1E40AF; margin-top: 0; font-size: 18px;">👤 Descripción del negocio</h2>
+                <h2 style="color: #1E40AF; margin-top: 0; font-size: 18px;">👤 Perfil del negocio</h2>
                 <p style="line-height: 1.6;">${formData.quien_eres}</p>
               </div>
 
@@ -72,26 +62,26 @@ export const useEmailHandling = () => {
               </div>
 
               <div style="background: #ECFDF5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h2 style="color: #059669; margin-top: 0; font-size: 18px;">❓ Preguntas frecuentes de su audiencia</h2>
+                <h2 style="color: #059669; margin-top: 0; font-size: 18px;">❓ Preguntas frecuentes</h2>
                 <p style="line-height: 1.6;">${formData.preguntas_frecuentes}</p>
               </div>
 
               <div style="background: #FDF2F8; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h2 style="color: #BE185D; margin-top: 0; font-size: 18px;">🚀 Producto/servicio principal</h2>
+                <h2 style="color: #BE185D; margin-top: 0; font-size: 18px;">🚀 Producto principal</h2>
                 <p style="line-height: 1.6;">${formData.producto}</p>
               </div>
 
               ${formData.generatedPrompts ? `
-              <div style="background: #FEF3C7; padding: 20px; border-radius: 8px; margin: 20px 0; border: 3px solid #F59E0B;">
-                <h2 style="color: #92400E; margin-top: 0; font-size: 18px;">🤖 PROMPT TÉCNICO PARA LOVABLE</h2>
-                <div style="background: #FFF; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto; border: 1px solid #E5E7EB;">${formData.generatedPrompts.lovablePrompt}</div>
-                <p style="color: #92400E; margin: 10px 0 0 0; font-weight: bold;">💡 Crear sitio web usando este prompt en Lovable</p>
+              <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 20px 0; border: 3px solid #3B82F6;">
+                <h2 style="color: #1E40AF; margin-top: 0; font-size: 18px;">🤖 SUPER PROMPT GENERADO</h2>
+                <div style="background: #FFF; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 400px; overflow-y: auto; border: 1px solid #E5E7EB;">${formData.generatedPrompts.superPrompt}</div>
+                <p style="color: #1E40AF; margin: 10px 0 0 0; font-weight: bold;">💡 Super Prompt listo para usar en ChatGPT</p>
               </div>
               ` : ''}
 
               <div style="background: #F3F4F6; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
                 <p style="margin: 0; color: #6B7280; font-size: 14px;">
-                  Kit IA generado el ${new Date().toLocaleDateString('es-ES', { 
+                  Super Prompt generado el ${new Date().toLocaleDateString('es-ES', { 
                     year: 'numeric', 
                     month: 'long', 
                     day: 'numeric',
@@ -147,53 +137,46 @@ export const useEmailHandling = () => {
             name: formData.marca
           }
         ],
-        subject: `🎯 ${formData.marca}, tu Kit IA está listo`,
+        subject: `🎯 ${formData.marca}, tu Super Prompt está listo`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
             <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🎯 Tu Kit IA está listo</h1>
+              <h1 style="color: #7C3AED; text-align: center; margin-bottom: 30px; font-size: 28px;">🚀 Tu Super Prompt está listo</h1>
               
               <p style="font-size: 18px; color: #374151; margin-bottom: 20px;">Hola <strong>${formData.marca}</strong>,</p>
               
               <p style="font-size: 16px; color: #6B7280; line-height: 1.6; margin-bottom: 25px;">
-                Tu kit personalizado ya está generado y listo para usar.<br>
+                Tu Super Prompt personalizado ya está generado y listo para revolucionar tu estrategia de contenido.<br>
                 Esto es lo que incluye:
               </p>
 
               <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 25px 0; border-left: 4px solid #3B82F6;">
-                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Tu asistente IA personalizado para ChatGPT</p>
-                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Prompt técnico para crear tu sitio web</p>
-                <p style="color: #1E40AF; margin-bottom: 0; font-weight: bold;">✅ Estrategia de contenido personalizada</p>
+                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Asistente personalizado de marketing y contenido</p>
+                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Generador de contenido viral para todas las plataformas</p>
+                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Scripts de venta y secuencias de email marketing</p>
+                <p style="color: #1E40AF; margin-bottom: 0; font-weight: bold;">✅ Estrategias de posicionamiento y autoridad</p>
               </div>
 
               ${formData.generatedPrompts ? `
-              <!-- Prompt para ChatGPT -->
               <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                <h2 style="color: #0369A1; margin-top: 0; font-size: 18px;">🧠 Tu Asistente IA para ChatGPT</h2>
-                <p style="color: #1E40AF; margin-bottom: 15px;">Copia este prompt y úsalo en ChatGPT para generar contenido personalizado:</p>
-                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto; border: 1px solid #E5E7EB;">${formData.generatedPrompts.chatGPTPrompt}</div>
-              </div>
-
-              <!-- Prompt para Lovable -->
-              <div style="background: #ECFDF5; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                <h2 style="color: #059669; margin-top: 0; font-size: 18px;">🌐 Prompt para crear tu sitio web</h2>
-                <p style="color: #065F46; margin-bottom: 15px;">Usa este prompt en Lovable.dev para crear tu sitio web automáticamente:</p>
-                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto; border: 1px solid #E5E7EB;">${formData.generatedPrompts.lovablePrompt}</div>
+                <h2 style="color: #0369A1; margin-top: 0; font-size: 18px;">🧠 Tu Super Prompt para ChatGPT</h2>
+                <p style="color: #1E40AF; margin-bottom: 15px;">Copia este prompt completo y úsalo en ChatGPT para generar contenido estratégico y campañas de marketing:</p>
+                <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 400px; overflow-y: auto; border: 1px solid #E5E7EB;">${formData.generatedPrompts.superPrompt}</div>
               </div>
               ` : ''}
 
               <div style="background: #FDF2F8; padding: 25px; border-radius: 8px; margin: 30px 0; border: 2px solid #EC4899;">
-                <h3 style="color: #BE185D; margin-top: 0; margin-bottom: 15px; font-size: 20px;">🚀 Próximos pasos:</h3>
+                <h3 style="color: #BE185D; margin-top: 0; margin-bottom: 15px; font-size: 20px;">🚀 Cómo usar tu Super Prompt:</h3>
                 <div style="color: #BE185D; margin-bottom: 15px; font-size: 16px; line-height: 1.6;">
-                  <p style="margin-bottom: 10px;"><strong>1. Contenido inmediato:</strong> Usa tu asistente IA en ChatGPT</p>
-                  <p style="margin-bottom: 10px;"><strong>2. Sitio web:</strong> Copia el prompt en Lovable.dev para crear tu web</p>
-                  <p style="margin-bottom: 0;"><strong>3. Implementación:</strong> Estás listo para lanzar tu presencia digital</p>
+                  <p style="margin-bottom: 10px;"><strong>1. Copia el prompt completo:</strong> Pégalo en ChatGPT para configurar tu asistente</p>
+                  <p style="margin-bottom: 10px;"><strong>2. Pide contenido específico:</strong> "Crea 10 posts para Instagram", "Escribe emails de venta"</p>
+                  <p style="margin-bottom: 0;"><strong>3. Escala tu contenido:</strong> Genera material para todas tus plataformas</p>
                 </div>
               </div>
 
               <div style="text-align: center; margin: 30px 0;">
                 <p style="color: #6B7280; font-size: 14px; margin: 0;">
-                  Kit completo valorado en <strong style="color: #7C3AED;">$97 USD</strong> - ¡Completamente gratis!
+                  Super Prompt valorado en <strong style="color: #7C3AED;">$197 USD</strong> - ¡Completamente gratis!
                 </p>
               </div>
 

@@ -16,8 +16,7 @@ export interface FormData {
   website: string;
   instagram: string;
   generatedPrompts?: {
-    chatGPTPrompt: string;
-    lovablePrompt: string;
+    superPrompt: string;
   };
 }
 
@@ -115,16 +114,16 @@ export const useFormHandler = () => {
 
   const loadExampleData = () => {
     setFormData({
-      marca: 'Digital Emprendedor',
-      email: 'maria@digitalemprendedor.com',
-      whatsapp: '56998877665',
-      website: 'www.digitalemprendedor.com',
-      instagram: 'digitalemprendedor_oficial',
-      quien_eres: 'Soy María Elena, consultora en transformación digital con más de 10 años ayudando a pequeñas empresas y emprendedores a digitalizar sus negocios. Me especializo en crear estrategias digitales simples pero efectivas que generen resultados reales. Disfruto enseñando a personas que no son expertas en tecnología cómo pueden aprovechar las herramientas digitales para hacer crecer sus negocios de manera sostenible.',
-      problemas: 'Trabajo con emprendedores y pequeños empresarios que se sienten perdidos en el mundo digital. Muchos tienen negocios exitosos offline pero no saben cómo trasladar esa misma efectividad al entorno digital. Sufren de baja visibilidad online, no generan leads de calidad, tienen redes sociales inconsistentes y no logran convertir seguidores en clientes reales. Les ayudo a crear una presencia digital coherente y rentable.',
-      preguntas_frecuentes: 'Me preguntan constantemente cuánto tiempo toma ver resultados reales en marketing digital, si realmente vale la pena invertir en redes sociales para negocios B2B, y cómo pueden competir con empresas más grandes que tienen presupuestos enormes para marketing. También quieren saber qué herramientas digitales son realmente necesarias y cuáles son solo modas pasajeras.',
+      marca: 'FitMente Pro',
+      email: 'carlos@fitmentepro.com',
+      whatsapp: '56987654321',
+      website: 'www.fitmentepro.com',
+      instagram: 'fitmentepro_oficial',
+      quien_eres: 'Soy Carlos Mendez, psicólogo deportivo certificado y coach de alto rendimiento con más de 12 años transformando la mentalidad de atletas profesionales y emprendedores. Me especializo en eliminar bloqueos mentales que impiden alcanzar objetivos ambiciosos. He trabajado con más de 500 personas ayudándolas a desarrollar la mentalidad ganadora que necesitan para triunfar tanto en el deporte como en los negocios.',
+      problemas: 'Trabajo con atletas y emprendedores que tienen el talento y las habilidades técnicas, pero se sabotean mentalmente cuando más importa. Sufren de ansiedad de rendimiento, miedo al fracaso, síndrome del impostor y pensamientos limitantes que los mantienen estancados. Les ayudo a reprogramar su mentalidad, eliminar creencias tóxicas y desarrollar la confianza inquebrantable necesaria para competir al más alto nivel.',
+      preguntas_frecuentes: 'Me preguntan constantemente si es posible cambiar patrones mentales que han tenido por años, cómo manejar la presión en momentos decisivos, y por qué siguen autosaboteándose cuando están cerca del éxito. También quieren saber cuánto tiempo toma ver cambios reales en su mentalidad y cómo mantener la motivación cuando enfrentan obstáculos.',
       estilo: 'Profesional',
-      producto: 'Mi programa "Digital Start", un proceso de 12 semanas donde transformo completamente la presencia digital de tu negocio. Incluye auditoría digital completa, estrategia personalizada, implementación de herramientas, creación de contenido y seguimiento de resultados. Todo diseñado para emprendedores que quieren resultados concretos sin perder tiempo en teorías complicadas.'
+      producto: 'Mi programa "Mentalidad Imparable", un entrenamiento intensivo de 12 semanas que combina técnicas de psicología deportiva, PNL y neurociencia aplicada. Incluye sesiones 1:1, entrenamientos grupales semanales, acceso a mi app de meditaciones guiadas y comunidad privada de alto rendimiento. Está diseñado para personas que quieren resultados extraordinarios y están dispuestas a hacer el trabajo mental profundo.'
     });
     setNoWebsite(false);
     setNoInstagram(false);
@@ -149,82 +148,83 @@ export const useFormHandler = () => {
     });
   };
 
-  const generatePrompts = (data: FormData) => {
-    // Generar público objetivo basado en el problema
-    const publicoObjetivo = `Personas que ${data.problemas.toLowerCase()}`;
+  const generateSuperPrompt = (data: FormData) => {
+    // Generar público objetivo basado en el problema y quien eres
+    const publicoObjetivo = data.quien_eres.includes('atletas') ? 
+      'Atletas, deportistas de alto rendimiento y emprendedores ambiciosos' :
+      `Personas que ${data.problemas.toLowerCase().split('.')[0]}`;
     
-    // Generar beneficios principales
-    const beneficios = `✅ Solución personalizada para tu situación específica
-✅ Metodología probada con resultados reales  
-✅ Acompañamiento ${data.estilo.toLowerCase()} durante todo el proceso
-✅ Respuestas claras a tus principales dudas`;
+    // Generar beneficios principales reformulados
+    const beneficios = `✅ Transformación mental comprobada con metodología específica
+✅ Eliminación de bloqueos limitantes en tiempo récord
+✅ Desarrollo de confianza inquebrantable para momentos decisivos
+✅ Estrategias probadas por profesionales de alto rendimiento
+✅ Acompañamiento ${data.estilo.toLowerCase()} durante todo el proceso`;
 
-    const chatGPTPrompt = `Eres un experto en marketing digital, marca personal, contenido, ventas y estrategia digital. A continuación recibirás el perfil completo de negocio para generar contenido profesional.
+    // Detectar gaps de información
+    const gaps = [];
+    if (!data.quien_eres.includes('años') && !data.quien_eres.includes('experiencia')) {
+      gaps.push('- Años de experiencia específicos');
+    }
+    if (!data.producto.includes('precio') && !data.producto.includes('inversión')) {
+      gaps.push('- Información de inversión o precio');
+    }
+    if (!data.problemas.includes('resultados') && !data.problemas.includes('logran')) {
+      gaps.push('- Resultados específicos que logras con tus clientes');
+    }
+
+    const gapsSection = gaps.length > 0 ? 
+      `\n\nVACÍOS DETECTADOS QUE DEBERÍAS COMPLETAR:\n${gaps.join('\n')}\n\nPREGUNTAS ADICIONALES PARA ENRIQUECER TU ESTRATEGIA:\n- ¿Cuáles son 3 casos de éxito específicos con resultados medibles?\n- ¿Qué metodología o framework único utilizas?\n- ¿Cuál es la inversión de tu programa principal?\n- ¿Qué garantías o diferenciadores ofreces vs. la competencia?` : '';
+
+    const superPrompt = `ASISTENTE PERSONALIZADO DE CONTENIDO Y ESTRATEGIA PARA ${data.marca}
+
+Actúa como experto en:
+- Marketing digital estratégico
+- Marca personal profesional  
+- Generación de contenido viral
+- Ventas digitales
+- Embudos de monetización
+- Posicionamiento de autoridad
+- Estrategias de crecimiento orgánico
+- Copywriting emocional y persuasivo
+- Automatización de negocio digital
 
 DATOS DEL NEGOCIO:
 Marca: ${data.marca}
 Profesional: ${data.quien_eres}
 Público objetivo: ${publicoObjetivo}
-Problema que resuelve: ${data.problemas}
-Método de solución: A través de ${data.producto}
+Problema principal: ${data.problemas}
+Método de trabajo: A través de ${data.producto}
 Producto principal: ${data.producto}
-Beneficios principales: ${beneficios}
-Preguntas frecuentes: ${data.preguntas_frecuentes}
+Beneficios clave: ${beneficios}
+Preguntas frecuentes de su audiencia: ${data.preguntas_frecuentes}
 Estilo de comunicación: ${data.estilo}${data.instagram ? `\nInstagram: @${data.instagram}` : ''}${data.website ? `\nWeb: ${data.website}` : ''}${data.whatsapp ? `\nWhatsApp: +${data.whatsapp}` : ''}
 
-INSTRUCCIONES DE GENERACIÓN DE CONTENIDO:
-Mantén tono ${data.estilo.toLowerCase()}, auténtico y conecta emocionalmente.
-Genera contenido educativo, emocional, comercial y de autoridad.
-Usa ejemplos, microhistorias y conexiones emocionales.
-Menciona "${data.producto}" cuando sea relevante.
-Crea contenido adaptable para Instagram, Reels, Stories, LinkedIn, Facebook, Email Marketing.
-Incluye llamados a la acción cuando corresponda.
-Reformula profesionalmente, no repitas literalmente las respuestas originales.
+INSTRUCCIONES PARA CREAR CONTENIDO:
+- Genera contenido accionable, persuasivo y adaptado a cada plataforma.
+- No repitas literalmente el perfil de negocio, usa el contexto para crear.
+- Integra ejemplos, casos, microhistorias y lenguaje emocional.
+- Menciona "${data.producto.split(',')[0]}" cuando corresponda.
+- Adapta el contenido a: Instagram, Reels, Stories, TikTok, LinkedIn, YouTube Shorts, Email Marketing y Webinars.
+- Incluye llamados a la acción coherentes.
+- Permite variar entre contenido educativo, ventas, posicionamiento de autoridad, engagement emocional y manejo de objeciones.
+- Identifica ángulos comerciales aprovechables.
 
-ÁREAS DE CONTENIDO:
-- Contenido para redes sociales
-- Marketing directo  
-- Estrategia de ventas
-- Contenido educativo
-- Lanzamientos y promociones
+ÁREAS DE CONTENIDO PARA CREAR:
+- Publicaciones virales en redes sociales
+- Reels y Shorts de alto alcance
+- Historias de Instagram
+- Series educativas
+- Secuencias de email marketing
+- Lanzamientos digitales
+- Scripts de venta persuasivos
+- Preguntas frecuentes convertidas en contenido educativo
+- Guías de autoridad profesional
 
-¿En qué área específica te gustaría que te ayude hoy con el contenido de ${data.marca}?`;
-
-    const lovablePrompt = `Crea una página web profesional para ${data.marca} siguiendo esta estructura:
-
-Marca: ${data.marca}
-Profesional: ${data.quien_eres}
-Público objetivo: ${publicoObjetivo}
-Problema principal que resuelve: ${data.problemas}
-Método de solución: A través de ${data.producto}
-Producto principal: ${data.producto}
-Beneficios principales: ${beneficios}
-Preguntas frecuentes: ${data.preguntas_frecuentes}
-Estilo de comunicación: ${data.estilo}${data.email ? `\nEmail: ${data.email}` : ''}${data.whatsapp ? `\nWhatsApp: +${data.whatsapp}` : ''}${data.website ? `\nWebsite: ${data.website}` : ''}${data.instagram ? `\nInstagram: @${data.instagram}` : ''}
-
-Objetivos del sitio:
-- Página profesional que transmita autoridad y confianza
-- Orientado a conversión y generación de leads
-- Lenguaje claro, profesional, confiable y simple
-- Sitio orientado a venta de servicios y sesiones
-- Incluir sección de contacto y llamada a la acción prominente
-- Optimizado para uso en dispositivos móviles
-- Diseño moderno con gradientes y animaciones suaves
-
-Estructura requerida:
-1. Header con navegación y CTA destacado
-2. Hero section que conecte emocionalmente con el problema
-3. Sección "Sobre mí" con autoridad y credibilidad  
-4. Servicios/productos con beneficios claros
-5. Testimonios (crear 3-4 ejemplos realistas)
-6. FAQ basada en las preguntas frecuentes
-7. Footer con formulario de contacto
-
-Importante: No uses plantillas genéricas. Construye el copy y estructura basado en la información entregada. Reformula profesionalmente los textos para que suenen naturales y convincentes.`;
+¿En qué área específica de contenido o estrategia te gustaría que te ayude hoy para ${data.marca}?${gapsSection}`;
 
     return {
-      chatGPTPrompt,
-      lovablePrompt
+      superPrompt
     };
   };
 
@@ -244,10 +244,10 @@ Importante: No uses plantillas genéricas. Construye el copy y estructura basado
     setIsGenerating(true);
     
     try {
-      console.log('🔄 Iniciando proceso de generación de Kit IA...');
+      console.log('🔄 Iniciando proceso de generación de Super Prompt...');
       
-      // Generar los prompts
-      const generatedPrompts = generatePrompts(formData);
+      // Generar el super prompt
+      const generatedPrompts = generateSuperPrompt(formData);
       const formDataWithPrompts = {
         ...formData,
         generatedPrompts
@@ -285,18 +285,18 @@ Importante: No uses plantillas genéricas. Construye el copy y estructura basado
       setShowResults(true);
       
       toast({
-        title: "¡Kit IA generado exitosamente!",
-        description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Kit generado correctamente. Revisa el contenido a continuación.",
+        title: "¡Super Prompt generado exitosamente!",
+        description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Prompt generado correctamente. Revisa el contenido a continuación.",
       });
       
     } catch (error) {
-      console.error('💥 Error durante la generación del kit:', error);
+      console.error('💥 Error durante la generación del prompt:', error);
       setIsGenerating(false);
       
       setShowResults(true);
       
       toast({
-        title: "Kit IA generado",
+        title: "Super Prompt generado",
         description: "El contenido se ha generado correctamente. Puede que algunos emails no se hayan enviado.",
       });
     }
