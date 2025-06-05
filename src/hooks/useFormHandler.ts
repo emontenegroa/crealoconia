@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { toast } from "@/hooks/use-toast";
 import { useFormPersistence } from '@/hooks/useFormPersistence';
@@ -14,6 +15,10 @@ export interface FormData {
   whatsapp: string;
   website: string;
   instagram: string;
+  generatedPrompts?: {
+    chatGPTPrompt: string;
+    lovablePrompt: string;
+  };
 }
 
 export const useFormHandler = () => {
