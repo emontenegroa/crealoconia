@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, Code } from "lucide-react";
+import { Brain, FileText, Lightbulb, MessageSquare } from "lucide-react";
 
 interface StrategicContentDisplayProps {
   content: string;
@@ -25,29 +25,22 @@ const StrategicContentDisplay = ({ content, marca }: StrategicContentDisplayProp
     );
   }
 
-  // Dividir el contenido en las dos secciones principales
-  const sections = content.split('**PROMPT PARA').filter(section => section.trim());
+  // Dividir el contenido en secciones basándose en los bloques
+  const sections = content.split('**BLOQUE').filter(section => section.trim());
   
   const renderSection = (section: string, index: number) => {
     const lines = section.split('\n').filter(line => line.trim());
-    const title = lines[0]?.replace(/\*+/g, '').trim() || `Prompt ${index + 1}`;
+    const title = lines[0]?.replace(/\*+/g, '').trim() || `Bloque ${index + 1}`;
     const sectionContent = lines.slice(1).join('\n');
 
     let icon;
-    let borderColor;
-    if (title.includes('CHATGPT')) {
-      icon = <Brain className="w-5 h-5" />;
-      borderColor = 'border-l-green-500';
-    } else if (title.includes('LOVABLE')) {
-      icon = <Code className="w-5 h-5" />;
-      borderColor = 'border-l-purple-500';
-    } else {
-      icon = <Brain className="w-5 h-5" />;
-      borderColor = 'border-l-blue-500';
-    }
+    if (title.includes('DOCUMENTACIÓN')) icon = <FileText className="w-5 h-5" />;
+    else if (title.includes('CONTENIDO')) icon = <Lightbulb className="w-5 h-5" />;
+    else if (title.includes('ASISTENTE')) icon = <Brain className="w-5 h-5" />;
+    else icon = <MessageSquare className="w-5 h-5" />;
 
     return (
-      <Card key={index} className={`border-l-4 ${borderColor}`}>
+      <Card key={index} className="border-l-4 border-l-blue-500">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center gap-2 text-blue-700">
             {icon}
@@ -55,7 +48,7 @@ const StrategicContentDisplay = ({ content, marca }: StrategicContentDisplayProp
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="whitespace-pre-wrap text-sm text-gray-700 font-mono bg-gray-50 p-4 rounded-lg border">
+          <div className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
             {sectionContent}
           </div>
         </CardContent>
@@ -70,7 +63,7 @@ const StrategicContentDisplay = ({ content, marca }: StrategicContentDisplayProp
           🧠 Kit IA Personalizado para {marca}
         </h2>
         <p className="text-gray-600">
-          Tus prompts personalizados están listos. Copia y usa estos prompts en ChatGPT y Lovable.
+          Tu estrategia digital completa ha sido generada. Revisa cada sección y guarda este contenido.
         </p>
       </div>
       
@@ -79,7 +72,7 @@ const StrategicContentDisplay = ({ content, marca }: StrategicContentDisplayProp
       ) : (
         <Card className="border-l-4 border-l-blue-500">
           <CardContent className="pt-6">
-            <div className="whitespace-pre-wrap text-sm text-gray-700 font-mono bg-gray-50 p-4 rounded-lg border">
+            <div className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
               {content}
             </div>
           </CardContent>

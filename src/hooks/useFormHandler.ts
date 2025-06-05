@@ -83,41 +83,52 @@ export const useFormHandler = () => {
       
       console.log('Datos del formulario validados');
       
-      // Generar contenido simplificado - SOLO LOS PROMPTS
-      const basicContent = `**PROMPT PARA CHATGPT**
+      // Generar contenido básico en lugar de usar IA
+      const basicContent = `**BLOQUE 1 - DOCUMENTACIÓN DE MARCA**
+Nombre de la marca: ${formData.marca}
+Quién es: ${formData.quien_eres}
+Público objetivo: [Definir basándose en el contexto proporcionado]
+Problema que resuelve: ${formData.problemas}
+Producto principal: ${formData.producto}
+Estilo de comunicación: ${formData.estilo}
+Preguntas frecuentes: ${formData.preguntas_frecuentes}
 
-"Eres un experto en marketing digital y creación de contenido para ${formData.marca}.
+**BLOQUE 2 - IDEAS DE CONTENIDO INICIAL**
+Reels (5 ideas específicas para captar atención):
+1. Día en la vida de un coach exitoso
+2. Antes y después de transformaciones
+3. Mitos vs. realidades en coaching
+4. Proceso paso a paso de transformación
+5. Testimonios reales de clientes
 
-CONTEXTO DEL NEGOCIO:
+Stories (5 ideas para mostrar proceso y generar empatía):
+1. Detrás de escenas de sesiones
+2. Reflexiones matutinas
+3. Momentos de inspiración diaria
+4. Preguntas frecuentes respondidas
+5. Tips rápidos de crecimiento
+
+Posts (5 ideas educativas/inspiradoras):
+1. Guía paso a paso para superar bloqueos
+2. Las 5 creencias limitantes más comunes
+3. Cómo identificar tu propósito de vida
+4. Ejercicios prácticos de autoconocimiento
+5. Hábitos que transforman tu mentalidad
+
+**BLOQUE 3 - ASISTENTE PERSONAL IA**
+Prompt para ChatGPT:
+
+"Eres un experto en creación de contenido y marketing digital especializado en ${formData.estilo.toLowerCase()}.
+
+PERFIL DEL NEGOCIO:
 - Marca: ${formData.marca}
-- Quién es: ${formData.quien_eres}
-- Problema que resuelve: ${formData.problemas}
-- Producto principal: ${formData.producto}
-- Estilo de comunicación: ${formData.estilo}
-- Preguntas frecuentes: ${formData.preguntas_frecuentes}
-- Instagram: ${formData.instagram || 'No especificado'}
-- Website: ${formData.website || 'No especificado'}
-
-INSTRUCCIONES:
-Genera contenido educativo, inspirador y de venta. Mantén un tono ${formData.estilo.toLowerCase()}. Incluye llamados a la acción claros. Adapta el contenido para Instagram, Stories, LinkedIn y email marketing. Siempre incluye el contexto del negocio en tus respuestas."
-
-**PROMPT PARA CREAR WEB EN LOVABLE**
-
-"Crea una página web profesional para ${formData.marca}.
-
-INFORMACIÓN DEL NEGOCIO:
-- Nombre: ${formData.marca}
-- Descripción: ${formData.quien_eres}
-- Problema que resuelve: ${formData.problemas}
-- Producto/Servicio: ${formData.producto}
+- Profesional: ${formData.quien_eres}
+- Problema: ${formData.problemas}
+- Producto: ${formData.producto}
 - Estilo: ${formData.estilo}
-- WhatsApp: ${formData.whatsapp}
-- Email: ${formData.email}
-- Instagram: ${formData.instagram || 'No especificado'}
-- Website actual: ${formData.website || 'Nuevo sitio web'}
 
 INSTRUCCIONES:
-Crea una landing page moderna con secciones de hero, sobre nosotros, servicios, testimonios y contacto. Incluye botones de WhatsApp. Usa colores y diseño acorde al estilo ${formData.estilo.toLowerCase()}. Optimiza para conversión."`;
+Genera contenido educativo, inspirador y de venta. Mantén un tono ${formData.estilo.toLowerCase()}. Incluye llamados a la acción. Adapta el contenido para Instagram, Stories, LinkedIn y email marketing."`;
 
       // Enviar emails
       await emailHandling.sendEmailToAdmin(formData);
