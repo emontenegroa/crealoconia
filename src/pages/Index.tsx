@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { toast } from "@/hooks/use-toast";
-import ResultsDisplay from '@/components/ResultsDisplay';
+import StrategicContentDisplay from '@/components/StrategicContentDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import HeroSection from '@/components/HeroSection';
 import ImportantNotice from '@/components/ImportantNotice';
@@ -37,7 +37,7 @@ const Index = () => {
   } = useFormHandler();
 
   if (showResults) {
-    return <ResultsDisplay formData={formData} onReset={resetForm} />;
+    return <StrategicContentDisplay formData={formData} onReset={resetForm} />;
   }
 
   return (
