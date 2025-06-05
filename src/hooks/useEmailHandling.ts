@@ -14,6 +14,7 @@ interface FormData {
   instagram: string;
   generatedPrompts?: {
     superPrompt: string;
+    lovablePrompt?: string;
   };
 }
 
@@ -71,11 +72,18 @@ export const useEmailHandling = () => {
                 <p style="line-height: 1.6;">${formData.producto}</p>
               </div>
 
-              ${formData.generatedPrompts ? `
+              ${formData.generatedPrompts?.superPrompt ? `
               <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 20px 0; border: 3px solid #3B82F6;">
-                <h2 style="color: #1E40AF; margin-top: 0; font-size: 18px;">🤖 SUPER PROMPT GENERADO</h2>
+                <h2 style="color: #1E40AF; margin-top: 0; font-size: 18px;">🤖 SUPER PROMPT PARA CHATGPT (Cliente)</h2>
                 <div style="background: #FFF; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 400px; overflow-y: auto; border: 1px solid #E5E7EB;">${formData.generatedPrompts.superPrompt}</div>
-                <p style="color: #1E40AF; margin: 10px 0 0 0; font-weight: bold;">💡 Super Prompt listo para usar en ChatGPT</p>
+              </div>
+              ` : ''}
+
+              ${formData.generatedPrompts?.lovablePrompt ? `
+              <div style="background: #FEF3C7; padding: 20px; border-radius: 8px; margin: 20px 0; border: 3px solid #F59E0B;">
+                <h2 style="color: #D97706; margin-top: 0; font-size: 18px;">🌐 PROMPT LOVABLE (Solo para ti)</h2>
+                <div style="background: #FFF; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 400px; overflow-y: auto; border: 1px solid #E5E7EB;">${formData.generatedPrompts.lovablePrompt}</div>
+                <p style="color: #D97706; margin: 10px 0 0 0; font-weight: bold;">💡 Este prompt NO se entrega al cliente</p>
               </div>
               ` : ''}
 
@@ -157,7 +165,7 @@ export const useEmailHandling = () => {
                 <p style="color: #1E40AF; margin-bottom: 0; font-weight: bold;">✅ Estrategias de posicionamiento y autoridad</p>
               </div>
 
-              ${formData.generatedPrompts ? `
+              ${formData.generatedPrompts?.superPrompt ? `
               <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 25px 0;">
                 <h2 style="color: #0369A1; margin-top: 0; font-size: 18px;">🧠 Tu Super Prompt para ChatGPT</h2>
                 <p style="color: #1E40AF; margin-bottom: 15px;">Copia este prompt completo y úsalo en ChatGPT para generar contenido estratégico y campañas de marketing:</p>

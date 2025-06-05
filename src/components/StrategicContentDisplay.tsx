@@ -143,7 +143,7 @@ const StrategicContentDisplay = ({ formData, onReset }: StrategicContentDisplayP
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">2. Pide contenido específico:</h3>
-                  <p className="text-gray-600">Ejemplos: "Crea 10 posts para Instagram sobre mentalidad", "Escribe una secuencia de 5 emails para vender mi programa", "Dame ideas para Reels virales".</p>
+                  <p className="text-gray-600">Ejemplos: "Crea 10 posts para Instagram sobre productividad", "Escribe una secuencia de 5 emails para vender mi programa", "Dame ideas para Reels virales".</p>
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">3. Personaliza según tu estrategia:</h3>
