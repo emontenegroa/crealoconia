@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 
 const TypewriterText = () => {
@@ -5,7 +6,7 @@ const TypewriterText = () => {
     "vender tus servicios",
     "captar clientes", 
     "escalar tu negocio",
-    "posicionarte como experto",
+    "posiciona tu marca",
     "cerrar mentorías",
     "vender tus cursos",
     "atraer leads calificados",
