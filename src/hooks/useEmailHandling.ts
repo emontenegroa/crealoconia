@@ -159,10 +159,21 @@ export const useEmailHandling = () => {
               </p>
 
               <div style="background: #F0F9FF; padding: 20px; border-radius: 8px; margin: 25px 0; border-left: 4px solid #3B82F6;">
-                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Asistente personalizado de marketing y contenido</p>
-                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Generador de contenido viral para todas las plataformas</p>
-                <p style="color: #1E40AF; margin-bottom: 10px; font-weight: bold;">✅ Scripts de venta y secuencias de email marketing</p>
-                <p style="color: #1E40AF; margin-bottom: 0; font-weight: bold;">✅ Estrategias de posicionamiento y autoridad</p>
+                <h3 style="color: #1E40AF; margin-top: 0; margin-bottom: 15px; font-size: 18px;">📱 Contenido para Redes Sociales:</h3>
+                <p style="color: #1E40AF; margin-bottom: 8px;">1️⃣ Publicaciones virales (carrousel, post de autoridad, contenido de ventas)</p>
+                <p style="color: #1E40AF; margin-bottom: 8px;">2️⃣ Guiones de Reels y Shorts para viralización y captación</p>
+                <p style="color: #1E40AF; margin-bottom: 8px;">3️⃣ Historias de Instagram con engagement emocional y venta indirecta</p>
+                <p style="color: #1E40AF; margin-bottom: 8px;">4️⃣ Series educativas para construir autoridad y lead magnet</p>
+                <p style="color: #1E40AF; margin-bottom: 0;">5️⃣ Preguntas frecuentes convertidas en contenido educativo</p>
+              </div>
+
+              <div style="background: #ECFDF5; padding: 20px; border-radius: 8px; margin: 25px 0; border-left: 4px solid #10B981;">
+                <h3 style="color: #059669; margin-top: 0; margin-bottom: 15px; font-size: 18px;">💰 Estrategias de Venta y Marketing:</h3>
+                <p style="color: #059669; margin-bottom: 8px;">6️⃣ Secuencias de email marketing (captación, nutrición, lanzamiento)</p>
+                <p style="color: #059669; margin-bottom: 8px;">7️⃣ Guiones de venta (para webinars, DM, sesiones discovery)</p>
+                <p style="color: #059669; margin-bottom: 8px;">8️⃣ Guiones para webinars o clases online de conversión</p>
+                <p style="color: #059669; margin-bottom: 8px;">9️⃣ Copy para landings de captación o venta</p>
+                <p style="color: #059669; margin-bottom: 0;">🔟 Diseño de embudo de lanzamiento digital</p>
               </div>
 
               ${formData.generatedPrompts?.superPrompt ? `
@@ -182,9 +193,20 @@ export const useEmailHandling = () => {
                 </div>
               </div>
 
+              <div style="background: #FEF3C7; padding: 25px; border-radius: 8px; margin: 30px 0; border: 2px solid #F59E0B;">
+                <h3 style="color: #D97706; margin-top: 0; margin-bottom: 15px; font-size: 20px;">🌐 Bonus: Tu sitio web profesional</h3>
+                <p style="color: #D97706; margin-bottom: 15px; font-size: 16px; line-height: 1.6;">
+                  <strong>Posterior a este email, recibirás la URL de tu sitio web</strong> el cual podrás revisar y si te encanta, 
+                  <strong>te generaremos una propuesta irresistible para las mejoras y publicarlo</strong>.
+                </p>
+                <p style="color: #D97706; font-weight: bold; margin: 0;">
+                  ✨ Sin compromiso, sin pagos adelantados, sin letra pequeña
+                </p>
+              </div>
+
               <div style="text-align: center; margin: 30px 0;">
                 <p style="color: #6B7280; font-size: 14px; margin: 0;">
-                  Super Prompt valorado en <strong style="color: #7C3AED;">$197 USD</strong> - ¡Completamente gratis!
+                  Super Prompt valorado en <strong style="color: #7C3AED;">$2,000+ USD</strong> - ¡Completamente gratis!
                 </p>
               </div>
 
