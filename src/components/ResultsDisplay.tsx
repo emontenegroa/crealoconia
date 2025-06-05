@@ -29,7 +29,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
   }, []);
 
   return (
-    <div className="min-h-screen bg-white" id="results-section">
+    <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -42,7 +42,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
             Hazlo con IA
           </h1>
           <h2 className="text-2xl md:text-3xl text-gray-800 mb-6 font-semibold">
-            ✅ Tu sitio ya está en proceso
+            ✅ Hazlo con IA — Tu sitio ya está en proceso
           </h2>
           <Button onClick={onReset} variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50">
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -62,50 +62,69 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
           </CardHeader>
           
           <CardContent className="p-8">
-            <div className="text-gray-900 space-y-8">
+            <div className="text-gray-900 space-y-6">
               
-              {/* Paso 1: Contenido enviado */}
+              {/* Paso 1: Kit IA inmediato */}
               <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <Mail className="w-6 h-6 text-emerald-600" />
-                  <h3 className="text-xl font-bold text-emerald-800">📧 Paso 1: Contenido enviado a tu email</h3>
+                  <h3 className="text-xl font-bold text-emerald-800">📧 Paso 1: Kit IA enviado a tu email</h3>
                 </div>
                 <p className="text-emerald-800 text-lg mb-4 text-center">
                   En pocos minutos recibirás en <strong>{formData.email}</strong>:
                 </p>
                 <div className="grid md:grid-cols-3 gap-4 text-left">
                   <div className="bg-white border border-emerald-200 p-4 rounded-lg">
-                    <span className="font-semibold text-emerald-800">✅ Textos base para tu sitio web</span>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Sparkles className="w-5 h-5 text-emerald-600" />
+                      <span className="font-semibold text-emerald-800">✅ Textos base para tu sitio web</span>
+                    </div>
                   </div>
                   <div className="bg-white border border-emerald-200 p-4 rounded-lg">
-                    <span className="font-semibold text-blue-800">✅ 15 días de contenido para tus redes</span>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Brain className="w-5 h-5 text-blue-600" />
+                      <span className="font-semibold text-blue-800">✅ 15 días de contenido inicial para tus redes (posts, stories y reels)</span>
+                    </div>
                   </div>
                   <div className="bg-white border border-emerald-200 p-4 rounded-lg">
-                    <span className="font-semibold text-teal-800">✅ Tu asistente IA personalizado</span>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Globe className="w-5 h-5 text-teal-600" />
+                      <span className="font-semibold text-teal-800">✅ Tu asistente IA personalizado para seguir creando contenido en ChatGPT</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Paso 2: Sitio web en proceso */}
+              {/* Separador */}
+              <div className="border-b border-gray-200 w-32 mx-auto"></div>
+
+              {/* Paso 2: Sitio web en creación */}
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <Clock className="w-6 h-6 text-blue-600 animate-pulse" />
-                  <h3 className="text-xl font-bold text-blue-800">🌐 Paso 2: Generando tu sitio web</h3>
+                  <h3 className="text-xl font-bold text-blue-800">🌐 Paso 2: Generando tu sitio web (proceso automatizado)</h3>
                 </div>
-                <div className="text-blue-800 space-y-3 text-center">
-                  <p className="text-lg font-semibold">
-                    Estamos construyendo la primera versión de tu sitio web.
+                <div className="text-blue-800 space-y-3">
+                  <p className="text-lg font-semibold text-center">
+                    Nuestro sistema ya está construyendo la primera versión estructurada de tu sitio web.
                   </p>
-                  <p className="text-base">
-                    <strong>Normalmente está listo en minutos, máximo 4 horas.</strong>
+                  <p className="text-base text-center">
+                    <strong>Normalmente lo tenemos listo en minutos, aunque en algunos casos puede demorar hasta un máximo de 4 horas.</strong>
+                  </p>
+                  <p className="text-base text-center">
+                    <strong>Cuando el sitio esté listo, recibirás:</strong>
                   </p>
                   <div className="bg-white border border-blue-200 rounded-lg p-4 text-left space-y-2 text-sm">
-                    <p>🌐 URL de tu sitio web para revisión</p>
-                    <p>📱 Optimizado para móviles y escritorio</p>
-                    <p>🎯 Estructura lista para captar clientes</p>
+                    <p>🌐 URL de tu sitio web profesional para revisión</p>
+                    <p>👀 Acceso completo a todo el contenido generado</p>
+                    <p>📱 Sitio optimizado para dispositivos móviles y escritorio</p>
+                    <p>🎯 Estructura lista para empezar a captar clientes</p>
                   </div>
                 </div>
               </div>
+
+              {/* Separador */}
+              <div className="border-b border-gray-200 w-32 mx-auto"></div>
 
               {/* Diferenciador */}
               <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
@@ -113,29 +132,35 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
                   <Zap className="w-6 h-6 text-gray-600" />
                   <h3 className="text-xl font-bold text-gray-800">⚡ ¿Qué hace diferente este proceso?</h3>
                 </div>
-                <div className="text-gray-700 space-y-2 text-left">
-                  <p>• <strong>🚫 Sin plantillas genéricas:</strong> específico para {formData.marca}</p>
-                  <p>• <strong>🚫 Sin escribir desde cero:</strong> todo creado en base a tus respuestas</p>
-                  <p>• <strong>🚫 Sin complicaciones técnicas:</strong> solo revisas y validas</p>
-                  <p>• <strong>🗓️ Puedes agendar ajustes finales si lo deseas</strong></p>
+                <div className="text-gray-700 space-y-3 text-left">
+                  <p>• <strong>🚫 Sin buscar plantillas genéricas:</strong> el sitio se genera específicamente para {formData.marca}</p>
+                  <p>• <strong>🚫 Sin escribir textos desde cero:</strong> el copy completo es creado en base a tus respuestas</p>
+                  <p>• <strong>🚫 Sin enredos técnicos:</strong> tú solo revisas y validas el resultado</p>
+                  <p>• <strong>🗓️ Podrás agendar una reunión opcional para realizar ajustes finales, si lo deseas.</strong></p>
                 </div>
               </div>
+
+              {/* Separador */}
+              <div className="border-b border-gray-200 w-32 mx-auto"></div>
 
               {/* Mientras tanto */}
               <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">🎯 Mientras esperamos:</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">🎯 Mientras esperamos el sitio:</h3>
                 <div className="space-y-2 text-gray-700 text-left">
-                  <p>✅ Revisa el contenido que recibiste por email</p>
-                  <p>✅ Empieza a usar el contenido en tus redes</p>
-                  <p>✅ Prueba tu asistente IA en ChatGPT</p>
-                  <p>📬 Te avisaremos cuando tu sitio esté listo</p>
+                  <p>✅ Revisa el Kit IA que ya recibiste en tu email</p>
+                  <p>✅ Empieza a utilizar el contenido generado en tus redes sociales</p>
+                  <p>✅ Prueba tu asistente IA en ChatGPT para seguir creando publicaciones</p>
+                  <p>📬 Te avisaremos por email apenas la URL de tu sitio esté disponible</p>
                 </div>
               </div>
 
+              {/* Separador */}
+              <div className="border-b border-gray-200 w-32 mx-auto"></div>
+
               {/* Contacto */}
               <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">💬 ¿Necesitas ayuda?</h3>
-                <p className="text-gray-700 mb-6 text-center">Estamos aquí para acompañarte.</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">💬 ¿Dudas o necesitas asistencia?</h3>
+                <p className="text-gray-700 mb-6 text-center">Estamos aquí para acompañarte en todo el proceso.</p>
                 <div className="flex items-center justify-center gap-4 flex-wrap">
                   <a 
                     href={`mailto:esteban.montenegro@gmail.com?subject=Consulta sobre mi sitio web - ${formData.marca}`} 
@@ -156,9 +181,12 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
                 </div>
               </div>
 
+              {/* Separador */}
+              <div className="border-b border-gray-200 w-32 mx-auto"></div>
+
               <div className="text-center">
                 <p className="text-gray-600 text-sm">
-                  <strong className="text-blue-600">Hazlo con IA</strong> — Tu presencia digital sin complicaciones.
+                  <strong className="text-blue-600">Hazlo con IA</strong> — Tu presencia digital profesional sin complicaciones.
                 </p>
               </div>
 

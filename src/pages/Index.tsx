@@ -36,19 +36,6 @@ const Index = () => {
     onGenerateWebsite
   } = useFormHandler();
 
-  // Función para manejar el scroll al formulario cuando se inicia la generación
-  const handleSubmitWithScroll = async (e: React.FormEvent) => {
-    // Scroll suave hacia la sección de carga
-    setTimeout(() => {
-      const loadingSection = document.getElementById('loading-section');
-      if (loadingSection) {
-        loadingSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, 100);
-    
-    await handleSubmit(e);
-  };
-
   if (showResults) {
     return <ResultsDisplay formData={formData} onReset={resetForm} />;
   }
@@ -82,7 +69,7 @@ const Index = () => {
             setNoWebsite={setNoWebsite}
             noInstagram={noInstagram}
             setNoInstagram={setNoInstagram}
-            onSubmit={handleSubmitWithScroll}
+            onSubmit={handleSubmit}
             isFormValid={isFormValid}
             onGenerateWebsite={onGenerateWebsite}
             onLoadExample={loadExampleData}

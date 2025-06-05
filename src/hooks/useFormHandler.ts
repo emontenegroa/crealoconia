@@ -133,7 +133,7 @@ export const useFormHandler = () => {
     // Por ahora, simular compra exitosa y mostrar formulario
     toast({
       title: "¡Compra exitosa! 🎉",
-      description: "Ahora completa el formulario para generar Hazlo con IA personalizado.",
+      description: "Ahora completa el formulario para generar tu Kit IA personalizado.",
     });
     
     setShowPricing(false);
@@ -154,7 +154,7 @@ export const useFormHandler = () => {
     if (!canProceed) {
       toast({
         title: "Límite alcanzado",
-        description: "Has completado el formulario 3 veces con este email. Usa otro email si necesitas generar más contenido.",
+        description: "Has completado el formulario 3 veces con este email. Usa otro email si necesitas generar más kits.",
         variant: "destructive",
       });
       return;
@@ -163,11 +163,11 @@ export const useFormHandler = () => {
     setIsGenerating(true);
     
     try {
-      console.log('🔄 Iniciando generación de contenido...');
+      console.log('🔄 Iniciando proceso de generación de Kit IA...');
       
       await new Promise(resolve => setTimeout(resolve, 3000));
       
-      console.log('📤 Enviando emails...');
+      console.log('📤 Enviando emails de notificación...');
       
       const [adminResult, confirmationResult] = await Promise.allSettled([
         sendEmailToAdmin(formData),
@@ -193,16 +193,16 @@ export const useFormHandler = () => {
       setShowResults(true);
       
       toast({
-        title: "¡Contenido generado exitosamente!",
-        description: `${emailsSent === 2 ? 'Emails enviados' : 'Al menos un email enviado'}. Revisa tu bandeja de entrada.`,
+        title: "¡Kit IA generado exitosamente!",
+        description: `${emailsSent === 2 ? 'Ambos emails enviados' : 'Al menos un email enviado'}. Revisa las bandejas de entrada.`,
       });
       
     } catch (error) {
-      console.error('💥 Error durante la generación:', error);
+      console.error('💥 Error durante la generación del kit:', error);
       setIsGenerating(false);
       toast({
-        title: "Error al procesar",
-        description: `Problema: ${error instanceof Error ? error.message : 'Error desconocido'}`,
+        title: "Error al procesar el formulario",
+        description: `Problema detectado: ${error instanceof Error ? error.message : 'Error desconocido'}`,
         variant: "destructive",
       });
     }

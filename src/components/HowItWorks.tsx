@@ -4,7 +4,7 @@ import React from 'react';
 const HowItWorks = () => {
   return (
     <div>
-      <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">¿Cómo funciona Hazlo con IA?</h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">¿Cómo funciona el Kit IA?</h2>
       
       <div className="space-y-8">
         <div className="flex gap-6">
@@ -26,7 +26,7 @@ const HowItWorks = () => {
             </div>
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 mb-3 text-xl">Recibes Hazlo con IA</h3>
+            <h3 className="font-bold text-gray-900 mb-3 text-xl">Recibes tu Kit IA</h3>
             <p className="text-gray-700 text-lg leading-relaxed">Apenas terminas el formulario, generamos y te enviamos:  
 Los textos base para tu web profesional,  Un prompt exclusivo para seguir creando contenido con IA asociado a tu información,  15 días de publicaciones. 
 Todo lo que necesitas para empezar a construir tu presencia online con claridad.</p>
