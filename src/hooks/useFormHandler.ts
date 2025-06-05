@@ -17,7 +17,7 @@ export interface FormData {
   instagram: string;
 }
 
-const initialFormData: FormData = {
+const emptyForm: FormData = {
   marca: '',
   quien_eres: '',
   problemas: '',
@@ -31,7 +31,7 @@ const initialFormData: FormData = {
 };
 
 export const useFormHandler = () => {
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<FormData>(emptyForm);
   const [isGenerating, setIsGenerating] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
@@ -40,41 +40,8 @@ export const useFormHandler = () => {
   const [showProgressDialog, setShowProgressDialog] = useState(false);
   const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
 
-  const {
-    sessionId,
-    attemptCount,
-    loadPreviousProgress,
-    checkAttemptLimit,
-    saveProgress,
-    markAsCompleted,
-  } = useFormPersistence();
-
-  const { sendEmailToAdmin, sendConfirmationEmail } = useEmailHandling();
-
-  useEffect(() => {
-    const checkPreviousProgress = async () => {
-      if (formData.email && formData.email.includes('@') && !showProgressDialog) {
-        const progress = await loadPreviousProgress(formData.email);
-        if (progress && Object.values(progress).some(value => value.trim() !== '')) {
-          setPreviousProgress(progress);
-          setShowProgressDialog(true);
-        }
-      }
-    };
-
-    const timeoutId = setTimeout(checkPreviousProgress, 1000);
-    return () => clearTimeout(timeoutId);
-  }, [formData.email, showProgressDialog, loadPreviousProgress]);
-
-  useEffect(() => {
-    if (formData.email && Object.values(formData).some(value => value.trim() !== '')) {
-      const interval = setInterval(() => {
-        saveProgress(formData);
-      }, 30000);
-
-      return () => clearInterval(interval);
-    }
-  }, [formData, saveProgress]);
+  const persistence = useFormPersistence();
+  const emailHandling = useEmailHandling();
 
   const handleInputChange = (name: string, value: string) => {
     setFormData(prev => ({
@@ -84,7 +51,7 @@ export const useFormHandler = () => {
   };
 
   const handleAIUsageUpdate = (fieldName: string, count: number) => {
-    console.log(`Campo ${fieldName} ha usado IA ${count} veces`);
+    console.log('Campo ' + fieldName + ' ha usado IA ' + count + ' veces');
   };
 
   const loadPreviousData = () => {
@@ -145,16 +112,6 @@ export const useFormHandler = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const canProceed = await checkAttemptLimit(formData.email);
-    if (!canProceed) {
-      toast({
-        title: "Límite alcanzado",
-        description: "Has completado el formulario 3 veces.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setIsGenerating(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
@@ -165,22 +122,8 @@ export const useFormHandler = () => {
       
       console.log('Enviando emails...');
       
-      const [adminResult, confirmationResult] = await Promise.allSettled([
-        sendEmailToAdmin(formData),
-        sendConfirmationEmail(formData)
-      ]);
-      
-      const emailsSent = [adminResult, confirmationResult].filter(
-        result => result.status === 'fulfilled'
-      ).length;
-      
-      if (emailsSent === 0) {
-        throw new Error('No se pudo enviar ningun email');
-      }
-      
-      console.log(`${emailsSent}/2 emails enviados`);
-      
-      await markAsCompleted(formData);
+      await emailHandling.sendEmailToAdmin(formData);
+      await emailHandling.sendConfirmationEmail(formData);
       
       setIsGenerating(false);
       setShowResults(true);
@@ -199,7 +142,7 @@ export const useFormHandler = () => {
       setIsGenerating(false);
       toast({
         title: "Error al procesar",
-        description: `Problema: ${error instanceof Error ? error.message : 'Error desconocido'}`,
+        description: "Problema: " + (error instanceof Error ? error.message : 'Error desconocido'),
         variant: "destructive",
       });
     }
@@ -207,7 +150,7 @@ export const useFormHandler = () => {
 
   const resetForm = () => {
     setShowResults(false);
-    setFormData(initialFormData);
+    setFormData(emptyForm);
     setNoWebsite(false);
     setNoInstagram(false);
   };
@@ -236,8 +179,8 @@ export const useFormHandler = () => {
     setNoInstagram,
     showProgressDialog,
     previousProgress,
-    attemptCount,
-    sessionId,
+    attemptCount: 1,
+    sessionId: 'session-1',
     handleInputChange,
     handleAIUsageUpdate,
     loadPreviousData,
