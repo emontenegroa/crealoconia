@@ -22,10 +22,8 @@ export const useEmailHandling = () => {
     try {
       console.log('Enviando email al admin...');
       
-      const emailData = {
-        to: 'estebanbonansea@gmail.com',
-        subject: 'Nuevo cliente: ' + formData.marca,
-        content: `NUEVO CLIENTE: ${formData.marca}
+      // Crear contenido del email de forma más segura
+      const emailContent = `NUEVO CLIENTE: ${formData.marca}
 
 Email: ${formData.email}
 WhatsApp: ${formData.whatsapp}
@@ -33,7 +31,17 @@ Website: ${formData.website || 'No especificado'}
 Instagram: ${formData.instagram || 'No especificado'}
 
 DATOS COMPLETOS:
-${JSON.stringify(formData, null, 2)}`,
+Marca: ${formData.marca}
+Quien es: ${formData.quien_eres}
+Problemas: ${formData.problemas}
+Preguntas frecuentes: ${formData.preguntas_frecuentes}
+Estilo: ${formData.estilo}
+Producto: ${formData.producto}`;
+
+      const emailData = {
+        to: 'estebanbonansea@gmail.com',
+        subject: `Nuevo cliente: ${formData.marca}`,
+        content: emailContent,
         formData: formData
       };
 
@@ -63,6 +71,7 @@ ${JSON.stringify(formData, null, 2)}`,
       
       console.log('Enviando email de confirmación con contenido...');
       
+      // Crear contenido del email de confirmación de forma más segura
       const emailContent = `🧠 TU KIT IA PERSONALIZADO ESTÁ LISTO
 
 ¡Hola!

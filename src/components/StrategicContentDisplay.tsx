@@ -9,13 +9,24 @@ interface StrategicContentDisplayProps {
 }
 
 const StrategicContentDisplay = ({ content, marca }: StrategicContentDisplayProps) => {
+  // Función para limpiar y formatear el contenido
+  const cleanContent = (text: string) => {
+    return text
+      .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/g, '')
+      .replace(/"/g, '"')
+      .replace(/"/g, '"')
+      .replace(/'/g, "'")
+      .replace(/'/g, "'")
+      .trim();
+  };
+
   // Dividir el contenido en secciones basándose en los bloques
-  const sections = content.split('**BLOQUE').filter(section => section.trim());
+  const sections = cleanContent(content).split('**BLOQUE').filter(section => section.trim());
   
   const renderSection = (section: string, index: number) => {
     const lines = section.split('\n').filter(line => line.trim());
     const title = lines[0]?.replace(/\*+/g, '').trim() || `Bloque ${index + 1}`;
-    const content = lines.slice(1).join('\n');
+    const sectionContent = lines.slice(1).join('\n');
 
     let icon;
     if (title.includes('DOCUMENTACIÓN')) icon = <FileText className="w-5 h-5" />;
@@ -32,13 +43,29 @@ const StrategicContentDisplay = ({ content, marca }: StrategicContentDisplayProp
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
-            {content}
-          </pre>
+          <div className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
+            {cleanContent(sectionContent)}
+          </div>
         </CardContent>
       </Card>
     );
   };
+
+  // Si no hay contenido, mostrar mensaje de error
+  if (!content || content.trim() === '') {
+    return (
+      <div className="space-y-6">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            🧠 Kit IA para {marca}
+          </h2>
+          <p className="text-red-600">
+            Hubo un problema al generar el contenido. Por favor, intenta nuevamente.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -56,9 +83,9 @@ const StrategicContentDisplay = ({ content, marca }: StrategicContentDisplayProp
       ) : (
         <Card className="border-l-4 border-l-blue-500">
           <CardContent className="pt-6">
-            <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
-              {content}
-            </pre>
+            <div className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
+              {cleanContent(content)}
+            </div>
           </CardContent>
         </Card>
       )}

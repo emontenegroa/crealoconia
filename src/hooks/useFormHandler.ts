@@ -47,7 +47,7 @@ export const useFormHandler = () => {
   };
 
   const handleAIUsageUpdate = (fieldName: string, count: number) => {
-    console.log('Campo ' + fieldName + ' ha usado IA ' + count + ' veces');
+    console.log(`Campo ${fieldName} ha usado IA ${count} veces`);
   };
 
   const loadExampleData = () => {
@@ -76,39 +76,48 @@ export const useFormHandler = () => {
     try {
       console.log('Iniciando proceso de generación...');
       
-      // Simular proceso de carga
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Validar datos del formulario
+      if (!formData.marca || !formData.email || !formData.quien_eres) {
+        throw new Error('Faltan datos obligatorios en el formulario');
+      }
       
-      console.log('Enviando emails y generando contenido...');
+      console.log('Datos del formulario validados:', {
+        marca: formData.marca,
+        email: formData.email,
+        hasQuienEres: !!formData.quien_eres
+      });
       
-      // Enviar email al admin
+      // Enviar email al admin primero
       await emailHandling.sendEmailToAdmin(formData);
+      console.log('Email al admin enviado exitosamente');
       
       // Generar contenido estratégico y enviar email de confirmación
       const result = await emailHandling.sendConfirmationEmail(formData);
+      console.log('Email de confirmación enviado exitosamente');
       
       if (result.strategicContent) {
         setStrategicContent(result.strategicContent);
+        setIsGenerating(false);
+        setShowResults(true);
+        
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
+        
+        toast({
+          title: "¡Kit IA generado exitosamente!",
+          description: "Tu contenido estratégico ha sido enviado por email.",
+        });
+      } else {
+        throw new Error('No se pudo generar el contenido estratégico');
       }
       
-      setIsGenerating(false);
-      setShowResults(true);
-      
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 100);
-      
-      toast({
-        title: "¡Kit IA generado exitosamente!",
-        description: "Tu contenido estratégico ha sido enviado por email.",
-      });
-      
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error en handleSubmit:', error);
       setIsGenerating(false);
       toast({
         title: "Error al procesar",
-        description: "Hubo un problema: " + (error instanceof Error ? error.message : 'Error desconocido'),
+        description: `Hubo un problema: ${error instanceof Error ? error.message : 'Error desconocido'}`,
         variant: "destructive",
       });
     }
