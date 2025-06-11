@@ -155,18 +155,7 @@ const MainForm = ({
         </div>
 
         {/* Botón de datos de ejemplo */}
-        <div className="mt-6 bg-orange-50 border border-orange-200 rounded-lg p-4">
-          <p className="text-orange-800 font-medium mb-3">
-            🧪 <strong>¿Quieres probar el sistema rápidamente?</strong>
-          </p>
-          <Button type="button" onClick={handleLoadExampleData} variant="outline" className="border-orange-400 text-orange-700 hover:bg-orange-100">
-            <Zap className="w-4 h-4 mr-2" />
-            Cargar datos de ejemplo
-          </Button>
-          <p className="text-xs text-orange-700 mt-2">
-            Esto completará todos los campos con información de prueba para que veas cómo funciona
-          </p>
-        </div>
+        
 
         {/* Validación de email */}
         <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
