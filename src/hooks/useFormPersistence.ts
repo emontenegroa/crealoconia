@@ -138,24 +138,52 @@ export const useFormPersistence = () => {
     }
   };
 
-  // Guardar progreso automáticamente
+  // Guardar progreso automáticamente - Cambio aquí para evitar el error de ON CONFLICT
   const saveProgress = async (formData: FormData): Promise<void> => {
     if (!formData.email) return;
 
     try {
-      const { error } = await supabase
+      // Primero intentamos obtener el registro existente
+      const { data: existingData, error: selectError } = await supabase
         .from('form_submissions')
-        .upsert({
-          email: formData.email,
-          form_data: formData as any,
-          attempt_number: attemptCount,
-          completed: false,
-        }, {
-          onConflict: 'email,completed'
-        });
+        .select('id')
+        .eq('email', formData.email)
+        .eq('completed', false)
+        .maybeSingle();
 
-      if (error) {
-        console.error('Error saving progress:', error);
+      if (selectError) {
+        console.error('Error checking existing progress:', selectError);
+        return;
+      }
+
+      if (existingData) {
+        // Si existe, actualizamos
+        const { error: updateError } = await supabase
+          .from('form_submissions')
+          .update({
+            form_data: formData as any,
+            attempt_number: attemptCount,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', existingData.id);
+
+        if (updateError) {
+          console.error('Error updating progress:', updateError);
+        }
+      } else {
+        // Si no existe, insertamos
+        const { error: insertError } = await supabase
+          .from('form_submissions')
+          .insert({
+            email: formData.email,
+            form_data: formData as any,
+            attempt_number: attemptCount,
+            completed: false,
+          });
+
+        if (insertError) {
+          console.error('Error inserting progress:', insertError);
+        }
       }
     } catch (error) {
       console.error('Error in saveProgress:', error);
