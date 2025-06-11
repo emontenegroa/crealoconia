@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,6 @@ import FormStepWizard from '@/components/FormStepWizard';
 import { FormData } from '@/hooks/useFormHandler';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
 import { toast } from "@/hooks/use-toast";
-
 interface MainFormProps {
   formData: FormData;
   setFormData: (data: FormData) => void;
@@ -25,7 +23,6 @@ interface MainFormProps {
   onGenerateWebsite: () => void;
   onLoadExample: () => void;
 }
-
 const MainForm = ({
   formData,
   setFormData,
@@ -41,47 +38,44 @@ const MainForm = ({
   onGenerateWebsite,
   onLoadExample
 }: MainFormProps) => {
-  const { sendTestEmail } = useEmailHandling();
+  const {
+    sendTestEmail
+  } = useEmailHandling();
   const [isValidatingEmail, setIsValidatingEmail] = useState(false);
   const [emailValidated, setEmailValidated] = useState(false);
-
   const handleTestEmail = async () => {
     if (!formData.email || !formData.email.includes('@')) {
       toast({
         title: "Email requerido",
         description: "Por favor ingresa un email válido en el campo de correo electrónico para hacer la prueba.",
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
-
     setIsValidatingEmail(true);
     try {
       console.log('🧪 Iniciando test de email...');
       toast({
         title: "Enviando email de prueba...",
-        description: "Por favor espera mientras verificamos el sistema de email.",
+        description: "Por favor espera mientras verificamos el sistema de email."
       });
-
       await sendTestEmail(formData.email);
-      
       setEmailValidated(true);
       toast({
         title: "¡Email de prueba enviado!",
-        description: `Revisa tu bandeja de entrada en ${formData.email}. Si no llega en 2-3 minutos, revisa la carpeta de spam.`,
+        description: `Revisa tu bandeja de entrada en ${formData.email}. Si no llega en 2-3 minutos, revisa la carpeta de spam.`
       });
     } catch (error) {
       console.error('❌ Error en test de email:', error);
       toast({
         title: "Error en el test de email",
         description: "Hubo un problema al enviar el email de prueba. Revisa la consola para más detalles.",
-        variant: "destructive",
+        variant: "destructive"
       });
     } finally {
       setIsValidatingEmail(false);
     }
   };
-
   const handleLoadExampleData = () => {
     setFormData({
       marca: 'FlexiTime Academy',
@@ -97,23 +91,18 @@ const MainForm = ({
     });
     setNoWebsite(false);
     setNoInstagram(false);
-    
     toast({
       title: "Datos de ejemplo cargados",
-      description: "Se han cargado todos los campos con datos de ejemplo para hacer pruebas.",
+      description: "Se han cargado todos los campos con datos de ejemplo para hacer pruebas."
     });
   };
-
   const handleConfirmedSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(e);
   };
-
   const stepLabels = ["Información Básica", "Perfil Personal", "Finalizar"];
   const stepFields = [['marca', 'email', 'whatsapp', 'website', 'instagram'], ['quien_eres', 'problemas', 'preguntas_frecuentes', 'estilo'], ['producto']];
-
-  return (
-    <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-xl">
+  return <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-xl">
       <CardHeader className="text-center pb-8 bg-gray-50 border-b border-gray-200">
         <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-3">
           <Sparkles className="w-8 h-8 text-blue-600" />
@@ -158,7 +147,7 @@ const MainForm = ({
 
         <div className="mt-6 space-y-2 text-gray-700">
           <p className="flex items-center justify-center gap-2">
-            ⏱️ <strong>Tiempo estimado: 3-5 minutos</strong>
+            ⏱️ <strong>Tiempo estimado: de 7 a 14 minutos</strong>
           </p>
           <p className="flex items-center justify-center gap-2">
             💾 <strong>Tu progreso se guarda automáticamente mientras avanzas.</strong>
@@ -170,12 +159,7 @@ const MainForm = ({
           <p className="text-orange-800 font-medium mb-3">
             🧪 <strong>¿Quieres probar el sistema rápidamente?</strong>
           </p>
-          <Button
-            type="button"
-            onClick={handleLoadExampleData}
-            variant="outline"
-            className="border-orange-400 text-orange-700 hover:bg-orange-100"
-          >
+          <Button type="button" onClick={handleLoadExampleData} variant="outline" className="border-orange-400 text-orange-700 hover:bg-orange-100">
             <Zap className="w-4 h-4 mr-2" />
             Cargar datos de ejemplo
           </Button>
@@ -189,63 +173,31 @@ const MainForm = ({
           <p className="text-yellow-800 font-medium mb-3">
             📧 <strong>Importante:</strong> Antes de generar tu Kit IA, valida que tu email funcione correctamente
           </p>
-          <Button
-            type="button"
-            onClick={handleTestEmail}
-            variant="outline"
-            className="border-yellow-400 text-yellow-700 hover:bg-yellow-100"
-            disabled={!formData.email || !formData.email.includes('@') || isValidatingEmail}
-          >
+          <Button type="button" onClick={handleTestEmail} variant="outline" className="border-yellow-400 text-yellow-700 hover:bg-yellow-100" disabled={!formData.email || !formData.email.includes('@') || isValidatingEmail}>
             <TestTube className="w-4 h-4 mr-2" />
             {isValidatingEmail ? 'Enviando...' : 'Validar mi email'}
           </Button>
-          {emailValidated && (
-            <div className="mt-3 flex items-center gap-2 text-emerald-700">
+          {emailValidated && <div className="mt-3 flex items-center gap-2 text-emerald-700">
               <div className="w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center">
                 <span className="text-white text-xs">✓</span>
               </div>
               <span className="font-medium">Email validado correctamente</span>
-            </div>
-          )}
+            </div>}
           <p className="text-xs text-yellow-700 mt-2">
             Si no recibes el email de prueba, revisa spam o usa otro email
           </p>
         </div>
       </CardHeader>
       <CardContent className="p-8 bg-white">
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
-          <FormFields 
-            formData={formData} 
-            onInputChange={onInputChange} 
-            onAIUsageUpdate={onAIUsageUpdate} 
-            sessionId={sessionId} 
-            noWebsite={noWebsite} 
-            noInstagram={noInstagram} 
-            setNoWebsite={setNoWebsite} 
-            setNoInstagram={setNoInstagram} 
-            setFormData={setFormData} 
-          />
+        <form onSubmit={e => e.preventDefault()} className="space-y-8">
+          <FormFields formData={formData} onInputChange={onInputChange} onAIUsageUpdate={onAIUsageUpdate} sessionId={sessionId} noWebsite={noWebsite} noInstagram={noInstagram} setNoWebsite={setNoWebsite} setNoInstagram={setNoInstagram} setFormData={setFormData} />
 
-          <FormStepWizard 
-            showWizard={false} 
-            currentStep={0} 
-            setCurrentStep={() => {}} 
-            stepFields={stepFields} 
-            stepLabels={stepLabels} 
-            formData={formData} 
-            noWebsite={noWebsite} 
-            noInstagram={noInstagram} 
-            onGenerateWebsite={onGenerateWebsite} 
-          />
+          <FormStepWizard showWizard={false} currentStep={0} setCurrentStep={() => {}} stepFields={stepFields} stepLabels={stepLabels} formData={formData} noWebsite={noWebsite} noInstagram={noInstagram} onGenerateWebsite={onGenerateWebsite} />
 
           {/* Botón con confirmación */}
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button 
-                type="button"
-                className="w-full py-4 sm:py-6 text-base sm:text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" 
-                disabled={!isFormValid}
-              >
+              <Button type="button" className="w-full py-4 sm:py-6 text-base sm:text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" disabled={!isFormValid}>
                 <Brain className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 flex-shrink-0" />
                 <span className="whitespace-nowrap">GENERAR MI KIT IA AHORA</span>
               </Button>
@@ -289,8 +241,6 @@ const MainForm = ({
           </div>
         </form>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
-
 export default MainForm;
