@@ -1,8 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Brain, Clock, TestTube } from "lucide-react";
+import { Sparkles, Brain, Clock, TestTube, AlertTriangle } from "lucide-react";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import FormFields from '@/components/FormFields';
 import FormStepWizard from '@/components/FormStepWizard';
 import { FormData } from '@/hooks/useFormHandler';
@@ -41,6 +42,8 @@ const MainForm = ({
   onLoadExample
 }: MainFormProps) => {
   const { sendTestEmail } = useEmailHandling();
+  const [isValidatingEmail, setIsValidatingEmail] = useState(false);
+  const [emailValidated, setEmailValidated] = useState(false);
 
   const handleTestEmail = async () => {
     if (!formData.email || !formData.email.includes('@')) {
@@ -52,6 +55,7 @@ const MainForm = ({
       return;
     }
 
+    setIsValidatingEmail(true);
     try {
       console.log('🧪 Iniciando test de email...');
       toast({
@@ -61,6 +65,7 @@ const MainForm = ({
 
       await sendTestEmail(formData.email);
       
+      setEmailValidated(true);
       toast({
         title: "¡Email de prueba enviado!",
         description: `Revisa tu bandeja de entrada en ${formData.email}. Si no llega en 2-3 minutos, revisa la carpeta de spam.`,
@@ -72,7 +77,14 @@ const MainForm = ({
         description: "Hubo un problema al enviar el email de prueba. Revisa la consola para más detalles.",
         variant: "destructive",
       });
+    } finally {
+      setIsValidatingEmail(false);
     }
+  };
+
+  const handleConfirmedSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(e);
   };
 
   const stepLabels = ["Información Básica", "Perfil Personal", "Finalizar"];
@@ -88,43 +100,79 @@ const MainForm = ({
         <p className="text-gray-700 mt-4 text-lg leading-relaxed">
           Cada respuesta nos permite construir los textos, estructura y contenido de tu sitio profesional basado en tu negocio.
         </p>
+
+        {/* Explicación del proceso de 2 emails */}
+        <div className="mt-6 bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6">
+          <h3 className="text-xl font-bold text-blue-800 mb-4 flex items-center justify-center gap-2">
+            🚀 <span>¡Tu presencia digital en minutos!</span>
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4 text-left">
+            <div className="bg-white border border-blue-200 rounded-lg p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">1</div>
+                <span className="font-bold text-blue-800">Super Prompt Instantáneo</span>
+              </div>
+              <p className="text-blue-700 text-sm mb-2">📧 <strong>Email inmediato</strong> con tu contenido personalizado</p>
+              <p className="text-blue-700 text-sm">🤖 Copia, pega en ChatGPT y ¡empieza a crear contenido!</p>
+            </div>
+            <div className="bg-white border border-purple-200 rounded-lg p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="bg-purple-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</div>
+                <span className="font-bold text-purple-800">Sitio Web Automático</span>
+              </div>
+              <p className="text-purple-700 text-sm mb-2">🌐 <strong>Segundo email</strong> con la URL de tu sitio listo</p>
+              <p className="text-purple-700 text-sm">✨ Diseño profesional, textos optimizados, ¡todo hecho!</p>
+            </div>
+          </div>
+          <div className="bg-gradient-to-r from-emerald-100 to-blue-100 border border-emerald-300 rounded-lg p-4 mt-4 text-center">
+            <p className="text-emerald-800 font-bold text-lg">
+              ⚡ <strong>De formulario a sitio web profesional en menos de 10 minutos</strong>
+            </p>
+            <p className="text-emerald-700 text-sm mt-2">
+              Sin programar, sin diseñar, sin complicaciones. Solo responde y recibe todo listo.
+            </p>
+          </div>
+        </div>
+
         <div className="mt-6 space-y-2 text-gray-700">
           <p className="flex items-center justify-center gap-2">
             ⏱️ <strong>Tiempo estimado: 3-5 minutos</strong>
           </p>
           <p className="flex items-center justify-center gap-2">
-            📧 <strong>Recibirás tu contenido inicial por correo apenas completes el formulario.</strong>
-          </p>
-          
-          <p className="flex items-center justify-center gap-2 text-emerald-700">
             💾 <strong>Tu progreso se guarda automáticamente mientras avanzas.</strong>
           </p>
         </div>
-        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p className="text-blue-800 font-medium">
-            🔎 <strong>Recuerda:</strong> cuanto más claro seas en tus respuestas, mejor será el resultado que generemos para ti.
-          </p>
-        </div>
 
-        {/* Botón de prueba de email */}
-        <div className="mt-6">
+        {/* Validación de email */}
+        <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+          <p className="text-yellow-800 font-medium mb-3">
+            📧 <strong>Importante:</strong> Antes de generar tu Kit IA, valida que tu email funcione correctamente
+          </p>
           <Button
             type="button"
             onClick={handleTestEmail}
             variant="outline"
-            className="border-purple-300 text-purple-700 hover:bg-purple-50"
-            disabled={!formData.email || !formData.email.includes('@')}
+            className="border-yellow-400 text-yellow-700 hover:bg-yellow-100"
+            disabled={!formData.email || !formData.email.includes('@') || isValidatingEmail}
           >
             <TestTube className="w-4 h-4 mr-2" />
-            Probar envío de email
+            {isValidatingEmail ? 'Enviando...' : 'Validar mi email'}
           </Button>
-          <p className="text-xs text-gray-600 mt-2">
-            Usa este botón para verificar que el sistema de email funciona antes de completar el formulario
+          {emailValidated && (
+            <div className="mt-3 flex items-center gap-2 text-emerald-700">
+              <div className="w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs">✓</span>
+              </div>
+              <span className="font-medium">Email validado correctamente</span>
+            </div>
+          )}
+          <p className="text-xs text-yellow-700 mt-2">
+            Si no recibes el email de prueba, revisa spam o usa otro email
           </p>
         </div>
       </CardHeader>
       <CardContent className="p-8 bg-white">
-        <form onSubmit={onSubmit} className="space-y-8">
+        <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
           <FormFields 
             formData={formData} 
             onInputChange={onInputChange} 
@@ -149,14 +197,49 @@ const MainForm = ({
             onGenerateWebsite={onGenerateWebsite} 
           />
 
-          <Button 
-            type="submit" 
-            className="w-full py-4 sm:py-6 text-base sm:text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" 
-            disabled={!isFormValid}
-          >
-            <Brain className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 flex-shrink-0" />
-            <span className="whitespace-nowrap">GENERAR MI KIT IA AHORA</span>
-          </Button>
+          {/* Botón con confirmación */}
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button 
+                type="button"
+                className="w-full py-4 sm:py-6 text-base sm:text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" 
+                disabled={!isFormValid}
+              >
+                <Brain className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 flex-shrink-0" />
+                <span className="whitespace-nowrap">GENERAR MI KIT IA AHORA</span>
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="max-w-md">
+              <AlertDialogHeader>
+                <AlertDialogTitle className="flex items-center gap-2 text-blue-800">
+                  <AlertTriangle className="w-5 h-5" />
+                  ¿Confirmar generación del Kit IA?
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-left space-y-3">
+                  <p className="font-medium text-gray-800">
+                    Estás a punto de generar tu Kit IA personalizado para <strong>{formData.marca}</strong>
+                  </p>
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
+                    <p className="text-blue-800 mb-2">📧 <strong>Recibirás 2 emails en:</strong></p>
+                    <p className="text-blue-700 font-medium">{formData.email}</p>
+                  </div>
+                  <div className="space-y-2 text-sm text-gray-700">
+                    <p>✅ Email #1: Tu Super Prompt (inmediato)</p>
+                    <p>✅ Email #2: URL de tu sitio web (en minutos)</p>
+                  </div>
+                  <p className="text-yellow-800 bg-yellow-50 border border-yellow-200 rounded p-2 text-sm">
+                    ⚠️ <strong>Importante:</strong> Una vez generado, no podrás modificar las respuestas.
+                  </p>
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={handleConfirmedSubmit} className="bg-blue-600 hover:bg-blue-700">
+                  Sí, generar mi Kit IA
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
 
           <div className="text-center space-y-2">
             <p className="text-gray-600 text-sm">
