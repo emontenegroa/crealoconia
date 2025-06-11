@@ -1,23 +1,40 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import TypewriterText from './TypewriterText';
+
 interface HeroSectionProps {
   onLoadExample: () => void;
 }
+
 const HeroSection = ({
   onLoadExample
 }: HeroSectionProps) => {
-  return <div className="text-center mb-20">
+  return (
+    <div className="text-center mb-20">
       <div className="mb-16">
         <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight text-center">
           🌐 Tu web lista para <span className="inline-block min-h-[1.2em] align-top"><TypewriterText /></span>
         </h1>
         
-        <p className="text-xl md:text-2xl text-gray-700 mb-12 max-w-4xl mx-auto leading-relaxed">
-          <strong>10 preguntas.</strong> <strong>Tu sitio web funcionando.</strong> <strong>Si te gusta, lo mejoramos y publicamos.</strong>
-          <br />
-          La forma más rápida y profesional de tener presencia digital que convierte.
-        </p>
+        <div className="max-w-5xl mx-auto mb-12">
+          <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 leading-tight">
+            <span className="text-blue-600">10 preguntas.</span> <span className="text-emerald-600">Tu sitio web funcionando.</span> <span className="text-purple-600">Si te gusta, lo mejoramos y publicamos.</span>
+          </p>
+          
+          <p className="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed">
+            La forma más rápida y profesional de tener presencia digital <strong className="text-gray-900">que convierte visitantes en clientes</strong>
+          </p>
+          
+          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 rounded-2xl p-6 mt-8 inline-block">
+            <p className="text-xl font-bold text-orange-800 mb-2">
+              🔥 Sin programar. Sin diseñar. Sin complicaciones.
+            </p>
+            <p className="text-lg text-orange-700">
+              <strong>Solo respondes →</strong> Nosotros creamos <strong>→ Tú decides si publicar</strong>
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Propuesta de valor principal */}
@@ -52,9 +69,8 @@ const HeroSection = ({
           </p>
         </div>
       </div>
-
-      {/* CTA urgencia */}
-      
-    </div>;
+    </div>
+  );
 };
+
 export default HeroSection;
