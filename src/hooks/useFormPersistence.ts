@@ -25,6 +25,9 @@ export const useFormPersistence = () => {
   const [aiUsage, setAiUsage] = useState<AIUsage>({});
   const [attemptCount, setAttemptCount] = useState(1);
 
+  // Emails con acceso ilimitado
+  const unlimitedEmails = ['esteban.montenegro@gmail.com', 'soyesteban.m@gmail.com'];
+
   // Verificar el uso de IA para un campo específico
   const getAIUsageCount = async (fieldName: string): Promise<number> => {
     try {
@@ -120,6 +123,11 @@ export const useFormPersistence = () => {
   // Verificar límite de intentos por email
   const checkAttemptLimit = async (email: string): Promise<boolean> => {
     try {
+      // Verificar si el email tiene acceso ilimitado
+      if (unlimitedEmails.includes(email.toLowerCase())) {
+        return true;
+      }
+
       const { data, error } = await supabase
         .from('form_submissions')
         .select('id')
@@ -131,7 +139,8 @@ export const useFormPersistence = () => {
         return true; // En caso de error, permitir el intento
       }
 
-      return (data?.length || 0) < 3;
+      // Cambiar límite de 3 a 10 para emails regulares
+      return (data?.length || 0) < 10;
     } catch (error) {
       console.error('Error in checkAttemptLimit:', error);
       return true;
