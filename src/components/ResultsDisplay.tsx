@@ -39,7 +39,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
             </div>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Kit IA de Esteban
+            Crealoconia.com
           </h1>
           <h2 className="text-2xl md:text-3xl text-gray-800 mb-6 font-semibold">
             ✅ ¡Perfecto! Tu Super Prompt ya está en tu email

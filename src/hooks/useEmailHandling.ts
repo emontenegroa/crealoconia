@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 
@@ -53,7 +54,7 @@ export const useEmailHandling = () => {
       
       const emailData = {
         sender: {
-          name: "Kit IA de Esteban",
+          name: "Crealoconia.com",
           email: "esteban.montenegro@gmail.com"
         },
         to: [
@@ -167,7 +168,7 @@ export const useEmailHandling = () => {
       
       const confirmationEmailData = {
         sender: {
-          name: "Kit IA de Esteban",
+          name: "Crealoconia.com",
           email: "esteban.montenegro@gmail.com"
         },
         to: [
@@ -237,7 +238,7 @@ export const useEmailHandling = () => {
 
               <div style="background: #F9FAFB; padding: 20px; border-radius: 8px; text-align: center; margin-top: 30px;">
                 <p style="margin: 0; color: #6B7280; font-size: 14px;">
-                  El equipo de <strong>Kit IA</strong><br>
+                  El equipo de <strong>Crealoconia.com</strong><br>
                   ${new Date().toLocaleDateString('es-ES', { 
                     year: 'numeric', 
                     month: 'long', 

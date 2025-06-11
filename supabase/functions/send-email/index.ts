@@ -31,11 +31,11 @@ const handler = async (req: Request): Promise<Response> => {
     if (type === 'test') {
       emailData = {
         sender: {
-          name: "Kit IA de Esteban - TEST",
+          name: "Crealoconia.com - TEST",
           email: "esteban.montenegro@gmail.com"
         },
         to: [{ email: email, name: "Usuario de Prueba" }],
-        subject: `🧪 EMAIL DE PRUEBA - Kit IA Funcionando`,
+        subject: `🧪 EMAIL DE PRUEBA - Crealoconia.com Funcionando`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
             <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
@@ -55,7 +55,7 @@ const handler = async (req: Request): Promise<Response> => {
 
               <div style="background: #ECFDF5; padding: 20px; border-radius: 8px; margin: 25px 0; border-left: 4px solid #10B981;">
                 <p style="color: #059669; text-align: center; margin: 0; font-size: 16px;">
-                  <strong>Ya puedes usar el formulario del Kit IA con confianza</strong>
+                  <strong>Ya puedes usar el formulario de Crealoconia.com con confianza</strong>
                 </p>
               </div>
 
