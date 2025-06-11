@@ -1,5 +1,6 @@
 
 import { FormData } from './useFormHandler';
+import { supabase } from '@/integrations/supabase/client';
 
 export const usePromptGeneration = () => {
   const generateSuperPrompt = async (data: FormData) => {
@@ -129,28 +130,27 @@ COPY Y CONTENIDO:
 El sitio debe transmitir autoridad, generar confianza y motivar acción inmediata para contactar o contratar los servicios de ${data.marca}.`;
 
     try {
-      // Intentar mejorar el prompt usando la integración con ChatGPT
-      console.log('🤖 Mejorando Super Prompt con ChatGPT...');
+      // Intentar mejorar el prompt usando la Edge Function de Supabase
+      console.log('🤖 Mejorando Super Prompt con ChatGPT via Supabase...');
       
-      const response = await fetch('/api/enhance-prompt', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: baseSuperPrompt,
-          marca: data.marca
-        }),
+      const { data: enhanceResult, error } = await supabase.functions.invoke('enhance-with-ai', {
+        body: {
+          userText: baseSuperPrompt,
+          fieldType: 'super_prompt',
+          context: {
+            marca: data.marca,
+            estilo: data.estilo
+          }
+        }
       });
 
       let enhancedSuperPrompt = baseSuperPrompt;
       
-      if (response.ok) {
-        const result = await response.json();
-        enhancedSuperPrompt = result.enhancedPrompt || baseSuperPrompt;
-        console.log('✅ Super Prompt mejorado con ChatGPT');
+      if (!error && enhanceResult?.enhancedText) {
+        enhancedSuperPrompt = enhanceResult.enhancedText;
+        console.log('✅ Super Prompt mejorado con ChatGPT via Supabase');
       } else {
-        console.warn('⚠️ No se pudo mejorar con ChatGPT, usando versión base');
+        console.warn('⚠️ No se pudo mejorar con ChatGPT, usando versión base. Error:', error);
       }
 
       return {

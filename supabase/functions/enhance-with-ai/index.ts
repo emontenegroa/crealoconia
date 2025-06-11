@@ -19,7 +19,7 @@ serve(async (req) => {
     const { userText, fieldType, context } = await req.json();
 
     console.log(`Enhancing text for field: ${fieldType}`);
-    console.log(`User text: ${userText}`);
+    console.log(`User text length: ${userText?.length || 0} characters`);
 
     let systemPrompt = '';
     
@@ -35,6 +35,9 @@ serve(async (req) => {
         break;
       case 'producto':
         systemPrompt = `Eres un experto en copywriting y ventas. Toma la descripción básica del producto/servicio del usuario y expandela de manera más persuasiva y detallada. Incluye beneficios específicos, transformaciones que logra, componentes del producto, y por qué es único. Usa un tono ${context.estilo || 'profesional'} y enfócate en los resultados que obtiene el cliente. Máximo 250 palabras.`;
+        break;
+      case 'super_prompt':
+        systemPrompt = `Eres un experto en prompting para ChatGPT y marketing digital. Tu tarea es optimizar y mejorar el Super Prompt proporcionado. Hazlo más específico, estratégico y efectivo para generar contenido de marketing de alta calidad. Mantén toda la estructura y información esencial, pero mejora la claridad, especificidad y efectividad. El prompt debe ser más persuasivo y generar mejores resultados cuando se use en ChatGPT. Mantén el tono ${context.estilo || 'profesional'}.`;
         break;
       default:
         systemPrompt = `Eres un experto en marketing y comunicación. Mejora y expande el texto del usuario manteniéndolo auténtico pero más profesional y atractivo. Usa un tono ${context.estilo || 'profesional'}.`;
@@ -53,18 +56,18 @@ serve(async (req) => {
           { role: 'user', content: `Texto a mejorar: "${userText}"\n\nContexto adicional: Marca: ${context.marca || 'No especificada'}, Estilo: ${context.estilo || 'No especificado'}` }
         ],
         temperature: 0.7,
-        max_tokens: 400,
+        max_tokens: fieldType === 'super_prompt' ? 2000 : 400,
       }),
     });
 
     if (!response.ok) {
-      throw new Error(`OpenAI API error: ${response.status}`);
+      throw new Error(`OpenAI API error: ${response.status} - ${response.statusText}`);
     }
 
     const data = await response.json();
     const enhancedText = data.choices[0].message.content;
 
-    console.log(`Enhanced text generated successfully`);
+    console.log(`Enhanced text generated successfully for ${fieldType}`);
 
     return new Response(JSON.stringify({ enhancedText }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
