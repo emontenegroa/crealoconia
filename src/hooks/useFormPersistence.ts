@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
@@ -25,8 +24,10 @@ export const useFormPersistence = () => {
   const [aiUsage, setAiUsage] = useState<AIUsage>({});
   const [attemptCount, setAttemptCount] = useState(1);
 
-  // Emails con acceso ilimitado
+  // Emails con acceso ilimitado - Lista actualizada
   const unlimitedEmails = ['esteban.montenegro@gmail.com', 'soyesteban.m@gmail.com'];
+
+  console.log('useFormPersistence loaded - unlimited emails:', unlimitedEmails);
 
   // Verificar el uso de IA para un campo específico
   const getAIUsageCount = async (fieldName: string): Promise<number> => {
@@ -120,11 +121,14 @@ export const useFormPersistence = () => {
     }
   };
 
-  // Verificar límite de intentos por email
+  // Verificar límite de intentos por email - ACTUALIZADO
   const checkAttemptLimit = async (email: string): Promise<boolean> => {
     try {
+      console.log('Checking attempt limit for email:', email);
+      
       // Verificar si el email tiene acceso ilimitado
       if (unlimitedEmails.includes(email.toLowerCase())) {
+        console.log('Email has unlimited access:', email);
         return true;
       }
 
@@ -139,8 +143,11 @@ export const useFormPersistence = () => {
         return true; // En caso de error, permitir el intento
       }
 
-      // Cambiar límite de 3 a 10 para emails regulares
-      return (data?.length || 0) < 10;
+      const currentAttempts = data?.length || 0;
+      console.log(`Email ${email} has ${currentAttempts} completed attempts. Limit is 10.`);
+
+      // Límite aumentado de 3 a 10 para emails regulares
+      return currentAttempts < 10;
     } catch (error) {
       console.error('Error in checkAttemptLimit:', error);
       return true;
