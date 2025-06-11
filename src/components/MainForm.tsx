@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Brain, Clock, TestTube, AlertTriangle } from "lucide-react";
+import { Sparkles, Brain, Clock, TestTube, AlertTriangle, Zap } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import FormFields from '@/components/FormFields';
 import FormStepWizard from '@/components/FormStepWizard';
@@ -82,6 +82,28 @@ const MainForm = ({
     }
   };
 
+  const handleLoadExampleData = () => {
+    setFormData({
+      marca: 'FlexiTime Academy',
+      email: 'esteban.montenegro@gmail.com',
+      whatsapp: '56945487423',
+      website: 'www.flexitimeacademy.com',
+      instagram: 'flexitime_academy',
+      quien_eres: 'Soy Sofía Hernández, consultora en productividad y gestión del tiempo con 8 años de experiencia ayudando a profesionales y emprendedores a maximizar su eficiencia. Me especializo en crear sistemas personalizados que permiten a mis clientes recuperar 2-3 horas diarias mientras mantienen el equilibrio vida-trabajo. He desarrollado metodologías propias basadas en neurociencia cognitiva y he formado a más de 800 profesionales en España y Latinoamérica.',
+      problemas: 'Trabajo con ejecutivos, emprendedores y freelancers que sienten que no tienen control sobre su tiempo. Están constantemente ocupados pero no avanzan en lo realmente importante. Sufren de procrastinación crónica, sobrecarga mental, dificultad para priorizar y agotamiento constante. Muchos trabajan más de 10 horas diarias pero no ven resultados proporcionales. Les ayudo a diseñar sistemas que les permiten ser más productivos en menos tiempo.',
+      preguntas_frecuentes: 'Me preguntan constantemente cómo es posible trabajar menos horas y ser más productivo, si realmente se puede eliminar la procrastinación, cómo mantener la motivación a largo plazo, y qué hacer cuando todo parece urgente. También quieren saber cuánto tiempo toma implementar un sistema de productividad efectivo y cómo adaptar las técnicas a su ritmo de vida específico.',
+      estilo: 'Profesional',
+      producto: 'Mi programa "FlexiTime Method", un sistema de 10 semanas que combina técnicas de gestión del tiempo, neurohábitos y automatización digital. Incluye 6 sesiones de coaching 1:1, acceso a mi plataforma digital con templates y herramientas, comunidad privada de alumni y seguimiento personalizado durante 3 meses adicionales. Está diseñado para profesionales que quieren resultados medibles y sostenibles en su productividad.'
+    });
+    setNoWebsite(false);
+    setNoInstagram(false);
+    
+    toast({
+      title: "Datos de ejemplo cargados",
+      description: "Se han cargado todos los campos con datos de ejemplo para hacer pruebas.",
+    });
+  };
+
   const handleConfirmedSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(e);
@@ -140,6 +162,25 @@ const MainForm = ({
           </p>
           <p className="flex items-center justify-center gap-2">
             💾 <strong>Tu progreso se guarda automáticamente mientras avanzas.</strong>
+          </p>
+        </div>
+
+        {/* Botón de datos de ejemplo */}
+        <div className="mt-6 bg-orange-50 border border-orange-200 rounded-lg p-4">
+          <p className="text-orange-800 font-medium mb-3">
+            🧪 <strong>¿Quieres probar el sistema rápidamente?</strong>
+          </p>
+          <Button
+            type="button"
+            onClick={handleLoadExampleData}
+            variant="outline"
+            className="border-orange-400 text-orange-700 hover:bg-orange-100"
+          >
+            <Zap className="w-4 h-4 mr-2" />
+            Cargar datos de ejemplo
+          </Button>
+          <p className="text-xs text-orange-700 mt-2">
+            Esto completará todos los campos con información de prueba para que veas cómo funciona
           </p>
         </div>
 
