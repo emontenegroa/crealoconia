@@ -158,24 +158,7 @@ const MainForm = ({
         
 
         {/* Validación de email */}
-        <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <p className="text-yellow-800 font-medium mb-3">
-            📧 <strong>Importante:</strong> Antes de generar tu Kit IA, valida que tu email funcione correctamente
-          </p>
-          <Button type="button" onClick={handleTestEmail} variant="outline" className="border-yellow-400 text-yellow-700 hover:bg-yellow-100" disabled={!formData.email || !formData.email.includes('@') || isValidatingEmail}>
-            <TestTube className="w-4 h-4 mr-2" />
-            {isValidatingEmail ? 'Enviando...' : 'Validar mi email'}
-          </Button>
-          {emailValidated && <div className="mt-3 flex items-center gap-2 text-emerald-700">
-              <div className="w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">✓</span>
-              </div>
-              <span className="font-medium">Email validado correctamente</span>
-            </div>}
-          <p className="text-xs text-yellow-700 mt-2">
-            Si no recibes el email de prueba, revisa spam o usa otro email
-          </p>
-        </div>
+        
       </CardHeader>
       <CardContent className="p-8 bg-white">
         <form onSubmit={e => e.preventDefault()} className="space-y-8">
