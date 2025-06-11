@@ -2,7 +2,8 @@
 import React, { useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, Sparkles, ArrowLeft, Mail, Phone, CheckCircle, Clock, Globe, Zap } from "lucide-react";
+import { Brain, Sparkles, ArrowLeft, Mail, Phone, CheckCircle, Clock, Globe, Zap, Gift, ChevronRight } from "lucide-react";
+import confetti from 'canvas-confetti';
 
 interface FormData {
   marca: string;
@@ -26,12 +27,99 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
   useEffect(() => {
     // Scroll to top when results are displayed
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Trigger confetti effect
+    const triggerConfetti = () => {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#3B82F6', '#7C3AED', '#10B981', '#F59E0B', '#EF4444']
+      });
+    };
+
+    // Trigger confetti immediately
+    triggerConfetti();
+    
+    // Trigger again after 1 second
+    setTimeout(triggerConfetti, 1000);
   }, []);
 
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
+        {/* Información importante en la cabecera */}
+        <div className="max-w-4xl mx-auto mb-8">
+          <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200 shadow-xl">
+            <CardContent className="p-8">
+              <div className="text-center mb-6">
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <Gift className="w-8 h-8 text-blue-600" />
+                  <h2 className="text-3xl font-bold text-blue-800">🎁 ¡Esto es solo el comienzo!</h2>
+                </div>
+              </div>
+              
+              <div className="space-y-6 text-left">
+                <div className="bg-white border border-blue-200 rounded-lg p-6">
+                  <p className="text-blue-800 text-lg leading-relaxed">
+                    Acabas de recibir tu <strong>Super Prompt personalizado</strong>, uno de los regalos que incluye completar el formulario. 
+                    Este prompt ya está en tu pantalla y también lo enviamos a tu correo para que lo tengas siempre a mano.
+                  </p>
+                </div>
+
+                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-6">
+                  <div className="flex items-start gap-3">
+                    <ChevronRight className="w-6 h-6 text-emerald-600 mt-1 flex-shrink-0" />
+                    <p className="text-emerald-800 text-lg leading-relaxed">
+                      <strong>Con este prompt puedes crear contenido estratégico, campañas y publicaciones en minutos usando ChatGPT.</strong> 
+                      Es tu nuevo asistente virtual, diseñado 100% para tu negocio.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
+                  <div className="flex items-start gap-3 mb-4">
+                    <Globe className="w-6 h-6 text-purple-600 mt-1 flex-shrink-0" />
+                    <h3 className="text-xl font-bold text-purple-800">💻 Pero eso no es todo…</h3>
+                  </div>
+                  <p className="text-purple-800 text-lg leading-relaxed mb-4">
+                    <strong>Tu sitio web ya está en proceso.</strong><br/>
+                    Con la información que completaste, nuestro sistema con IA ya está generando automáticamente la primera versión de tu página web.
+                  </p>
+                  <div className="space-y-3 text-purple-700">
+                    <p className="flex items-center gap-2">
+                      <Clock className="w-5 h-5" />
+                      <strong>🕐 En la mayoría de los casos, la página está lista en minutos.</strong>
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Clock className="w-5 h-5" />
+                      En momentos de alta demanda, puede tomar hasta 4 horas.
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Mail className="w-5 h-5" />
+                      <strong>📬 Apenas esté lista, te enviaremos la URL a tu correo</strong> (el mismo que usaste en el formulario).
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
+                  <h3 className="text-xl font-bold text-orange-800 mb-4 text-center">✨ Es casi magia… ¡Y te va a sorprender!</h3>
+                  <p className="text-orange-800 text-lg leading-relaxed text-center mb-4">
+                    Tu presencia digital está tomando forma sin plantillas genéricas ni enredos técnicos.<br/>
+                    <strong>Solo con tu historia y nuestra tecnología.</strong>
+                  </p>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-blue-600">
+                      Gracias por confiar en <strong>Crealoconia.com</strong> 🚀
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Header original */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-6">
             <div className="bg-blue-600 p-4 rounded-2xl shadow-xl">
@@ -50,6 +138,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
           </Button>
         </div>
 
+        {/* Resto del contenido existente */}
         <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-xl">
           <CardHeader className="text-center pb-6 bg-gray-50 border-b border-gray-200">
             <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-3">
