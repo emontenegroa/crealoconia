@@ -8,8 +8,6 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-const BREVO_API_KEY = 'xkeysib-d229e8aa5602793b0b79b973cbee4e71e48218a3cedab9c3-CuFzRlTdaWZk9g8t';
-
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -18,6 +16,13 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     console.log('🔍 Revisando formularios abandonados...');
+
+    const BREVO_API_KEY = Deno.env.get('BREVO_API_KEY');
+    
+    if (!BREVO_API_KEY) {
+      console.error('❌ BREVO_API_KEY no está configurada');
+      throw new Error('BREVO_API_KEY no está configurada en las variables de entorno');
+    }
 
     // Crear cliente de Supabase
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
