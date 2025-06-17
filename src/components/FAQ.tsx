@@ -1,19 +1,14 @@
-
 import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-
 const FAQ = () => {
-  return (
-    <div className="max-w-4xl mx-auto mt-20">
+  return <div className="max-w-4xl mx-auto mt-20">
       <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
         🤔 Preguntas frecuentes
       </h2>
       
       <Accordion type="single" collapsible className="space-y-4">
         <AccordionItem value="item-1" className="bg-white border border-gray-200 rounded-lg">
-          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
-            ¿Realmente es gratis? ¿Cuál es la trampa?
-          </AccordionTrigger>
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">¿Realmente es gratis? </AccordionTrigger>
           <AccordionContent className="px-6 pb-4 text-gray-700">
             <p className="mb-3">
               <strong>100% gratis, sin letra pequeña.</strong> Obtienes tu Super Prompt IA personalizado y tu sitio web sin pagar absolutamente nada.
@@ -113,8 +108,6 @@ const FAQ = () => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-    </div>
-  );
+    </div>;
 };
-
 export default FAQ;
