@@ -11,6 +11,11 @@ import HowItWorksToggle from '@/components/HowItWorksToggle';
 import FAQ from '@/components/FAQ';
 import { useFormHandler } from '@/hooks/useFormHandler';
 
+// Importar la prueba de email en desarrollo
+if (import.meta.env.DEV) {
+  import('@/utils/emailTest');
+}
+
 const Index = () => {
   const {
     formData,

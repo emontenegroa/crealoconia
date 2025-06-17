@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Brain, Clock, TestTube, AlertTriangle, Zap } from "lucide-react";
+import { Sparkles, Brain, Zap } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import FormFields from '@/components/FormFields';
 import FormStepWizard from '@/components/FormStepWizard';
 import { FormData } from '@/hooks/useFormHandler';
-import { useEmailHandling } from '@/hooks/useEmailHandling';
+import { AlertTriangle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface MainFormProps {
@@ -41,50 +41,6 @@ const MainForm = ({
   onGenerateWebsite,
   onLoadExample
 }: MainFormProps) => {
-  const {
-    sendTestEmail
-  } = useEmailHandling();
-
-  const [isValidatingEmail, setIsValidatingEmail] = useState(false);
-  const [emailValidated, setEmailValidated] = useState(false);
-
-  const handleTestEmail = async () => {
-    if (!formData.email || !formData.email.includes('@')) {
-      toast({
-        title: "Email requerido",
-        description: "Por favor ingresa un email válido en el campo de correo electrónico para hacer la prueba.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsValidatingEmail(true);
-    try {
-      console.log('🧪 Iniciando test de email...');
-      toast({
-        title: "Enviando email de prueba...",
-        description: "Por favor espera mientras verificamos el sistema de email."
-      });
-      
-      await sendTestEmail(formData.email);
-      setEmailValidated(true);
-      
-      toast({
-        title: "¡Email de prueba enviado!",
-        description: `Revisa tu bandeja de entrada en ${formData.email}. Si no llega en 2-3 minutos, revisa la carpeta de spam.`
-      });
-    } catch (error) {
-      console.error('❌ Error en test de email:', error);
-      toast({
-        title: "Error en el test de email",
-        description: "Hubo un problema al enviar el email de prueba. Revisa la consola para más detalles.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsValidatingEmail(false);
-    }
-  };
-
   const handleLoadExampleData = () => {
     setFormData({
       marca: 'FlexiTime Academy',
@@ -182,44 +138,6 @@ const MainForm = ({
             <Zap className="w-4 h-4 mr-2" />
             Cargar datos de ejemplo
           </Button>
-        </div>
-
-        {/* Validación de email */}
-        <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <h4 className="text-yellow-800 font-bold mb-3 flex items-center justify-center gap-2">
-            <TestTube className="w-5 h-5" />
-            Prueba del Sistema de Email
-          </h4>
-          <p className="text-yellow-700 text-sm mb-3">
-            Antes de generar tu Kit IA, puedes probar que el sistema de email funciona correctamente
-          </p>
-          <Button
-            type="button"
-            onClick={handleTestEmail}
-            disabled={isValidatingEmail || !formData.email || !formData.email.includes('@')}
-            className="bg-yellow-600 hover:bg-yellow-700 text-white"
-          >
-            {isValidatingEmail ? (
-              <>
-                <Clock className="w-4 h-4 mr-2 animate-spin" />
-                Enviando prueba...
-              </>
-            ) : emailValidated ? (
-              <>
-                ✅ Email enviado exitosamente
-              </>
-            ) : (
-              <>
-                <TestTube className="w-4 h-4 mr-2" />
-                Enviar email de prueba
-              </>
-            )}
-          </Button>
-          {emailValidated && (
-            <p className="text-green-700 text-sm mt-2 font-medium">
-              ✅ Sistema verificado. Puedes proceder con confianza.
-            </p>
-          )}
         </div>
       </CardHeader>
 
