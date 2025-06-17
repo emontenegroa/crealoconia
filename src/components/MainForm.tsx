@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import FormStepWizard from '@/components/FormStepWizard';
 import { FormData } from '@/hooks/useFormHandler';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
 import { toast } from "@/hooks/use-toast";
+
 interface MainFormProps {
   formData: FormData;
   setFormData: (data: FormData) => void;
@@ -23,6 +25,7 @@ interface MainFormProps {
   onGenerateWebsite: () => void;
   onLoadExample: () => void;
 }
+
 const MainForm = ({
   formData,
   setFormData,
@@ -41,8 +44,10 @@ const MainForm = ({
   const {
     sendTestEmail
   } = useEmailHandling();
+
   const [isValidatingEmail, setIsValidatingEmail] = useState(false);
   const [emailValidated, setEmailValidated] = useState(false);
+
   const handleTestEmail = async () => {
     if (!formData.email || !formData.email.includes('@')) {
       toast({
@@ -52,6 +57,7 @@ const MainForm = ({
       });
       return;
     }
+
     setIsValidatingEmail(true);
     try {
       console.log('🧪 Iniciando test de email...');
@@ -59,8 +65,10 @@ const MainForm = ({
         title: "Enviando email de prueba...",
         description: "Por favor espera mientras verificamos el sistema de email."
       });
+      
       await sendTestEmail(formData.email);
       setEmailValidated(true);
+      
       toast({
         title: "¡Email de prueba enviado!",
         description: `Revisa tu bandeja de entrada en ${formData.email}. Si no llega en 2-3 minutos, revisa la carpeta de spam.`
@@ -76,6 +84,7 @@ const MainForm = ({
       setIsValidatingEmail(false);
     }
   };
+
   const handleLoadExampleData = () => {
     setFormData({
       marca: 'FlexiTime Academy',
@@ -96,13 +105,21 @@ const MainForm = ({
       description: "Se han cargado todos los campos con datos de ejemplo para hacer pruebas."
     });
   };
+
   const handleConfirmedSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(e);
   };
+
   const stepLabels = ["Información Básica", "Perfil Personal", "Finalizar"];
-  const stepFields = [['marca', 'email', 'whatsapp', 'website', 'instagram'], ['quien_eres', 'problemas', 'preguntas_frecuentes', 'estilo'], ['producto']];
-  return <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-xl">
+  const stepFields = [
+    ['marca', 'email', 'whatsapp', 'website', 'instagram'],
+    ['quien_eres', 'problemas', 'preguntas_frecuentes', 'estilo'],
+    ['producto']
+  ];
+
+  return (
+    <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-xl">
       <CardHeader className="text-center pb-8 bg-gray-50 border-b border-gray-200">
         <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-3">
           <Sparkles className="w-8 h-8 text-blue-600" />
@@ -155,21 +172,91 @@ const MainForm = ({
         </div>
 
         {/* Botón de datos de ejemplo */}
-        
+        <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleLoadExampleData}
+            className="border-gray-300 text-gray-700 hover:bg-gray-50"
+          >
+            <Zap className="w-4 h-4 mr-2" />
+            Cargar datos de ejemplo
+          </Button>
+        </div>
 
         {/* Validación de email */}
-        
+        <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+          <h4 className="text-yellow-800 font-bold mb-3 flex items-center justify-center gap-2">
+            <TestTube className="w-5 h-5" />
+            Prueba del Sistema de Email
+          </h4>
+          <p className="text-yellow-700 text-sm mb-3">
+            Antes de generar tu Kit IA, puedes probar que el sistema de email funciona correctamente
+          </p>
+          <Button
+            type="button"
+            onClick={handleTestEmail}
+            disabled={isValidatingEmail || !formData.email || !formData.email.includes('@')}
+            className="bg-yellow-600 hover:bg-yellow-700 text-white"
+          >
+            {isValidatingEmail ? (
+              <>
+                <Clock className="w-4 h-4 mr-2 animate-spin" />
+                Enviando prueba...
+              </>
+            ) : emailValidated ? (
+              <>
+                ✅ Email enviado exitosamente
+              </>
+            ) : (
+              <>
+                <TestTube className="w-4 h-4 mr-2" />
+                Enviar email de prueba
+              </>
+            )}
+          </Button>
+          {emailValidated && (
+            <p className="text-green-700 text-sm mt-2 font-medium">
+              ✅ Sistema verificado. Puedes proceder con confianza.
+            </p>
+          )}
+        </div>
       </CardHeader>
-      <CardContent className="p-8 bg-white">
-        <form onSubmit={e => e.preventDefault()} className="space-y-8">
-          <FormFields formData={formData} onInputChange={onInputChange} onAIUsageUpdate={onAIUsageUpdate} sessionId={sessionId} noWebsite={noWebsite} noInstagram={noInstagram} setNoWebsite={setNoWebsite} setNoInstagram={setNoInstagram} setFormData={setFormData} />
 
-          <FormStepWizard showWizard={false} currentStep={0} setCurrentStep={() => {}} stepFields={stepFields} stepLabels={stepLabels} formData={formData} noWebsite={noWebsite} noInstagram={noInstagram} onGenerateWebsite={onGenerateWebsite} />
+      <CardContent className="p-8 bg-white">
+        <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
+          <FormFields
+            formData={formData}
+            onInputChange={onInputChange}
+            onAIUsageUpdate={onAIUsageUpdate}
+            sessionId={sessionId}
+            noWebsite={noWebsite}
+            noInstagram={noInstagram}
+            setNoWebsite={setNoWebsite}
+            setNoInstagram={setNoInstagram}
+            setFormData={setFormData}
+          />
+
+          <FormStepWizard
+            showWizard={false}
+            currentStep={0}
+            setCurrentStep={() => {}}
+            stepFields={stepFields}
+            stepLabels={stepLabels}
+            formData={formData}
+            noWebsite={noWebsite}
+            noInstagram={noInstagram}
+            onGenerateWebsite={onGenerateWebsite}
+          />
 
           {/* Botón con confirmación */}
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button type="button" className="w-full py-4 sm:py-6 text-base sm:text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" disabled={!isFormValid}>
+              <Button
+                type="button"
+                className="w-full py-4 sm:py-6 text-base sm:text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                disabled={!isFormValid}
+              >
                 <Brain className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 flex-shrink-0" />
                 <span className="whitespace-nowrap">GENERAR MI KIT IA AHORA</span>
               </Button>
@@ -213,6 +300,8 @@ const MainForm = ({
           </div>
         </form>
       </CardContent>
-    </Card>;
+    </Card>
+  );
 };
+
 export default MainForm;
