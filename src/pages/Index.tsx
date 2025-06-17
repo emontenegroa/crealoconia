@@ -9,7 +9,6 @@ import ProgressDialog from '@/components/ProgressDialog';
 import MainForm from '@/components/MainForm';
 import HowItWorksToggle from '@/components/HowItWorksToggle';
 import FAQ from '@/components/FAQ';
-import AdminTestButton from '@/components/AdminTestButton';
 import { useFormHandler } from '@/hooks/useFormHandler';
 
 const Index = () => {
@@ -79,9 +78,6 @@ const Index = () => {
 
         <FAQ />
       </div>
-      
-      {/* Botón de admin para revisar formularios abandonados */}
-      <AdminTestButton />
     </div>
   );
 };
