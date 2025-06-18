@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, Sparkles, ArrowLeft, Mail, Phone, CheckCircle, Clock, Globe, Zap, Gift, ChevronRight } from "lucide-react";
+import { Brain, ArrowLeft, Mail, Phone, CheckCircle, Clock, Globe, Gift } from "lucide-react";
 import confetti from 'canvas-confetti';
 
 interface FormData {
@@ -25,10 +25,8 @@ interface ResultsDisplayProps {
 
 const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) => {
   useEffect(() => {
-    // Scroll to top when results are displayed
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
-    // Trigger confetti effect
     const triggerConfetti = () => {
       confetti({
         particleCount: 100,
@@ -38,269 +36,119 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
       });
     };
 
-    // Trigger confetti immediately
     triggerConfetti();
-    
-    // Trigger again after 1 second
     setTimeout(triggerConfetti, 1000);
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8">
-        {/* Información importante en la cabecera */}
-        <div className="max-w-4xl mx-auto mb-8">
-          <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200 shadow-xl">
-            <CardContent className="p-8">
-              <div className="text-center mb-6">
-                <div className="flex items-center justify-center gap-2 mb-4">
-                  <Gift className="w-8 h-8 text-blue-600" />
-                  <h2 className="text-3xl font-bold text-blue-800">🎁 ¡Esto es solo el comienzo!</h2>
-                </div>
-              </div>
-              
-              <div className="space-y-6 text-left">
-                <div className="bg-white border border-blue-200 rounded-lg p-6">
-                  <p className="text-blue-800 text-lg leading-relaxed">
-                    Acabas de recibir tu <strong>Super Prompt personalizado</strong>, uno de los regalos que incluye completar el formulario. 
-                    Este prompt ya está en tu pantalla y también lo enviamos a tu correo para que lo tengas siempre a mano.
-                  </p>
-                </div>
-
-                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-6">
-                  <div className="flex items-start gap-3">
-                    <ChevronRight className="w-6 h-6 text-emerald-600 mt-1 flex-shrink-0" />
-                    <p className="text-emerald-800 text-lg leading-relaxed">
-                      <strong>Con este prompt puedes crear contenido estratégico, campañas y publicaciones en minutos usando ChatGPT.</strong> 
-                      Es tu nuevo asistente virtual, diseñado 100% para tu negocio.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
-                  <div className="flex items-start gap-3 mb-4">
-                    <Globe className="w-6 h-6 text-purple-600 mt-1 flex-shrink-0" />
-                    <h3 className="text-xl font-bold text-purple-800">💻 Pero eso no es todo…</h3>
-                  </div>
-                  <p className="text-purple-800 text-lg leading-relaxed mb-4">
-                    <strong>Tu sitio web ya está en proceso.</strong><br/>
-                    Con la información que completaste, nuestro sistema con IA ya está generando automáticamente la primera versión de tu página web.
-                  </p>
-                  <div className="space-y-3 text-purple-700">
-                    <p className="flex items-center gap-2">
-                      <Clock className="w-5 h-5" />
-                      <strong>🕐 En la mayoría de los casos, la página está lista en minutos.</strong>
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <Clock className="w-5 h-5" />
-                      En momentos de alta demanda, puede tomar hasta 4 horas.
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <Mail className="w-5 h-5" />
-                      <strong>📬 Apenas esté lista, te enviaremos la URL a tu correo</strong> (el mismo que usaste en el formulario).
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
-                  <h3 className="text-xl font-bold text-orange-800 mb-4 text-center">✨ Es casi magia… ¡Y te va a sorprender!</h3>
-                  <p className="text-orange-800 text-lg leading-relaxed text-center mb-4">
-                    Tu presencia digital está tomando forma sin plantillas genéricas ni enredos técnicos.<br/>
-                    <strong>Solo con tu historia y nuestra tecnología.</strong>
-                  </p>
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-blue-600">
-                      Gracias por confiar en <strong>Crealoconia.com</strong> 🚀
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Header original */}
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-12">
+        {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-6">
             <div className="bg-blue-600 p-4 rounded-2xl shadow-xl">
               <Brain className="w-12 h-12 text-white" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Crealoconia.com
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            ¡Perfecto! Tu Kit IA está listo
           </h1>
-          <h2 className="text-2xl md:text-3xl text-gray-800 mb-6 font-semibold">
-            ✅ ¡Perfecto! Tu Super Prompt ya está en tu email
-          </h2>
+          <p className="text-xl text-gray-600 mb-8">
+            Revisa tu email <strong>{formData.email}</strong> ahora mismo
+          </p>
           <Button onClick={onReset} variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Crear otro Kit IA
           </Button>
         </div>
 
-        {/* Resto del contenido existente */}
-        <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-xl">
-          <CardHeader className="text-center pb-6 bg-gray-50 border-b border-gray-200">
-            <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-3">
-              <CheckCircle className="w-8 h-8 text-emerald-600" />
-              Tu Super Prompt personalizado ya fue enviado
+        {/* Main Content */}
+        <Card className="max-w-3xl mx-auto bg-white shadow-lg">
+          <CardHeader className="text-center pb-6">
+            <CardTitle className="text-xl text-gray-900 flex items-center justify-center gap-3">
+              <Gift className="w-6 h-6 text-blue-600" />
+              Lo que acabas de recibir
             </CardTitle>
-            <p className="text-gray-700 mt-4 text-lg">
-              <strong>{formData.marca}</strong> - Revisa tu email <strong>{formData.email}</strong> ahora mismo
-            </p>
           </CardHeader>
           
           <CardContent className="p-8">
-            <div className="text-gray-900 space-y-6">
+            <div className="space-y-8">
               
-              {/* Email 1: Super Prompt ya enviado */}
+              {/* Email 1: Super Prompt */}
               <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
-                <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-4">
                   <CheckCircle className="w-6 h-6 text-emerald-600" />
-                  <h3 className="text-xl font-bold text-emerald-800">📧 Email #1: Tu Super Prompt ya está enviado</h3>
+                  <h3 className="text-lg font-semibold text-emerald-800">✅ Super Prompt enviado</h3>
                 </div>
-                <p className="text-emerald-800 text-lg mb-4 text-center">
-                  <strong>✅ ENVIADO:</strong> Revisa ahora <strong>{formData.email}</strong> - Tu Super Prompt personalizado te está esperando
+                <p className="text-emerald-700 mb-4">
+                  Tu asistente IA personalizado ya está en tu email. Cópialo y pégalo en ChatGPT para empezar a crear contenido profesional al instante.
                 </p>
-                <div className="grid md:grid-cols-3 gap-4 text-left">
-                  <div className="bg-white border border-emerald-200 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Sparkles className="w-5 h-5 text-emerald-600" />
-                      <span className="font-semibold text-emerald-800">Contenido para redes</span>
-                    </div>
-                    <p className="text-sm text-emerald-700">Posts, stories y reels listos para usar</p>
-                  </div>
-                  <div className="bg-white border border-emerald-200 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Brain className="w-5 h-5 text-blue-600" />
-                      <span className="font-semibold text-blue-800">Asistente IA personal</span>
-                    </div>
-                    <p className="text-sm text-blue-700">Para generar contenido ilimitado</p>
-                  </div>
-                  <div className="bg-white border border-emerald-200 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Zap className="w-5 h-5 text-purple-600" />
-                      <span className="font-semibold text-purple-800">Instrucciones de uso</span>
-                    </div>
-                    <p className="text-sm text-purple-700">Cómo maximizar tu Super Prompt</p>
-                  </div>
-                </div>
-                <div className="bg-white border border-emerald-200 rounded-lg p-4 mt-4 text-center">
-                  <p className="text-emerald-800 font-semibold text-lg">
-                    🎯 <strong>¡Ve a tu email AHORA!</strong> Tu Super Prompt te está esperando
+                <div className="bg-white border border-emerald-200 rounded-lg p-4">
+                  <p className="text-emerald-800 font-medium text-center">
+                    📧 Revisa <strong>{formData.email}</strong> ahora
                   </p>
                 </div>
               </div>
 
-              {/* Email 2: Sitio web próximamente */}
-              <div className="bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6">
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <Clock className="w-6 h-6 text-blue-600 animate-pulse" />
-                  <h3 className="text-xl font-bold text-blue-800">📧 Email #2: URL de tu sitio web (próximamente)</h3>
-                </div>
-                <div className="text-blue-800 space-y-3">
-                  <p className="text-lg font-semibold text-center">
-                    <strong>🚧 EN PROCESO:</strong> Estamos creando tu sitio web profesional con IA
-                  </p>
-                  <p className="text-base text-center">
-                    <strong>En unos minutos recibirás un segundo email</strong> a <strong>{formData.email}</strong> con la URL de tu sitio web personalizado.
-                  </p>
-                  <div className="bg-white border border-blue-200 rounded-lg p-4 text-left space-y-2 text-sm">
-                    <p>🌐 <strong>Sitio web 100% personalizado</strong> para {formData.marca}</p>
-                    <p>🎯 <strong>Optimizado para convertir</strong> visitantes en clientes</p>
-                    <p>📱 <strong>Responsive</strong> para móviles y escritorio</p>
-                    <p>✨ <strong>Listo para usar</strong> desde el primer minuto</p>
-                  </div>
-                  <div className="bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-300 rounded-lg p-4 text-center">
-                    <p className="text-blue-900 font-bold text-lg">
-                      ⏰ Mantente atento a tu email para recibir la URL
-                    </p>
-                    <p className="text-blue-700 text-sm mt-2">
-                      Te haremos una propuesta irresistible si te gusta el resultado
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Resumen de los dos emails */}
-              <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">📨 Resumen de emails que recibirás:</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-emerald-100 border border-emerald-300 rounded-lg p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <CheckCircle className="w-5 h-5 text-emerald-600" />
-                      <span className="font-bold text-emerald-800">Email #1 - YA ENVIADO</span>
-                    </div>
-                    <p className="text-emerald-700 text-sm">Tu Super Prompt completo con instrucciones</p>
-                  </div>
-                  <div className="bg-blue-100 border border-blue-300 rounded-lg p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Clock className="w-5 h-5 text-blue-600" />
-                      <span className="font-bold text-blue-800">Email #2 - PRÓXIMAMENTE</span>
-                    </div>
-                    <p className="text-blue-700 text-sm">URL de tu sitio web personalizado</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Qué hacer mientras tanto */}
-              <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">🎯 Mientras esperas el segundo email:</h3>
-                <div className="space-y-3 text-gray-700 text-left">
-                  <p>📧 <strong>Ve a tu email AHORA</strong> y busca tu Super Prompt personalizado</p>
-                  <p>🤖 <strong>Copia y pega el prompt en ChatGPT</strong> para activar tu asistente IA</p>
-                  <p>📱 <strong>Empieza a generar contenido</strong> para redes sociales inmediatamente</p>
-                  <p>⏰ <strong>Mantente atento</strong> al segundo email con la URL de tu sitio web</p>
-                </div>
-              </div>
-
-              {/* Diferenciador */}
+              {/* Email 2: Website */}
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <Globe className="w-6 h-6 text-blue-600" />
-                  <h3 className="text-xl font-bold text-blue-800">⚡ Todo automático y sin complicaciones</h3>
+                <div className="flex items-center gap-3 mb-4">
+                  <Clock className="w-6 h-6 text-blue-600 animate-pulse" />
+                  <h3 className="text-lg font-semibold text-blue-800">🚧 Sitio web en proceso</h3>
                 </div>
-                <div className="text-blue-700 space-y-3 text-left">
-                  <p>• <strong>Sin buscar plantillas:</strong> Tu sitio se crea específicamente para {formData.marca}</p>
-                  <p>• <strong>Sin escribir textos:</strong> Todo el copy se genera automáticamente</p>
-                  <p>• <strong>Sin tecnología:</strong> Solo revisas y apruebas el resultado</p>
-                  <p>• <strong>Sin pagos adelantados:</strong> Primero ves el resultado, después decides</p>
+                <p className="text-blue-700 mb-4">
+                  Estamos creando tu sitio web profesional con IA. En unos minutos recibirás un segundo email con la URL de tu página.
+                </p>
+                <div className="bg-white border border-blue-200 rounded-lg p-4">
+                  <p className="text-blue-800 font-medium text-center">
+                    ⏰ Mantente atento a tu email
+                  </p>
                 </div>
               </div>
 
-              {/* Contacto */}
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">💬 ¿Preguntas sobre tu Super Prompt o sitio web?</h3>
-                <p className="text-gray-700 mb-6 text-center">Estoy aquí para asegurarme de que tengas la mejor experiencia.</p>
-                <div className="flex items-center justify-center gap-4 flex-wrap">
+              {/* Next Steps */}
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">🎯 Mientras tanto</h3>
+                <div className="space-y-3 text-gray-700">
+                  <p>1. <strong>Ve a tu email</strong> y busca tu Super Prompt</p>
+                  <p>2. <strong>Ábrelo en ChatGPT</strong> y empieza a crear contenido</p>
+                  <p>3. <strong>Espera el segundo email</strong> con tu sitio web</p>
+                </div>
+              </div>
+
+              {/* Contact */}
+              <div className="border-t border-gray-200 pt-8">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">¿Necesitas ayuda?</h3>
+                <div className="flex items-center justify-center gap-4">
                   <a 
                     href={`mailto:esteban.montenegro@gmail.com?subject=Consulta sobre mi Kit IA - ${formData.marca}`} 
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-300 flex items-center gap-2"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 flex items-center gap-2"
                   >
-                    <Mail className="w-5 h-5" />
-                    Escribir por Email
+                    <Mail className="w-4 h-4" />
+                    Email
                   </a>
                   <a 
                     href={`https://wa.me/56945487423?text=Hola%20Esteban,%20completé%20el%20formulario%20para%20${encodeURIComponent(formData.marca)}%20y%20tengo%20consultas`}
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-colors duration-300 flex items-center gap-2"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 flex items-center gap-2"
                   >
-                    <Phone className="w-5 h-5" />
-                    WhatsApp directo
+                    <Phone className="w-4 h-4" />
+                    WhatsApp
                   </a>
                 </div>
-              </div>
-
-              <div className="text-center">
-                <p className="text-gray-600 text-sm">
-                  <strong className="text-blue-600">Super Prompt IA + Sitio Web</strong> - Tu presencia digital sin complicaciones
-                </p>
               </div>
 
             </div>
           </CardContent>
         </Card>
+
+        {/* Footer */}
+        <div className="text-center mt-12">
+          <p className="text-gray-500 text-sm">
+            <strong className="text-blue-600">Crealoconia.com</strong> - Tu presencia digital sin complicaciones
+          </p>
+        </div>
       </div>
     </div>
   );
