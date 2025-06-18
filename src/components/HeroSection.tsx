@@ -13,20 +13,20 @@ const HeroSection = ({
     <div className="text-center mb-16">
       <div className="mb-12">
         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-          Tu web lista para <span className="inline-block min-h-[1.2em] align-top"><TypewriterText /></span>
+          Crea tu web profesional<br/>en minutos para <span className="inline-block min-h-[1.2em] align-top"><TypewriterText /></span>
         </h1>
         
         <div className="max-w-4xl mx-auto mb-8">
           <p className="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed mb-6">
-            <span className="text-blue-600 font-bold">10 preguntas simples.</span> Una web profesional que <span className="text-emerald-600 font-bold">conecta con tus clientes ideales.</span>
+            <span className="text-blue-600 font-bold">Solo 10 preguntas.</span> Una web que <span className="text-emerald-600 font-bold">trabaja por ti las 24 horas</span> atrayendo clientes ideales.
           </p>
           
           <div className="bg-gradient-to-r from-blue-50 to-emerald-50 border border-blue-200 rounded-xl p-6 inline-block">
             <p className="text-lg font-bold text-blue-800 mb-2">
-              🚀 Sin complicaciones técnicas, sin esperas largas
+              ⚡ Sin diseñadores, sin programadores, sin dolores de cabeza
             </p>
             <p className="text-blue-700 font-medium">
-              Completas el formulario → Recibes tu web → Empiezas a crecer
+              Respondes → Recibes tu web → Empiezas a vender hoy mismo
             </p>
           </div>
         </div>
