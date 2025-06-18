@@ -1,10 +1,7 @@
-
 import React from 'react';
-
 const HowItWorks = () => {
-  return (
-    <div>
-      <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">¿Cómo funciona el Kit IA?</h2>
+  return <div>
+      <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">¿Cómo funciona?</h2>
       
       <div className="space-y-8">
         <div className="flex gap-6">
@@ -43,8 +40,6 @@ const HowItWorks = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default HowItWorks;
