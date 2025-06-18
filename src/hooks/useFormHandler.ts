@@ -125,7 +125,7 @@ export const useFormHandler = () => {
       website: 'www.flexitimeacademy.com',
       instagram: 'flexitime_academy',
       quien_eres: 'Soy Sofía Hernández, consultora en productividad y gestión del tiempo con 8 años de experiencia ayudando a profesionales y emprendedores a maximizar su eficiencia. Me especializo en crear sistemas personalizados que permiten a mis clientes recuperar 2-3 horas diarias mientras mantienen el equilibrio vida-trabajo. He desarrollado metodologías propias basadas en neurociencia cognitiva y he formado a más de 800 profesionales en España y Latinoamérica.',
-      problemas: 'Trabajo con ejecutivos, emprendedores y freelancers que sienten que no tienen control sobre su tiempo. Están constantemente ocupados pero no avanzan en lo realmente importante. Sufren de procrastinación crónica, sobrecarga mental, dificultad para priorizar y agotamiento constante. Muchos trabajan más de 10 horas diarias pero no ven resultados proporcionales. Les ayudo a diseñar sistemas que les permitan ser más productivos en menos tiempo.',
+      problemas: 'Trabajo con ejecutivos, emprendedores y freelancers que sienten que no tienen control sobre su tiempo. Están constantemente ocupados pero no avanzan en lo realmente importante. Sufren de procrastinación crónica, sobrecarga mental, dificultad para priorizar y agotamiento constante. Muchos trabajan más de 10 horas diarias pero no ven resultados proporcionales. Les ayudo a diseñar sistemas que les permiten ser más productivos en menos tiempo.',
       preguntas_frecuentes: 'Me preguntan constantemente cómo es posible trabajar menos horas y ser más productivo, si realmente se puede eliminar la procrastinación, cómo mantener la motivación a largo plazo, y qué hacer cuando todo parece urgente. También quieren saber cuánto tiempo toma implementar un sistema de productividad efectivo y cómo adaptar las técnicas a su ritmo de vida específico.',
       estilo: 'Profesional',
       producto: 'Mi programa "FlexiTime Method", un sistema de 10 semanas que combina técnicas de gestión del tiempo, neurohábitos y automatización digital. Incluye 6 sesiones de coaching 1:1, acceso a mi plataforma digital con templates y herramientas, comunidad privada de alumni y seguimiento personalizado durante 3 meses adicionales. Está diseñado para profesionales que quieren resultados medibles y sostenibles en su productividad.'
@@ -201,9 +201,6 @@ export const useFormHandler = () => {
       // Actualizar formData con los prompts generados
       setFormData(formDataWithPrompts);
       
-      // Guardar los datos del formulario en sessionStorage para la página de resultados
-      sessionStorage.setItem('formResults', JSON.stringify(formDataWithPrompts));
-      
       await markAsCompleted(formDataWithPrompts);
       
       setIsGenerating(false);
@@ -219,16 +216,6 @@ export const useFormHandler = () => {
     } catch (error) {
       console.error('💥 Error durante la generación del prompt:', error);
       setIsGenerating(false);
-      
-      // Guardar datos incluso si hay errores para que se muestren en resultados
-      const formDataWithPrompts = {
-        ...formData,
-        generatedPrompts: {
-          superPrompt: 'Super Prompt generado correctamente',
-          lovablePrompt: 'Prompt para Lovable generado'
-        }
-      };
-      sessionStorage.setItem('formResults', JSON.stringify(formDataWithPrompts));
       
       toast({
         title: "Super Prompt generado",

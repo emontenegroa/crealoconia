@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,6 @@ import FormFields from '@/components/FormFields';
 import FormStepWizard from '@/components/FormStepWizard';
 import { FormData } from '@/hooks/useFormHandler';
 import { AlertTriangle } from "lucide-react";
-import { useLanguage } from '@/hooks/useLanguage';
 
 interface MainFormProps {
   formData: FormData;
@@ -39,8 +39,6 @@ const MainForm = ({
   isFormValid,
   onGenerateWebsite
 }: MainFormProps) => {
-  const { t } = useLanguage();
-
   const handleConfirmedSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(e);
@@ -57,7 +55,7 @@ const MainForm = ({
     <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-lg">
       <CardHeader className="text-center pb-6 bg-gray-50 border-b border-gray-200">
         <CardTitle className="text-2xl text-gray-900 mb-3">
-          {t('formTitle')}
+          Responde estas preguntas para generar tu sitio web
         </CardTitle>
         
         <div className="bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6">
@@ -119,7 +117,7 @@ const MainForm = ({
                 disabled={!isFormValid}
               >
                 <Brain className="w-5 h-5 mr-2" />
-                {t('generateWebsite')}
+                GENERAR MI SITIO WEB
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className="max-w-md">
@@ -153,7 +151,7 @@ const MainForm = ({
 
           <div className="text-center">
             <p className="text-gray-600 text-sm">
-              {t('securityMessage')}
+              🔐 100% seguro y sin spam
             </p>
           </div>
         </form>

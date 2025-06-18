@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { toast } from "@/hooks/use-toast";
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -9,7 +8,6 @@ import MainForm from '@/components/MainForm';
 import HowItWorksToggle from '@/components/HowItWorksToggle';
 import FAQ from '@/components/FAQ';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
-import LanguageSelector from '@/components/LanguageSelector';
 import { useFormHandler } from '@/hooks/useFormHandler';
 
 // Importar la prueba de email en desarrollo
@@ -43,8 +41,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <LanguageSelector />
-      
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <ProgressDialog
           show={showProgressDialog}
