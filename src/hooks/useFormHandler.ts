@@ -3,6 +3,7 @@ import { toast } from "@/hooks/use-toast";
 import { useFormPersistence } from '@/hooks/useFormPersistence';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
 import { usePromptGeneration } from '@/hooks/usePromptGeneration';
+import { useNavigate } from 'react-router-dom';
 
 export interface FormData {
   marca: string;
@@ -22,6 +23,8 @@ export interface FormData {
 }
 
 export const useFormHandler = () => {
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState<FormData>({
     marca: '',
     quien_eres: '',
@@ -201,23 +204,26 @@ export const useFormHandler = () => {
       await markAsCompleted(formDataWithPrompts);
       
       setIsGenerating(false);
-      setShowResults(true);
       
       toast({
         title: "¡Super Prompt generado exitosamente!",
         description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Prompt generado correctamente. Revisa el contenido a continuación.",
       });
       
+      // Redirigir a la página de resultados
+      navigate('/resultados');
+      
     } catch (error) {
       console.error('💥 Error durante la generación del prompt:', error);
       setIsGenerating(false);
-      
-      setShowResults(true);
       
       toast({
         title: "Super Prompt generado",
         description: "El contenido se ha generado correctamente. Puede que algunos emails no se hayan enviado.",
       });
+      
+      // Redirigir a la página de resultados incluso si hay errores
+      navigate('/resultados');
     }
   };
 
@@ -237,6 +243,7 @@ export const useFormHandler = () => {
     });
     setNoWebsite(false);
     setNoInstagram(false);
+    navigate('/');
   };
 
   const isFormValid = formData.marca.trim() !== '' && 
