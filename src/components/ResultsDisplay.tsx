@@ -1,10 +1,8 @@
-
 import React, { useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Brain, ArrowLeft, Mail, Phone, CheckCircle, Clock, Globe, Gift } from "lucide-react";
 import confetti from 'canvas-confetti';
-
 interface FormData {
   marca: string;
   quien_eres: string;
@@ -17,31 +15,33 @@ interface FormData {
   website: string;
   instagram: string;
 }
-
 interface ResultsDisplayProps {
   formData: FormData;
   onReset: () => void;
 }
-
-const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) => {
+const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
+  formData,
+  onReset
+}) => {
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     const triggerConfetti = () => {
       confetti({
         particleCount: 100,
         spread: 70,
-        origin: { y: 0.6 },
+        origin: {
+          y: 0.6
+        },
         colors: ['#3B82F6', '#7C3AED', '#10B981', '#F59E0B', '#EF4444']
       });
     };
-
     triggerConfetti();
     setTimeout(triggerConfetti, 1000);
   }, []);
-
-  return (
-    <div className="min-h-screen bg-gray-50">
+  return <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
@@ -50,9 +50,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
               <Brain className="w-12 h-12 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            ¡Perfecto! Tu Kit IA está listo
-          </h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">¡Todo salio perfecto! </h1>
           <p className="text-xl text-gray-600 mb-8">
             Revisa tu email <strong>{formData.email}</strong> ahora mismo
           </p>
@@ -120,19 +118,11 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
               <div className="border-t border-gray-200 pt-8">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">¿Necesitas ayuda?</h3>
                 <div className="flex items-center justify-center gap-4">
-                  <a 
-                    href={`mailto:esteban.montenegro@gmail.com?subject=Consulta sobre mi Kit IA - ${formData.marca}`} 
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 flex items-center gap-2"
-                  >
+                  <a href={`mailto:esteban.montenegro@gmail.com?subject=Consulta sobre mi Kit IA - ${formData.marca}`} className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 flex items-center gap-2">
                     <Mail className="w-4 h-4" />
                     Email
                   </a>
-                  <a 
-                    href={`https://wa.me/56945487423?text=Hola%20Esteban,%20completé%20el%20formulario%20para%20${encodeURIComponent(formData.marca)}%20y%20tengo%20consultas`}
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 flex items-center gap-2"
-                  >
+                  <a href={`https://wa.me/56945487423?text=Hola%20Esteban,%20completé%20el%20formulario%20para%20${encodeURIComponent(formData.marca)}%20y%20tengo%20consultas`} target="_blank" rel="noopener noreferrer" className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 flex items-center gap-2">
                     <Phone className="w-4 h-4" />
                     WhatsApp
                   </a>
@@ -150,8 +140,6 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ formData, onReset }) =>
           </p>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default ResultsDisplay;
