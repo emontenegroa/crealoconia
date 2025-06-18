@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { toast } from "@/hooks/use-toast";
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -8,6 +7,7 @@ import ProgressDialog from '@/components/ProgressDialog';
 import MainForm from '@/components/MainForm';
 import HowItWorksToggle from '@/components/HowItWorksToggle';
 import FAQ from '@/components/FAQ';
+import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { useFormHandler } from '@/hooks/useFormHandler';
 
 // Importar la prueba de email en desarrollo
@@ -77,6 +77,8 @@ const Index = () => {
 
         <FAQ />
       </div>
+      
+      <WhatsAppFloat />
     </div>
   );
 };
