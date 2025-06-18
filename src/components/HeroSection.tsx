@@ -23,7 +23,8 @@ const HeroSection = ({
         
         <div className="max-w-4xl mx-auto mb-8">
           <p className="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed mb-6">
-            <span className="text-blue-600 font-bold">Deja de depender solo de Instagram.</span> Ten tu propia <span className="text-emerald-600 font-bold">casa digital</span> que nadie puede cerrar, suspender o cambiar las reglas.
+            <span className="text-blue-600 font-bold">Estás haciendo algo valioso.</span> Es hora de mostrarlo con <span className="text-emerald-600 font-bold">claridad, confianza y presencia profesional.</span><br/>
+            Tu web no puede seguir siendo un pendiente.
           </p>
           
           <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-xl p-6 inline-block mb-4">
