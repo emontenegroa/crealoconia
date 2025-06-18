@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { MessageCircle } from 'lucide-react';
 
 const WhatsAppFloat = () => {
   const phoneNumber = '56962791772';
-  const message = 'Hola! Me interesa el Kit IA para crear mi sitio web profesional 🚀';
+  const message = 'Hola! Me interesa saber más sobre crear mi sitio web profesional 🚀';
   
   const handleWhatsAppClick = () => {
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
