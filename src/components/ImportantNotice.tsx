@@ -15,7 +15,7 @@ const ImportantNotice = () => {
             🎯 ¿Por qué genero tu sitio web gratis?
           </h2>
           <p className="text-lg text-gray-700 mb-4">
-            Porque cuando veas la <strong>calidad profesional y el potencial de ventas</strong> 
+            Porque cuando veas la <strong className="px-[5px]">calidad profesional y el potencial de ventas</strong> 
             de tu sitio personalizado, querrás que lo optimicemos y publiquemos oficialmente.
           </p>
           <p className="text-purple-700 font-semibold text-xl">✨ Es que te va a volar la cabeza 🤯</p>
