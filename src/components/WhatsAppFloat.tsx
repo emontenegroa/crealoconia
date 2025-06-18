@@ -1,12 +1,14 @@
+
 import React from 'react';
 import { MessageCircle } from 'lucide-react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const WhatsAppFloat = () => {
+  const { t } = useLanguage();
   const phoneNumber = '56962791772';
-  const message = 'Hola! Me interesa saber más sobre crear mi sitio web profesional 🚀';
   
   const handleWhatsAppClick = () => {
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(t('whatsappMessage'))}`;
     window.open(url, '_blank');
   };
 
@@ -18,7 +20,7 @@ const WhatsAppFloat = () => {
     >
       <MessageCircle size={24} />
       <span className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-        ¿Necesitas ayuda?
+        {t('whatsappTooltip')}
       </span>
     </button>
   );
