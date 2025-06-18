@@ -23,15 +23,24 @@ const HeroSection = ({
         
         <div className="max-w-4xl mx-auto mb-8">
           <p className="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed mb-6">
-            <span className="text-blue-600 font-bold">Solo 10 preguntas.</span> Una web que <span className="text-emerald-600 font-bold">trabaja por ti las 24 horas</span> atrayendo clientes ideales.
+            <span className="text-blue-600 font-bold">Deja de depender solo de Instagram.</span> Ten tu propia <span className="text-emerald-600 font-bold">casa digital</span> que nadie puede cerrar, suspender o cambiar las reglas.
           </p>
           
+          <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-xl p-6 inline-block mb-4">
+            <p className="text-lg font-bold text-red-800 mb-2">
+              🚨 ¿Qué pasa si Instagram te suspende la cuenta mañana?
+            </p>
+            <p className="text-red-700 font-medium">
+              Tu negocio desaparece. Todos tus seguidores, perdidos. Tu reputación, en el aire.
+            </p>
+          </div>
+
           <div className="bg-gradient-to-r from-blue-50 to-emerald-50 border border-blue-200 rounded-xl p-6 inline-block">
             <p className="text-lg font-bold text-blue-800 mb-2">
-              ⚡ Sin diseñadores, sin programadores, sin dolores de cabeza
+              ✅ Con tu propia web: TÚ tienes el control total
             </p>
             <p className="text-blue-700 font-medium">
-              Respondes → Recibes tu web → Empiezas a vender hoy mismo
+              Credibilidad profesional → Clientes que te toman en serio → Ventas automáticas 24/7
             </p>
           </div>
         </div>
