@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Checkbox } from "@/components/ui/checkbox";
 import FormField from '@/components/FormField';
@@ -41,6 +42,10 @@ const FormFields = ({
   setFormData
 }: FormFieldsProps) => {
   const { t, translations } = useLanguage();
+
+  // Preparar las opciones de estilo para el select
+  const styleOptions = ["Cercano", "Profesional", "Inspirador", "Con humor", "Técnico"];
+  const styleLabels = styleOptions.map(option => translations.styles[option as keyof typeof translations.styles]);
 
   return (
     <div className="space-y-8">
@@ -185,8 +190,7 @@ const FormFields = ({
         name="estilo"
         value={formData.estilo}
         onChange={onInputChange}
-        options={["Cercano", "Profesional", "Inspirador", "Con humor", "Técnico"]}
-        optionLabels={Object.values(translations.styles)}
+        options={styleOptions}
         icon={MessageSquare}
       />
 
