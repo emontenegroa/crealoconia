@@ -13,8 +13,12 @@ const HeroSection = ({
     <div className="text-center mb-16">
       <div className="mb-12">
         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-          Crea tu web profesional<br/>en minutos para <span className="inline-block min-h-[1.2em] align-top"><TypewriterText /></span>
+          Crea tu web profesional<br/>en minutos
         </h1>
+        
+        <div className="text-2xl md:text-4xl font-bold text-blue-600 mb-8 h-16 flex items-center justify-center">
+          <TypewriterText />
+        </div>
         
         <div className="max-w-4xl mx-auto mb-8">
           <p className="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed mb-6">
