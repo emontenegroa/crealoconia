@@ -1,10 +1,8 @@
-
 import React, { useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Brain, ArrowLeft, Mail, Phone, CheckCircle, Clock, Globe, Gift, Sparkles, Trophy, Zap } from "lucide-react";
 import confetti from 'canvas-confetti';
-
 interface FormData {
   marca: string;
   quien_eres: string;
@@ -17,12 +15,10 @@ interface FormData {
   website: string;
   instagram: string;
 }
-
 interface ResultsDisplayProps {
   formData: FormData;
   onReset: () => void;
 }
-
 const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
   formData,
   onReset
@@ -32,16 +28,17 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       top: 0,
       behavior: 'smooth'
     });
-
     const triggerMegaConfetti = () => {
       // Multiple confetti bursts for celebration
       const colors = ['#3B82F6', '#7C3AED', '#10B981', '#F59E0B', '#EF4444', '#EC4899', '#06B6D4'];
-      
+
       // First burst - center
       confetti({
         particleCount: 150,
         spread: 70,
-        origin: { y: 0.6 },
+        origin: {
+          y: 0.6
+        },
         colors: colors
       });
 
@@ -50,7 +47,10 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         confetti({
           particleCount: 100,
           spread: 60,
-          origin: { x: 0.2, y: 0.7 },
+          origin: {
+            x: 0.2,
+            y: 0.7
+          },
           colors: colors
         });
       }, 300);
@@ -60,7 +60,10 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         confetti({
           particleCount: 100,
           spread: 60,
-          origin: { x: 0.8, y: 0.7 },
+          origin: {
+            x: 0.8,
+            y: 0.7
+          },
           colors: colors
         });
       }, 600);
@@ -70,20 +73,19 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         confetti({
           particleCount: 200,
           spread: 100,
-          origin: { y: 0.5 },
+          origin: {
+            y: 0.5
+          },
           colors: ['#FFD700', '#FFA500', '#FF6347']
         });
       }, 1000);
     };
-
     triggerMegaConfetti();
-    
+
     // Repeat celebration after 3 seconds
     setTimeout(triggerMegaConfetti, 3000);
   }, []);
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-emerald-50">
+  return <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-emerald-50">
       <div className="container mx-auto px-4 py-12">
         
         {/* Celebration Header */}
@@ -119,11 +121,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
             </p>
           </div>
 
-          <Button 
-            onClick={onReset} 
-            variant="outline" 
-            className="border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300"
-          >
+          <Button onClick={onReset} variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Crear otro Kit IA
           </Button>
@@ -165,9 +163,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                     <p className="text-xl font-bold text-emerald-800 mb-2">
                       📧 ¡Ve AHORA a revisar!
                     </p>
-                    <p className="text-lg font-bold text-emerald-600">
-                      {formData.email}
-                    </p>
+                    
                     <div className="mt-4 p-3 bg-emerald-50 rounded-lg">
                       <p className="text-emerald-700 font-medium text-sm">
                         💡 Cópialo, pégalo en ChatGPT y ¡empieza tu revolución digital!
@@ -241,19 +237,11 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                   💬 ¿Necesitas una mano? ¡Estamos aquí para ti!
                 </h3>
                 <div className="flex items-center justify-center gap-4">
-                  <a 
-                    href={`mailto:esteban.montenegro@gmail.com?subject=¡Hola! Completé mi Kit IA para ${formData.marca}`} 
-                    className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-                  >
+                  <a href={`mailto:esteban.montenegro@gmail.com?subject=¡Hola! Completé mi Kit IA para ${formData.marca}`} className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                     <Mail className="w-5 h-5" />
                     Email
                   </a>
-                  <a 
-                    href={`https://wa.me/56945487423?text=¡Hola%20Esteban!%20Completé%20mi%20Kit%20IA%20para%20${encodeURIComponent(formData.marca)}%20y%20estoy%20súper%20emocionado.%20¡Gracias!`} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-                  >
+                  <a href={`https://wa.me/56945487423?text=¡Hola%20Esteban!%20Completé%20mi%20Kit%20IA%20para%20${encodeURIComponent(formData.marca)}%20y%20estoy%20súper%20emocionado.%20¡Gracias!`} target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                     <Phone className="w-5 h-5" />
                     WhatsApp
                   </a>
@@ -276,8 +264,6 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default ResultsDisplay;
