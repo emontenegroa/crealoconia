@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 export type Language = 'es' | 'en';
@@ -8,9 +7,13 @@ interface Translations {
   heroTitle: string;
   heroSubtitle: string;
   heroDescription: string;
+  heroWarning: string;
+  heroSolution: string;
+  heroCTA: string;
   loadExampleButton: string;
   
   // Form Labels
+  formTitle: string;
   brandLabel: string;
   brandPlaceholder: string;
   emailLabel: string;
@@ -46,6 +49,8 @@ interface Translations {
   
   // Buttons
   generateButton: string;
+  generateWebsite: string;
+  securityMessage: string;
   
   // WhatsApp
   whatsappMessage: string;
@@ -57,8 +62,12 @@ const translations: Record<Language, Translations> = {
     heroTitle: "Kit IA de Esteban",
     heroSubtitle: "Tu presencia digital en minutos",
     heroDescription: "Genera automáticamente contenido para redes sociales y tu página web profesional usando inteligencia artificial",
+    heroWarning: "¿Cansado de perder tiempo creando contenido y páginas web desde cero?",
+    heroSolution: "¡Aquí tienes la solución completa automatizada con IA!",
+    heroCTA: "🧠 Obtener mi Kit IA Gratis",
     loadExampleButton: "Ver ejemplo",
     
+    formTitle: "Genera tu presencia digital completa",
     brandLabel: "🏷️ Nombre de tu marca o negocio",
     brandPlaceholder: "Ej: FlexiTime Academy",
     emailLabel: "📧 Tu email",
@@ -91,6 +100,8 @@ const translations: Record<Language, Translations> = {
     },
     
     generateButton: "🧠 Generar mi Kit IA",
+    generateWebsite: "🧠 Generar mi sitio web",
+    securityMessage: "Tus datos están seguros. No compartimos información personal.",
     
     whatsappMessage: "Hola! Me interesa saber más sobre crear mi sitio web profesional 🚀",
     whatsappTooltip: "Contactar por WhatsApp"
@@ -99,8 +110,12 @@ const translations: Record<Language, Translations> = {
     heroTitle: "Esteban's AI Kit",
     heroSubtitle: "Your digital presence in minutes",
     heroDescription: "Automatically generate social media content and your professional website using artificial intelligence",
+    heroWarning: "Tired of wasting time creating content and websites from scratch?",
+    heroSolution: "Here's the complete AI-automated solution!",
+    heroCTA: "🧠 Get my Free AI Kit",
     loadExampleButton: "See example",
     
+    formTitle: "Generate your complete digital presence",
     brandLabel: "🏷️ Your brand or business name",
     brandPlaceholder: "E.g: FlexiTime Academy",
     emailLabel: "📧 Your email",
@@ -133,6 +148,8 @@ const translations: Record<Language, Translations> = {
     },
     
     generateButton: "🧠 Generate my AI Kit",
+    generateWebsite: "🧠 Generate my website",
+    securityMessage: "Your data is secure. We don't share personal information.",
     
     whatsappMessage: "Hi! I'm interested in learning more about creating my professional website 🚀",
     whatsappTooltip: "Contact via WhatsApp"
