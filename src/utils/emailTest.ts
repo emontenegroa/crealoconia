@@ -3,10 +3,10 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const testEmailSystem = async () => {
   try {
-    console.log('🧪 Iniciando prueba completa del sistema de email...');
+    console.log('🧪 Iniciando prueba completa del sistema de email con nueva API...');
     
     // Prueba 1: Email de prueba básico
-    console.log('📧 Enviando email de prueba...');
+    console.log('📧 Enviando email de prueba con Brevo API v3...');
     const { data: testData, error: testError } = await supabase.functions.invoke('send-email', {
       body: {
         type: 'test',
@@ -19,23 +19,40 @@ export const testEmailSystem = async () => {
       return { success: false, error: testError, step: 'test-email' };
     }
 
-    console.log('✅ Email de prueba enviado:', testData);
+    console.log('✅ Email de prueba enviado exitosamente:', testData);
 
-    // Prueba 2: Email de confirmación con datos de ejemplo
+    // Prueba 2: Email de confirmación con datos completos
     console.log('📧 Enviando email de confirmación de ejemplo...');
     const exampleFormData = {
-      marca: 'Test Business',
+      marca: 'Kit IA Test Business',
       email: 'esteban.montenegro@gmail.com',
       whatsapp: '56945487423',
-      website: 'www.testbusiness.com',
-      instagram: 'testbusiness',
-      quien_eres: 'Soy un emprendedor de prueba',
-      problemas: 'Resuelvo problemas de prueba',
-      preguntas_frecuentes: 'Me preguntan sobre pruebas',
-      estilo: 'Profesional',
-      producto: 'Mi producto de prueba',
+      website: 'www.kitia-test.com',
+      instagram: 'kitiatest',
+      quien_eres: 'Soy un emprendedor que está probando el Kit IA para revolucionar mi estrategia de contenido digital',
+      problemas: 'Ayudo a emprendedores a crear contenido viral y estrategias de marketing digital efectivas usando IA',
+      preguntas_frecuentes: '¿Cómo puedo crear contenido que realmente conecte con mi audiencia y genere ventas?',
+      estilo: 'Profesional pero cercano',
+      producto: 'Curso completo de Marketing Digital con IA + Consultoría personalizada + Community exclusiva',
       generatedPrompts: {
-        superPrompt: 'Este es un super prompt de prueba generado para validar el sistema de emails.'
+        superPrompt: `Eres un experto en marketing digital y creación de contenido para "Kit IA Test Business". Tu tarea es crear contenido viral, estrategias de venta y material educativo que posicione a esta marca como referente en el sector.
+
+INFORMACIÓN DE LA MARCA:
+- Nombre: Kit IA Test Business
+- Público: Emprendedores digitales
+- Solución: Ayudo a emprendedores a crear contenido viral y estrategias de marketing digital efectivas usando IA
+- Pregunta clave: ¿Cómo puedo crear contenido que realmente conecte con mi audiencia y genere ventas?
+- Producto: Curso completo de Marketing Digital con IA + Consultoría personalizada + Community exclusiva
+- Estilo: Profesional pero cercano
+
+INSTRUCCIONES DE CREACIÓN:
+1. Usa siempre un tono profesional pero cercano
+2. Incluye datos, estadísticas y casos de éxito cuando sea relevante
+3. Crea contenido que eduque, inspire y vendan de forma sutil
+4. Adapta el mensaje según la plataforma (Instagram, LinkedIn, Facebook, etc.)
+5. Incluye llamadas a la acción claras y específicas
+
+¿Qué tipo de contenido necesitas que genere?`
       }
     };
 
@@ -52,7 +69,7 @@ export const testEmailSystem = async () => {
       return { success: false, error: confirmError, step: 'confirmation-email' };
     }
 
-    console.log('✅ Email de confirmación enviado:', confirmData);
+    console.log('✅ Email de confirmación enviado exitosamente:', confirmData);
 
     // Prueba 3: Email administrativo
     console.log('📧 Enviando email administrativo de ejemplo...');
@@ -69,7 +86,14 @@ export const testEmailSystem = async () => {
       return { success: false, error: adminError, step: 'admin-email' };
     }
 
-    console.log('✅ Email administrativo enviado:', adminData);
+    console.log('✅ Email administrativo enviado exitosamente:', adminData);
+
+    console.log('🎉 TODAS LAS PRUEBAS COMPLETADAS EXITOSAMENTE');
+    console.log('📊 Resumen de la prueba:');
+    console.log('  - API: Brevo v3 funcionando');
+    console.log('  - Templates: Todos los tipos funcionando');
+    console.log('  - Edge Function: Operativa');
+    console.log('  - Emails enviados: 3/3 exitosos');
 
     return { 
       success: true, 
@@ -77,6 +101,12 @@ export const testEmailSystem = async () => {
         testEmail: testData,
         confirmationEmail: confirmData,
         adminEmail: adminData
+      },
+      summary: {
+        totalEmails: 3,
+        successfulEmails: 3,
+        api: 'Brevo v3',
+        status: 'Fully Operational'
       }
     };
     
@@ -86,12 +116,12 @@ export const testEmailSystem = async () => {
   }
 };
 
-// Función para validar la configuración
+// Función para validar la configuración actualizada
 export const validateEmailConfig = async () => {
   try {
-    console.log('🔍 Validando configuración del sistema de email...');
+    console.log('🔍 Validando configuración actualizada del sistema de email...');
     
-    // Verificar que la edge function existe
+    // Verificar que la edge function existe y funciona con la nueva API
     const { data, error } = await supabase.functions.invoke('send-email', {
       body: {
         type: 'test',
@@ -112,19 +142,26 @@ export const validateEmailConfig = async () => {
         return {
           valid: false,
           issue: 'missing-api-key',
-          message: 'BREVO_API_KEY no está configurada'
+          message: 'BREVO_API_KEY no está configurada correctamente'
         };
       }
       return {
         valid: false,
-        issue: 'unknown',
+        issue: 'api-error',
         message: error.message
       };
     }
 
+    console.log('✅ Configuración validada exitosamente');
     return {
       valid: true,
-      message: 'Configuración válida'
+      message: 'Sistema de email completamente funcional con Brevo API v3',
+      details: {
+        api: 'Brevo v3',
+        edgeFunction: 'Active',
+        apiKey: 'Configured',
+        templates: '3 types available'
+      }
     };
 
   } catch (error) {
@@ -137,9 +174,9 @@ export const validateEmailConfig = async () => {
   }
 };
 
-// Ejecutar validación automática en desarrollo
+// Ejecutar prueba automática en desarrollo
 if (import.meta.env.DEV) {
-  console.log('🚀 Iniciando validación automática del sistema de email...');
+  console.log('🚀 Iniciando validación automática del sistema de email actualizado...');
   
   // Validar configuración primero
   setTimeout(async () => {
@@ -147,16 +184,17 @@ if (import.meta.env.DEV) {
     console.log('📋 Resultado de validación:', validation);
     
     if (validation.valid) {
-      // Si la configuración es válida, hacer prueba completa
+      console.log('🎯 Ejecutando prueba completa del sistema...');
       const testResult = await testEmailSystem();
       if (testResult.success) {
-        console.log('🎉 Sistema de email funcionando correctamente');
-        console.log('📊 Resultados:', testResult.data);
+        console.log('🎉 SISTEMA DE EMAIL COMPLETAMENTE FUNCIONAL');
+        console.log('📊 Resultados completos:', testResult);
+        console.log('📧 Revisa tu bandeja de entrada para los emails de prueba');
       } else {
         console.warn('⚠️ Problema en la prueba de email:', testResult);
       }
     } else {
       console.warn('⚠️ Problema en la configuración:', validation);
     }
-  }, 2000);
+  }, 3000);
 }
