@@ -27,6 +27,7 @@ interface FormFieldsProps {
   setNoWebsite: (value: boolean) => void;
   setNoInstagram: (value: boolean) => void;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  hideBasicFields?: boolean; // Nueva prop para ocultar campos básicos
 }
 
 const FormFields = ({
@@ -38,33 +39,38 @@ const FormFields = ({
   noInstagram,
   setNoWebsite,
   setNoInstagram,
-  setFormData
+  setFormData,
+  hideBasicFields = false
 }: FormFieldsProps) => {
   return (
     <div className="space-y-8">
-      <FormField
-        type="input"
-        label="1. ¿Cómo se llama tu emprendimiento o marca personal?"
-        placeholder="Ej: Luz Interior Coaching, Panadería Las 3 Hermanas, Soy Nombre Apellido"
-        name="marca"
-        value={formData.marca}
-        onChange={onInputChange}
-        icon={Users}
-      />
+      {!hideBasicFields && (
+        <>
+          <FormField
+            type="input"
+            label="1. ¿Cómo se llama tu emprendimiento o marca personal?"
+            placeholder="Ej: Luz Interior Coaching, Panadería Las 3 Hermanas, Soy Nombre Apellido"
+            name="marca"
+            value={formData.marca}
+            onChange={onInputChange}
+            icon={Users}
+          />
+
+          <FormField
+            type="input"
+            label="2. Correo electrónico (donde recibirás tu Kit IA)"
+            placeholder="Ej: info@tumarca.com"
+            name="email"
+            value={formData.email}
+            onChange={onInputChange}
+            icon={Mail}
+          />
+        </>
+      )}
 
       <FormField
         type="input"
-        label="2. Correo electrónico (donde recibirás tu Kit IA)"
-        placeholder="Ej: info@tumarca.com"
-        name="email"
-        value={formData.email}
-        onChange={onInputChange}
-        icon={Mail}
-      />
-
-      <FormField
-        type="input"
-        label="3. WhatsApp (para agregar botón de contacto en tu web)"
+        label={hideBasicFields ? "3. WhatsApp (para agregar botón de contacto en tu web)" : "3. WhatsApp (para agregar botón de contacto en tu web)"}
         placeholder="Ej: 56945487423 (solo números, sin +)"
         name="whatsapp"
         value={formData.whatsapp}
@@ -75,7 +81,7 @@ const FormFields = ({
       <div className="space-y-3 group">
         <FormField
           type="input"
-          label="4. Página web actual (si tienes)"
+          label={hideBasicFields ? "4. Página web actual (si tienes)" : "4. Página web actual (si tienes)"}
           placeholder="Ej: www.tumarca.com"
           name="website"
           value={formData.website}
@@ -102,7 +108,7 @@ const FormFields = ({
       <div className="space-y-3 group">
         <FormField
           type="input"
-          label="5. Instagram (nombre de usuario, sin @)"
+          label={hideBasicFields ? "5. Instagram (nombre de usuario, sin @)" : "5. Instagram (nombre de usuario, sin @)"}
           placeholder="Ej: tumarca"
           name="instagram"
           value={formData.instagram}
@@ -128,7 +134,7 @@ const FormFields = ({
 
       <FormField
         type="textarea"
-        label="6. ¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas? (Sé específico)"
+        label={hideBasicFields ? "6. ¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas? (Sé específico)" : "6. ¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas? (Sé específico)"}
         placeholder="Ej: Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras de 30-45 años que buscan reconectar con su propósito..."
         name="quien_eres"
         value={formData.quien_eres}
@@ -145,7 +151,7 @@ const FormFields = ({
 
       <FormField
         type="textarea"
-        label="7. ¿Qué problema específico vives día a día con tus clientes y cómo los ayudas a solucionarlo?"
+        label={hideBasicFields ? "7. ¿Qué problema específico vives día a día con tus clientes y cómo los ayudas a solucionarlo?" : "7. ¿Qué problema específico vives día a día con tus clientes y cómo los ayudas a solucionarlo?"}
         placeholder="Ej: Mis clientas llegan sintiéndose bloqueadas emocionalmente, con miedo al fracaso y síndrome del impostor. Yo las ayudo con un proceso de autoconocimiento profundo usando técnicas de PNL..."
         name="problemas"
         value={formData.problemas}
@@ -162,7 +168,7 @@ const FormFields = ({
 
       <FormField
         type="textarea"
-        label="8. ¿Qué te preguntan siempre tus clientes o qué disfrutas explicar una y otra vez?"
+        label={hideBasicFields ? "8. ¿Qué te preguntan siempre tus clientes o qué disfrutas explicar una y otra vez?" : "8. ¿Qué te preguntan siempre tus clientes o qué disfrutas explicar una y otra vez?"}
         placeholder="Ej: Me preguntan constantemente si es posible cambiar de vida después de los 40 años cuando ya tienes responsabilidades. Me encanta mostrarles que siempre es posible..."
         name="preguntas_frecuentes"
         value={formData.preguntas_frecuentes}
@@ -179,7 +185,7 @@ const FormFields = ({
 
       <FormField
         type="select"
-        label="9. ¿Cómo te gusta comunicarte en redes sociales?"
+        label={hideBasicFields ? "9. ¿Cómo te gusta comunicarte en redes sociales?" : "9. ¿Cómo te gusta comunicarte en redes sociales?"}
         name="estilo"
         value={formData.estilo}
         onChange={onInputChange}
@@ -189,7 +195,7 @@ const FormFields = ({
 
       <FormField
         type="textarea"
-        label="10. ¿Cuál es tu producto o servicio principal que quieres vender más? (Describe beneficios específicos)"
+        label={hideBasicFields ? "10. ¿Cuál es tu producto o servicio principal que quieres vender más? (Describe beneficios específicos)" : "10. ¿Cuál es tu producto o servicio principal que quieres vender más? (Describe beneficios específicos)"}
         placeholder="Ej: Mi programa 'Renace', un proceso de coaching de 8 semanas que incluye sesiones individuales, workbook personalizado y comunidad privada. Está diseñado para mujeres que quieren cambios profundos en 90 días..."
         name="producto"
         value={formData.producto}

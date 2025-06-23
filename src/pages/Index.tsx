@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { toast } from "@/hooks/use-toast";
 import LoadingSpinner from '@/components/LoadingSpinner';
 import HeroSection from '@/components/HeroSection';
 import ImportantNotice from '@/components/ImportantNotice';
 import ProgressDialog from '@/components/ProgressDialog';
+import InitialForm from '@/components/InitialForm';
 import MainForm from '@/components/MainForm';
 import HowItWorksToggle from '@/components/HowItWorksToggle';
 import FAQ from '@/components/FAQ';
@@ -28,16 +30,24 @@ const Index = () => {
     previousProgress,
     attemptCount,
     sessionId,
+    showFullForm,
     handleInputChange,
     handleAIUsageUpdate,
+    handleFirstStep,
     loadPreviousData,
     startFresh,
     loadExampleData,
     handleSubmit,
     resetForm,
+    isFirstStepValid,
     isFormValid,
     onGenerateWebsite
   } = useFormHandler();
+
+  const handleBackToInitial = () => {
+    // No resetear los datos, solo volver al paso inicial
+    resetForm();
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -57,6 +67,14 @@ const Index = () => {
         
         {isGenerating ? (
           <LoadingSpinner />
+        ) : !showFullForm ? (
+          <InitialForm
+            formData={formData}
+            onInputChange={handleInputChange}
+            onSubmit={handleFirstStep}
+            isValid={isFirstStepValid}
+            onLoadExample={loadExampleData}
+          />
         ) : (
           <MainForm
             formData={formData}
@@ -71,7 +89,7 @@ const Index = () => {
             onSubmit={handleSubmit}
             isFormValid={isFormValid}
             onGenerateWebsite={onGenerateWebsite}
-            onLoadExample={loadExampleData}
+            onBackToInitial={handleBackToInitial}
           />
         )}
 

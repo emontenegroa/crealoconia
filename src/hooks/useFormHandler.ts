@@ -45,6 +45,7 @@ export const useFormHandler = () => {
   const [noInstagram, setNoInstagram] = useState(false);
   const [showProgressDialog, setShowProgressDialog] = useState(false);
   const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
+  const [showFullForm, setShowFullForm] = useState(false); // Nuevo estado para controlar qué mostrar
 
   const {
     sessionId,
@@ -96,12 +97,42 @@ export const useFormHandler = () => {
     console.log(`Campo ${fieldName} ha usado IA ${count} veces`);
   };
 
+  // Nuevo: manejar el primer paso (nombre y email)
+  const handleFirstStep = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.marca.trim() || !formData.email.trim()) {
+      toast({
+        title: "Campos requeridos",
+        description: "Por favor completa tu nombre/marca y email para continuar.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Guardar progreso inicial
+    await saveProgress(formData);
+    
+    setShowFullForm(true);
+    
+    toast({
+      title: "¡Perfecto!",
+      description: "Ahora completa el resto de la información para generar tu Kit IA.",
+    });
+  };
+
   const loadPreviousData = () => {
     if (previousProgress) {
       setFormData(previousProgress);
       setNoWebsite(!previousProgress.website);
       setNoInstagram(!previousProgress.instagram);
       setShowProgressDialog(false);
+      
+      // Si ya tiene datos completos, mostrar formulario completo
+      if (previousProgress.marca && previousProgress.email) {
+        setShowFullForm(true);
+      }
+      
       toast({
         title: "Progreso cargado",
         description: "Hemos restaurado tu progreso anterior. Puedes continuar donde lo dejaste.",
@@ -111,6 +142,7 @@ export const useFormHandler = () => {
 
   const startFresh = () => {
     setShowProgressDialog(false);
+    setShowFullForm(false);
     toast({
       title: "Nuevo formulario",
       description: "Comenzando un formulario nuevo desde cero.",
@@ -132,6 +164,7 @@ export const useFormHandler = () => {
     });
     setNoWebsite(false);
     setNoInstagram(false);
+    setShowFullForm(true);
   };
 
   const handlePurchase = () => {
@@ -171,7 +204,6 @@ export const useFormHandler = () => {
     try {
       console.log('🔄 Iniciando proceso de generación de Super Prompt...');
       
-      // Generar el super prompt usando la integración con ChatGPT
       const generatedPrompts = await generateSuperPrompt(formData);
       const formDataWithPrompts = {
         ...formData,
@@ -198,7 +230,6 @@ export const useFormHandler = () => {
       
       console.log(`✅ ${emailsSent}/2 emails enviados correctamente`);
       
-      // Actualizar formData con los prompts generados
       setFormData(formDataWithPrompts);
       
       await markAsCompleted(formDataWithPrompts);
@@ -210,7 +241,6 @@ export const useFormHandler = () => {
         description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Prompt generado correctamente. Revisa el contenido a continuación.",
       });
       
-      // Redirigir a la página de resultados
       navigate('/resultados');
       
     } catch (error) {
@@ -222,13 +252,13 @@ export const useFormHandler = () => {
         description: "El contenido se ha generado correctamente. Puede que algunos emails no se hayan enviado.",
       });
       
-      // Redirigir a la página de resultados incluso si hay errores
       navigate('/resultados');
     }
   };
 
   const resetForm = () => {
     setShowResults(false);
+    setShowFullForm(false);
     setFormData({
       marca: '',
       quien_eres: '',
@@ -246,6 +276,10 @@ export const useFormHandler = () => {
     navigate('/');
   };
 
+  // Validación para el primer paso
+  const isFirstStepValid = formData.marca.trim() !== '' && formData.email.trim() !== '';
+
+  // Validación para el formulario completo
   const isFormValid = formData.marca.trim() !== '' && 
                      formData.quien_eres.trim() !== '' && 
                      formData.problemas.trim() !== '' && 
@@ -272,14 +306,17 @@ export const useFormHandler = () => {
     previousProgress,
     attemptCount,
     sessionId,
+    showFullForm, // Nuevo estado
     handleInputChange,
     handleAIUsageUpdate,
+    handleFirstStep, // Nueva función
     loadPreviousData,
     startFresh,
     loadExampleData,
     handlePurchase,
     handleSubmit,
     resetForm,
+    isFirstStepValid, // Nueva validación
     isFormValid,
     onGenerateWebsite
   };
