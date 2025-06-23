@@ -61,7 +61,7 @@ const MainForm = ({
         </div>
         
         <CardTitle className="text-2xl text-gray-900 mb-3">
-          Perfecto {formData.marca}! Ahora completa tu perfil
+          ¡Excelente {formData.marca}! 🚀 Solo faltan unos datos más para crear tu Kit IA
         </CardTitle>
         
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
