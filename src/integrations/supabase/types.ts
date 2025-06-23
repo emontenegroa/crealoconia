@@ -66,12 +66,59 @@ export type Database = {
         }
         Relationships: []
       }
+      security_logs: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          event_data: Json | null
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      detect_suspicious_activity: {
+        Args: { check_email: string; time_window_minutes?: number }
+        Returns: boolean
+      }
+      log_security_event: {
+        Args: {
+          event_type: string
+          user_id?: string
+          email?: string
+          ip_address?: unknown
+          user_agent?: string
+          event_data?: Json
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

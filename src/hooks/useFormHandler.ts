@@ -3,8 +3,9 @@ import { toast } from "@/hooks/use-toast";
 import { useFormPersistence } from '@/hooks/useFormPersistence';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
 import { usePromptGeneration } from '@/hooks/usePromptGeneration';
+import { useSecurityEnforcement } from '@/hooks/useSecurityEnforcement';
 import { useNavigate } from 'react-router-dom';
-import { validateEmail, validateText, validateWhatsApp, validateUrl, checkRateLimit, sanitizeInput } from '@/utils/inputValidation';
+import { validateEmail, validateText, validateWhatsApp, validateUrl } from '@/utils/inputValidation';
 
 export interface FormData {
   marca: string;
@@ -19,7 +20,7 @@ export interface FormData {
   instagram: string;
   generatedPrompts?: {
     superPrompt: string;
-    lovablePrompt?: string; // Solo para email a admin
+    lovablePrompt?: string;
   };
 }
 
@@ -59,6 +60,15 @@ export const useFormHandler = () => {
 
   const { sendEmailToAdmin, sendConfirmationEmail } = useEmailHandling();
   const { generateSuperPrompt } = usePromptGeneration();
+  
+  // Enhanced security enforcement
+  const { 
+    isBlocked, 
+    blockReason, 
+    enforceRateLimit, 
+    validateAndSanitizeForm, 
+    logFormInteraction 
+  } = useSecurityEnforcement();
 
   // Verificar progreso previo cuando se ingresa el email
   useEffect(() => {
@@ -91,20 +101,23 @@ export const useFormHandler = () => {
   }, [formData]);
 
   const handleInputChange = (name: string, value: string) => {
-    // Sanitize input before setting
-    const sanitizedValue = sanitizeInput(value);
+    // Log input interaction for security monitoring
+    if (name === 'email' || name === 'marca') {
+      logFormInteraction('input_change', formData.email || 'anonymous', { field: name });
+    }
     
     setFormData(prev => ({
       ...prev,
-      [name]: sanitizedValue
+      [name]: value
     }));
   };
 
   const handleAIUsageUpdate = (fieldName: string, count: number) => {
     console.log(`Campo ${fieldName} ha usado IA ${count} veces`);
+    logFormInteraction('ai_usage', formData.email, { field: fieldName, count });
   };
 
-  // Validar formulario completo
+  // Enhanced form validation with security
   const validateForm = (data: FormData): { isValid: boolean; errors: string[] } => {
     const errors: string[] = [];
     
@@ -162,34 +175,51 @@ export const useFormHandler = () => {
     };
   };
 
-  // Nuevo: manejar el primer paso (nombre y email)
+  // Enhanced first step with security
   const handleFirstStep = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Rate limiting check
-    if (!checkRateLimit(formData.email, 5, 300000)) {
+    // Check if user is blocked
+    if (isBlocked) {
       toast({
-        title: "Demasiados intentos",
-        description: "Has realizado demasiados intentos. Espera 5 minutos antes de intentar nuevamente.",
+        title: "Acceso bloqueado",
+        description: blockReason,
         variant: "destructive",
       });
       return;
     }
     
-    const emailValidation = validateEmail(formData.email);
-    const marcaValidation = validateText(formData.marca, 'Marca', 100, true);
+    // Enhanced rate limiting
+    if (!enforceRateLimit(formData.email, 'email_submission')) {
+      return;
+    }
     
-    if (!emailValidation.isValid || !marcaValidation.isValid) {
+    // Enhanced validation with security
+    const securityResult = await validateAndSanitizeForm(
+      { marca: formData.marca, email: formData.email }, 
+      formData.email
+    );
+    
+    if (!securityResult.isValid) {
       toast({
         title: "Datos inválidos",
-        description: emailValidation.error || marcaValidation.error,
+        description: securityResult.errors?.[0] || "Error de validación",
         variant: "destructive",
       });
       return;
     }
 
-    // Guardar progreso inicial
+    // Use sanitized data
+    if (securityResult.sanitizedData) {
+      setFormData(prev => ({
+        ...prev,
+        ...securityResult.sanitizedData
+      }));
+    }
+
+    // Save progress
     await saveProgress(formData);
+    await logFormInteraction('first_step_completed', formData.email);
     
     setShowFullForm(true);
     
@@ -242,6 +272,7 @@ export const useFormHandler = () => {
     setNoWebsite(false);
     setNoInstagram(false);
     setShowFullForm(true);
+    logFormInteraction('example_data_loaded', 'sofia@flexitime.com');
   };
 
   const handlePurchase = () => {
@@ -263,25 +294,32 @@ export const useFormHandler = () => {
     });
   };
 
+  // Enhanced submit with security
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Rate limiting check
-    if (!checkRateLimit(formData.email, 3, 600000)) {
+    // Check if user is blocked
+    if (isBlocked) {
       toast({
-        title: "Demasiados intentos",
-        description: "Has realizado demasiados intentos de envío. Espera 10 minutos.",
+        title: "Acceso bloqueado",
+        description: blockReason,
         variant: "destructive",
       });
       return;
     }
     
-    // Validate complete form
-    const validation = validateForm(formData);
-    if (!validation.isValid) {
+    // Enhanced rate limiting for form completion
+    if (!enforceRateLimit(formData.email, 'form_completion')) {
+      return;
+    }
+    
+    // Enhanced validation with security
+    const securityResult = await validateAndSanitizeForm(formData, formData.email);
+    
+    if (!securityResult.isValid) {
       toast({
         title: "Formulario inválido",
-        description: validation.errors.join('. '),
+        description: securityResult.errors?.[0] || "Error de validación de seguridad",
         variant: "destructive",
       });
       return;
@@ -302,9 +340,12 @@ export const useFormHandler = () => {
     try {
       console.log('🔄 Iniciando proceso de generación de Super Prompt...');
       
-      const generatedPrompts = await generateSuperPrompt(formData);
+      // Use sanitized data for generation
+      const sanitizedFormData = securityResult.sanitizedData || formData;
+      
+      const generatedPrompts = await generateSuperPrompt(sanitizedFormData);
       const formDataWithPrompts = {
-        ...formData,
+        ...sanitizedFormData,
         generatedPrompts
       };
       
@@ -331,6 +372,7 @@ export const useFormHandler = () => {
       setFormData(formDataWithPrompts);
       
       await markAsCompleted(formDataWithPrompts);
+      await logFormInteraction('form_completed', formData.email, { emailsSent });
       
       setIsGenerating(false);
       
@@ -344,6 +386,10 @@ export const useFormHandler = () => {
     } catch (error) {
       console.error('💥 Error durante la generación del prompt:', error);
       setIsGenerating(false);
+      
+      await logFormInteraction('form_error', formData.email, { 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
       
       toast({
         title: "Super Prompt generado",
@@ -405,71 +451,19 @@ export const useFormHandler = () => {
     attemptCount,
     sessionId,
     showFullForm,
+    isBlocked,
+    blockReason,
     handleInputChange,
     handleAIUsageUpdate,
     handleFirstStep,
-    loadPreviousData: () => {
-      if (previousProgress) {
-        setFormData(previousProgress);
-        setNoWebsite(!previousProgress.website);
-        setNoInstagram(!previousProgress.instagram);
-        setShowProgressDialog(false);
-        
-        if (previousProgress.marca && previousProgress.email) {
-          setShowFullForm(true);
-        }
-        
-        toast({
-          title: "Progreso cargado",
-          description: "Hemos restaurado tu progreso anterior. Puedes continuar donde lo dejaste.",
-        });
-      }
-    },
-    startFresh: () => {
-      setShowProgressDialog(false);
-      setShowFullForm(false);
-      toast({
-        title: "Nuevo formulario",
-        description: "Comenzando un formulario nuevo desde cero.",
-      });
-    },
-    loadExampleData: () => {
-      setFormData({
-        marca: 'FlexiTime Academy',
-        email: 'sofia@flexitime.com',
-        whatsapp: '34612345678',
-        website: 'www.flexitimeacademy.com',
-        instagram: 'flexitime_academy',
-        quien_eres: 'Soy Sofía Hernández, consultora en productividad y gestión del tiempo con 8 años de experiencia ayudando a profesionales y emprendedores a maximizar su eficiencia. Me especializo en crear sistemas personalizados que permiten a mis clientes recuperar 2-3 horas diarias mientras mantienen el equilibrio vida-trabajo. He desarrollado metodologías propias basadas en neurociencia cognitiva y he formado a más de 800 profesionales en España y Latinoamérica.',
-        problemas: 'Trabajo con ejecutivos, emprendedores y freelancers que sienten que no tienen control sobre su tiempo. Están constantemente ocupados pero no avanzan en lo realmente importante. Sufren de procrastinación crónica, sobrecarga mental, dificultad para priorizar y agotamiento constante. Muchos trabajan más de 10 horas diarias pero no ven resultados proporcionales. Les ayudo a diseñar sistemas que les permiten ser más productivos en menos tiempo.',
-        preguntas_frecuentes: 'Me preguntan constantemente cómo es posible trabajar menos horas y ser más productivo, si realmente se puede eliminar la procrastinación, cómo mantener la motivación a largo plazo, y qué hacer cuando todo parece urgente. También quieren saber cuánto tiempo toma implementar un sistema de productividad efectivo y cómo adaptar las técnicas a su ritmo de vida específico.',
-        estilo: 'Profesional',
-        producto: 'Mi programa "FlexiTime Method", un sistema de 10 semanas que combina técnicas de gestión del tiempo, neurohábitos y automatización digital. Incluye 6 sesiones de coaching 1:1, acceso a mi plataforma digital con templates y herramientas, comunidad privada de alumni y seguimiento personalizado durante 3 meses adicionales. Está diseñado para profesionales que quieren resultados medibles y sostenibles en su productividad.'
-      });
-      setNoWebsite(false);
-      setNoInstagram(false);
-      setShowFullForm(true);
-    },
-    handlePurchase: () => {
-      console.log('🛒 Iniciando proceso de compra...');
-      
-      toast({
-        title: "¡Compra exitosa! 🎉",
-        description: "Ahora completa el formulario para generar tu Kit IA personalizado.",
-      });
-      
-      setShowPricing(false);
-    },
+    loadPreviousData,
+    startFresh,
+    loadExampleData,
+    handlePurchase,
     handleSubmit,
     resetForm,
     isFirstStepValid: isFirstStepValid(),
     isFormValid: isFormValid(),
-    onGenerateWebsite: () => {
-      console.log('🌐 Generando sitio web...');
-      toast({
-        title: "Sitio web en proceso",
-        description: "Tu sitio web se está generando y será enviado por email.",
-      });
-    }
+    onGenerateWebsite
   };
 };

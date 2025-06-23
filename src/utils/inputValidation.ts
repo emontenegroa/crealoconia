@@ -1,5 +1,12 @@
 
-// Input validation utilities for security
+// Input validation utilities for security with enhanced protection
+
+import { 
+  validateEmailSecurity, 
+  validateTextContentSecurity, 
+  sanitizeInput,
+  checkAdvancedRateLimit
+} from './securityValidation';
 
 export interface ValidationResult {
   isValid: boolean;
@@ -11,34 +18,37 @@ export const validateEmail = (email: string): ValidationResult => {
     return { isValid: false, error: 'El email es requerido' };
   }
   
-  const trimmedEmail = email.trim();
+  const securityValidation = validateEmailSecurity(email.trim());
   
-  if (trimmedEmail.length > 254) {
-    return { isValid: false, error: 'El email es demasiado largo' };
-  }
-  
-  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-  if (!emailRegex.test(trimmedEmail)) {
-    return { isValid: false, error: 'Formato de email inválido' };
+  if (!securityValidation.isValid) {
+    return { 
+      isValid: false, 
+      error: securityValidation.errors[0] || 'Email inválido'
+    };
   }
   
   return { isValid: true };
 };
 
-export const validateText = (text: string, fieldName: string, maxLength: number = 2000, required: boolean = true): ValidationResult => {
+export const validateText = (
+  text: string, 
+  fieldName: string, 
+  maxLength: number = 2000, 
+  required: boolean = true
+): ValidationResult => {
   if (required && (!text || text.trim() === '')) {
     return { isValid: false, error: `${fieldName} es requerido` };
   }
   
-  const trimmedText = text.trim();
+  if (!text) return { isValid: true };
   
-  if (trimmedText.length > maxLength) {
-    return { isValid: false, error: `${fieldName} no puede tener más de ${maxLength} caracteres` };
-  }
+  const securityValidation = validateTextContentSecurity(text, fieldName, maxLength);
   
-  // Basic XSS prevention - check for script tags
-  if (/<script|javascript:|data:/i.test(trimmedText)) {
-    return { isValid: false, error: `${fieldName} contiene contenido no permitido` };
+  if (!securityValidation.isValid) {
+    return { 
+      isValid: false, 
+      error: securityValidation.errors[0] || `${fieldName} contiene contenido no válido`
+    };
   }
   
   return { isValid: true };
@@ -49,7 +59,8 @@ export const validateWhatsApp = (whatsapp: string): ValidationResult => {
     return { isValid: false, error: 'El WhatsApp es requerido' };
   }
   
-  const cleanedPhone = whatsapp.replace(/\D/g, '');
+  const sanitized = sanitizeInput(whatsapp);
+  const cleanedPhone = sanitized.replace(/\D/g, '');
   
   if (cleanedPhone.length < 8 || cleanedPhone.length > 15) {
     return { isValid: false, error: 'Número de WhatsApp inválido' };
@@ -67,7 +78,15 @@ export const validateUrl = (url: string, fieldName: string, required: boolean = 
     return { isValid: false, error: `${fieldName} es requerido` };
   }
   
-  const trimmedUrl = url.trim();
+  const securityValidation = validateTextContentSecurity(url, fieldName, 2000);
+  if (!securityValidation.isValid) {
+    return { 
+      isValid: false, 
+      error: `${fieldName} contiene contenido no válido`
+    };
+  }
+  
+  const trimmedUrl = sanitizeInput(url);
   
   if (trimmedUrl.length > 2000) {
     return { isValid: false, error: `${fieldName} es demasiado largo` };
@@ -84,33 +103,16 @@ export const validateUrl = (url: string, fieldName: string, required: boolean = 
   }
 };
 
-export const sanitizeInput = (input: string): string => {
-  if (!input) return '';
-  
-  return input
-    .trim()
-    .replace(/[<>]/g, '') // Remove potential HTML tags
-    .replace(/javascript:/gi, '') // Remove javascript: protocol
-    .replace(/data:/gi, '') // Remove data: protocol
-    .substring(0, 2000); // Limit length
-};
+// Enhanced sanitization
+export { sanitizeInput };
 
-// Rate limiting helper (simple in-memory implementation)
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-
-export const checkRateLimit = (identifier: string, maxAttempts: number = 5, windowMs: number = 300000): boolean => {
-  const now = Date.now();
-  const existing = rateLimitMap.get(identifier);
-  
-  if (!existing || now > existing.resetTime) {
-    rateLimitMap.set(identifier, { count: 1, resetTime: now + windowMs });
-    return true;
-  }
-  
-  if (existing.count >= maxAttempts) {
-    return false;
-  }
-  
-  existing.count++;
-  return true;
+// Enhanced rate limiting
+export const checkRateLimit = (
+  identifier: string, 
+  maxAttempts: number = 5, 
+  windowMs: number = 300000
+): boolean => {
+  // Use the advanced rate limiting system
+  const result = checkAdvancedRateLimit(identifier, 'email_submission');
+  return result.allowed;
 };
