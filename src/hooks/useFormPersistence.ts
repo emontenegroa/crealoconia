@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
@@ -24,10 +25,7 @@ export const useFormPersistence = () => {
   const [aiUsage, setAiUsage] = useState<AIUsage>({});
   const [attemptCount, setAttemptCount] = useState(1);
 
-  // Emails con acceso ilimitado - Lista actualizada
-  const unlimitedEmails = ['esteban.montenegro@gmail.com', 'soyesteban.m@gmail.com'];
-
-  console.log('useFormPersistence loaded - unlimited emails:', unlimitedEmails);
+  console.log('useFormPersistence loaded');
 
   // Verificar el uso de IA para un campo específico
   const getAIUsageCount = async (fieldName: string): Promise<number> => {
@@ -95,6 +93,12 @@ export const useFormPersistence = () => {
   // Cargar progreso previo por email
   const loadPreviousProgress = async (email: string): Promise<FormData | null> => {
     try {
+      // Validate email format before querying
+      if (!isValidEmail(email)) {
+        console.error('Invalid email format');
+        return null;
+      }
+
       const { data, error } = await supabase
         .from('form_submissions')
         .select('*')
@@ -121,15 +125,15 @@ export const useFormPersistence = () => {
     }
   };
 
-  // Verificar límite de intentos por email - ACTUALIZADO
+  // Verificar límite de intentos por email
   const checkAttemptLimit = async (email: string): Promise<boolean> => {
     try {
       console.log('Checking attempt limit for email:', email);
       
-      // Verificar si el email tiene acceso ilimitado
-      if (unlimitedEmails.includes(email.toLowerCase())) {
-        console.log('Email has unlimited access:', email);
-        return true;
+      // Validate email format
+      if (!isValidEmail(email)) {
+        console.error('Invalid email format');
+        return false;
       }
 
       const { data, error } = await supabase
@@ -146,7 +150,7 @@ export const useFormPersistence = () => {
       const currentAttempts = data?.length || 0;
       console.log(`Email ${email} has ${currentAttempts} completed attempts. Limit is 10.`);
 
-      // Límite aumentado de 3 a 10 para emails regulares
+      // Límite de 10 para emails regulares
       return currentAttempts < 10;
     } catch (error) {
       console.error('Error in checkAttemptLimit:', error);
@@ -154,16 +158,19 @@ export const useFormPersistence = () => {
     }
   };
 
-  // Guardar progreso automáticamente - Cambio aquí para evitar el error de ON CONFLICT
+  // Guardar progreso automáticamente
   const saveProgress = async (formData: FormData): Promise<void> => {
-    if (!formData.email) return;
+    if (!formData.email || !isValidEmail(formData.email)) return;
 
     try {
+      // Sanitize form data before saving
+      const sanitizedData = sanitizeFormData(formData);
+
       // Primero intentamos obtener el registro existente
       const { data: existingData, error: selectError } = await supabase
         .from('form_submissions')
         .select('id')
-        .eq('email', formData.email)
+        .eq('email', sanitizedData.email)
         .eq('completed', false)
         .maybeSingle();
 
@@ -177,7 +184,7 @@ export const useFormPersistence = () => {
         const { error: updateError } = await supabase
           .from('form_submissions')
           .update({
-            form_data: formData as any,
+            form_data: sanitizedData as any,
             attempt_number: attemptCount,
             updated_at: new Date().toISOString(),
           })
@@ -191,8 +198,8 @@ export const useFormPersistence = () => {
         const { error: insertError } = await supabase
           .from('form_submissions')
           .insert({
-            email: formData.email,
-            form_data: formData as any,
+            email: sanitizedData.email,
+            form_data: sanitizedData as any,
             attempt_number: attemptCount,
             completed: false,
           });
@@ -208,14 +215,16 @@ export const useFormPersistence = () => {
 
   // Marcar como completado
   const markAsCompleted = async (formData: FormData): Promise<void> => {
-    if (!formData.email) return;
+    if (!formData.email || !isValidEmail(formData.email)) return;
 
     try {
+      const sanitizedData = sanitizeFormData(formData);
+
       const { error } = await supabase
         .from('form_submissions')
         .insert({
-          email: formData.email,
-          form_data: formData as any,
+          email: sanitizedData.email,
+          form_data: sanitizedData as any,
           attempt_number: attemptCount,
           completed: true,
         });
@@ -239,4 +248,49 @@ export const useFormPersistence = () => {
     saveProgress,
     markAsCompleted,
   };
+};
+
+// Helper function to validate email format
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  return emailRegex.test(email) && email.length <= 254;
+};
+
+// Helper function to sanitize form data
+const sanitizeFormData = (formData: FormData): FormData => {
+  const sanitized = { ...formData };
+  
+  // Trim whitespace and limit lengths
+  Object.keys(sanitized).forEach(key => {
+    if (typeof sanitized[key as keyof FormData] === 'string') {
+      const value = sanitized[key as keyof FormData] as string;
+      sanitized[key as keyof FormData] = value.trim().substring(0, getMaxLength(key)) as any;
+    }
+  });
+
+  return sanitized;
+};
+
+// Define maximum lengths for different fields
+const getMaxLength = (fieldName: string): number => {
+  switch (fieldName) {
+    case 'email':
+      return 254;
+    case 'marca':
+      return 100;
+    case 'whatsapp':
+      return 20;
+    case 'website':
+    case 'instagram':
+      return 100;
+    case 'quien_eres':
+    case 'problemas':
+    case 'preguntas_frecuentes':
+    case 'producto':
+      return 2000;
+    case 'estilo':
+      return 50;
+    default:
+      return 500;
+  }
 };

@@ -4,6 +4,7 @@ import { useFormPersistence } from '@/hooks/useFormPersistence';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
 import { usePromptGeneration } from '@/hooks/usePromptGeneration';
 import { useNavigate } from 'react-router-dom';
+import { validateEmail, validateText, validateWhatsApp, validateUrl, checkRateLimit, sanitizeInput } from '@/utils/inputValidation';
 
 export interface FormData {
   marca: string;
@@ -45,7 +46,7 @@ export const useFormHandler = () => {
   const [noInstagram, setNoInstagram] = useState(false);
   const [showProgressDialog, setShowProgressDialog] = useState(false);
   const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
-  const [showFullForm, setShowFullForm] = useState(false); // Nuevo estado para controlar qué mostrar
+  const [showFullForm, setShowFullForm] = useState(false);
 
   const {
     sessionId,
@@ -63,6 +64,9 @@ export const useFormHandler = () => {
   useEffect(() => {
     const checkPreviousProgress = async () => {
       if (formData.email && formData.email.includes('@') && !showProgressDialog) {
+        const emailValidation = validateEmail(formData.email);
+        if (!emailValidation.isValid) return;
+        
         const progress = await loadPreviousProgress(formData.email);
         if (progress && Object.values(progress).some(value => value.trim() !== '')) {
           setPreviousProgress(progress);
@@ -87,9 +91,12 @@ export const useFormHandler = () => {
   }, [formData]);
 
   const handleInputChange = (name: string, value: string) => {
+    // Sanitize input before setting
+    const sanitizedValue = sanitizeInput(value);
+    
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: sanitizedValue
     }));
   };
 
@@ -97,14 +104,85 @@ export const useFormHandler = () => {
     console.log(`Campo ${fieldName} ha usado IA ${count} veces`);
   };
 
+  // Validar formulario completo
+  const validateForm = (data: FormData): { isValid: boolean; errors: string[] } => {
+    const errors: string[] = [];
+    
+    // Validar email
+    const emailValidation = validateEmail(data.email);
+    if (!emailValidation.isValid) {
+      errors.push(emailValidation.error!);
+    }
+    
+    // Validar campos de texto requeridos
+    const textFields = [
+      { field: data.marca, name: 'Marca', maxLength: 100 },
+      { field: data.quien_eres, name: 'Quién eres', maxLength: 2000 },
+      { field: data.problemas, name: 'Problemas', maxLength: 2000 },
+      { field: data.preguntas_frecuentes, name: 'Preguntas frecuentes', maxLength: 2000 },
+      { field: data.producto, name: 'Producto', maxLength: 2000 }
+    ];
+    
+    textFields.forEach(({ field, name, maxLength }) => {
+      const validation = validateText(field, name, maxLength, true);
+      if (!validation.isValid) {
+        errors.push(validation.error!);
+      }
+    });
+    
+    // Validar WhatsApp
+    const whatsappValidation = validateWhatsApp(data.whatsapp);
+    if (!whatsappValidation.isValid) {
+      errors.push(whatsappValidation.error!);
+    }
+    
+    // Validar URLs opcionales
+    if (!noWebsite && data.website) {
+      const websiteValidation = validateUrl(data.website, 'Website');
+      if (!websiteValidation.isValid) {
+        errors.push(websiteValidation.error!);
+      }
+    }
+    
+    if (!noInstagram && data.instagram) {
+      const instagramValidation = validateUrl(data.instagram, 'Instagram');
+      if (!instagramValidation.isValid) {
+        errors.push(instagramValidation.error!);
+      }
+    }
+    
+    // Validar estilo
+    if (!data.estilo || data.estilo.trim() === '') {
+      errors.push('El estilo es requerido');
+    }
+    
+    return {
+      isValid: errors.length === 0,
+      errors
+    };
+  };
+
   // Nuevo: manejar el primer paso (nombre y email)
   const handleFirstStep = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.marca.trim() || !formData.email.trim()) {
+    // Rate limiting check
+    if (!checkRateLimit(formData.email, 5, 300000)) {
       toast({
-        title: "Campos requeridos",
-        description: "Por favor completa tu nombre/marca y email para continuar.",
+        title: "Demasiados intentos",
+        description: "Has realizado demasiados intentos. Espera 5 minutos antes de intentar nuevamente.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    const emailValidation = validateEmail(formData.email);
+    const marcaValidation = validateText(formData.marca, 'Marca', 100, true);
+    
+    if (!emailValidation.isValid || !marcaValidation.isValid) {
+      toast({
+        title: "Datos inválidos",
+        description: emailValidation.error || marcaValidation.error,
         variant: "destructive",
       });
       return;
@@ -128,7 +206,6 @@ export const useFormHandler = () => {
       setNoInstagram(!previousProgress.instagram);
       setShowProgressDialog(false);
       
-      // Si ya tiene datos completos, mostrar formulario completo
       if (previousProgress.marca && previousProgress.email) {
         setShowFullForm(true);
       }
@@ -189,11 +266,32 @@ export const useFormHandler = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Rate limiting check
+    if (!checkRateLimit(formData.email, 3, 600000)) {
+      toast({
+        title: "Demasiados intentos",
+        description: "Has realizado demasiados intentos de envío. Espera 10 minutos.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Validate complete form
+    const validation = validateForm(formData);
+    if (!validation.isValid) {
+      toast({
+        title: "Formulario inválido",
+        description: validation.errors.join('. '),
+        variant: "destructive",
+      });
+      return;
+    }
+    
     const canProceed = await checkAttemptLimit(formData.email);
     if (!canProceed) {
       toast({
         title: "Límite alcanzado",
-        description: "Has completado el formulario 3 veces con este email. Usa otro email si necesitas generar más kits.",
+        description: "Has completado el formulario 10 veces con este email. Usa otro email si necesitas generar más kits.",
         variant: "destructive",
       });
       return;
@@ -277,19 +375,19 @@ export const useFormHandler = () => {
   };
 
   // Validación para el primer paso
-  const isFirstStepValid = formData.marca.trim() !== '' && formData.email.trim() !== '';
+  const isFirstStepValid = () => {
+    const emailValidation = validateEmail(formData.email);
+    const marcaValidation = validateText(formData.marca, 'Marca', 100, true);
+    return emailValidation.isValid && marcaValidation.isValid;
+  };
 
   // Validación para el formulario completo
-  const isFormValid = formData.marca.trim() !== '' && 
-                     formData.quien_eres.trim() !== '' && 
-                     formData.problemas.trim() !== '' && 
-                     formData.preguntas_frecuentes.trim() !== '' && 
-                     formData.estilo !== '' && 
-                     formData.producto.trim() !== '' &&
-                     formData.email.trim() !== '' &&
-                     formData.whatsapp.trim() !== '' &&
-                     (noWebsite || formData.website.trim() !== '') &&
-                     (noInstagram || formData.instagram.trim() !== '');
+  const isFormValid = () => {
+    const validation = validateForm(formData);
+    return validation.isValid && 
+           (noWebsite || formData.website.trim() !== '') &&
+           (noInstagram || formData.instagram.trim() !== '');
+  };
 
   return {
     formData,
@@ -306,18 +404,72 @@ export const useFormHandler = () => {
     previousProgress,
     attemptCount,
     sessionId,
-    showFullForm, // Nuevo estado
+    showFullForm,
     handleInputChange,
     handleAIUsageUpdate,
-    handleFirstStep, // Nueva función
-    loadPreviousData,
-    startFresh,
-    loadExampleData,
-    handlePurchase,
+    handleFirstStep,
+    loadPreviousData: () => {
+      if (previousProgress) {
+        setFormData(previousProgress);
+        setNoWebsite(!previousProgress.website);
+        setNoInstagram(!previousProgress.instagram);
+        setShowProgressDialog(false);
+        
+        if (previousProgress.marca && previousProgress.email) {
+          setShowFullForm(true);
+        }
+        
+        toast({
+          title: "Progreso cargado",
+          description: "Hemos restaurado tu progreso anterior. Puedes continuar donde lo dejaste.",
+        });
+      }
+    },
+    startFresh: () => {
+      setShowProgressDialog(false);
+      setShowFullForm(false);
+      toast({
+        title: "Nuevo formulario",
+        description: "Comenzando un formulario nuevo desde cero.",
+      });
+    },
+    loadExampleData: () => {
+      setFormData({
+        marca: 'FlexiTime Academy',
+        email: 'sofia@flexitime.com',
+        whatsapp: '34612345678',
+        website: 'www.flexitimeacademy.com',
+        instagram: 'flexitime_academy',
+        quien_eres: 'Soy Sofía Hernández, consultora en productividad y gestión del tiempo con 8 años de experiencia ayudando a profesionales y emprendedores a maximizar su eficiencia. Me especializo en crear sistemas personalizados que permiten a mis clientes recuperar 2-3 horas diarias mientras mantienen el equilibrio vida-trabajo. He desarrollado metodologías propias basadas en neurociencia cognitiva y he formado a más de 800 profesionales en España y Latinoamérica.',
+        problemas: 'Trabajo con ejecutivos, emprendedores y freelancers que sienten que no tienen control sobre su tiempo. Están constantemente ocupados pero no avanzan en lo realmente importante. Sufren de procrastinación crónica, sobrecarga mental, dificultad para priorizar y agotamiento constante. Muchos trabajan más de 10 horas diarias pero no ven resultados proporcionales. Les ayudo a diseñar sistemas que les permiten ser más productivos en menos tiempo.',
+        preguntas_frecuentes: 'Me preguntan constantemente cómo es posible trabajar menos horas y ser más productivo, si realmente se puede eliminar la procrastinación, cómo mantener la motivación a largo plazo, y qué hacer cuando todo parece urgente. También quieren saber cuánto tiempo toma implementar un sistema de productividad efectivo y cómo adaptar las técnicas a su ritmo de vida específico.',
+        estilo: 'Profesional',
+        producto: 'Mi programa "FlexiTime Method", un sistema de 10 semanas que combina técnicas de gestión del tiempo, neurohábitos y automatización digital. Incluye 6 sesiones de coaching 1:1, acceso a mi plataforma digital con templates y herramientas, comunidad privada de alumni y seguimiento personalizado durante 3 meses adicionales. Está diseñado para profesionales que quieren resultados medibles y sostenibles en su productividad.'
+      });
+      setNoWebsite(false);
+      setNoInstagram(false);
+      setShowFullForm(true);
+    },
+    handlePurchase: () => {
+      console.log('🛒 Iniciando proceso de compra...');
+      
+      toast({
+        title: "¡Compra exitosa! 🎉",
+        description: "Ahora completa el formulario para generar tu Kit IA personalizado.",
+      });
+      
+      setShowPricing(false);
+    },
     handleSubmit,
     resetForm,
-    isFirstStepValid, // Nueva validación
-    isFormValid,
-    onGenerateWebsite
+    isFirstStepValid: isFirstStepValid(),
+    isFormValid: isFormValid(),
+    onGenerateWebsite: () => {
+      console.log('🌐 Generando sitio web...');
+      toast({
+        title: "Sitio web en proceso",
+        description: "Tu sitio web se está generando y será enviado por email.",
+      });
+    }
   };
 };
