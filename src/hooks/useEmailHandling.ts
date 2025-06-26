@@ -53,7 +53,7 @@ export const useEmailHandling = () => {
       const { data, error } = await supabase.functions.invoke('send-email', {
         body: {
           type: 'admin',
-          email: 'esteban.montenegro@gmail.com',
+          email: 'esteban@crealoconia.com',
           data: formData
         }
       });

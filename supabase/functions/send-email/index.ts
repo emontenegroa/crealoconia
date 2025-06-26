@@ -37,7 +37,7 @@ const handler = async (req: Request): Promise<Response> => {
       emailPayload = {
         sender: {
           name: "Kit IA - Crealoconia",
-          email: "esteban.montenegro@gmail.com"
+          email: "esteban@crealoconia.com"
         },
         to: [{ email: email, name: "Usuario de Prueba" }],
         subject: `🧪 Sistema de Email Funcionando - Kit IA`,
@@ -86,11 +86,11 @@ const handler = async (req: Request): Promise<Response> => {
       emailPayload = {
         sender: {
           name: "Kit IA - Crealoconia",
-          email: "esteban.montenegro@gmail.com"
+          email: "esteban@crealoconia.com"
         },
         to: [
           {
-            email: "esteban.montenegro@gmail.com",
+            email: "esteban@crealoconia.com",
             name: "Esteban Montenegro"
           }
         ],
@@ -164,7 +164,7 @@ const handler = async (req: Request): Promise<Response> => {
       emailPayload = {
         sender: {
           name: "Kit IA - Crealoconia",
-          email: "esteban.montenegro@gmail.com"
+          email: "esteban@crealoconia.com"
         },
         to: [
           {
