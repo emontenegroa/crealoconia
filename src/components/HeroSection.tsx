@@ -1,31 +1,23 @@
-
 import React from 'react';
 import TypewriterText from './TypewriterText';
-
 interface HeroSectionProps {
   onLoadExample: () => void;
 }
-
-const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
-  return (
-    <div className="text-center mb-16">
+const HeroSection = ({
+  onLoadExample
+}: HeroSectionProps) => {
+  return <div className="text-center mb-16">
       {/* Header con logo y navegación */}
       <div className="flex items-center justify-between mb-12 px-4">
         <div className="flex items-center">
-          <img 
-            src="/lovable-uploads/d5a1d369-f067-4b34-8454-e4ea330bfa99.png" 
-            alt="Crealo con IA" 
-            className="w-16 h-16 object-contain hover:scale-105 transition-transform duration-300"
-          />
+          <img src="/lovable-uploads/d5a1d369-f067-4b34-8454-e4ea330bfa99.png" alt="Crealo con IA" className="w-16 h-16 object-contain hover:scale-105 transition-transform duration-300" />
           <div className="ml-3 text-left">
-            <h2 className="text-lg font-bold text-gray-900 leading-tight">Créalo con IA</h2>
-            <p className="text-sm text-gray-600">Web profesional en minutos</p>
+            
+            
           </div>
         </div>
         <div className="hidden md:block">
-          <span className="text-sm text-gray-500 bg-gray-50 px-3 py-1 rounded-full">
-            ✨ 100% Gratis
-          </span>
+          
         </div>
       </div>
 
@@ -47,8 +39,6 @@ const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
           </p>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default HeroSection;
