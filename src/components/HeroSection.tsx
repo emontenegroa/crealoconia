@@ -9,16 +9,17 @@ interface HeroSectionProps {
 const HeroSection = ({ onLoadExample }: HeroSectionProps) => {
   return (
     <div className="text-center mb-16 relative">
-      {/* Logo sutil en la esquina superior derecha */}
-      <div className="absolute top-0 right-0 opacity-30 hover:opacity-60 transition-opacity duration-300">
+      {/* Logo prominente en la esquina superior izquierda */}
+      <div className="absolute top-0 left-0 mb-8">
         <img 
           src="/lovable-uploads/d5a1d369-f067-4b34-8454-e4ea330bfa99.png" 
           alt="Crealo con IA" 
-          className="w-20 h-20 object-contain"
+          className="w-32 h-32 object-contain hover:scale-105 transition-transform duration-300"
         />
       </div>
 
-      <div className="mb-12">
+      {/* Añadir espacio superior para el logo */}
+      <div className="pt-20 mb-12">
         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
           Crea tu web profesional<br />
           en minutos para
