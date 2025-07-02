@@ -11,7 +11,7 @@ const HowItWorks = () => {
             </div>
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 mb-3 text-xl">Completa el formulario</h3>
+            <h3 className="font-bold text-gray-900 mb-3 text-xl mt-4">Completa el formulario</h3>
             <p className="text-gray-700 text-lg leading-relaxed">Respondes 10 preguntas simples sobre tu negocio, tus servicios y la presencia digital que quieres construir. Con esta información recopilamos los datos clave para generar el contenido alineado a lo que realmente ofreces.</p>
           </div>
         </div>
