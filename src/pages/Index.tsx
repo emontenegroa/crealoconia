@@ -8,6 +8,7 @@ import ProgressDialog from '@/components/ProgressDialog';
 import InitialForm from '@/components/InitialForm';
 import MainForm from '@/components/MainForm';
 import HowItWorksToggle from '@/components/HowItWorksToggle';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import FAQ from '@/components/FAQ';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { useFormHandler } from '@/hooks/useFormHandler';
@@ -92,6 +93,8 @@ const Index = () => {
             onBackToInitial={handleBackToInitial}
           />
         )}
+
+        <TestimonialsSection />
 
         <FAQ />
       </div>

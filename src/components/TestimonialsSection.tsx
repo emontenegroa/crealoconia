@@ -1,0 +1,98 @@
+import React from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Star } from 'lucide-react';
+
+const TestimonialsSection = () => {
+  const testimonials = [
+    {
+      name: "Marina",
+      role: "Fundadora de La Polilla Azucarada",
+      image: "/lovable-uploads/93c8a549-ec10-441c-933e-65e5b4a91fac.png",
+      quote: "Probé el Kit IA y la mentoría de Esteban, y sinceramente… fue un antes y un después. Llevaba mucho tiempo (y plata) tratando de tener una página que fuera bonita y que realmente reflejara lo que soy. Pero solo me llevé frustraciones, tiempo perdido y desilusiones. Con este sistema, en pocos días obtuve una web que me representa de verdad, y sin enredos. Rápido, confiable y con resultados que me emocionaron. Gracias Esteban, tu mentoría vale totalmente la pena. 💛",
+      result: "Web que la representa de verdad en pocos días"
+    },
+    {
+      name: "Cami",
+      role: "Fundadora de Hampi.cl",
+      image: "/lovable-uploads/93c8a549-ec10-441c-933e-65e5b4a91fac.png",
+      quote: "He vivido procesos muy engorrosos, me pedían mucha información que se copiaba y pegaba tal cual, sin dinamismo o gráficas atractivas, lo que siento que hacía las páginas poco atractivas. Y nunca enganché bien con las plataformas de correos institucionales. Me encanta que esta opción me permita usar mi cuenta de google con la que ya estoy familiarizada, que le agregaron mucho dinamismo a la info que entregué y qué decir de lo rápido del proceso también 🤩 quedé muy impresionada de ver todo lo que construyeron con solo responder 10 preguntas 👏🏻👏🏻👏🏻",
+      result: "Optimizó su flujo de inscripciones con claridad"
+    },
+    {
+      name: "Rocío Sánchez",
+      role: "soyrociosanchez.com",
+      image: "/lovable-uploads/93c8a549-ec10-441c-933e-65e5b4a91fac.png",
+      quote: "En muy poco tiempo creé un quiz con IA y el resultado fue espectacular. Era parte de un lead magnet, y no solo fue rápido y simple, sino que sentí total acompañamiento. Esteban no solo entrega tecnología, te mentorea con claridad y generosidad. La experiencia fue fluida y transformadora.",
+      result: "Quiz con IA espectacular como lead magnet"
+    },
+    {
+      name: "Marketéate Lab",
+      role: "Agencia de Marketing 360",
+      image: "/lovable-uploads/93c8a549-ec10-441c-933e-65e5b4a91fac.png",
+      quote: "En pocos días teníamos una web de alto nivel, moderna, funcional y con todo lo que necesitábamos para operar como agencia. Integración con formulario de contacto, newsletter, chat en vivo e inteligencia artificial. La experiencia con Crealoconia fue rápida, profesional y realmente nos sorprendió.",
+      result: "Web moderna y funcional con IA integrada"
+    }
+  ];
+
+  return (
+    <div className="max-w-6xl mx-auto mb-16 px-4">
+      {/* Header */}
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Historias de Transformación Real
+        </h2>
+        <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+          Estos son algunos de los emprendedores que han transformado su presencia digital 
+          y multiplicado sus resultados con nuestra metodología única.
+        </p>
+      </div>
+
+      {/* Testimonials Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {testimonials.map((testimonial, index) => (
+          <Card key={index} className="hover:shadow-lg transition-shadow duration-300 border-gray-200">
+            <CardContent className="p-6">
+              {/* Rating Stars */}
+              <div className="flex gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+
+              {/* Quote */}
+              <blockquote className="text-gray-700 mb-6 leading-relaxed">
+                "{testimonial.quote}"
+              </blockquote>
+
+              {/* Result highlight */}
+              <div className="bg-blue-50 border-l-4 border-blue-500 p-3 mb-6">
+                <div className="flex items-start gap-2">
+                  <span className="text-blue-500 font-semibold">🎯</span>
+                  <div>
+                    <p className="text-sm text-gray-600 font-medium">Resultado:</p>
+                    <p className="text-blue-700 font-semibold">{testimonial.result}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Author */}
+              <div className="flex items-center gap-4">
+                <img 
+                  src={testimonial.image} 
+                  alt={testimonial.name}
+                  className="w-12 h-12 rounded-full object-cover border-2 border-gray-200"
+                />
+                <div>
+                  <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                  <p className="text-sm text-gray-600">{testimonial.role}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default TestimonialsSection;
