@@ -137,7 +137,7 @@ export const useFormPersistence = () => {
       }
 
       // Admin email sin límites para pruebas
-      if (email === 'esteban.m@gmail.com') {
+      if (email === 'soyesteban.m@gmail.com') {
         console.log('Admin email detected, no limits applied');
         return true;
       }
