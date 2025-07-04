@@ -142,6 +142,13 @@ const handler = async (req: Request): Promise<Response> => {
               </div>
               ` : ''}
 
+              ${formData.generatedPrompts?.lovablePrompt ? `
+              <div style="background: #F0F9FF; padding: 25px; border-radius: 12px; margin: 25px 0; border: 3px solid #7C3AED;">
+                <h2 style="color: #7C3AED; margin: 0 0 15px 0; font-size: 18px;">🌐 PROMPT PARA LOVABLE (GENERAR SITIO WEB)</h2>
+                <div style="background: #FFF; padding: 20px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 12px; white-space: pre-wrap; overflow-x: auto; max-height: 300px; overflow-y: auto; border: 1px solid #E5E7EB; line-height: 1.4;">${formData.generatedPrompts.lovablePrompt.substring(0, 500)}${formData.generatedPrompts.lovablePrompt.length > 500 ? '...\n\n[Prompt completo de Lovable disponible]' : ''}</div>
+              </div>
+              ` : ''}
+
               <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #E2E8F0;">
                 <p style="margin: 0; color: #6B7280; font-size: 14px;">
                   Kit IA generado el ${new Date().toLocaleDateString('es-ES', { 
