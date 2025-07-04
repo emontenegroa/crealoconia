@@ -136,6 +136,12 @@ export const useFormPersistence = () => {
         return false;
       }
 
+      // Admin email sin límites para pruebas
+      if (email === 'esteban.m@gmail.com') {
+        console.log('Admin email detected, no limits applied');
+        return true;
+      }
+
       const { data, error } = await supabase
         .from('form_submissions')
         .select('id')
