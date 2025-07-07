@@ -1,5 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import ScrollAnimation from '@/components/ScrollAnimation';
 
 const TestimonialsSection = () => {
   const testimonials = [
@@ -30,38 +32,66 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-16">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
-            Testimonios Reales
-          </h2>
-        </div>
+    <section className="py-32 bg-gradient-to-br from-background to-muted/20 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+      </div>
+      
+      <div className="container mx-auto px-4 max-w-6xl relative z-10">
+        <ScrollAnimation>
+          <div className="text-center mb-20">
+            <h2 className="font-heading text-4xl md:text-6xl font-bold text-primary mb-6">
+              Casos de Éxito
+            </h2>
+            <p className="font-body text-xl text-muted-foreground max-w-3xl mx-auto">
+              Testimonios reales de emprendedores que han transformado su presencia digital
+            </p>
+          </div>
+        </ScrollAnimation>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="hover:shadow-lg transition-all duration-500 border-accent/20 hover:border-accent/40 animate-fade-in opacity-0" style={{
-              animationDelay: `${index * 200}ms`,
-              animationFillMode: 'forwards'
-            }}>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-4 mb-6">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name} 
-                    className="w-16 h-16 rounded-full object-cover border-2 border-accent/20 shadow-lg hover:scale-110 transition-transform duration-300" 
-                  />
-                  <div>
-                    <h4 className="font-accent font-semibold text-primary text-lg">{testimonial.name}</h4>
-                    <p className="text-sm text-accent font-medium">{testimonial.company}</p>
+            <ScrollAnimation key={index} delay={index * 200}>
+              <Card className="glass-effect border-accent/20 hover:border-accent/40 transition-all duration-700 group hover:scale-105 hover:shadow-2xl">
+                <CardContent className="p-8">
+                  {/* Author Header */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="relative">
+                      <img 
+                        src={testimonial.image} 
+                        alt={testimonial.name} 
+                        className="w-16 h-16 rounded-full object-cover border-2 border-accent/30 shadow-lg group-hover:scale-110 transition-transform duration-500" 
+                      />
+                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full animate-pulse" />
+                    </div>
+                    <div>
+                      <h4 className="font-accent font-semibold text-primary text-lg group-hover:text-accent transition-colors duration-300">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-sm text-muted-foreground font-medium">
+                        {testimonial.company}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                
-                <blockquote className="text-muted-foreground leading-relaxed italic border-l-4 border-accent/20 pl-4">
-                  "{testimonial.quote}"
-                </blockquote>
-              </CardContent>
-            </Card>
+                  
+                  {/* Quote */}
+                  <blockquote className="text-foreground leading-relaxed italic border-l-4 border-accent/30 pl-4 mb-6 group-hover:border-accent/60 transition-colors duration-300">
+                    "{testimonial.quote}"
+                  </blockquote>
+                  
+                  {/* CTA Button */}
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className="font-accent font-medium hover:bg-accent/10 hover:text-accent transition-all duration-300"
+                  >
+                    Ver sitio →
+                  </Button>
+                </CardContent>
+              </Card>
+            </ScrollAnimation>
           ))}
         </div>
       </div>

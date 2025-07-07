@@ -1,49 +1,67 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import ScrollAnimation from '@/components/ScrollAnimation';
 
 const AboutSection = () => {
   return (
-    <section className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary">
-              ¿Qué es Crealoconia?
-            </h2>
-            <p className="font-body text-lg text-muted-foreground leading-relaxed">
-              Crealoconia no es una agencia común. Es una experiencia de digitalización 
-              inteligente y acompañada. Usamos inteligencia artificial para transformar 
-              tu mensaje en productos digitales reales, funcionales y profesionales.
-            </p>
-          </div>
+    <section className="py-32 bg-gradient-to-br from-muted/20 to-background relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl" />
+      </div>
+      
+      <div className="container mx-auto px-4 max-w-6xl relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <ScrollAnimation delay={200}>
+            <div className="space-y-8">
+              <h2 className="font-heading text-4xl md:text-6xl font-bold text-primary">
+                ¿Qué es Crealoconia?
+              </h2>
+              <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
+                <p className="font-body">
+                  Crealoconia no es una agencia común. Es una experiencia de digitalización 
+                  inteligente y acompañada.
+                </p>
+                <p className="font-body">
+                  Usamos inteligencia artificial y mentoría estratégica para transformar 
+                  lo que haces en productos digitales reales, funcionales y profesionales.
+                </p>
+                <p className="font-body font-semibold text-primary">
+                  Aquí no partimos desde una plantilla. Partimos desde lo que tú sabes y haces.
+                </p>
+              </div>
+            </div>
+          </ScrollAnimation>
           
-          <div className="relative">
-            {/* Abstract Network Visual */}
-            <Card className="p-8 bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20">
-              <CardContent className="p-0">
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="h-20 bg-accent/20 rounded-lg flex items-center justify-center">
-                    <div className="w-3 h-3 bg-accent rounded-full" />
+          <ScrollAnimation delay={400}>
+            <div className="relative">
+              {/* Interactive Visual */}
+              <Card className="p-8 glass-effect border-accent/30 hover:border-accent/50 transition-all duration-500 group">
+                <CardContent className="p-0">
+                  <div className="grid grid-cols-3 gap-4">
+                    {[...Array(9)].map((_, i) => (
+                      <div 
+                        key={i}
+                        className={`h-20 rounded-xl flex items-center justify-center transition-all duration-700 hover:scale-110 cursor-pointer ${
+                          i % 3 === 0 ? 'bg-accent/20 hover:bg-accent/40' : 
+                          i % 3 === 1 ? 'bg-primary/20 hover:bg-primary/40' : 
+                          'bg-muted hover:bg-muted/80'
+                        }`}
+                        style={{ animationDelay: `${i * 100}ms` }}
+                      >
+                        <div className={`w-3 h-3 rounded-full ${
+                          i % 3 === 0 ? 'bg-accent' : 
+                          i % 3 === 1 ? 'bg-primary' : 
+                          'bg-muted-foreground'
+                        } group-hover:scale-150 transition-transform duration-300`} />
+                      </div>
+                    ))}
                   </div>
-                  <div className="h-20 bg-primary/20 rounded-lg flex items-center justify-center">
-                    <div className="w-3 h-3 bg-primary rounded-full" />
-                  </div>
-                  <div className="h-20 bg-accent/20 rounded-lg flex items-center justify-center">
-                    <div className="w-3 h-3 bg-accent rounded-full" />
-                  </div>
-                  <div className="h-20 bg-primary/20 rounded-lg flex items-center justify-center">
-                    <div className="w-3 h-3 bg-primary rounded-full" />
-                  </div>
-                  <div className="h-20 bg-accent/30 rounded-lg flex items-center justify-center">
-                    <div className="w-4 h-4 bg-accent rounded-full" />
-                  </div>
-                  <div className="h-20 bg-primary/20 rounded-lg flex items-center justify-center">
-                    <div className="w-3 h-3 bg-primary rounded-full" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                </CardContent>
+              </Card>
+            </div>
+          </ScrollAnimation>
         </div>
       </div>
     </section>
