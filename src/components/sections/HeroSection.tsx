@@ -44,7 +44,7 @@ const HeroSection = () => {
           
           <p className="font-body text-xl md:text-2xl lg:text-3xl text-muted-foreground max-w-5xl mx-auto mb-12 leading-relaxed animate-slide-up" style={{
           animationDelay: '0.3s'
-        }}>Potencia tu marca digital con inteligencia artificial. Creamos sitios web, landing pages y MVPs estratégicos para vender, postular a fondos como CORFO o dar forma a tus ideas. Con visión, tecnología y acompañamiento experto.</p>
+        }}>Potencia tu marca digital con inteligencia artificial. </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-scale-in" style={{
           animationDelay: '0.6s'

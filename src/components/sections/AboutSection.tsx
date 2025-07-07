@@ -1,10 +1,8 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import ScrollAnimation from '@/components/ScrollAnimation';
-
 const AboutSection = () => {
-  return (
-    <section className="py-32 bg-gradient-to-br from-muted/20 to-background relative overflow-hidden">
+  return <section className="py-32 bg-gradient-to-br from-muted/20 to-background relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl" />
@@ -19,14 +17,8 @@ const AboutSection = () => {
                 ¿Cómo te ayudo?
               </h2>
               <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
-                <p className="font-body">
-                  Uso inteligencia artificial para entender tus problemas, escucharte, 
-                  aconsejarte y crear soluciones digitales reales.
-                </p>
-                <p className="font-body">
-                  Te acompaño en todo: desde crear tu web o landing, hasta mentorías estratégicas,
-                  optimización, ventas y presentación. Todo lo necesario para tu presencia digital.
-                </p>
+                <p className="font-body">Me he especializado en Inteligencia Artificial, y eso me ha dado las herramientas técnicas para potenciar mi experiencia acompañando personas. Hoy puedo entender tus desafíos, escucharte con claridad, darte orientación estratégica y ayudarte a transformar tus ideas en soluciones digitales reales.</p>
+                <p className="font-body">Te acompaño en todo el proceso: desde crear tu página web o landing, hasta mentorías estratégicas, optimización de procesos, ventas y presentación. Todo lo necesario para que tengas una presencia digital clara, profesional y alineada con tus objetivos.</p>
                 <p className="font-body font-semibold text-primary">
                   No trabajo con plantillas. Trabajo contigo y con lo que realmente necesitas.
                 </p>
@@ -40,23 +32,11 @@ const AboutSection = () => {
               <Card className="p-8 glass-effect border-accent/30 hover:border-accent/50 transition-all duration-500 group">
                 <CardContent className="p-0">
                   <div className="grid grid-cols-3 gap-4">
-                    {[...Array(9)].map((_, i) => (
-                      <div 
-                        key={i}
-                        className={`h-20 rounded-xl flex items-center justify-center transition-all duration-700 hover:scale-110 cursor-pointer ${
-                          i % 3 === 0 ? 'bg-accent/20 hover:bg-accent/40' : 
-                          i % 3 === 1 ? 'bg-primary/20 hover:bg-primary/40' : 
-                          'bg-muted hover:bg-muted/80'
-                        }`}
-                        style={{ animationDelay: `${i * 100}ms` }}
-                      >
-                        <div className={`w-3 h-3 rounded-full ${
-                          i % 3 === 0 ? 'bg-accent' : 
-                          i % 3 === 1 ? 'bg-primary' : 
-                          'bg-muted-foreground'
-                        } group-hover:scale-150 transition-transform duration-300`} />
-                      </div>
-                    ))}
+                    {[...Array(9)].map((_, i) => <div key={i} className={`h-20 rounded-xl flex items-center justify-center transition-all duration-700 hover:scale-110 cursor-pointer ${i % 3 === 0 ? 'bg-accent/20 hover:bg-accent/40' : i % 3 === 1 ? 'bg-primary/20 hover:bg-primary/40' : 'bg-muted hover:bg-muted/80'}`} style={{
+                    animationDelay: `${i * 100}ms`
+                  }}>
+                        <div className={`w-3 h-3 rounded-full ${i % 3 === 0 ? 'bg-accent' : i % 3 === 1 ? 'bg-primary' : 'bg-muted-foreground'} group-hover:scale-150 transition-transform duration-300`} />
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -64,8 +44,6 @@ const AboutSection = () => {
           </ScrollAnimation>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default AboutSection;
