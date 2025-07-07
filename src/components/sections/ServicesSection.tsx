@@ -52,11 +52,28 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section className="py-32 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden">
-      {/* Subtle background elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-40 left-10 w-96 h-96 bg-accent rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-40 right-10 w-80 h-80 bg-primary rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
+    <section className="py-32 bg-gradient-to-br from-accent/5 via-background to-primary/5 relative overflow-hidden">
+      {/* Enhanced background elements */}
+      <div className="absolute inset-0 opacity-15">
+        <div className="absolute top-40 left-10 w-96 h-96 bg-gradient-to-br from-accent to-primary rounded-full blur-3xl animate-float quantum-shadow" />
+        <div className="absolute bottom-40 right-10 w-80 h-80 bg-gradient-to-br from-primary to-accent rounded-full blur-3xl animate-float quantum-shadow" style={{ animationDelay: '4s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] cyber-border rounded-full animate-tech-pulse opacity-20" />
+      </div>
+      
+      {/* Tech particles */}
+      <div className="absolute inset-0 opacity-30">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-accent rounded-full animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${4 + Math.random() * 2}s`
+            }}
+          />
+        ))}
       </div>
       
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
@@ -75,18 +92,19 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <ScrollAnimation key={index} delay={index * 200}>
               <Card 
-                className={`group relative bg-background/80 backdrop-blur-sm border border-primary/10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-700 cursor-pointer transform hover:-translate-y-4 hover:scale-105 ${
-                  hoveredService === index ? 'ring-2 ring-accent/30 border-accent/30' : ''
+                className={`group relative bg-background/90 backdrop-blur-lg cyber-border quantum-shadow rounded-3xl transition-all duration-700 cursor-pointer transform hover:-translate-y-6 hover:scale-105 ${
+                  hoveredService === index ? 'animate-tech-pulse cyber-border' : ''
                 }`}
                 onMouseEnter={() => setHoveredService(index)}
                 onMouseLeave={() => setHoveredService(null)}
               >
-                {/* Floating effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-primary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Enhanced floating effect */}
+                <div className="absolute inset-0 hologram-effect rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-primary/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 <CardContent className="p-8 relative z-10">
-                  {/* Emoji icon */}
-                  <div className="text-6xl mb-6 text-center">
+                  {/* Enhanced Emoji icon */}
+                  <div className="text-6xl mb-6 text-center group-hover:animate-tech-pulse transition-transform duration-300 group-hover:scale-110">
                     {service.emoji}
                   </div>
                   
@@ -114,8 +132,8 @@ const ServicesSection = () => {
                   </ul>
                   
                   <Button 
-                    className={`w-full font-accent font-semibold transition-all duration-300 rounded-xl ${
-                      hoveredService === index ? 'bg-accent hover:bg-accent/90 scale-105' : ''
+                    className={`w-full font-accent font-semibold transition-all duration-300 rounded-xl cyber-border quantum-shadow hover:animate-tech-pulse ${
+                      hoveredService === index ? 'bg-gradient-to-r from-accent to-primary text-white scale-105 animate-neon-glow' : ''
                     }`}
                     variant={hoveredService === index ? "default" : "outline"}
                   >

@@ -1,33 +1,60 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 const HeroSection = () => {
-  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/30 to-accent/5 animate-gradient">
-      {/* Animated Background Elements */}
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/30 to-accent/5 animate-gradient tech-grid">
+      {/* Matrix Rain Effect */}
+      <div className="absolute inset-0 opacity-20">
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-0.5 h-20 bg-gradient-to-b from-accent to-transparent animate-matrix-rain"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${3 + Math.random() * 2}s`
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Enhanced Floating Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-32 h-32 border border-accent/30 rounded-full animate-float" style={{
+        <div className="absolute top-20 left-10 w-32 h-32 cyber-border rounded-full animate-float animate-tech-pulse" style={{
         animationDelay: '0s'
       }} />
-        <div className="absolute top-40 right-20 w-20 h-20 border border-primary/30 rounded-full animate-float" style={{
+        <div className="absolute top-40 right-20 w-20 h-20 quantum-shadow rounded-full animate-float" style={{
         animationDelay: '2s'
       }} />
-        <div className="absolute bottom-32 left-32 w-16 h-16 bg-accent/20 rounded-full animate-float" style={{
+        <div className="absolute bottom-32 left-32 w-16 h-16 bg-accent/30 rounded-full animate-float hologram-effect" style={{
         animationDelay: '4s'
       }} />
-        <div className="absolute bottom-20 right-40 w-24 h-24 bg-primary/20 rounded-full animate-float" style={{
+        <div className="absolute bottom-20 right-40 w-24 h-24 bg-primary/30 rounded-full animate-float animate-tech-pulse" style={{
         animationDelay: '1s'
       }} />
         
-        {/* Neural Network Lines */}
-        <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 1200 800">
-          <line x1="200" y1="200" x2="400" y2="300" stroke="currentColor" strokeWidth="1" className="text-accent">
-            <animate attributeName="stroke-opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+        {/* Enhanced Neural Network */}
+        <svg className="absolute inset-0 w-full h-full opacity-15" viewBox="0 0 1200 800">
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <line x1="200" y1="200" x2="400" y2="300" stroke="currentColor" strokeWidth="2" className="text-accent" filter="url(#glow)">
+            <animate attributeName="stroke-opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite" />
           </line>
-          <line x1="800" y1="150" x2="600" y2="400" stroke="currentColor" strokeWidth="1" className="text-primary">
-            <animate attributeName="stroke-opacity" values="0.2;0.9;0.2" dur="4s" repeatCount="indefinite" />
+          <line x1="800" y1="150" x2="600" y2="400" stroke="currentColor" strokeWidth="2" className="text-primary" filter="url(#glow)">
+            <animate attributeName="stroke-opacity" values="0.2;1;0.2" dur="4s" repeatCount="indefinite" />
           </line>
-          <line x1="300" y1="600" x2="900" y2="200" stroke="currentColor" strokeWidth="1" className="text-accent">
-            <animate attributeName="stroke-opacity" values="0.1;0.7;0.1" dur="5s" repeatCount="indefinite" />
+          <line x1="300" y1="600" x2="900" y2="200" stroke="currentColor" strokeWidth="2" className="text-accent" filter="url(#glow)">
+            <animate attributeName="stroke-opacity" values="0.1;0.9;0.1" dur="5s" repeatCount="indefinite" />
           </line>
+          <circle cx="200" cy="200" r="3" fill="currentColor" className="text-accent animate-tech-pulse" />
+          <circle cx="400" cy="300" r="3" fill="currentColor" className="text-primary animate-tech-pulse" />
+          <circle cx="800" cy="150" r="3" fill="currentColor" className="text-accent animate-tech-pulse" />
         </svg>
       </div>
       
@@ -36,7 +63,7 @@ const HeroSection = () => {
         <div className="animate-fade-in">
           <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-primary mb-8 leading-tight">
             Solo necesitas saber lo que haces y ofreces.{' '}
-            <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent animate-gradient">
+            <span className="animate-text-shimmer animate-neon-glow font-black">
               Yo me encargo
             </span>{' '}
             de que se vea genial.
