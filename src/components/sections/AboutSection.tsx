@@ -17,7 +17,7 @@ const AboutSection = () => {
                 ¿Cómo te ayudo?
               </h2>
               <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
-                <p className="font-body">Me he especializado en Inteligencia Artificial, y eso me ha dado las herramientas técnicas para potenciar mi experiencia acompañando personas. Hoy puedo entender tus desafíos, escucharte con claridad, darte orientación estratégica y ayudarte a transformar tus ideas en soluciones digitales reales.</p>
+                <p className="font-body">Trabajo contigo y con lo que realmente necesitas.</p>
                 <p className="font-body">Te acompaño en todo el proceso: desde crear tu página web o landing, hasta mentorías estratégicas, optimización de procesos, ventas y presentación. Todo lo necesario para que tengas una presencia digital clara, profesional y alineada con tus objetivos.</p>
                 <p className="font-body font-semibold text-primary">
                   No trabajo con plantillas. Trabajo contigo y con lo que realmente necesitas.
