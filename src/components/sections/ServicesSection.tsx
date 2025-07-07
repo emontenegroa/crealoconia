@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import ScrollAnimation from '@/components/ScrollAnimation';
-import { Rocket, Building2, Bot, ArrowRight, Sparkles } from 'lucide-react';
 
 const ServicesSection = () => {
+  const [hoveredService, setHoveredService] = useState<number | null>(null);
+  
   const services = [
     {
-      icon: Rocket,
       emoji: "🚀",
       title: "Crealoconia",
       subtitle: "Metodología de Activación Digital",
@@ -19,11 +19,9 @@ const ServicesSection = () => {
         "Sin conocimiento técnico requerido",
         "Mentoría personal incluida"
       ],
-      cta: "Probar Crealoconia",
-      gradient: "from-blue-500 to-cyan-400"
+      cta: "Probar Crealoconia"
     },
     {
-      icon: Building2,
       emoji: "💼",
       title: "Consultoría Empresarial",
       subtitle: "Transformación Digital Estratégica",
@@ -35,11 +33,9 @@ const ServicesSection = () => {
         "Liderazgo de equipos multidisciplinarios",
         "ROI medible y seguimiento continuo"
       ],
-      cta: "Solicitar Consultoría",
-      gradient: "from-purple-500 to-pink-400"
+      cta: "Solicitar Consultoría"
     },
     {
-      icon: Bot,
       emoji: "🤖",
       title: "IA para Negocios",
       subtitle: "Inteligencia Artificial Estratégica",
@@ -51,119 +47,98 @@ const ServicesSection = () => {
         "Integración con sistemas existentes",
         "Capacitación y adopción organizacional"
       ],
-      cta: "Explorar IA",
-      gradient: "from-emerald-500 to-teal-400"
+      cta: "Explorar IA"
     }
   ];
 
   return (
-    <section className="section-services py-32 relative overflow-hidden">
-      {/* Animated Background */}
+    <section className="py-32 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden">
+      {/* Subtle background elements */}
       <div className="absolute inset-0 opacity-5">
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-particle-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.8}s`,
-              animationDuration: `${8 + Math.random() * 6}s`
-            }}
-          >
-            <div className="w-1 h-1 bg-white rounded-full" />
-          </div>
-        ))}
+        <div className="absolute top-40 left-10 w-96 h-96 bg-accent rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-40 right-10 w-80 h-80 bg-primary rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
       </div>
-
+      
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <ScrollAnimation>
           <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 glass-morphism px-6 py-3 rounded-full mb-6 hover-glow">
-              <Sparkles className="w-5 h-5 text-white animate-glow-pulse" />
-              <span className="text-white font-accent font-semibold">
-                Tres servicios. Una visión.
-              </span>
-            </div>
-            <h2 className="font-heading text-4xl md:text-6xl font-bold text-white mb-6 animate-text-glow">
-              Servicios Estratégicos
+            <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
+              Tres servicios. Una visión.
             </h2>
-            <p className="font-body text-xl text-white/90 max-w-3xl mx-auto">
+            <p className="font-body text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Cada servicio está diseñado para diferentes momentos de tu viaje digital, pero todos comparten el mismo objetivo: transformar tu presencia online.
             </p>
           </div>
         </ScrollAnimation>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <ScrollAnimation key={index} delay={index * 200}>
-                <Card className="glass-morphism hover-spectacular group h-full border-white/20">
-                  <CardContent className="p-8 h-full flex flex-col">
-                    {/* Header */}
-                    <div className="text-center mb-8">
-                      <div className="relative inline-block mb-6">
-                        <div className={`w-20 h-20 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-500`}>
-                          <Icon className="w-10 h-10 text-white" />
-                        </div>
-                        <div className="absolute -top-2 -right-2 text-3xl animate-float-magical">
-                          {service.emoji}
-                        </div>
-                      </div>
-                      
-                      <h3 className="font-heading font-bold text-white text-2xl mb-2 group-hover:animate-text-glow">
-                        {service.title}
-                      </h3>
-                      <p className="font-accent text-white/80 text-lg font-semibold">
-                        {service.subtitle}
-                      </p>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-white/90 leading-relaxed mb-6 font-body">
-                      {service.description}
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          {services.map((service, index) => (
+            <ScrollAnimation key={index} delay={index * 200}>
+              <Card 
+                className={`group relative bg-background/80 backdrop-blur-sm border border-primary/10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-700 cursor-pointer transform hover:-translate-y-4 hover:scale-105 ${
+                  hoveredService === index ? 'ring-2 ring-accent/30 border-accent/30' : ''
+                }`}
+                onMouseEnter={() => setHoveredService(index)}
+                onMouseLeave={() => setHoveredService(null)}
+              >
+                {/* Floating effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-primary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <CardContent className="p-8 relative z-10">
+                  {/* Emoji icon */}
+                  <div className="text-6xl mb-6 text-center">
+                    {service.emoji}
+                  </div>
+                  
+                  <div className="text-center mb-6">
+                    <h3 className="font-heading text-2xl font-bold text-primary mb-2">
+                      {service.title}
+                    </h3>
+                    <p className="font-accent text-lg font-medium text-accent">
+                      {service.subtitle}
                     </p>
-
-                    {/* Features */}
-                    <div className="flex-grow mb-8">
-                      <ul className="space-y-3">
-                        {service.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-start gap-3 text-white/80">
-                            <div className="w-2 h-2 bg-gradient-to-r from-white to-cyan-200 rounded-full mt-2 flex-shrink-0 animate-glow-pulse" />
-                            <span className="font-body leading-relaxed text-sm">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* CTA */}
-                    <Button className="w-full glass-effect border-white/30 text-white hover-magnetic group/btn">
-                      <span className="font-accent font-semibold">{service.cta}</span>
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </ScrollAnimation>
-            );
-          })}
+                  </div>
+                  
+                  <p className="font-body text-muted-foreground leading-relaxed mb-6 text-center">
+                    {service.description}
+                  </p>
+                  
+                  {/* Features list */}
+                  <ul className="space-y-3 mb-8">
+                    {service.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start text-sm text-muted-foreground">
+                        <div className="w-2 h-2 bg-accent rounded-full mt-2 mr-3 flex-shrink-0" />
+                        <span className="font-body">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <Button 
+                    className={`w-full font-accent font-semibold transition-all duration-300 rounded-xl ${
+                      hoveredService === index ? 'bg-accent hover:bg-accent/90 scale-105' : ''
+                    }`}
+                    variant={hoveredService === index ? "default" : "outline"}
+                  >
+                    {service.cta}
+                  </Button>
+                </CardContent>
+              </Card>
+            </ScrollAnimation>
+          ))}
         </div>
 
+        {/* Bottom CTA */}
         <ScrollAnimation delay={600}>
-          <div className="text-center mt-16">
-            <Card className="glass-morphism border-white/20 hover-glow inline-block">
-              <CardContent className="p-8">
-                <h3 className="font-heading text-2xl font-bold text-white mb-4">
-                  ¿No estás seguro cuál necesitas?
-                </h3>
-                <p className="text-white/90 mb-6 font-body">
-                  Conversemos para identificar la mejor solución para tu situación específica
-                </p>
-                <Button size="lg" className="glass-effect border-white/30 text-white hover-spectacular">
-                  <span className="font-accent font-semibold">Agendar Conversación Gratuita</span>
-                </Button>
-              </CardContent>
-            </Card>
+          <div className="text-center bg-secondary/20 rounded-3xl p-8 backdrop-blur-sm border border-primary/10">
+            <h3 className="font-heading text-2xl font-bold text-primary mb-4">
+              ¿No estás seguro cuál necesitas?
+            </h3>
+            <p className="font-body text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Conversemos para identificar la mejor solución para tu situación específica
+            </p>
+            <Button size="lg" className="font-accent font-semibold px-8 py-4 rounded-xl">
+              Agendar Conversación Gratuita
+            </Button>
           </div>
         </ScrollAnimation>
       </div>
