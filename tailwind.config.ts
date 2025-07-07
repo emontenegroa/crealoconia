@@ -18,6 +18,11 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'heading': ['Inter', 'sans-serif'],
+				'body': ['Work Sans', 'sans-serif'],
+				'accent': ['Space Grotesk', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

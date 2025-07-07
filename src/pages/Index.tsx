@@ -1,17 +1,26 @@
 import React from 'react';
+import HeroSection from '@/components/sections/HeroSection';
+import AboutSection from '@/components/sections/AboutSection';
+import HowItWorksSection from '@/components/sections/HowItWorksSection';
+import ServicesSection from '@/components/sections/ServicesSection';
+import TestimonialsSection from '@/components/sections/TestimonialsSection';
+import LeadMagnetSection from '@/components/sections/LeadMagnetSection';
+import AboutEstebanSection from '@/components/sections/AboutEstebanSection';
+import ContactSection from '@/components/sections/ContactSection';
+
 const Index = () => {
-  return <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent mb-8">Bienvenido a CrealoconIA</h1>
-          <p className="text-xl text-gray-700 mb-8">
-            Nueva página principal en construcción
-          </p>
-          <a href="/web" className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-            Ir al Generador de Sitios Web
-          </a>
-        </div>
-      </div>
-    </div>;
+  return (
+    <div className="min-h-screen bg-background">
+      <HeroSection />
+      <AboutSection />
+      <HowItWorksSection />
+      <ServicesSection />
+      <TestimonialsSection />
+      <LeadMagnetSection />
+      <AboutEstebanSection />
+      <ContactSection />
+    </div>
+  );
 };
+
 export default Index;
