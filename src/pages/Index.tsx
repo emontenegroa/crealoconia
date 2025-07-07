@@ -1,105 +1,24 @@
-
 import React from 'react';
-import { toast } from "@/hooks/use-toast";
-import LoadingSpinner from '@/components/LoadingSpinner';
-import HeroSection from '@/components/HeroSection';
-import ImportantNotice from '@/components/ImportantNotice';
-import ProgressDialog from '@/components/ProgressDialog';
-import InitialForm from '@/components/InitialForm';
-import MainForm from '@/components/MainForm';
-import HowItWorksToggle from '@/components/HowItWorksToggle';
-import TestimonialsSection from '@/components/TestimonialsSection';
-import FAQ from '@/components/FAQ';
-import WhatsAppFloat from '@/components/WhatsAppFloat';
-import { useFormHandler } from '@/hooks/useFormHandler';
-
-// Importar la prueba de email en desarrollo
-if (import.meta.env.DEV) {
-  import('@/utils/emailTest');
-}
 
 const Index = () => {
-  const {
-    formData,
-    setFormData,
-    isGenerating,
-    noWebsite,
-    setNoWebsite,
-    noInstagram,
-    setNoInstagram,
-    showProgressDialog,
-    previousProgress,
-    attemptCount,
-    sessionId,
-    showFullForm,
-    handleInputChange,
-    handleAIUsageUpdate,
-    handleFirstStep,
-    loadPreviousData,
-    startFresh,
-    loadExampleData,
-    handleSubmit,
-    resetForm,
-    isFirstStepValid,
-    isFormValid,
-    onGenerateWebsite
-  } = useFormHandler();
-
-  const handleBackToInitial = () => {
-    // No resetear los datos, solo volver al paso inicial
-    resetForm();
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <ProgressDialog
-          show={showProgressDialog}
-          attemptCount={attemptCount}
-          onLoadPrevious={loadPreviousData}
-          onStartFresh={startFresh}
-        />
-
-        <HeroSection onLoadExample={loadExampleData} />
-        
-        <HowItWorksToggle />
-        
-        <ImportantNotice />
-        
-        {isGenerating ? (
-          <LoadingSpinner />
-        ) : !showFullForm ? (
-          <InitialForm
-            formData={formData}
-            onInputChange={handleInputChange}
-            onSubmit={handleFirstStep}
-            isValid={isFirstStepValid}
-            onLoadExample={loadExampleData}
-          />
-        ) : (
-          <MainForm
-            formData={formData}
-            setFormData={setFormData}
-            onInputChange={handleInputChange}
-            onAIUsageUpdate={handleAIUsageUpdate}
-            sessionId={sessionId}
-            noWebsite={noWebsite}
-            setNoWebsite={setNoWebsite}
-            noInstagram={noInstagram}
-            setNoInstagram={setNoInstagram}
-            onSubmit={handleSubmit}
-            isFormValid={isFormValid}
-            onGenerateWebsite={onGenerateWebsite}
-            onBackToInitial={handleBackToInitial}
-          />
-        )}
-
-        <TestimonialsSection />
-
-        <FAQ />
+        <div className="text-center">
+          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent mb-8">
+            Bienvenido a Crealoconia
+          </h1>
+          <p className="text-xl text-gray-700 mb-8">
+            Nueva página principal en construcción
+          </p>
+          <a 
+            href="/web" 
+            className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+          >
+            Ir al Generador de Sitios Web
+          </a>
+        </div>
       </div>
-      
-      <WhatsAppFloat />
     </div>
   );
 };
