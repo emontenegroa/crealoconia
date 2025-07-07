@@ -131,6 +131,12 @@
   100% { background-position: 200% center; }
 }
 
+@keyframes gradient-rotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 @keyframes tech-pulse {
   0%, 100% { 
     transform: scale(1);
@@ -206,12 +212,17 @@
 }
 
 .animate-text-shimmer {
-  background: linear-gradient(90deg, hsl(var(--foreground)), hsl(var(--accent)), hsl(var(--primary)), hsl(var(--foreground)));
+  background: linear-gradient(90deg, hsl(var(--foreground)), hsl(var(--accent) / 0.7), hsl(var(--primary) / 0.8), hsl(var(--foreground)));
   background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: text-shimmer 3s linear infinite;
+  animation: text-shimmer 4s ease-in-out infinite;
+}
+
+.animate-gradient-rotate {
+  background-size: 300% 300%;
+  animation: gradient-rotate 8s ease infinite;
 }
 
 .animate-tech-pulse {
@@ -248,11 +259,15 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.tech-grid {
-  background-image: 
-    linear-gradient(rgba(74, 144, 226, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(74, 144, 226, 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
+.subtle-gradient {
+  background: linear-gradient(45deg, hsl(var(--accent) / 0.03), hsl(var(--primary) / 0.02), hsl(var(--accent) / 0.03));
+  background-size: 400% 400%;
+}
+
+.subtle-gradient:hover {
+  background: linear-gradient(45deg, hsl(var(--accent) / 0.08), hsl(var(--primary) / 0.05), hsl(var(--accent) / 0.08));
+  background-size: 400% 400%;
+  animation: gradient-rotate 3s ease infinite;
 }
 
 .hologram-effect {
@@ -263,14 +278,14 @@
 
 .cyber-border {
   position: relative;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   background: linear-gradient(45deg, hsl(var(--background)), hsl(var(--background))) padding-box,
-              linear-gradient(45deg, hsl(var(--accent)), hsl(var(--primary)), hsl(var(--accent))) border-box;
+              linear-gradient(45deg, hsl(var(--accent) / 0.3), hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.3)) border-box;
 }
 
 .quantum-shadow {
   box-shadow: 
-    0 0 20px hsl(var(--accent) / 0.3),
-    0 0 40px hsl(var(--primary) / 0.2),
-    inset 0 0 20px hsl(var(--accent) / 0.1);
+    0 4px 20px hsl(var(--accent) / 0.15),
+    0 8px 40px hsl(var(--primary) / 0.1),
+    inset 0 1px 10px hsl(var(--accent) / 0.05);
 }

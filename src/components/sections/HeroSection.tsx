@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 const HeroSection = () => {
-  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/30 to-accent/5 animate-gradient tech-grid">
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/30 to-accent/5 subtle-gradient">
       {/* Matrix Rain Effect */}
       <div className="absolute inset-0 opacity-20">
         {[...Array(12)].map((_, i) => (

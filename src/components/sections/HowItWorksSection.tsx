@@ -10,32 +10,32 @@ const HowItWorksSection = () => {
       title: "Escuchamos y ordenamos tus ideas",
       description: "A través de preguntas estratégicas, extraemos la esencia de lo que haces y cómo lo haces.",
       icon: "🎯",
-      techNumber: "01"
+      techNumber: "α"
     },
     {
       title: "Convertimos tus respuestas en una base digital", 
       description: "Usamos IA para estructurar tu conocimiento en contenido web profesional y estratégico.",
       icon: "🧠",
-      techNumber: "02"
+      techNumber: "β"
     },
     {
       title: "Creamos tu sitio web real (o MVP, landing, POC)",
       description: "Desarrollamos tu presencia digital con tecnología real, no plantillas genéricas.",
       icon: "⚡",
-      techNumber: "03"
+      techNumber: "γ"
     },
     {
       title: "Te mentoreamos y afinamos juntos cada detalle",
       description: "Acompañamiento personalizado hasta que tengas exactamente lo que necesitas.",
       icon: "🚀",
-      techNumber: "04"
+      techNumber: "δ"
     }
   ];
 
   return (
-    <section className="py-32 bg-gradient-to-br from-primary/5 via-background to-accent/10 relative overflow-hidden">
-      {/* Tech Grid Background */}
-      <div className="absolute inset-0 tech-grid opacity-30" />
+    <section className="py-32 bg-gradient-to-br from-primary/5 via-background to-accent/10 relative overflow-hidden subtle-gradient">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-primary/5 animate-gradient-rotate opacity-60" />
       
       {/* Floating Tech Elements */}
       <div className="absolute inset-0 opacity-10">
