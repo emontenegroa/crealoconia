@@ -31,14 +31,14 @@ const HeroSection = () => {
           <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-primary mb-8 leading-tight">
             Solo necesitas saber lo que haces y ofreces.{' '}
             <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent animate-gradient">
-              Nosotros nos encargamos
+              Yo me encargo
             </span>{' '}
             de que se vea genial.
           </h1>
           
           <p className="font-body text-xl md:text-2xl lg:text-3xl text-muted-foreground max-w-5xl mx-auto mb-12 leading-relaxed animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            Agencia digital asistida por IA. Creamos páginas web, landing pages y productos digitales 
-            a partir de tu conocimiento. Sin caos técnico. Sin plantillas. Con estrategia.
+            Te ayudo a posicionarte, expandir, consolidar y crecer en digital usando inteligencia artificial. 
+            Creo webs, landing pages, MVPs y te acompaño en cada paso. Sin plantillas. Con estrategia.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-scale-in" style={{ animationDelay: '0.6s' }}>

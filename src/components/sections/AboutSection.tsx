@@ -16,19 +16,19 @@ const AboutSection = () => {
           <ScrollAnimation delay={200}>
             <div className="space-y-8">
               <h2 className="font-heading text-4xl md:text-6xl font-bold text-primary">
-                ¿Qué es Crealoconia?
+                ¿Cómo te ayudo?
               </h2>
               <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
                 <p className="font-body">
-                  Crealoconia no es una agencia común. Es una experiencia de digitalización 
-                  inteligente y acompañada.
+                  Uso inteligencia artificial para entender tus problemas, escucharte, 
+                  aconsejarte y crear soluciones digitales reales.
                 </p>
                 <p className="font-body">
-                  Usamos inteligencia artificial y mentoría estratégica para transformar 
-                  lo que haces en productos digitales reales, funcionales y profesionales.
+                  Te acompaño en todo: desde crear tu web o landing, hasta mentorías estratégicas,
+                  optimización, ventas y presentación. Todo lo necesario para tu presencia digital.
                 </p>
                 <p className="font-body font-semibold text-primary">
-                  Aquí no partimos desde una plantilla. Partimos desde lo que tú sabes y haces.
+                  No trabajo con plantillas. Trabajo contigo y con lo que realmente necesitas.
                 </p>
               </div>
             </div>
