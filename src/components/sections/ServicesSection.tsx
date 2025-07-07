@@ -19,7 +19,9 @@ const ServicesSection = () => {
         "Sin conocimiento técnico requerido",
         "Mentoría personal incluida"
       ],
-      cta: "Probar Crealoconia"
+      cta: "Probar Crealoconia",
+      gradient: "premium-gradient",
+      accent: "accent-gradient"
     },
     {
       emoji: "💼",
@@ -33,7 +35,9 @@ const ServicesSection = () => {
         "Liderazgo de equipos multidisciplinarios",
         "ROI medible y seguimiento continuo"
       ],
-      cta: "Solicitar Consultoría"
+      cta: "Solicitar Consultoría",
+      gradient: "accent-gradient",
+      accent: "premium-gradient"
     },
     {
       emoji: "🤖",
@@ -47,43 +51,54 @@ const ServicesSection = () => {
         "Integración con sistemas existentes",
         "Capacitación y adopción organizacional"
       ],
-      cta: "Explorar IA"
+      cta: "Explorar IA",
+      gradient: "premium-gradient",
+      accent: "accent-gradient"
     }
   ];
 
   return (
-    <section className="py-32 bg-gradient-to-br from-accent/5 via-background to-primary/5 relative overflow-hidden">
-      {/* Enhanced background elements */}
-      <div className="absolute inset-0 opacity-15">
-        <div className="absolute top-40 left-10 w-96 h-96 bg-gradient-to-br from-accent to-primary rounded-full blur-3xl animate-float quantum-shadow" />
-        <div className="absolute bottom-40 right-10 w-80 h-80 bg-gradient-to-br from-primary to-accent rounded-full blur-3xl animate-float quantum-shadow" style={{ animationDelay: '4s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] cyber-border rounded-full animate-tech-pulse opacity-20" />
-      </div>
+    <section className="py-32 neural-network relative overflow-hidden">
+      {/* Dynamic Aurora Background */}
+      <div className="absolute inset-0 animate-aurora opacity-25" />
       
-      {/* Tech particles */}
-      <div className="absolute inset-0 opacity-30">
-        {[...Array(8)].map((_, i) => (
+      {/* Floating Tech Elements */}
+      <div className="absolute inset-0 opacity-20">
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-accent rounded-full animate-float"
+            className={`absolute w-3 h-3 ${i % 2 === 0 ? 'premium-gradient' : 'accent-gradient'} rounded-full animate-particle-float blur-sm`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${4 + Math.random() * 2}s`
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${6 + Math.random() * 4}s`
             }}
           />
         ))}
       </div>
       
+      {/* Geometric Shapes */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-40 left-10 w-96 h-96 premium-gradient rounded-full blur-3xl animate-particle-float" />
+        <div className="absolute bottom-40 right-10 w-80 h-80 accent-gradient rounded-full blur-3xl animate-particle-float" style={{ animationDelay: '4s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] morphism-glass rounded-full animate-tech-pulse" />
+      </div>
+      
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <ScrollAnimation>
           <div className="text-center mb-20">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
-              Tres servicios. Una visión.
+            <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl font-black text-foreground mb-6">
+              <span className="premium-gradient bg-clip-text text-transparent animate-text-shimmer">
+                Tres servicios.
+              </span>
+              <br />
+              <span className="accent-gradient bg-clip-text text-transparent animate-text-shimmer">
+                Una visión.
+              </span>
             </h2>
-            <p className="font-body text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Cada servicio está diseñado para diferentes momentos de tu viaje digital, pero todos comparten el mismo objetivo: transformar tu presencia online.
+            <p className="font-body text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Cada servicio está diseñado para diferentes momentos de tu viaje digital, pero todos comparten el mismo objetivo: transformar tu presencia online de manera espectacular.
             </p>
           </div>
         </ScrollAnimation>
@@ -92,71 +107,94 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <ScrollAnimation key={index} delay={index * 200}>
               <Card 
-                className={`group relative bg-background/90 backdrop-blur-lg cyber-border quantum-shadow rounded-3xl transition-all duration-700 cursor-pointer transform hover:-translate-y-6 hover:scale-105 ${
-                  hoveredService === index ? 'animate-tech-pulse cyber-border' : ''
+                className={`group relative morphism-glass rounded-3xl transition-all duration-700 cursor-pointer transform hover:-translate-y-8 hover:scale-105 ${
+                  hoveredService === index ? 'glow-shadow animate-magnetic-hover' : 'elegant-shadow'
                 }`}
                 onMouseEnter={() => setHoveredService(index)}
                 onMouseLeave={() => setHoveredService(null)}
               >
-                {/* Enhanced floating effect */}
-                <div className="absolute inset-0 hologram-effect rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-primary/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Dynamic Background Overlay */}
+                <div className={`absolute inset-0 ${service.gradient} rounded-3xl opacity-0 group-hover:opacity-15 transition-opacity duration-700`} />
+                <div className="absolute inset-0 neural-network rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 
-                <CardContent className="p-8 relative z-10">
-                  {/* Enhanced Emoji icon */}
-                  <div className="text-6xl mb-6 text-center group-hover:animate-tech-pulse transition-transform duration-300 group-hover:scale-110">
+                {/* Floating Icon */}
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                  <div className={`w-16 h-16 ${service.gradient} rounded-full flex items-center justify-center text-3xl morphism-glass animate-particle-float`}>
                     {service.emoji}
                   </div>
-                  
-                  <div className="text-center mb-6">
-                    <h3 className="font-heading text-2xl font-bold text-primary mb-2">
+                </div>
+                
+                <CardContent className="pt-16 p-8 relative z-10">
+                  {/* Service Header */}
+                  <div className="text-center mb-8">
+                    <h3 className="font-heading text-2xl md:text-3xl font-black text-foreground mb-2 group-hover:premium-gradient group-hover:bg-clip-text group-hover:text-transparent transition-all duration-500">
                       {service.title}
                     </h3>
-                    <p className="font-accent text-lg font-medium text-accent">
+                    <p className="font-accent text-lg font-semibold text-accent group-hover:text-primary transition-colors duration-500">
                       {service.subtitle}
                     </p>
                   </div>
                   
-                  <p className="font-body text-muted-foreground leading-relaxed mb-6 text-center">
+                  {/* Description */}
+                  <p className="font-body text-muted-foreground leading-relaxed mb-8 text-center transition-all duration-500 group-hover:text-foreground">
                     {service.description}
                   </p>
                   
-                  {/* Features list */}
-                  <ul className="space-y-3 mb-8">
+                  {/* Features Grid */}
+                  <div className="space-y-4 mb-8">
                     {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start text-sm text-muted-foreground">
-                        <div className="w-2 h-2 bg-accent rounded-full mt-2 mr-3 flex-shrink-0" />
-                        <span className="font-body">{feature}</span>
-                      </li>
+                      <div key={featureIndex} className="flex items-start text-sm">
+                        <div className={`w-2 h-2 ${service.accent} rounded-full mt-2 mr-3 flex-shrink-0 animate-tech-pulse`} />
+                        <span className="font-body text-muted-foreground group-hover:text-foreground transition-colors duration-500">
+                          {feature}
+                        </span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                   
+                  {/* CTA Button */}
                   <Button 
-                    className={`w-full font-accent font-semibold transition-all duration-300 rounded-xl cyber-border quantum-shadow hover:animate-tech-pulse ${
-                      hoveredService === index ? 'bg-gradient-to-r from-accent to-primary text-white scale-105 animate-neon-glow' : ''
+                    className={`w-full font-accent font-bold py-4 rounded-xl border-0 transition-all duration-500 transform group-hover:scale-105 ${
+                      hoveredService === index 
+                        ? `${service.gradient} text-background glow-shadow animate-magnetic-hover` 
+                        : 'morphism-glass text-foreground elegant-shadow'
                     }`}
-                    variant={hoveredService === index ? "default" : "outline"}
                   >
                     {service.cta}
                   </Button>
+                  
+                  {/* Data Stream Effects */}
+                  <div className="absolute top-4 right-4 w-20 h-0.5 premium-gradient opacity-0 group-hover:opacity-100 animate-data-stream" />
+                  <div className="absolute bottom-4 left-4 w-16 h-0.5 accent-gradient opacity-0 group-hover:opacity-100 animate-data-stream" style={{ animationDelay: '0.5s' }} />
                 </CardContent>
               </Card>
             </ScrollAnimation>
           ))}
         </div>
 
-        {/* Bottom CTA */}
+        {/* Enhanced Bottom CTA */}
         <ScrollAnimation delay={600}>
-          <div className="text-center bg-secondary/20 rounded-3xl p-8 backdrop-blur-sm border border-primary/10">
-            <h3 className="font-heading text-2xl font-bold text-primary mb-4">
-              ¿No estás seguro cuál necesitas?
-            </h3>
-            <p className="font-body text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Conversemos para identificar la mejor solución para tu situación específica
-            </p>
-            <Button size="lg" className="font-accent font-semibold px-8 py-4 rounded-xl">
-              Agendar Conversación Gratuita
-            </Button>
+          <div className="text-center morphism-glass rounded-3xl p-12 backdrop-blur-sm elegant-shadow neural-network">
+            <div className="relative">
+              <h3 className="font-heading text-3xl md:text-4xl font-black text-foreground mb-6">
+                <span className="premium-gradient bg-clip-text text-transparent">
+                  ¿No estás seguro cuál necesitas?
+                </span>
+              </h3>
+              <p className="font-body text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+                Conversemos para identificar la mejor solución para tu situación específica y crear algo extraordinario juntos
+              </p>
+              <Button 
+                size="lg" 
+                className="font-accent font-bold px-12 py-6 rounded-xl premium-gradient text-background border-0 glow-shadow hover:scale-110 transition-all duration-500 animate-magnetic-hover"
+              >
+                🚀 Agendar Conversación Gratuita
+              </Button>
+              
+              {/* Decorative Elements */}
+              <div className="absolute -top-4 -left-4 w-8 h-8 premium-gradient rounded-full opacity-50 animate-particle-float" />
+              <div className="absolute -bottom-4 -right-4 w-6 h-6 accent-gradient rounded-full opacity-50 animate-particle-float" style={{ animationDelay: '2s' }} />
+            </div>
           </div>
         </ScrollAnimation>
       </div>
