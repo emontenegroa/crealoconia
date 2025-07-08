@@ -10,6 +10,11 @@ const WebsiteBuilderSection = () => {
           {/* Left side - Content */}
           <ScrollAnimation>
             <div className="space-y-8">
+              {/* Badge */}
+              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-full text-green-600 dark:text-green-400 font-medium">
+                🌐 Generador de Sitios Web
+              </div>
+              
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
                 Ayúdanos a crear
                 <br />
@@ -111,6 +116,11 @@ const WebsiteBuilderSection = () => {
         {/* Bottom section with process preview */}
         <ScrollAnimation delay={400}>
           <div className="mt-20 text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/20 rounded-full text-orange-600 dark:text-orange-400 font-medium mb-6">
+              ⚡ Solo 3 Pasos
+            </div>
+            
             <h3 className="font-heading text-2xl font-bold text-foreground mb-8">
               Un proceso simple, resultados extraordinarios
             </h3>

@@ -13,6 +13,11 @@ const AboutSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <ScrollAnimation delay={200}>
             <div className="space-y-8">
+              {/* Badge */}
+              <div className="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary font-medium">
+                🎯 Metodología Personalizada
+              </div>
+              
               <h2 className="font-heading text-4xl md:text-6xl font-bold text-primary">
                 ¿Cómo te ayudo?
               </h2>

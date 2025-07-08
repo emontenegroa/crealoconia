@@ -47,6 +47,11 @@ const LeadMagnetSection = () => {
           <Card className="glass-effect border-accent/30 shadow-2xl hover:shadow-3xl transition-all duration-500">
             <CardContent className="p-12 lg:p-16 text-center">
               <div className="mb-8">
+                {/* Badge */}
+                <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-yellow-500/20 rounded-full text-yellow-600 dark:text-yellow-400 font-medium mb-6">
+                  📚 Guía Gratuita
+                </div>
+                
                 <h2 className="font-heading text-4xl md:text-6xl font-bold text-primary mb-6">
                   ¿Estás por crear tu web?{' '}
                   <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">

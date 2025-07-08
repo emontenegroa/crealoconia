@@ -50,6 +50,11 @@ const ServicesSection = () => {
       <div className="container mx-auto px-4 max-w-7xl">
         <ScrollAnimation>
           <div className="text-center mb-16">
+            {/* Badge */}
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-600 dark:text-blue-400 font-medium mb-6">
+              💼 Soluciones Profesionales
+            </div>
+            
             <h2 className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
               Conoce Crealoconia.
             </h2>

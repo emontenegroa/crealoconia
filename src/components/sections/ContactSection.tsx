@@ -24,6 +24,11 @@ const ContactSection = () => {
           <Card className="glass-effect border-accent/40 shadow-2xl hover:shadow-3xl transition-all duration-700 hover:scale-105">
             <CardContent className="p-12 lg:p-20 text-center">
               <div className="space-y-8">
+                {/* Badge */}
+                <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full text-purple-600 dark:text-purple-400 font-medium mb-6">
+                  📅 Agenda Tu Sesión
+                </div>
+                
                 <h2 className="font-heading text-4xl md:text-6xl font-bold text-primary">
                   ¿Quieres dejar de complicarte{' '}
                   <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">

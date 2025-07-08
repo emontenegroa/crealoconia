@@ -42,6 +42,11 @@ const TestimonialsSection = () => {
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
         <ScrollAnimation>
           <div className="text-center mb-20">
+            {/* Badge */}
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 rounded-full text-emerald-600 dark:text-emerald-400 font-medium mb-6">
+              ⭐ Resultados Comprobados
+            </div>
+            
             <h2 className="font-heading text-4xl md:text-6xl font-bold text-primary mb-6">
               Casos de Éxito
             </h2>
