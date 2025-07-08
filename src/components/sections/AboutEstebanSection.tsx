@@ -23,11 +23,13 @@ const AboutEstebanSection = () => {
                     {/* Animated background pattern */}
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-primary/10 animate-gradient" />
                     
-                    {/* Profile placeholder */}
-                    <div className="relative z-10 w-40 h-40 bg-gradient-to-br from-primary/50 to-accent/50 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-500">
-                      <span className="text-5xl font-accent font-bold text-primary-foreground drop-shadow-lg">
-                        EM
-                      </span>
+                    {/* Profile image */}
+                    <div className="relative z-10 w-40 h-40 rounded-full overflow-hidden shadow-2xl group-hover:scale-110 transition-transform duration-500">
+                      <img 
+                        src="/lovable-uploads/4a8eae6d-88e7-4952-a648-d0104aafc97d.png" 
+                        alt="Esteban Montenegro - Fundador de Crealoconia"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     
                     {/* Floating elements */}
