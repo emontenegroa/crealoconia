@@ -62,7 +62,7 @@ const TestimonialsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
             <ScrollAnimation key={index} delay={index * 200}>
-               <Card className="glass-effect border-accent/20 hover:border-accent/40 transition-all duration-700 group hover:scale-105 hover:shadow-2xl">
+               <Card className="glass-effect border-accent/20 hover:border-accent/40 transition-all duration-700 group hover:scale-105 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] dark:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] dark:hover:shadow-[0_35px_60px_-12px_rgba(0,0,0,0.5)] transform hover:-translate-y-2">
                  <CardContent className="p-8">
                    {/* Badge */}
                    <div className="mb-6">
