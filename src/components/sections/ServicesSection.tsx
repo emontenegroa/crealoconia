@@ -19,8 +19,7 @@ const ServicesSection = () => {
         "Sin conocimiento técnico requerido",
         "Mentoría personal incluida"
       ],
-      cta: "Probar Crealoconia",
-      gradient: "apple-text-gradient"
+      cta: "Probar Crealoconia"
     },
     {
       emoji: "💼",
@@ -34,8 +33,7 @@ const ServicesSection = () => {
         "Liderazgo de equipos multidisciplinarios",
         "ROI medible y seguimiento continuo"
       ],
-      cta: "Solicitar Consultoría",
-      gradient: "apple-text-gradient-green"
+      cta: "Solicitar Consultoría"
     },
     {
       emoji: "🤖",
@@ -49,31 +47,23 @@ const ServicesSection = () => {
         "Integración con sistemas existentes",
         "Capacitación y adopción organizacional"
       ],
-      cta: "Explorar IA",
-      gradient: "apple-text-gradient"
+      cta: "Explorar IA"
     }
   ];
 
   return (
-    <section className="py-32 apple-gradient-bg relative overflow-hidden">
+    <section className="py-32 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden">
       {/* Subtle background elements */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-40 left-10 w-96 h-96 bg-blue-400 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-40 right-10 w-80 h-80 bg-green-400 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-300 rounded-full blur-3xl opacity-20" />
+        <div className="absolute top-40 left-10 w-96 h-96 bg-accent rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-40 right-10 w-80 h-80 bg-primary rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
       </div>
       
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <ScrollAnimation>
           <div className="text-center mb-20">
-            <h2 className="font-heading text-4xl md:text-6xl font-black text-foreground mb-6">
-              <span className="apple-text-gradient">
-                Tres servicios.
-              </span>
-              <br />
-              <span className="apple-text-gradient-green">
-                Una visión.
-              </span>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
+              Tres servicios. Una visión.
             </h2>
             <p className="font-body text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Cada servicio está diseñado para diferentes momentos de tu viaje digital, pero todos comparten el mismo objetivo: transformar tu presencia online.
@@ -85,54 +75,49 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <ScrollAnimation key={index} delay={index * 200}>
               <Card 
-                className={`apple-card group cursor-pointer transition-all duration-500 ${
-                  hoveredService === index ? 'scale-105 -translate-y-4' : ''
+                className={`group relative bg-background/80 backdrop-blur-sm border border-primary/10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-700 cursor-pointer transform hover:-translate-y-4 hover:scale-105 ${
+                  hoveredService === index ? 'ring-2 ring-accent/30 border-accent/30' : ''
                 }`}
                 onMouseEnter={() => setHoveredService(index)}
                 onMouseLeave={() => setHoveredService(null)}
               >
-                {/* Floating Icon */}
-                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                  <div className="w-16 h-16 apple-card rounded-full flex items-center justify-center text-3xl animate-float">
+                {/* Floating effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-primary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <CardContent className="p-8 relative z-10">
+                  {/* Emoji icon */}
+                  <div className="text-6xl mb-6 text-center">
                     {service.emoji}
                   </div>
-                </div>
-                
-                <CardContent className="pt-16 p-8 relative">
-                  {/* Service Header */}
-                  <div className="text-center mb-8">
-                    <h3 className={`font-heading text-2xl md:text-3xl font-black mb-2 ${service.gradient}`}>
+                  
+                  <div className="text-center mb-6">
+                    <h3 className="font-heading text-2xl font-bold text-primary mb-2">
                       {service.title}
                     </h3>
-                    <p className="font-accent text-lg font-semibold text-muted-foreground">
+                    <p className="font-accent text-lg font-medium text-accent">
                       {service.subtitle}
                     </p>
                   </div>
                   
-                  {/* Description */}
-                  <p className="font-body text-muted-foreground leading-relaxed mb-8 text-center">
+                  <p className="font-body text-muted-foreground leading-relaxed mb-6 text-center">
                     {service.description}
                   </p>
                   
-                  {/* Features List */}
-                  <div className="space-y-3 mb-8">
+                  {/* Features list */}
+                  <ul className="space-y-3 mb-8">
                     {service.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-start text-sm">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0" />
-                        <span className="font-body text-muted-foreground">
-                          {feature}
-                        </span>
-                      </div>
+                      <li key={featureIndex} className="flex items-start text-sm text-muted-foreground">
+                        <div className="w-2 h-2 bg-accent rounded-full mt-2 mr-3 flex-shrink-0" />
+                        <span className="font-body">{feature}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                   
-                  {/* CTA Button */}
                   <Button 
-                    className={`w-full font-semibold py-4 rounded-xl transition-all duration-500 ${
-                      hoveredService === index 
-                        ? 'apple-button scale-105' 
-                        : 'apple-card border text-foreground'
+                    className={`w-full font-accent font-semibold transition-all duration-300 rounded-xl ${
+                      hoveredService === index ? 'bg-accent hover:bg-accent/90 scale-105' : ''
                     }`}
+                    variant={hoveredService === index ? "default" : "outline"}
                   >
                     {service.cta}
                   </Button>
@@ -144,20 +129,16 @@ const ServicesSection = () => {
 
         {/* Bottom CTA */}
         <ScrollAnimation delay={600}>
-          <div className="text-center apple-card p-12 backdrop-blur-sm">
-            <div className="relative">
-              <h3 className="font-heading text-3xl md:text-4xl font-black text-foreground mb-6">
-                <span className="apple-text-gradient">
-                  ¿No estás seguro cuál necesitas?
-                </span>
-              </h3>
-              <p className="font-body text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-                Conversemos para identificar la mejor solución para tu situación específica
-              </p>
-              <Button className="apple-button-secondary font-semibold px-12 py-6 rounded-xl">
-                🚀 Agendar Conversación Gratuita
-              </Button>
-            </div>
+          <div className="text-center bg-secondary/20 rounded-3xl p-8 backdrop-blur-sm border border-primary/10">
+            <h3 className="font-heading text-2xl font-bold text-primary mb-4">
+              ¿No estás seguro cuál necesitas?
+            </h3>
+            <p className="font-body text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Conversemos para identificar la mejor solución para tu situación específica
+            </p>
+            <Button size="lg" className="font-accent font-semibold px-8 py-4 rounded-xl">
+              Agendar Conversación Gratuita
+            </Button>
           </div>
         </ScrollAnimation>
       </div>

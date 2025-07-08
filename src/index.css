@@ -4,54 +4,35 @@
 
 @layer base {
   :root {
-    --background: 250 250 250;
-    --foreground: 17 24 39;
+    --background: 0 0% 100%;
+    --foreground: 220 25% 9%;
 
-    --card: 255 255 255;
-    --card-foreground: 17 24 39;
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 9%;
 
-    --popover: 255 255 255;
-    --popover-foreground: 17 24 39;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 9%;
 
-    --primary: 59 130 246;
-    --primary-foreground: 248 250 252;
+    --primary: 220 30% 18%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 241 245 249;
-    --secondary-foreground: 51 65 85;
+    --secondary: 210 20% 85%;
+    --secondary-foreground: 220 30% 18%;
 
-    --muted: 248 250 252;
-    --muted-foreground: 100 116 139;
+    --muted: 210 15% 97%;
+    --muted-foreground: 215 16% 50%;
 
-    --accent: 16 185 129;
-    --accent-foreground: 255 255 255;
+    --accent: 210 50% 55%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 239 68 68;
-    --destructive-foreground: 248 250 252;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 226 232 240;
-    --input: 226 232 240;
-    --ring: 59 130 246;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
 
-    --radius: 1rem;
-    
-    /* Apple-inspired colors */
-    --apple-blue: 0 122 255;
-    --apple-green: 52 199 89;
-    --apple-purple: 175 82 222;
-    --apple-orange: 255 149 0;
-    --apple-gray: 142 142 147;
-    --apple-dark: 28 28 30;
-    
-    /* Gradients */
-    --gradient-apple-blue: linear-gradient(135deg, hsl(212, 100%, 50%), hsl(221, 83%, 53%));
-    --gradient-apple-green: linear-gradient(135deg, hsl(145, 63%, 49%), hsl(158, 64%, 52%));
-    --gradient-hero: linear-gradient(180deg, hsl(220, 13%, 97%) 0%, hsl(220, 13%, 95%) 50%, hsl(220, 13%, 93%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(220, 13%, 98%) 100%);
-    
-    /* Shadows */
-    --shadow-apple: 0 4px 25px 0 hsl(0, 0%, 0%, 0.1);
-    --shadow-apple-hover: 0 8px 40px 0 hsl(0, 0%, 0%, 0.15);
-    --shadow-inset: inset 0 1px 0 hsl(0, 0%, 100%, 0.6);
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -141,46 +122,8 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 30px hsl(var(--accent) / 0.4), 0 0 60px hsl(var(--primary) / 0.2); }
-  50% { box-shadow: 0 0 60px hsl(var(--accent) / 0.8), 0 0 120px hsl(var(--primary) / 0.4); }
-}
-
-@keyframes text-shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-@keyframes gradient-rotate {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes tech-pulse {
-  0%, 100% { 
-    transform: scale(1);
-    box-shadow: 0 0 0 0 hsl(var(--accent) / 0.7);
-  }
-  50% { 
-    transform: scale(1.05);
-    box-shadow: 0 0 0 10px hsl(var(--accent) / 0);
-  }
-}
-
-@keyframes matrix-rain {
-  0% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-}
-
-@keyframes neon-glow {
-  0%, 100% { 
-    text-shadow: 0 0 5px hsl(var(--accent)), 0 0 10px hsl(var(--accent)), 0 0 15px hsl(var(--accent));
-  }
-  50% { 
-    text-shadow: 0 0 10px hsl(var(--accent)), 0 0 20px hsl(var(--accent)), 0 0 30px hsl(var(--accent)), 0 0 40px hsl(var(--primary));
-  }
+  0%, 100% { box-shadow: 0 0 20px hsl(var(--accent) / 0.3); }
+  50% { box-shadow: 0 0 40px hsl(var(--accent) / 0.6); }
 }
 
 @keyframes slide-up {
@@ -202,61 +145,6 @@
   to {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-@keyframes aurora {
-  0%, 100% {
-    background-position: 0% 50%;
-    filter: hue-rotate(0deg);
-  }
-  25% {
-    background-position: 100% 50%;
-    filter: hue-rotate(90deg);
-  }
-  50% {
-    background-position: 100% 100%;
-    filter: hue-rotate(180deg);
-  }
-  75% {
-    background-position: 0% 100%;
-    filter: hue-rotate(270deg);
-  }
-}
-
-@keyframes particle-float {
-  0%, 100% { 
-    transform: translateY(0px) translateX(0px) rotate(0deg);
-    opacity: 0.3;
-  }
-  33% { 
-    transform: translateY(-30px) translateX(20px) rotate(120deg);
-    opacity: 1;
-  }
-  66% { 
-    transform: translateY(-60px) translateX(-20px) rotate(240deg);
-    opacity: 0.6;
-  }
-}
-
-@keyframes magnetic-hover {
-  0% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.1) rotate(2deg); }
-  100% { transform: scale(1) rotate(0deg); }
-}
-
-@keyframes data-stream {
-  0% { 
-    transform: translateX(-100%) scaleY(1);
-    opacity: 0;
-  }
-  50% {
-    transform: translateX(0%) scaleY(1.2);
-    opacity: 1;
-  }
-  100% { 
-    transform: translateX(100%) scaleY(1);
-    opacity: 0;
   }
 }
 
@@ -285,146 +173,6 @@
   animation: scale-in 0.6s ease-out forwards;
 }
 
-.animate-text-shimmer {
-  background: linear-gradient(90deg, hsl(var(--foreground)), hsl(var(--accent) / 0.7), hsl(var(--primary) / 0.8), hsl(var(--foreground)));
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: text-shimmer 4s ease-in-out infinite;
-}
-
-.animate-gradient-rotate {
-  background-size: 300% 300%;
-  animation: gradient-rotate 8s ease infinite;
-}
-
-.animate-tech-pulse {
-  animation: tech-pulse 2s ease-in-out infinite;
-}
-
-.animate-matrix-rain {
-  animation: matrix-rain 4s linear infinite;
-}
-
-.animate-neon-glow {
-  animation: neon-glow 2s ease-in-out infinite;
-}
-
-/* Apple-inspired animations */
-@keyframes apple-bounce {
-  0%, 20%, 53%, 80%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  40%, 43% {
-    transform: translate3d(0, -8px, 0);
-  }
-  70% {
-    transform: translate3d(0, -4px, 0);
-  }
-  90% {
-    transform: translate3d(0, -2px, 0);
-  }
-}
-
-@keyframes apple-fade-up {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 40px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes apple-scale {
-  from {
-    opacity: 0;
-    transform: scale3d(0.95, 0.95, 1);
-  }
-  to {
-    opacity: 1;
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-/* Apple-style classes */
-.apple-card {
-  background: var(--gradient-card);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-apple);
-  border: 1px solid hsl(var(--border));
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.apple-card:hover {
-  box-shadow: var(--shadow-apple-hover);
-  transform: translateY(-2px);
-}
-
-.apple-button {
-  background: var(--gradient-apple-blue);
-  color: white;
-  border: none;
-  border-radius: calc(var(--radius) * 0.75);
-  padding: 12px 24px;
-  font-weight: 600;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--shadow-inset), var(--shadow-apple);
-}
-
-.apple-button:hover {
-  transform: scale(1.02);
-  box-shadow: var(--shadow-inset), var(--shadow-apple-hover);
-}
-
-.apple-button-secondary {
-  background: var(--gradient-apple-green);
-  color: white;
-  border: none;
-  border-radius: calc(var(--radius) * 0.75);
-  padding: 12px 24px;
-  font-weight: 600;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--shadow-inset), var(--shadow-apple);
-}
-
-.apple-button-secondary:hover {
-  transform: scale(1.02);
-  box-shadow: var(--shadow-inset), var(--shadow-apple-hover);
-}
-
-.apple-gradient-bg {
-  background: var(--gradient-hero);
-}
-
-.apple-text-gradient {
-  background: var(--gradient-apple-blue);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.apple-text-gradient-green {
-  background: var(--gradient-apple-green);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.animate-apple-bounce {
-  animation: apple-bounce 1s ease-in-out;
-}
-
-.animate-apple-fade-up {
-  animation: apple-fade-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.animate-apple-scale {
-  animation: apple-scale 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
 .scroll-animate {
   opacity: 0;
   transform: translateY(60px);
@@ -437,8 +185,8 @@
 }
 
 .glass-effect {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px) saturate(180%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
