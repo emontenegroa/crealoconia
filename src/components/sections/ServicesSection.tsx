@@ -20,8 +20,7 @@ const ServicesSection = () => {
         "Mentoría personal incluida"
       ],
       cta: "Probar Crealoconia",
-      gradient: "premium-gradient",
-      accent: "accent-gradient"
+      gradient: "apple-text-gradient"
     },
     {
       emoji: "💼",
@@ -36,8 +35,7 @@ const ServicesSection = () => {
         "ROI medible y seguimiento continuo"
       ],
       cta: "Solicitar Consultoría",
-      gradient: "accent-gradient",
-      accent: "premium-gradient"
+      gradient: "apple-text-gradient-green"
     },
     {
       emoji: "🤖",
@@ -52,53 +50,33 @@ const ServicesSection = () => {
         "Capacitación y adopción organizacional"
       ],
       cta: "Explorar IA",
-      gradient: "premium-gradient",
-      accent: "accent-gradient"
+      gradient: "apple-text-gradient"
     }
   ];
 
   return (
-    <section className="py-32 neural-network relative overflow-hidden">
-      {/* Dynamic Aurora Background */}
-      <div className="absolute inset-0 animate-aurora opacity-25" />
-      
-      {/* Floating Tech Elements */}
-      <div className="absolute inset-0 opacity-20">
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute w-3 h-3 ${i % 2 === 0 ? 'premium-gradient' : 'accent-gradient'} rounded-full animate-particle-float blur-sm`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${6 + Math.random() * 4}s`
-            }}
-          />
-        ))}
-      </div>
-      
-      {/* Geometric Shapes */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-40 left-10 w-96 h-96 premium-gradient rounded-full blur-3xl animate-particle-float" />
-        <div className="absolute bottom-40 right-10 w-80 h-80 accent-gradient rounded-full blur-3xl animate-particle-float" style={{ animationDelay: '4s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] morphism-glass rounded-full animate-tech-pulse" />
+    <section className="py-32 apple-gradient-bg relative overflow-hidden">
+      {/* Subtle background elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-40 left-10 w-96 h-96 bg-blue-400 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-40 right-10 w-80 h-80 bg-green-400 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-300 rounded-full blur-3xl opacity-20" />
       </div>
       
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <ScrollAnimation>
           <div className="text-center mb-20">
-            <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl font-black text-foreground mb-6">
-              <span className="premium-gradient bg-clip-text text-transparent animate-text-shimmer">
+            <h2 className="font-heading text-4xl md:text-6xl font-black text-foreground mb-6">
+              <span className="apple-text-gradient">
                 Tres servicios.
               </span>
               <br />
-              <span className="accent-gradient bg-clip-text text-transparent animate-text-shimmer">
+              <span className="apple-text-gradient-green">
                 Una visión.
               </span>
             </h2>
-            <p className="font-body text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Cada servicio está diseñado para diferentes momentos de tu viaje digital, pero todos comparten el mismo objetivo: transformar tu presencia online de manera espectacular.
+            <p className="font-body text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Cada servicio está diseñado para diferentes momentos de tu viaje digital, pero todos comparten el mismo objetivo: transformar tu presencia online.
             </p>
           </div>
         </ScrollAnimation>
@@ -107,45 +85,41 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <ScrollAnimation key={index} delay={index * 200}>
               <Card 
-                className={`group relative morphism-glass rounded-3xl transition-all duration-700 cursor-pointer transform hover:-translate-y-8 hover:scale-105 ${
-                  hoveredService === index ? 'glow-shadow animate-magnetic-hover' : 'elegant-shadow'
+                className={`apple-card group cursor-pointer transition-all duration-500 ${
+                  hoveredService === index ? 'scale-105 -translate-y-4' : ''
                 }`}
                 onMouseEnter={() => setHoveredService(index)}
                 onMouseLeave={() => setHoveredService(null)}
               >
-                {/* Dynamic Background Overlay */}
-                <div className={`absolute inset-0 ${service.gradient} rounded-3xl opacity-0 group-hover:opacity-15 transition-opacity duration-700`} />
-                <div className="absolute inset-0 neural-network rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                
                 {/* Floating Icon */}
                 <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                  <div className={`w-16 h-16 ${service.gradient} rounded-full flex items-center justify-center text-3xl morphism-glass animate-particle-float`}>
+                  <div className="w-16 h-16 apple-card rounded-full flex items-center justify-center text-3xl animate-float">
                     {service.emoji}
                   </div>
                 </div>
                 
-                <CardContent className="pt-16 p-8 relative z-10">
+                <CardContent className="pt-16 p-8 relative">
                   {/* Service Header */}
                   <div className="text-center mb-8">
-                    <h3 className="font-heading text-2xl md:text-3xl font-black text-foreground mb-2 group-hover:premium-gradient group-hover:bg-clip-text group-hover:text-transparent transition-all duration-500">
+                    <h3 className={`font-heading text-2xl md:text-3xl font-black mb-2 ${service.gradient}`}>
                       {service.title}
                     </h3>
-                    <p className="font-accent text-lg font-semibold text-accent group-hover:text-primary transition-colors duration-500">
+                    <p className="font-accent text-lg font-semibold text-muted-foreground">
                       {service.subtitle}
                     </p>
                   </div>
                   
                   {/* Description */}
-                  <p className="font-body text-muted-foreground leading-relaxed mb-8 text-center transition-all duration-500 group-hover:text-foreground">
+                  <p className="font-body text-muted-foreground leading-relaxed mb-8 text-center">
                     {service.description}
                   </p>
                   
-                  {/* Features Grid */}
-                  <div className="space-y-4 mb-8">
+                  {/* Features List */}
+                  <div className="space-y-3 mb-8">
                     {service.features.map((feature, featureIndex) => (
                       <div key={featureIndex} className="flex items-start text-sm">
-                        <div className={`w-2 h-2 ${service.accent} rounded-full mt-2 mr-3 flex-shrink-0 animate-tech-pulse`} />
-                        <span className="font-body text-muted-foreground group-hover:text-foreground transition-colors duration-500">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0" />
+                        <span className="font-body text-muted-foreground">
                           {feature}
                         </span>
                       </div>
@@ -154,46 +128,35 @@ const ServicesSection = () => {
                   
                   {/* CTA Button */}
                   <Button 
-                    className={`w-full font-accent font-bold py-4 rounded-xl border-0 transition-all duration-500 transform group-hover:scale-105 ${
+                    className={`w-full font-semibold py-4 rounded-xl transition-all duration-500 ${
                       hoveredService === index 
-                        ? `${service.gradient} text-background glow-shadow animate-magnetic-hover` 
-                        : 'morphism-glass text-foreground elegant-shadow'
+                        ? 'apple-button scale-105' 
+                        : 'apple-card border text-foreground'
                     }`}
                   >
                     {service.cta}
                   </Button>
-                  
-                  {/* Data Stream Effects */}
-                  <div className="absolute top-4 right-4 w-20 h-0.5 premium-gradient opacity-0 group-hover:opacity-100 animate-data-stream" />
-                  <div className="absolute bottom-4 left-4 w-16 h-0.5 accent-gradient opacity-0 group-hover:opacity-100 animate-data-stream" style={{ animationDelay: '0.5s' }} />
                 </CardContent>
               </Card>
             </ScrollAnimation>
           ))}
         </div>
 
-        {/* Enhanced Bottom CTA */}
+        {/* Bottom CTA */}
         <ScrollAnimation delay={600}>
-          <div className="text-center morphism-glass rounded-3xl p-12 backdrop-blur-sm elegant-shadow neural-network">
+          <div className="text-center apple-card p-12 backdrop-blur-sm">
             <div className="relative">
               <h3 className="font-heading text-3xl md:text-4xl font-black text-foreground mb-6">
-                <span className="premium-gradient bg-clip-text text-transparent">
+                <span className="apple-text-gradient">
                   ¿No estás seguro cuál necesitas?
                 </span>
               </h3>
               <p className="font-body text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-                Conversemos para identificar la mejor solución para tu situación específica y crear algo extraordinario juntos
+                Conversemos para identificar la mejor solución para tu situación específica
               </p>
-              <Button 
-                size="lg" 
-                className="font-accent font-bold px-12 py-6 rounded-xl premium-gradient text-background border-0 glow-shadow hover:scale-110 transition-all duration-500 animate-magnetic-hover"
-              >
+              <Button className="apple-button-secondary font-semibold px-12 py-6 rounded-xl">
                 🚀 Agendar Conversación Gratuita
               </Button>
-              
-              {/* Decorative Elements */}
-              <div className="absolute -top-4 -left-4 w-8 h-8 premium-gradient rounded-full opacity-50 animate-particle-float" />
-              <div className="absolute -bottom-4 -right-4 w-6 h-6 accent-gradient rounded-full opacity-50 animate-particle-float" style={{ animationDelay: '2s' }} />
             </div>
           </div>
         </ScrollAnimation>

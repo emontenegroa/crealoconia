@@ -4,44 +4,54 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 250 250 250;
+    --foreground: 17 24 39;
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 255 255 255;
+    --card-foreground: 17 24 39;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 255 255 255;
+    --popover-foreground: 17 24 39;
 
-    --primary: 142 76% 36%;
-    --primary-foreground: 355 7% 97%;
+    --primary: 59 130 246;
+    --primary-foreground: 248 250 252;
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 241 245 249;
+    --secondary-foreground: 51 65 85;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 248 250 252;
+    --muted-foreground: 100 116 139;
 
-    --accent: 197 71% 73%;
-    --accent-foreground: 240 10% 3.9%;
+    --accent: 16 185 129;
+    --accent-foreground: 255 255 255;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 239 68 68;
+    --destructive-foreground: 248 250 252;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 142 71% 45%;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 59 130 246;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
     
-    --primary-glow: 142 86% 56%;
-    --accent-glow: 197 81% 83%;
-    --gradient-primary: linear-gradient(135deg, hsl(142, 76%, 36%), hsl(142, 86%, 56%));
-    --gradient-accent: linear-gradient(135deg, hsl(197, 71%, 73%), hsl(197, 81%, 83%));
-    --gradient-rainbow: linear-gradient(45deg, hsl(142, 76%, 36%), hsl(197, 71%, 73%), hsl(271, 81%, 56%), hsl(142, 76%, 36%));
-    --shadow-elegant: 0 25px 50px -12px hsl(142 76% 36% / 0.25);
-    --shadow-glow: 0 0 50px hsl(142 86% 56% / 0.3);
-    --shadow-accent: 0 0 30px hsl(197 71% 73% / 0.4);
+    /* Apple-inspired colors */
+    --apple-blue: 0 122 255;
+    --apple-green: 52 199 89;
+    --apple-purple: 175 82 222;
+    --apple-orange: 255 149 0;
+    --apple-gray: 142 142 147;
+    --apple-dark: 28 28 30;
+    
+    /* Gradients */
+    --gradient-apple-blue: linear-gradient(135deg, hsl(212, 100%, 50%), hsl(221, 83%, 53%));
+    --gradient-apple-green: linear-gradient(135deg, hsl(145, 63%, 49%), hsl(158, 64%, 52%));
+    --gradient-hero: linear-gradient(180deg, hsl(220, 13%, 97%) 0%, hsl(220, 13%, 95%) 50%, hsl(220, 13%, 93%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(220, 13%, 98%) 100%);
+    
+    /* Shadows */
+    --shadow-apple: 0 4px 25px 0 hsl(0, 0%, 0%, 0.1);
+    --shadow-apple-hover: 0 8px 40px 0 hsl(0, 0%, 0%, 0.15);
+    --shadow-inset: inset 0 1px 0 hsl(0, 0%, 100%, 0.6);
 
     --sidebar-background: 0 0% 98%;
 
@@ -301,64 +311,118 @@
   animation: neon-glow 2s ease-in-out infinite;
 }
 
-.animate-aurora {
-  background: var(--gradient-rainbow);
-  background-size: 300% 300%;
-  animation: aurora 12s ease-in-out infinite;
+/* Apple-inspired animations */
+@keyframes apple-bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
 }
 
-.animate-particle-float {
-  animation: particle-float 8s ease-in-out infinite;
+@keyframes apple-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
-.animate-magnetic-hover {
-  transition: all 0.3s ease;
+@keyframes apple-scale {
+  from {
+    opacity: 0;
+    transform: scale3d(0.95, 0.95, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
 }
 
-.animate-magnetic-hover:hover {
-  animation: magnetic-hover 0.6s ease-in-out;
+/* Apple-style classes */
+.apple-card {
+  background: var(--gradient-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-apple);
+  border: 1px solid hsl(var(--border));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.animate-data-stream {
-  animation: data-stream 2s ease-in-out infinite;
+.apple-card:hover {
+  box-shadow: var(--shadow-apple-hover);
+  transform: translateY(-2px);
 }
 
-.neural-network {
-  background: radial-gradient(circle at 20% 50%, hsl(var(--primary) / 0.3) 0%, transparent 50%),
-              radial-gradient(circle at 80% 50%, hsl(var(--accent) / 0.3) 0%, transparent 50%),
-              radial-gradient(circle at 40% 20%, hsl(var(--primary-glow) / 0.2) 0%, transparent 50%),
-              radial-gradient(circle at 60% 80%, hsl(var(--accent-glow) / 0.2) 0%, transparent 50%);
+.apple-button {
+  background: var(--gradient-apple-blue);
+  color: white;
+  border: none;
+  border-radius: calc(var(--radius) * 0.75);
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-inset), var(--shadow-apple);
 }
 
-.morphism-glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: var(--shadow-elegant);
+.apple-button:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-inset), var(--shadow-apple-hover);
 }
 
-.premium-gradient {
-  background: var(--gradient-primary);
-  background-size: 200% 200%;
-  animation: gradient-shift 4s ease infinite;
+.apple-button-secondary {
+  background: var(--gradient-apple-green);
+  color: white;
+  border: none;
+  border-radius: calc(var(--radius) * 0.75);
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-inset), var(--shadow-apple);
 }
 
-.accent-gradient {
-  background: var(--gradient-accent);
-  background-size: 200% 200%;
-  animation: gradient-shift 6s ease infinite;
+.apple-button-secondary:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-inset), var(--shadow-apple-hover);
 }
 
-.elegant-shadow {
-  box-shadow: var(--shadow-elegant);
+.apple-gradient-bg {
+  background: var(--gradient-hero);
 }
 
-.glow-shadow {
-  box-shadow: var(--shadow-glow);
+.apple-text-gradient {
+  background: var(--gradient-apple-blue);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.accent-shadow {
-  box-shadow: var(--shadow-accent);
+.apple-text-gradient-green {
+  background: var(--gradient-apple-green);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.animate-apple-bounce {
+  animation: apple-bounce 1s ease-in-out;
+}
+
+.animate-apple-fade-up {
+  animation: apple-fade-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-apple-scale {
+  animation: apple-scale 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .scroll-animate {
@@ -373,43 +437,12 @@
 }
 
 .glass-effect {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .dark .glass-effect {
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.subtle-gradient {
-  background: linear-gradient(45deg, hsl(var(--accent) / 0.03), hsl(var(--primary) / 0.02), hsl(var(--accent) / 0.03));
-  background-size: 400% 400%;
-}
-
-.subtle-gradient:hover {
-  background: linear-gradient(45deg, hsl(var(--accent) / 0.08), hsl(var(--primary) / 0.05), hsl(var(--accent) / 0.08));
-  background-size: 400% 400%;
-  animation: gradient-rotate 3s ease infinite;
-}
-
-.hologram-effect {
-  background: linear-gradient(45deg, transparent 30%, hsl(var(--accent) / 0.1) 50%, transparent 70%);
-  background-size: 20px 20px;
-  animation: gradient-shift 3s ease infinite;
-}
-
-.cyber-border {
-  position: relative;
-  border: 1px solid transparent;
-  background: linear-gradient(45deg, hsl(var(--background)), hsl(var(--background))) padding-box,
-              linear-gradient(45deg, hsl(var(--accent) / 0.3), hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.3)) border-box;
-}
-
-.quantum-shadow {
-  box-shadow: 
-    0 4px 20px hsl(var(--accent) / 0.15),
-    0 8px 40px hsl(var(--primary) / 0.1),
-    inset 0 1px 10px hsl(var(--accent) / 0.05);
 }
