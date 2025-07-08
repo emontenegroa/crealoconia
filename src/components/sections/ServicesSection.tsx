@@ -1,142 +1,123 @@
-import React, { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import ScrollAnimation from '@/components/ScrollAnimation';
 
 const ServicesSection = () => {
-  const [hoveredService, setHoveredService] = useState<number | null>(null);
-  
   const services = [
     {
-      emoji: "🚀",
       title: "Crealoconia",
       subtitle: "Metodología de Activación Digital",
-      description: "Plataforma revolucionaria que convierte 10 preguntas estratégicas en un sitio web profesional completo. Combina inteligencia artificial avanzada con mi experiencia de 20+ años para eliminar toda complejidad técnica.",
+      description: "Rápido. Eficiente. Profesional.",
+      longDescription: "Plataforma revolucionaria que convierte 10 preguntas estratégicas en un sitio web profesional completo.",
+      backgroundClass: "bg-gradient-to-br from-orange-400 via-pink-500 to-blue-600",
+      textColor: "text-white",
       features: [
         "Metodología única probada en 500+ proyectos",
-        "Super prompt personalizado de IA",
-        "Sitio web generado profesionalmente",
-        "Sin conocimiento técnico requerido",
-        "Mentoría personal incluida"
-      ],
-      cta: "Probar Crealoconia"
+        "Super prompt personalizado de IA", 
+        "Sitio web generado profesionalmente"
+      ]
     },
     {
-      emoji: "💼",
-      title: "Consultoría Empresarial",
+      title: "Consultoría Empresarial", 
       subtitle: "Transformación Digital Estratégica",
-      description: "Basado en 20+ años liderando equipos multidisciplinarios y implementando soluciones en empresas como IDM Technology y Empresas Eltit. Estrategias personalizadas para PyME y corporaciones.",
+      description: "Ve rápido. Ve lejos.",
+      longDescription: "20+ años liderando equipos multidisciplinarios en empresas como IDM Technology y Empresas Eltit.",
+      backgroundClass: "bg-gradient-to-br from-slate-900 to-slate-700",
+      textColor: "text-white",
       features: [
         "Diagnóstico integral de procesos digitales",
         "Estrategia de transformación escalable",
-        "Implementación con metodologías probadas",
-        "Liderazgo de equipos multidisciplinarios",
         "ROI medible y seguimiento continuo"
-      ],
-      cta: "Solicitar Consultoría"
+      ]
     },
     {
-      emoji: "🤖",
       title: "IA para Negocios",
-      subtitle: "Inteligencia Artificial Estratégica",
-      description: "Implementación práctica de IA en procesos de negocio. Con formación especializada en IA aplicada a negocios (2025) y experiencia comprobada en automatización inteligente y análisis de datos.",
+      subtitle: "Inteligencia Artificial Estratégica", 
+      description: "Equipo de ensueño.",
+      longDescription: "Implementación práctica de IA en procesos de negocio con formación especializada en IA aplicada (2025).",
+      backgroundClass: "bg-gradient-to-br from-green-400 to-emerald-600",
+      textColor: "text-white",
       features: [
         "Automatización inteligente de procesos",
         "Análisis predictivo y Business Intelligence",
-        "Chatbots y asistentes virtuales empresariales",
-        "Integración con sistemas existentes",
-        "Capacitación y adopción organizacional"
-      ],
-      cta: "Explorar IA"
+        "Integración con sistemas existentes"
+      ]
     }
   ];
 
   return (
-    <section className="py-32 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden">
-      {/* Subtle background elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-40 left-10 w-96 h-96 bg-accent rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-40 right-10 w-80 h-80 bg-primary rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
-      </div>
-      
-      <div className="container mx-auto px-4 max-w-7xl relative z-10">
+    <section className="py-20 bg-background">
+      <div className="container mx-auto px-4 max-w-7xl">
         <ScrollAnimation>
-          <div className="text-center mb-20">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
-              Tres servicios. Una visión.
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
+              Conoce Crealoconia.
             </h2>
-            <p className="font-body text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Cada servicio está diseñado para diferentes momentos de tu viaje digital, pero todos comparten el mismo objetivo: transformar tu presencia online.
-            </p>
           </div>
         </ScrollAnimation>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <ScrollAnimation key={index} delay={index * 200}>
-              <Card 
-                className={`group relative bg-background/80 backdrop-blur-sm border border-primary/10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-700 cursor-pointer transform hover:-translate-y-4 hover:scale-105 ${
-                  hoveredService === index ? 'ring-2 ring-accent/30 border-accent/30' : ''
-                }`}
-                onMouseEnter={() => setHoveredService(index)}
-                onMouseLeave={() => setHoveredService(null)}
+              <div 
+                className={`${service.backgroundClass} rounded-3xl p-8 lg:p-12 relative overflow-hidden min-h-[500px] group cursor-pointer transition-all duration-700 hover:scale-105 hover:shadow-2xl`}
               >
-                {/* Floating effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-primary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <CardContent className="p-8 relative z-10">
-                  {/* Emoji icon */}
-                  <div className="text-6xl mb-6 text-center">
-                    {service.emoji}
-                  </div>
-                  
-                  <div className="text-center mb-6">
-                    <h3 className="font-heading text-2xl font-bold text-primary mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="font-accent text-lg font-medium text-accent">
+                {/* Content */}
+                <div className="relative z-10 h-full flex flex-col justify-between">
+                  <div>
+                    <p className={`text-sm font-medium ${service.textColor} opacity-80 mb-2`}>
                       {service.subtitle}
                     </p>
+                    <h3 className={`font-heading text-3xl lg:text-4xl font-bold ${service.textColor} mb-4 leading-tight`}>
+                      {service.title}
+                    </h3>
+                    <p className={`text-xl lg:text-2xl font-semibold ${service.textColor} mb-6`}>
+                      {service.description}
+                    </p>
+                    <p className={`${service.textColor} opacity-90 mb-8 text-lg leading-relaxed`}>
+                      {service.longDescription}
+                    </p>
+                    
+                    {/* Features */}
+                    <ul className="space-y-3 mb-8">
+                      {service.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className={`flex items-start ${service.textColor} opacity-90`}>
+                          <div className="w-2 h-2 bg-white rounded-full mt-2.5 mr-3 flex-shrink-0" />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                   
-                  <p className="font-body text-muted-foreground leading-relaxed mb-6 text-center">
-                    {service.description}
-                  </p>
-                  
-                  {/* Features list */}
-                  <ul className="space-y-3 mb-8">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start text-sm text-muted-foreground">
-                        <div className="w-2 h-2 bg-accent rounded-full mt-2 mr-3 flex-shrink-0" />
-                        <span className="font-body">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
                   <Button 
-                    className={`w-full font-accent font-semibold transition-all duration-300 rounded-xl ${
-                      hoveredService === index ? 'bg-accent hover:bg-accent/90 scale-105' : ''
-                    }`}
-                    variant={hoveredService === index ? "default" : "outline"}
+                    variant="secondary"
+                    className="bg-white/20 hover:bg-white/30 text-white border-white/30 rounded-full px-6 py-3 font-semibold transition-all duration-300 backdrop-blur-sm self-start"
                   >
-                    {service.cta}
+                    {index === 0 ? "Probar Crealoconia" : index === 1 ? "Solicitar Consultoría" : "Explorar IA"}
                   </Button>
-                </CardContent>
-              </Card>
+                </div>
+
+                {/* Subtle overlay for better text readability */}
+                <div className="absolute inset-0 bg-black/10 rounded-3xl" />
+                
+                {/* Animated background elements */}
+                <div className="absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-700" />
+              </div>
             </ScrollAnimation>
           ))}
         </div>
 
         {/* Bottom CTA */}
         <ScrollAnimation delay={600}>
-          <div className="text-center bg-secondary/20 rounded-3xl p-8 backdrop-blur-sm border border-primary/10">
-            <h3 className="font-heading text-2xl font-bold text-primary mb-4">
+          <div className="text-center mt-20 bg-muted/30 rounded-3xl p-12 backdrop-blur-sm">
+            <h3 className="font-heading text-3xl font-bold text-foreground mb-4">
               ¿No estás seguro cuál necesitas?
             </h3>
-            <p className="font-body text-muted-foreground mb-6 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Conversemos para identificar la mejor solución para tu situación específica
             </p>
-            <Button size="lg" className="font-accent font-semibold px-8 py-4 rounded-xl">
+            <Button size="lg" className="font-semibold px-8 py-4 rounded-full text-lg">
               Agendar Conversación Gratuita
             </Button>
           </div>
