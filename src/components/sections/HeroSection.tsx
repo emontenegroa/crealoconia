@@ -34,11 +34,6 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center max-w-6xl">
         <div className="animate-fade-in">
-          {/* Badge */}
-          <div className="inline-flex items-center px-6 py-3 bg-accent/10 border border-accent/20 rounded-full text-accent font-medium text-lg mb-8 animate-fade-in">
-            ✨ Inteligencia Artificial + Experiencia Humana
-          </div>
-          
           <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-primary mb-8 leading-tight">
             Solo necesitas saber lo que haces y ofreces.{' '}
             <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent animate-gradient">

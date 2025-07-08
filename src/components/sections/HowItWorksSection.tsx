@@ -32,11 +32,6 @@ const HowItWorksSection = () => {
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
         <ScrollAnimation>
           <div className="text-center mb-20">
-            {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-accent/10 to-primary/10 border border-accent/20 rounded-full text-accent font-medium mb-6">
-              🚀 Proceso Optimizado
-            </div>
-            
             <h2 className="font-heading text-4xl md:text-6xl font-bold text-primary mb-6">
               Cómo trabajamos
             </h2>
