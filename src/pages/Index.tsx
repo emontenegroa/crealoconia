@@ -1,28 +1,26 @@
 import React from 'react';
-import ThemeToggle from '@/components/ThemeToggle';
+import NavigationHeader from '@/components/sections/NavigationHeader';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
-import HowItWorksSection from '@/components/sections/HowItWorksSection';
+import ProblemSolutionSection from '@/components/sections/ProblemSolutionSection';
+import ProcessMethodologySection from '@/components/sections/ProcessMethodologySection';
 import ServicesSection from '@/components/sections/ServicesSection';
-import WebsiteBuilderSection from '@/components/sections/WebsiteBuilderSection';
-import TestimonialsSection from '@/components/sections/TestimonialsSection';
-import LeadMagnetSection from '@/components/sections/LeadMagnetSection';
-import AboutEstebanSection from '@/components/sections/AboutEstebanSection';
-import ContactSection from '@/components/sections/ContactSection';
+import EnhancedTestimonialsSection from '@/components/sections/EnhancedTestimonialsSection';
+import EnhancedFAQSection from '@/components/sections/EnhancedFAQSection';
+import OptimizedContactSection from '@/components/sections/OptimizedContactSection';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      <ThemeToggle />
+      <NavigationHeader />
       <HeroSection />
       <AboutSection />
-      <HowItWorksSection />
+      <ProblemSolutionSection />
+      <ProcessMethodologySection />
       <ServicesSection />
-      <WebsiteBuilderSection />
-      <TestimonialsSection />
-      <LeadMagnetSection />
-      <AboutEstebanSection />
-      <ContactSection />
+      <EnhancedTestimonialsSection />
+      <EnhancedFAQSection />
+      <OptimizedContactSection />
     </div>
   );
 };

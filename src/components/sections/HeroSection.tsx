@@ -1,21 +1,23 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
+
 const HeroSection = () => {
-  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/30 to-accent/5 animate-gradient">
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/30 to-accent/5 animate-gradient pt-16">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-32 h-32 border border-accent/30 rounded-full animate-float" style={{
-        animationDelay: '0s'
-      }} />
+          animationDelay: '0s'
+        }} />
         <div className="absolute top-40 right-20 w-20 h-20 border border-primary/30 rounded-full animate-float" style={{
-        animationDelay: '2s'
-      }} />
+          animationDelay: '2s'
+        }} />
         <div className="absolute bottom-32 left-32 w-16 h-16 bg-accent/20 rounded-full animate-float" style={{
-        animationDelay: '4s'
-      }} />
+          animationDelay: '4s'
+        }} />
         <div className="absolute bottom-20 right-40 w-24 h-24 bg-primary/20 rounded-full animate-float" style={{
-        animationDelay: '1s'
-      }} />
+          animationDelay: '1s'
+        }} />
         
         {/* Neural Network Lines */}
         <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 1200 800">
@@ -35,25 +37,37 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4 text-center max-w-6xl">
         <div className="animate-fade-in">
           <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-primary mb-8 leading-tight">
-            Solo necesitas saber lo que haces y ofreces.{' '}
+            Tu expertise merece una{' '}
             <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent animate-gradient">
-              Yo me encargo
+              presencia digital
             </span>{' '}
-            de que se vea genial.
+            que genere confianza y clientes.
           </h1>
           
           <p className="font-body text-xl md:text-2xl lg:text-3xl text-muted-foreground max-w-5xl mx-auto mb-12 leading-relaxed animate-slide-up" style={{
-          animationDelay: '0.3s'
-        }}>Potencia tu marca digital con inteligencia artificial. </p>
+            animationDelay: '0.3s'
+          }}>
+            Soy Esteban Montenegro. Transformo el conocimiento de mentores, coaches y consultores 
+            en webs que venden 24/7, usando inteligencia artificial.
+          </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-scale-in" style={{
-          animationDelay: '0.6s'
-        }}>
-            <Button size="lg" className="text-lg px-10 py-6 font-accent font-semibold animate-pulse-glow hover:scale-105 transition-all duration-300">
-              Quiero mi presencia digital
+            animationDelay: '0.6s'
+          }}>
+            <Button 
+              size="lg" 
+              className="text-lg px-10 py-6 font-accent font-semibold animate-pulse-glow hover:scale-105 transition-all duration-300"
+              onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Crear mi web profesional ahora 🚀
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-10 py-6 font-accent font-semibold glass-effect hover:scale-105 transition-all duration-300">
-              Ver cómo funciona
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="text-lg px-10 py-6 font-accent font-semibold glass-effect hover:scale-105 transition-all duration-300"
+              onClick={() => document.getElementById('proceso')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Ver mi metodología
             </Button>
           </div>
         </div>
@@ -65,6 +79,8 @@ const HeroSection = () => {
           <div className="w-1 h-3 bg-accent rounded-full mt-2 animate-pulse" />
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default HeroSection;

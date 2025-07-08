@@ -1,95 +1,85 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import ScrollAnimation from '@/components/ScrollAnimation';
-const AboutSection = () => {
-  return <section className="py-32 bg-gradient-to-br from-muted/20 to-background relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl" />
-      </div>
-      
-      <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        {/* Section Header */}
-        <ScrollAnimation>
-          <div className="text-center mb-20">
-            <h2 className="font-heading text-5xl md:text-7xl font-bold text-foreground mb-6">
-              ¿Cómo te ayudo?
-            </h2>
-          </div>
-        </ScrollAnimation>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center max-w-7xl mx-auto">
-          <ScrollAnimation delay={200}>
-            <div className="relative order-2 lg:order-1">
-              {/* iPhone Mockup */}
-              <div className="relative mx-auto w-80 h-[650px] bg-card rounded-[3rem] shadow-2xl border-8 border-muted/20 overflow-hidden">
-                {/* Screen */}
-                <div className="absolute inset-4 bg-background rounded-[2.5rem] overflow-hidden">
-                  {/* Status Bar */}
-                  <div className="h-8 bg-foreground/5 flex items-center justify-between px-6 text-xs font-medium text-foreground">
-                    <span>9:41</span>
-                    <div className="flex gap-1">
-                      <div className="w-4 h-2 bg-foreground/60 rounded-sm"></div>
-                      <div className="w-4 h-2 bg-foreground/60 rounded-sm"></div>
-                      <div className="w-6 h-2 bg-foreground/80 rounded-sm"></div>
-                    </div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="p-6 space-y-4">
-                    <div className="flex gap-4 mb-6">
-                      <div className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">IA</div>
-                      <div className="px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium">Web</div>
-                      <div className="px-4 py-2 bg-muted text-muted-foreground rounded-full text-sm font-medium">Mentorías</div>
-                    </div>
-                    
-                    {/* Cards */}
-                    <div className="space-y-3">
-                      <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-4 rounded-2xl">
-                        <h4 className="font-semibold text-sm text-primary">Desarrollo Web IA</h4>
-                        <p className="text-xs text-muted-foreground mt-1">Sitios únicos con tecnología</p>
-                      </div>
-                      <div className="bg-gradient-to-r from-accent/10 to-primary/10 p-4 rounded-2xl">
-                        <h4 className="font-semibold text-sm text-accent">Mentoría Estratégica</h4>
-                        <p className="text-xs text-muted-foreground mt-1">Claridad en tu negocio digital</p>
-                      </div>
-                      <div className="bg-muted/50 p-4 rounded-2xl">
-                        <h4 className="font-semibold text-sm text-foreground">Optimización IA</h4>
-                        <p className="text-xs text-muted-foreground mt-1">Procesos automatizados</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+const AboutSection = () => {
+  return (
+    <section className="py-20 bg-muted/20" id="quien-soy">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <ScrollAnimation>
+            <div className="space-y-6">
+              <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full font-semibold">
+                👋 Quien soy
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground">
+                Esteban Montenegro
+              </h2>
+              
+              <div className="text-xl text-muted-foreground space-y-4 leading-relaxed">
+                <p>
+                  <strong className="text-foreground">Mentor en tecnología con 20+ años de experiencia</strong> 
+                  ayudando a profesionales como tú a crear presencia digital que realmente genere resultados.
+                </p>
                 
-                {/* Home Indicator */}
-                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-foreground/30 rounded-full"></div>
+                <p>
+                  He trabajado con centenares de mentores, coaches, abogados y consultores que llegaron 
+                  frustrados después de múltiples intentos fallidos con agencias y plataformas complicadas.
+                </p>
+                
+                <p>
+                  Mi especialidad es usar <strong className="text-primary">inteligencia artificial</strong> para 
+                  traducir tu expertise en webs profesionales que venden mientras duermes.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6 pt-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary">150+</div>
+                  <div className="text-muted-foreground">Webs creadas</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary">20+</div>
+                  <div className="text-muted-foreground">Años de experiencia</div>
+                </div>
               </div>
             </div>
           </ScrollAnimation>
-          
-          <ScrollAnimation delay={400}>
-            <div className="space-y-8 order-1 lg:order-2">
-              <div className="space-y-6 text-lg md:text-xl leading-relaxed">
-                <p className="font-body text-foreground/90">
-                  Me he especializado en <span className="text-primary font-semibold">Inteligencia Artificial</span>, y eso me ha dado las herramientas técnicas para potenciar mi experiencia acompañando personas.
-                </p>
-                <p className="font-body text-muted-foreground">
-                  Hoy puedo entender tus desafíos, escucharte con claridad, darte orientación estratégica y ayudarte a transformar tus ideas en <span className="text-accent font-semibold">soluciones digitales reales</span>.
-                </p>
-                <p className="font-body text-muted-foreground">
-                  Te acompaño en todo el proceso: desde crear tu página web o landing, hasta mentorías estratégicas, optimización de procesos, ventas y presentación.
-                </p>
-                <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 mt-8">
-                  <p className="font-body font-semibold text-primary text-lg">
-                    No trabajo con plantillas. Trabajo contigo y con lo que realmente necesitas.
-                  </p>
-                </div>
+
+          <ScrollAnimation delay={300}>
+            <div className="relative">
+              <div className="bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl p-8">
+                <img 
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=600&fit=crop&crop=face"
+                  alt="Esteban Montenegro - Mentor en tecnología"
+                  className="rounded-2xl w-full shadow-2xl"
+                />
               </div>
+              
+              {/* Floating testimonial */}
+              <Card className="absolute -bottom-6 -left-6 bg-card border border-accent/20 shadow-xl max-w-sm">
+                <CardContent className="p-4">
+                  <p className="text-sm text-muted-foreground mb-2">
+                    "Esteban no solo crea webs, crea herramientas de ventas que funcionan 24/7"
+                  </p>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                      <span className="text-xs font-semibold">CM</span>
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold">Carlos M.</div>
+                      <div className="text-xs text-muted-foreground">Abogado</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </ScrollAnimation>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default AboutSection;
