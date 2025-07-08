@@ -25,8 +25,8 @@ const CrearWebSection = () => (
         </div>
         <div className="relative">
           <img 
-            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop"
-            alt="Crear página web con IA - Dispositivos mostrando sitio web"
+            src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop"
+            alt="Crear página web con IA - Mockup dispositivos"
             className="rounded-2xl shadow-2xl w-full"
           />
         </div>
@@ -42,8 +42,8 @@ const ConsultoriaSection = () => (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="relative order-2 lg:order-1">
           <img 
-            src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=600&fit=crop"
-            alt="Consultoría empresarial"
+            src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop"
+            alt="Consultoría empresarial - Mockup dispositivos"
             className="rounded-2xl shadow-2xl w-full"
           />
         </div>
@@ -91,8 +91,8 @@ const IANegociosSection = () => (
         </div>
         <div className="relative">
           <img 
-            src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop"
-            alt="IA para negocios"
+            src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=600&fit=crop"
+            alt="IA para negocios - Mockup dispositivos"
             className="rounded-2xl shadow-2xl w-full"
           />
         </div>
