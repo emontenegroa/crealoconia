@@ -16,24 +16,30 @@ const AboutEstebanSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <ScrollAnimation className="order-2 lg:order-1">
             <div className="relative group">
-              {/* Profile Image Placeholder with enhanced effects */}
+              {/* FaceTime-style Video Call Container */}
               <Card className="glass-effect border-accent/30 hover:border-accent/50 transition-all duration-700 group-hover:scale-105">
-                <CardContent className="p-12">
-                  <div className="aspect-square bg-gradient-to-br from-primary/30 via-accent/20 to-primary/30 rounded-3xl flex items-center justify-center relative overflow-hidden">
+                <CardContent className="p-8">
+                  <div className="aspect-[4/5] bg-gradient-to-br from-primary/30 via-accent/20 to-primary/30 rounded-3xl overflow-hidden relative">
                     {/* Animated background pattern */}
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-primary/10 animate-gradient" />
                     
-                    {/* Profile image */}
-                    <div className="relative z-10 w-40 h-40 rounded-full overflow-hidden shadow-2xl group-hover:scale-110 transition-transform duration-500">
+                    {/* Profile image - FaceTime style */}
+                    <div className="relative z-10 w-full h-full group-hover:scale-105 transition-transform duration-500">
                       <img 
                         src="/lovable-uploads/4a8eae6d-88e7-4952-a648-d0104aafc97d.png" 
                         alt="Esteban Montenegro - Fundador de Crealoconia"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover rounded-2xl shadow-2xl"
                       />
+                      
+                      {/* FaceTime-style overlay indicator */}
+                      <div className="absolute top-4 left-4 w-3 h-3 bg-green-400 rounded-full animate-pulse shadow-lg"></div>
+                      <div className="absolute top-4 right-4 w-8 h-8 bg-black/20 rounded-full flex items-center justify-center">
+                        <div className="w-4 h-4 bg-white/80 rounded-sm"></div>
+                      </div>
                     </div>
                     
                     {/* Floating elements */}
-                    <div className="absolute top-4 right-4 w-4 h-4 bg-accent/50 rounded-full animate-float" />
+                    <div className="absolute bottom-4 right-4 w-4 h-4 bg-accent/50 rounded-full animate-float" />
                     <div className="absolute bottom-4 left-4 w-3 h-3 bg-primary/50 rounded-full animate-float" style={{ animationDelay: '2s' }} />
                   </div>
                 </CardContent>
