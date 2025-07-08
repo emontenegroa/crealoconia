@@ -25,8 +25,8 @@ const CrearWebSection = () => (
         </div>
         <div className="relative">
           <img 
-            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop"
-            alt="Crear página web con IA"
+            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop"
+            alt="Crear página web con IA - Dispositivos mostrando sitio web"
             className="rounded-2xl shadow-2xl w-full"
           />
         </div>
