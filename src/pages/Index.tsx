@@ -1,10 +1,8 @@
 import React from 'react';
 import NavigationHeader from '@/components/sections/NavigationHeader';
 import HeroSection from '@/components/sections/HeroSection';
-import AboutSection from '@/components/sections/AboutSection';
-import ProblemSolutionSection from '@/components/sections/ProblemSolutionSection';
-import ProcessMethodologySection from '@/components/sections/ProcessMethodologySection';
-import ServicesSection from '@/components/sections/ServicesSection';
+import ValuePropositionSection from '@/components/sections/ValuePropositionSection';
+import ProcessSimplifiedSection from '@/components/sections/ProcessSimplifiedSection';
 import EnhancedTestimonialsSection from '@/components/sections/EnhancedTestimonialsSection';
 import EnhancedFAQSection from '@/components/sections/EnhancedFAQSection';
 import OptimizedContactSection from '@/components/sections/OptimizedContactSection';
@@ -14,10 +12,8 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <NavigationHeader />
       <HeroSection />
-      <AboutSection />
-      <ProblemSolutionSection />
-      <ProcessMethodologySection />
-      <ServicesSection />
+      <ValuePropositionSection />
+      <ProcessSimplifiedSection />
       <EnhancedTestimonialsSection />
       <EnhancedFAQSection />
       <OptimizedContactSection />

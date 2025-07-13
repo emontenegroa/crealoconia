@@ -3,72 +3,70 @@ import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-muted/30 to-accent/5 animate-gradient pt-16">
-      {/* Animated Background Elements */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background to-muted/5 pt-16">
+      {/* Minimal background */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-32 h-32 border border-accent/30 rounded-full animate-float" style={{
-          animationDelay: '0s'
-        }} />
-        <div className="absolute top-40 right-20 w-20 h-20 border border-primary/30 rounded-full animate-float" style={{
-          animationDelay: '2s'
-        }} />
-        <div className="absolute bottom-32 left-32 w-16 h-16 bg-accent/20 rounded-full animate-float" style={{
-          animationDelay: '4s'
-        }} />
-        <div className="absolute bottom-20 right-40 w-24 h-24 bg-primary/20 rounded-full animate-float" style={{
-          animationDelay: '1s'
-        }} />
-        
-        {/* Neural Network Lines */}
-        <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 1200 800">
-          <line x1="200" y1="200" x2="400" y2="300" stroke="currentColor" strokeWidth="1" className="text-accent">
-            <animate attributeName="stroke-opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
-          </line>
-          <line x1="800" y1="150" x2="600" y2="400" stroke="currentColor" strokeWidth="1" className="text-primary">
-            <animate attributeName="stroke-opacity" values="0.2;0.9;0.2" dur="4s" repeatCount="indefinite" />
-          </line>
-          <line x1="300" y1="600" x2="900" y2="200" stroke="currentColor" strokeWidth="1" className="text-accent">
-            <animate attributeName="stroke-opacity" values="0.1;0.7;0.1" dur="5s" repeatCount="indefinite" />
-          </line>
-        </svg>
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/3 right-1/3 w-80 h-80 bg-accent/5 rounded-full blur-3xl"></div>
       </div>
       
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center max-w-6xl">
-        <div className="animate-fade-in">
-          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-primary mb-8 leading-tight">
-            Tu expertise merece una{' '}
-            <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent animate-gradient">
-              presencia digital
-            </span>{' '}
-            que genere confianza y clientes.
+      <div className="relative z-10 container mx-auto px-4 text-center max-w-5xl">
+        <div className="space-y-8">
+          {/* Hook inicial */}
+          <div className="inline-flex items-center gap-2 bg-destructive/10 text-destructive px-4 py-2 rounded-full border border-destructive/20 mb-4">
+            <span className="w-2 h-2 bg-destructive rounded-full animate-pulse"></span>
+            <span className="font-semibold text-sm">Tu web actual no está vendiendo como debería</span>
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight">
+            Transformo tu expertise en una
+            <span className="block text-primary mt-2">
+              máquina de ventas digital
+            </span>
           </h1>
           
-          <p className="font-body text-xl md:text-2xl lg:text-3xl text-muted-foreground max-w-5xl mx-auto mb-12 leading-relaxed animate-slide-up" style={{
-            animationDelay: '0.3s'
-          }}>
-            Soy Esteban Montenegro. Transformo el conocimiento de mentores, coaches y consultores 
-            en webs que venden 24/7, usando inteligencia artificial.
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <span className="font-bold text-foreground">No creo webs, creo sistemas que venden.</span><br />
+            Con IA estratégica + acompañamiento humano, tu conocimiento se convierte en una presencia digital que trabaja 24/7.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-scale-in" style={{
-            animationDelay: '0.6s'
-          }}>
+
+          {/* Prueba social rápida */}
+          <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground py-6">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-primary">150+</div>
+              <div>Proyectos exitosos</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-primary">7 días</div>
+              <div>Promedio de entrega</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-primary">24h</div>
+              <div>Respuesta garantizada</div>
+            </div>
+          </div>
+
+          {/* CTA principal optimizado */}
+          <div className="space-y-4">
             <Button 
               size="lg" 
-              className="text-lg px-10 py-6 font-accent font-semibold animate-pulse-glow hover:scale-105 transition-all duration-300"
+              className="text-xl px-12 py-6 font-bold bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-2xl"
               onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Crear mi web profesional ahora 🚀
+              🚀 Quiero mi sistema que vende ahora
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="text-lg px-10 py-6 font-accent font-semibold glass-effect hover:scale-105 transition-all duration-300"
-              onClick={() => document.getElementById('proceso')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Ver mi metodología
-            </Button>
+            <p className="text-sm text-muted-foreground">
+              ✅ Llamada estratégica gratuita • ✅ Propuesta personalizada en 24h
+            </p>
+          </div>
+
+          {/* Beneficio diferenciador */}
+          <div className="bg-card border border-border rounded-lg p-6 max-w-2xl mx-auto mt-8">
+            <p className="text-foreground font-medium">
+              "No necesitas ser el más barato. Necesitas ser el más claro sobre cómo resuelves el problema de tu cliente."
+            </p>
+            <p className="text-sm text-muted-foreground mt-2">— Mi filosofía para cada proyecto</p>
           </div>
         </div>
       </div>

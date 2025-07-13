@@ -53,12 +53,15 @@ const OptimizedContactSection = () => {
       <div className="container mx-auto px-4 max-w-6xl">
         <ScrollAnimation>
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
-              ¿Listo para tener la web que tu expertise merece?
+            <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full font-semibold mb-4">
+              💬 Empezar ahora
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
+              Tu web estratégica te espera.<br />
+              <span className="text-primary">Solo falta dar el primer paso.</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-              Completa este formulario y te contactaré en las próximas 24 horas para 
-              crear juntos tu presencia digital profesional.
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+              Cuéntame sobre tu proyecto. <strong>Respuesta garantizada en 24h.</strong>
             </p>
           </div>
         </ScrollAnimation>
