@@ -20,15 +20,15 @@ const HeroSection = () => {
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight">
-            Transformo tu expertise en una
+            Tu web profesional que vende.
             <span className="block text-primary mt-2">
-              máquina de ventas digital
+              Lista en 7 días.
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            <span className="font-bold text-foreground">No creo webs, creo sistemas que venden.</span><br />
-            Con IA estratégica + acompañamiento humano, tu conocimiento se convierte en una presencia digital que trabaja 24/7.
+            <span className="font-bold text-foreground">No creo webs bonitas, creo sistemas que generan clientes.</span><br />
+            Con IA estratégica + acompañamiento personalizado, tu expertise se convierte en una máquina de ventas 24/7.
           </p>
 
           {/* Prueba social rápida */}

@@ -7,35 +7,39 @@ const EnhancedTestimonialsSection = () => {
   const testimonials = [
     {
       name: "María González",
-      role: "Coach de Vida",
+      role: "Psicóloga",
       avatar: "MG",
-      content: "Después de 6 meses intentando crear mi web con diferentes plataformas, Esteban lo resolvió en una sesión. No solo tengo una web profesional, sino que ya estoy recibiendo clientes a través de ella. La IA realmente entendió mi mensaje y lo tradujo perfectamente.",
-      result: "300% más consultas en 2 meses",
-      business: "Coaching personal"
+      content: "De 2 consultas mensuales pasé a 15. La web no solo se ve profesional, realmente funciona para convertir visitantes en pacientes.",
+      result: "+400% consultas",
+      business: "Consulta Privada",
+      metric: "+400% consultas"
     },
     {
-      name: "Carlos Mendoza",
-      role: "Abogado Especialista",
-      avatar: "CM",
-      content: "Como abogado, necesitaba transmitir confianza y autoridad. La web que me creó Esteban no solo se ve increíblemente profesional, sino que el contenido generado por IA capturó exactamente mi expertise. Mis colegas no pueden creer que se hizo con IA.",
-      result: "250% más casos nuevos",
-      business: "Derecho corporativo"
+      name: "Carlos Ruiz",
+      role: "Coach",
+      avatar: "CR",
+      content: "En mi primer mes con la nueva web generé $15,000 USD en servicios. El ROI fue inmediato y sigue creciendo.",
+      result: "$15K primer mes",
+      business: "Desarrollo Personal",
+      metric: "$15K primer mes"
     },
     {
-      name: "Ana Rodríguez",
-      role: "Consultora de Negocios",
-      avatar: "AR",
-      content: "Había gastado más de $5,000 en agencias que me entregaron webs genéricas. Con Esteban obtuve una web que realmente me representa y vende mis servicios. El proceso fue tan fácil que hasta yo podría replicarlo para mis propios clientes.",
-      result: "ROI del 400% en 3 meses",
-      business: "Consultoría empresarial"
+      name: "Ana Martín",
+      role: "Consultora",
+      avatar: "AM",
+      content: "Pasé de buscar clientes a que me busquen a mí. La web posicionó mi expertise de manera que ahora cobro 3x más por proyecto.",
+      result: "3x precio por proyecto",
+      business: "Estrategia Digital",
+      metric: "3x precio por proyecto"
     },
     {
       name: "Roberto Silva",
-      role: "Mentor de Emprendimiento",
+      role: "Terapeuta",
       avatar: "RS",
-      content: "Lo que más me impresionó fue cómo la IA entendió mi metodología y la plasmó en la web mejor de lo que yo hubiera podido explicar. Ahora tengo una herramienta de ventas 24/7 que trabaja mientras duermo.",
-      result: "Automatizó 70% de sus ventas",
-      business: "Mentoring empresarial"
+      content: "Mi agenda se llenó en 2 semanas. La web comunica confianza y profesionalismo que mi anterior no tenía.",
+      result: "Agenda llena en 2 semanas",
+      business: "Bienestar Integral",
+      metric: "Agenda llena en 2 semanas"
     }
   ];
 
@@ -84,16 +88,17 @@ const EnhancedTestimonialsSection = () => {
 
                   {/* Results */}
                   <div className="border-t border-border pt-4">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="text-sm text-muted-foreground">Sector</div>
-                        <div className="font-semibold">{testimonial.business}</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-sm text-muted-foreground">Resultado</div>
-                        <div className="font-semibold text-accent">{testimonial.result}</div>
-                      </div>
-                    </div>
+                     <div className="flex justify-between items-center">
+                       <div>
+                         <div className="text-sm text-muted-foreground">Sector</div>
+                         <div className="font-semibold">{testimonial.business}</div>
+                       </div>
+                       <div className="text-right">
+                         <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-bold">
+                           {testimonial.metric}
+                         </div>
+                       </div>
+                     </div>
                   </div>
                 </CardContent>
               </Card>
