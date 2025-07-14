@@ -11,82 +11,62 @@ const HeroSection = () => {
       </div>
       
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-          {/* Left Content */}
-          <div className="space-y-8 text-center lg:text-left">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-              Tu web profesional que vende.
-              <span className="block text-primary mt-2">
-                Lista en 7 días.
-              </span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
-              <span className="font-bold text-foreground">IA + Estrategia + Acompañamiento humano.</span><br />
-              Convierte tu expertise en una presencia digital que atrae clientes ideales automáticamente.
-            </p>
+      <div className="relative z-10 container mx-auto px-4 text-center max-w-5xl">
+        <div className="space-y-8">
+          {/* Hook inicial */}
+          <div className="inline-flex items-center gap-2 bg-destructive/10 text-destructive px-4 py-2 rounded-full border border-destructive/20 mb-4">
+            <span className="w-2 h-2 bg-destructive rounded-full animate-pulse"></span>
+            <span className="font-semibold text-sm">Tu web actual no está vendiendo como debería</span>
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight">
+            Transformo tu expertise en una
+            <span className="block text-primary mt-2">
+              máquina de ventas digital
+            </span>
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <span className="font-bold text-foreground">No creo webs, creo sistemas que venden.</span><br />
+            Con IA estratégica + acompañamiento humano, tu conocimiento se convierte en una presencia digital que trabaja 24/7.
+          </p>
 
-            {/* Hook de urgencia */}
-            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent-foreground px-4 py-2 rounded-full border border-accent/20 mb-6">
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-              <span className="font-semibold text-sm">Solo trabajo con 8 proyectos por mes</span>
+          {/* Prueba social rápida */}
+          <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground py-6">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-primary">150+</div>
+              <div>Proyectos exitosos</div>
             </div>
-
-            {/* Prueba social rápida */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-8 text-sm text-muted-foreground py-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">150+</div>
-                <div>Proyectos exitosos</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">7 días</div>
-                <div>Promedio de entrega</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">24h</div>
-                <div>Respuesta garantizada</div>
-              </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-primary">7 días</div>
+              <div>Promedio de entrega</div>
             </div>
-
-            {/* CTA principal optimizado */}
-            <div className="space-y-4">
-              <Button 
-                size="lg" 
-                className="text-xl px-12 py-6 font-bold bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-2xl"
-                onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                🚀 Quiero mi sistema que vende ahora
-              </Button>
-              <p className="text-sm text-muted-foreground">
-                ✅ Llamada estratégica gratuita • ✅ Propuesta personalizada en 24h
-              </p>
-            </div>
-
-            {/* Beneficio diferenciador */}
-            <div className="bg-card border border-border rounded-lg p-6 mt-8">
-              <p className="text-foreground font-medium">
-                "No necesitas ser el más barato. Necesitas ser el más claro sobre cómo resuelves el problema de tu cliente."
-              </p>
-              <p className="text-sm text-muted-foreground mt-2">— Mi filosofía para cada proyecto</p>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-primary">24h</div>
+              <div>Respuesta garantizada</div>
             </div>
           </div>
 
-          {/* Right Content - Screenshot */}
-          <div className="relative">
-            <div className="relative overflow-hidden rounded-2xl shadow-2xl border-2 border-border/50">
-              <img 
-                src="/lovable-uploads/ffa165bd-f493-4686-8a82-2121f3df0eae.png" 
-                alt="Vista previa de herramienta para crear contenido automatizado"
-                className="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
-              />
-              {/* Overlay para dar profundidad */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
-            </div>
-            
-            {/* Elementos decorativos */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/10 rounded-full blur-xl"></div>
+          {/* CTA principal optimizado */}
+          <div className="space-y-4">
+            <Button 
+              size="lg" 
+              className="text-xl px-12 py-6 font-bold bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-2xl"
+              onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              🚀 Quiero mi sistema que vende ahora
+            </Button>
+            <p className="text-sm text-muted-foreground">
+              ✅ Llamada estratégica gratuita • ✅ Propuesta personalizada en 24h
+            </p>
+          </div>
+
+          {/* Beneficio diferenciador */}
+          <div className="bg-card border border-border rounded-lg p-6 max-w-2xl mx-auto mt-8">
+            <p className="text-foreground font-medium">
+              "No necesitas ser el más barato. Necesitas ser el más claro sobre cómo resuelves el problema de tu cliente."
+            </p>
+            <p className="text-sm text-muted-foreground mt-2">— Mi filosofía para cada proyecto</p>
           </div>
         </div>
       </div>

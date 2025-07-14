@@ -7,24 +7,35 @@ const EnhancedTestimonialsSection = () => {
   const testimonials = [
     {
       name: "María González",
-      role: "Coach de vida",
-      content: "En 3 semanas recibí 12 consultas nuevas. Mi web anterior no me generaba ni una.",
-      metric: "+400% consultas",
-      image: "/lovable-uploads/58b8ac39-402a-4cd2-b456-0476134d8376.png"
+      role: "Coach de Vida",
+      avatar: "MG",
+      content: "Después de 6 meses intentando crear mi web con diferentes plataformas, Esteban lo resolvió en una sesión. No solo tengo una web profesional, sino que ya estoy recibiendo clientes a través de ella. La IA realmente entendió mi mensaje y lo tradujo perfectamente.",
+      result: "300% más consultas en 2 meses",
+      business: "Coaching personal"
     },
     {
-      name: "Ana Rodríguez", 
-      role: "Consultora empresarial",
-      content: "Cerré 2 proyectos corporativos el primer mes. ROI recuperado en 30 días.",
-      metric: "$15,000 USD primer mes",
-      image: "/lovable-uploads/c0af655b-7fe3-4d3c-99f5-67b5a3edef7d.png"
+      name: "Carlos Mendoza",
+      role: "Abogado Especialista",
+      avatar: "CM",
+      content: "Como abogado, necesitaba transmitir confianza y autoridad. La web que me creó Esteban no solo se ve increíblemente profesional, sino que el contenido generado por IA capturó exactamente mi expertise. Mis colegas no pueden creer que se hizo con IA.",
+      result: "250% más casos nuevos",
+      business: "Derecho corporativo"
+    },
+    {
+      name: "Ana Rodríguez",
+      role: "Consultora de Negocios",
+      avatar: "AR",
+      content: "Había gastado más de $5,000 en agencias que me entregaron webs genéricas. Con Esteban obtuve una web que realmente me representa y vende mis servicios. El proceso fue tan fácil que hasta yo podría replicarlo para mis propios clientes.",
+      result: "ROI del 400% en 3 meses",
+      business: "Consultoría empresarial"
     },
     {
       name: "Roberto Silva",
-      role: "Mentor de negocios", 
-      content: "Mi web ahora vende mientras duermo. 5 clientes nuevos sin hacer nada más.",
-      metric: "+300% ventas automáticas",
-      image: "/lovable-uploads/e48a73d7-90a6-465c-b6c4-91e0bf88434b.png"
+      role: "Mentor de Emprendimiento",
+      avatar: "RS",
+      content: "Lo que más me impresionó fue cómo la IA entendió mi metodología y la plasmó en la web mejor de lo que yo hubiera podido explicar. Ahora tengo una herramienta de ventas 24/7 que trabaja mientras duermo.",
+      result: "Automatizó 70% de sus ventas",
+      business: "Mentoring empresarial"
     }
   ];
 
@@ -33,40 +44,57 @@ const EnhancedTestimonialsSection = () => {
       <div className="container mx-auto px-4 max-w-7xl">
         <ScrollAnimation>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              ¿Dudas de si esto funciona?
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
+              Resultados reales de profesionales como tú
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              No son promesas. Son resultados reales de profesionales como tú.
+            <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+              Estos son solo algunos de los profesionales que ya han transformado su presencia digital 
+              y están viendo resultados concretos en sus negocios.
             </p>
           </div>
         </ScrollAnimation>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {testimonials.map((testimonial, index) => (
             <ScrollAnimation key={index} delay={200 + index * 200}>
-              <Card className="border border-primary/20 bg-card hover:shadow-xl transition-all duration-300 h-full">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4 mb-4">
-                    <img 
-                      src={testimonial.image} 
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover border-2 border-primary/20"
-                    />
+              <Card className="border border-accent/20 bg-card hover:shadow-xl transition-all duration-300">
+                <CardContent className="p-8">
+                  {/* Header */}
+                  <div className="flex items-center space-x-4 mb-6">
+                    <Avatar className="w-12 h-12">
+                      <AvatarImage src="" alt={testimonial.name} />
+                      <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                        {testimonial.avatar}
+                      </AvatarFallback>
+                    </Avatar>
                     <div>
-                      <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                      <h4 className="font-heading font-semibold text-lg">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-muted-foreground">
+                        {testimonial.role}
+                      </p>
                     </div>
                   </div>
-                  
-                  {/* Métrica destacada */}
-                  <div className="bg-primary/10 text-primary font-bold text-lg px-3 py-2 rounded-lg mb-4 text-center">
-                    {testimonial.metric}
-                  </div>
-                  
-                  <p className="text-muted-foreground italic leading-relaxed">
+
+                  {/* Testimonial */}
+                  <blockquote className="text-foreground mb-6 leading-relaxed">
                     "{testimonial.content}"
-                  </p>
+                  </blockquote>
+
+                  {/* Results */}
+                  <div className="border-t border-border pt-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="text-sm text-muted-foreground">Sector</div>
+                        <div className="font-semibold">{testimonial.business}</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm text-muted-foreground">Resultado</div>
+                        <div className="font-semibold text-accent">{testimonial.result}</div>
+                      </div>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </ScrollAnimation>
