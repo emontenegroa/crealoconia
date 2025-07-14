@@ -15,23 +15,23 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
           {/* Left Content */}
           <div className="space-y-8 text-center lg:text-left">
-            {/* Hook inicial */}
-            <div className="inline-flex items-center gap-2 bg-destructive/10 text-destructive px-4 py-2 rounded-full border border-destructive/20 mb-4">
-              <span className="w-2 h-2 bg-destructive rounded-full animate-pulse"></span>
-              <span className="font-semibold text-sm">Tu web actual no está vendiendo como debería</span>
-            </div>
-            
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-              Transformo tu expertise en una
+              Tu web profesional que vende.
               <span className="block text-primary mt-2">
-                máquina de ventas digital
+                Lista en 7 días.
               </span>
             </h1>
             
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              <span className="font-bold text-foreground">No creo webs, creo sistemas que venden.</span><br />
-              Con IA estratégica + acompañamiento humano, tu conocimiento se convierte en una presencia digital que trabaja 24/7.
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
+              <span className="font-bold text-foreground">IA + Estrategia + Acompañamiento humano.</span><br />
+              Convierte tu expertise en una presencia digital que atrae clientes ideales automáticamente.
             </p>
+
+            {/* Hook de urgencia */}
+            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent-foreground px-4 py-2 rounded-full border border-accent/20 mb-6">
+              <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+              <span className="font-semibold text-sm">Solo trabajo con 8 proyectos por mes</span>
+            </div>
 
             {/* Prueba social rápida */}
             <div className="flex flex-wrap justify-center lg:justify-start gap-8 text-sm text-muted-foreground py-4">

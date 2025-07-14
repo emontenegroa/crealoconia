@@ -1,8 +1,9 @@
 import React from 'react';
 import NavigationHeader from '@/components/sections/NavigationHeader';
 import HeroSection from '@/components/sections/HeroSection';
-import ValuePropositionSection from '@/components/sections/ValuePropositionSection';
-import ProcessSimplifiedSection from '@/components/sections/ProcessSimplifiedSection';
+import ProblemAgitationSection from '@/components/sections/ProblemAgitationSection';
+import SolutionPillarsSection from '@/components/sections/SolutionPillarsSection';
+import BeforeAfterSection from '@/components/sections/BeforeAfterSection';
 import EnhancedTestimonialsSection from '@/components/sections/EnhancedTestimonialsSection';
 import EnhancedFAQSection from '@/components/sections/EnhancedFAQSection';
 import OptimizedContactSection from '@/components/sections/OptimizedContactSection';
@@ -12,8 +13,9 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <NavigationHeader />
       <HeroSection />
-      <ValuePropositionSection />
-      <ProcessSimplifiedSection />
+      <ProblemAgitationSection />
+      <SolutionPillarsSection />
+      <BeforeAfterSection />
       <EnhancedTestimonialsSection />
       <EnhancedFAQSection />
       <OptimizedContactSection />
