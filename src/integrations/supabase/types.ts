@@ -113,6 +113,16 @@ export type Database = {
         Args: { check_email: string; time_window_minutes?: number }
         Returns: boolean
       }
+      get_user_submission: {
+        Args: { user_email: string }
+        Returns: {
+          id: string
+          form_data: Json
+          created_at: string
+          updated_at: string
+          completed: boolean
+        }[]
+      }
       log_security_event: {
         Args: {
           event_type: string
