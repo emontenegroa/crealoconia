@@ -5,13 +5,13 @@ const TestimonialsSection = () => {
   const testimonials = [{
     name: "Cami",
     role: "Fundadora de Hampi.cl",
-    image: "/lovable-uploads/e48a73d7-90a6-465c-b6c4-91e0bf88434b.png",
+    image: "/lovable-uploads/e0380c49-8f82-4856-9335-d983feca1e1b.png",
     quote: "He vivido procesos muy engorrosos, me pedían mucha información que se copiaba y pegaba tal cual, sin dinamismo o gráficas atractivas, lo que siento que hacía las páginas poco atractivas. Y nunca enganché bien con las plataformas de correos institucionales. Me encanta que esta opción me permita usar mi cuenta de google con la que ya estoy familiarizada, que le agregaron mucho dinamismo a la info que entregué y qué decir de lo rápido del proceso también 🤩 quedé muy impresionada de ver todo lo que construyeron con solo responder 10 preguntas 👏🏻👏🏻👏🏻",
     result: "Optimizó su flujo de inscripciones con claridad"
   }, {
     name: "Marina",
     role: "Fundadora de La Polilla Azucarada",
-    image: "/lovable-uploads/e0380c49-8f82-4856-9335-d983feca1e1b.png",
+    image: "/lovable-uploads/e48a73d7-90a6-465c-b6c4-91e0bf88434b.png",
     quote: "Probé el Kit IA y la mentoría de Esteban, y sinceramente… fue un antes y un después. Llevaba mucho tiempo (y plata) tratando de tener una página que fuera bonita y que realmente reflejara lo que soy. Pero solo me llevé frustraciones, tiempo perdido y desilusiones. Con este sistema, en pocos días obtuve una web que me representa de verdad, y sin enredos. Rápido, confiable y con resultados que me emocionaron. Gracias Esteban, tu mentoría vale totalmente la pena. 💛",
     result: "Web que la representa de verdad en pocos días"
   }, {
