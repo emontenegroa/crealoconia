@@ -60,7 +60,7 @@ const InitialForm = ({
 
           <div className="space-y-4">
             <ReCAPTCHAComponent 
-              siteKey="6Le2EbsrAAAAL_C5iDogGpgUUFpBOmU5MOXw5wM"
+              siteKey="6Le2EbsrAAAAAI_C5iDogGpgUUFpBOmU5MOXw5wM"
               onVerify={onRecaptchaChange}
             />
 
