@@ -67,6 +67,13 @@ const InitialForm = ({
             onError={() => setRecaptchaToken(null)}
           />
 
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm">
+            <p className="text-amber-800">
+              ⚠️ <strong>Configuración pendiente:</strong> Usando clave de prueba de reCAPTCHA. 
+              <br/>Configura tu propia clave en Google reCAPTCHA para producción.
+            </p>
+          </div>
+
           <Button type="submit" className="w-full py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" disabled={!isValid || !recaptchaToken}>
             CONTINUAR CON EL FORMULARIO
             <ArrowRight className="w-5 h-5 ml-2" />
