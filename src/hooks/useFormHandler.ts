@@ -48,7 +48,7 @@ export const useFormHandler = () => {
   const [showProgressDialog, setShowProgressDialog] = useState(false);
   const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
   const [showFullForm, setShowFullForm] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [mathCaptchaValid, setMathCaptchaValid] = useState(false);
 
   const {
     sessionId,
@@ -190,11 +190,11 @@ export const useFormHandler = () => {
       return;
     }
 
-    // Validar reCAPTCHA
-    if (!recaptchaToken) {
+    // Validar captcha matemático
+    if (!mathCaptchaValid) {
       toast({
         title: "Verificación requerida",
-        description: "Por favor completa la verificación reCAPTCHA.",
+        description: "Por favor completa la verificación matemática.",
         variant: "destructive",
       });
       return;
@@ -435,12 +435,12 @@ export const useFormHandler = () => {
   const isFirstStepValid = () => {
     const emailValidation = validateEmail(formData.email);
     const marcaValidation = validateText(formData.marca, 'Marca', 100, true);
-    return emailValidation.isValid && marcaValidation.isValid && recaptchaToken !== null;
+    return emailValidation.isValid && marcaValidation.isValid && mathCaptchaValid;
   };
 
-  // Función para manejar el cambio de reCAPTCHA
-  const handleRecaptchaChange = (token: string | null) => {
-    setRecaptchaToken(token);
+  // Función para manejar el cambio del captcha matemático
+  const handleMathCaptchaChange = (isValid: boolean) => {
+    setMathCaptchaValid(isValid);
   };
 
   // Validación para el formulario completo
@@ -481,6 +481,6 @@ export const useFormHandler = () => {
     isFirstStepValid: isFirstStepValid(),
     isFormValid: isFormValid(),
     onGenerateWebsite,
-    handleRecaptchaChange
+    handleMathCaptchaChange
   };
 };

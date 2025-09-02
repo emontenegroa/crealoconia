@@ -43,7 +43,7 @@ const Index = () => {
     isFirstStepValid,
     isFormValid,
     onGenerateWebsite,
-    handleRecaptchaChange
+    handleMathCaptchaChange
   } = useFormHandler();
 
   const handleBackToInitial = () => {
@@ -76,7 +76,7 @@ const Index = () => {
             onSubmit={handleFirstStep}
             isValid={isFirstStepValid}
             onLoadExample={loadExampleData}
-            onRecaptchaChange={handleRecaptchaChange}
+            onMathCaptchaChange={handleMathCaptchaChange}
           />
         ) : (
           <MainForm
