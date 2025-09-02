@@ -22,23 +22,30 @@ const ReCAPTCHAComponent: React.FC<ReCAPTCHAComponentProps> = ({ siteKey, onVeri
 
   useEffect(() => {
     const loadRecaptcha = () => {
-      if (window.grecaptcha && recaptchaRef.current) {
+      if (window.grecaptcha && window.grecaptcha.render && recaptchaRef.current) {
         try {
+          console.log('Iniciando renderizado de reCAPTCHA con clave:', siteKey);
           widgetIdRef.current = window.grecaptcha.render(recaptchaRef.current, {
             sitekey: siteKey,
             callback: (token: string) => {
+              console.log('reCAPTCHA verificado exitosamente');
               onVerify(token);
             },
             'expired-callback': () => {
+              console.log('reCAPTCHA expirado');
               onVerify(null);
             },
-            'error-callback': () => {
+            'error-callback': (error: any) => {
+              console.error('Error en reCAPTCHA:', error);
               onVerify(null);
             }
           });
+          console.log('reCAPTCHA renderizado con widget ID:', widgetIdRef.current);
         } catch (error) {
           console.error('Error renderizando reCAPTCHA:', error);
         }
+      } else {
+        console.log('grecaptcha no disponible aún');
       }
     };
 
