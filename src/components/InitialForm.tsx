@@ -4,24 +4,19 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Mail } from "lucide-react";
 import FormField from '@/components/FormField';
 import { FormData } from '@/hooks/useFormHandler';
-import { Recaptcha } from '@/components/ui/recaptcha';
 interface InitialFormProps {
   formData: FormData;
   onInputChange: (name: string, value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   isValid: boolean;
   onLoadExample: () => void;
-  recaptchaToken: string | null;
-  setRecaptchaToken: (token: string | null) => void;
 }
 const InitialForm = ({
   formData,
   onInputChange,
   onSubmit,
   isValid,
-  onLoadExample,
-  recaptchaToken,
-  setRecaptchaToken
+  onLoadExample
 }: InitialFormProps) => {
   return <Card className="max-w-2xl mx-auto bg-white border-gray-200 shadow-lg">
       <CardHeader className="text-center pb-6 bg-gray-50 border-b border-gray-200">
@@ -60,21 +55,7 @@ const InitialForm = ({
 
           <FormField type="input" label="2. Correo electrónico (donde recibirás tu Kit IA)" placeholder="Ej: info@tumarca.com" name="email" value={formData.email} onChange={onInputChange} icon={Mail} />
 
-          <Recaptcha
-            sitekey="6Le2EbsrAAAAAPrFHC_MazcbZuxAyT8Th5Yc8cyt"
-            onChange={setRecaptchaToken}
-            onExpired={() => setRecaptchaToken(null)}
-            onError={() => setRecaptchaToken(null)}
-          />
-
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm">
-            <p className="text-amber-800">
-              ⚠️ <strong>Configuración pendiente:</strong> Usando clave de prueba de reCAPTCHA. 
-              <br/>Configura tu propia clave en Google reCAPTCHA para producción.
-            </p>
-          </div>
-
-          <Button type="submit" className="w-full py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" disabled={!isValid || !recaptchaToken}>
+          <Button type="submit" className="w-full py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" disabled={!isValid}>
             CONTINUAR CON EL FORMULARIO
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>

@@ -48,7 +48,6 @@ export const useFormHandler = () => {
   const [showProgressDialog, setShowProgressDialog] = useState(false);
   const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
   const [showFullForm, setShowFullForm] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const {
     sessionId,
@@ -189,16 +188,6 @@ export const useFormHandler = () => {
       });
       return;
     }
-
-    // Verificar reCAPTCHA
-    if (!recaptchaToken) {
-      toast({
-        title: "Verificación requerida",
-        description: "Por favor, completa la verificación reCAPTCHA.",
-        variant: "destructive",
-      });
-      return;
-    }
     
     // Enhanced rate limiting
     if (!enforceRateLimit(formData.email, 'email_submission')) {
@@ -314,16 +303,6 @@ export const useFormHandler = () => {
       toast({
         title: "Acceso bloqueado",
         description: blockReason,
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Verificar reCAPTCHA
-    if (!recaptchaToken) {
-      toast({
-        title: "Verificación requerida",
-        description: "Por favor, completa la verificación reCAPTCHA.",
         variant: "destructive",
       });
       return;
@@ -485,8 +464,6 @@ export const useFormHandler = () => {
     resetForm,
     isFirstStepValid: isFirstStepValid(),
     isFormValid: isFormValid(),
-    onGenerateWebsite,
-    recaptchaToken,
-    setRecaptchaToken
+    onGenerateWebsite
   };
 };

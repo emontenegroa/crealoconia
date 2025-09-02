@@ -42,9 +42,7 @@ const Index = () => {
     resetForm,
     isFirstStepValid,
     isFormValid,
-    onGenerateWebsite,
-    recaptchaToken,
-    setRecaptchaToken
+    onGenerateWebsite
   } = useFormHandler();
 
   const handleBackToInitial = () => {
@@ -71,15 +69,13 @@ const Index = () => {
         {isGenerating ? (
           <LoadingSpinner />
         ) : !showFullForm ? (
-        <InitialForm
-          formData={formData}
-          onInputChange={handleInputChange}
-          onSubmit={handleFirstStep}
-          isValid={isFirstStepValid}
-          onLoadExample={loadExampleData}
-          recaptchaToken={recaptchaToken}
-          setRecaptchaToken={setRecaptchaToken}
-        />
+          <InitialForm
+            formData={formData}
+            onInputChange={handleInputChange}
+            onSubmit={handleFirstStep}
+            isValid={isFirstStepValid}
+            onLoadExample={loadExampleData}
+          />
         ) : (
           <MainForm
             formData={formData}
