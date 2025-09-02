@@ -48,6 +48,7 @@ export const useFormHandler = () => {
   const [showProgressDialog, setShowProgressDialog] = useState(false);
   const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
   const [showFullForm, setShowFullForm] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const {
     sessionId,
@@ -184,6 +185,16 @@ export const useFormHandler = () => {
       toast({
         title: "Acceso bloqueado",
         description: blockReason,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validar reCAPTCHA
+    if (!recaptchaToken) {
+      toast({
+        title: "Verificación requerida",
+        description: "Por favor completa la verificación reCAPTCHA.",
         variant: "destructive",
       });
       return;
@@ -424,7 +435,12 @@ export const useFormHandler = () => {
   const isFirstStepValid = () => {
     const emailValidation = validateEmail(formData.email);
     const marcaValidation = validateText(formData.marca, 'Marca', 100, true);
-    return emailValidation.isValid && marcaValidation.isValid;
+    return emailValidation.isValid && marcaValidation.isValid && recaptchaToken !== null;
+  };
+
+  // Función para manejar el cambio de reCAPTCHA
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
   };
 
   // Validación para el formulario completo
@@ -464,6 +480,7 @@ export const useFormHandler = () => {
     resetForm,
     isFirstStepValid: isFirstStepValid(),
     isFormValid: isFormValid(),
-    onGenerateWebsite
+    onGenerateWebsite,
+    handleRecaptchaChange
   };
 };

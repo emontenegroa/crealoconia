@@ -42,7 +42,8 @@ const Index = () => {
     resetForm,
     isFirstStepValid,
     isFormValid,
-    onGenerateWebsite
+    onGenerateWebsite,
+    handleRecaptchaChange
   } = useFormHandler();
 
   const handleBackToInitial = () => {
@@ -75,6 +76,7 @@ const Index = () => {
             onSubmit={handleFirstStep}
             isValid={isFirstStepValid}
             onLoadExample={loadExampleData}
+            onRecaptchaChange={handleRecaptchaChange}
           />
         ) : (
           <MainForm
