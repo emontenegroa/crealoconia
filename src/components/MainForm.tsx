@@ -6,7 +6,6 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import FormFields from '@/components/FormFields';
 import { FormData } from '@/hooks/useFormHandler';
 import { AlertTriangle } from "lucide-react";
-import { Recaptcha } from '@/components/ui/recaptcha';
 interface MainFormProps {
   formData: FormData;
   setFormData: (data: FormData) => void;
@@ -21,8 +20,6 @@ interface MainFormProps {
   isFormValid: boolean;
   onGenerateWebsite: () => void;
   onBackToInitial: () => void;
-  recaptchaToken: string | null;
-  setRecaptchaToken: (token: string | null) => void;
 }
 const MainForm = ({
   formData,
@@ -37,9 +34,7 @@ const MainForm = ({
   onSubmit,
   isFormValid,
   onGenerateWebsite,
-  onBackToInitial,
-  recaptchaToken,
-  setRecaptchaToken
+  onBackToInitial
 }: MainFormProps) => {
   const handleConfirmedSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,16 +67,9 @@ const MainForm = ({
         <form onSubmit={e => e.preventDefault()} className="space-y-6">
           <FormFields formData={formData} onInputChange={onInputChange} onAIUsageUpdate={onAIUsageUpdate} sessionId={sessionId} noWebsite={noWebsite} noInstagram={noInstagram} setNoWebsite={setNoWebsite} setNoInstagram={setNoInstagram} setFormData={setFormData} hideBasicFields={true} />
 
-          <Recaptcha
-            sitekey="6LfhQ1sqAAAAAKg4-SLjGqOSVnfBV9jdGjkdUFJJ"
-            onChange={setRecaptchaToken}
-            onExpired={() => setRecaptchaToken(null)}
-            onError={() => setRecaptchaToken(null)}
-          />
-
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button type="button" className="w-full py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" disabled={!isFormValid || !recaptchaToken}>
+              <Button type="button" className="w-full py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" disabled={!isFormValid}>
                 <Brain className="w-5 h-5 mr-2" />
                 GENERAR MI SITIO WEB
               </Button>

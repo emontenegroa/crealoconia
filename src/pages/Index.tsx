@@ -95,8 +95,6 @@ const Index = () => {
             isFormValid={isFormValid}
             onGenerateWebsite={onGenerateWebsite}
             onBackToInitial={handleBackToInitial}
-            recaptchaToken={recaptchaToken}
-            setRecaptchaToken={setRecaptchaToken}
           />
         )}
 

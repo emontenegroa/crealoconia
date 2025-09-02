@@ -61,11 +61,18 @@ const InitialForm = ({
           <FormField type="input" label="2. Correo electrónico (donde recibirás tu Kit IA)" placeholder="Ej: info@tumarca.com" name="email" value={formData.email} onChange={onInputChange} icon={Mail} />
 
           <Recaptcha
-            sitekey="6LfhQ1sqAAAAAKg4-SLjGqOSVnfBV9jdGjkdUFJJ"
+            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
             onChange={setRecaptchaToken}
             onExpired={() => setRecaptchaToken(null)}
             onError={() => setRecaptchaToken(null)}
           />
+
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm">
+            <p className="text-amber-800">
+              ⚠️ <strong>Configuración pendiente:</strong> Usando clave de prueba de reCAPTCHA. 
+              <br/>Configura tu propia clave en Google reCAPTCHA para producción.
+            </p>
+          </div>
 
           <Button type="submit" className="w-full py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" disabled={!isValid || !recaptchaToken}>
             CONTINUAR CON EL FORMULARIO
