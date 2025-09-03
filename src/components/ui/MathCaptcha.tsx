@@ -36,17 +36,17 @@ const MathCaptcha: React.FC<MathCaptchaProps> = ({ onVerify }) => {
   };
 
   return (
-    <div className="space-y-3 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-      <Label className="text-sm font-medium text-gray-700">
+    <div className="space-y-3 p-4 bg-muted border border-border rounded-lg">
+      <Label className="text-sm font-medium text-foreground">
         🔒 Verificación de seguridad
       </Label>
       
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 text-lg font-mono bg-white px-3 py-2 rounded border">
-          <span className="font-bold text-blue-600">{num1}</span>
-          <span className="text-gray-500">+</span>
-          <span className="font-bold text-blue-600">{num2}</span>
-          <span className="text-gray-500">=</span>
+        <div className="flex items-center gap-2 text-lg font-mono bg-background px-3 py-2 rounded border border-border">
+          <span className="font-bold text-primary">{num1}</span>
+          <span className="text-muted-foreground">+</span>
+          <span className="font-bold text-primary">{num2}</span>
+          <span className="text-muted-foreground">=</span>
         </div>
         
         <Input
@@ -75,7 +75,7 @@ const MathCaptcha: React.FC<MathCaptchaProps> = ({ onVerify }) => {
       <button
         type="button"
         onClick={generateNumbers}
-        className="text-xs text-blue-600 hover:text-blue-800 underline"
+        className="text-xs text-primary hover:text-primary/80 underline"
       >
         Generar nueva operación
       </button>

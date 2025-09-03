@@ -30,10 +30,10 @@ const TestimonialsSection = () => {
   return <div className="max-w-6xl mx-auto mb-16 px-4">
       {/* Header */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 my-[30px]">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 my-[30px]">
           Historias de Transformación Real
         </h2>
-        <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
           Estos son algunos de los emprendedores que han transformado su presencia digital 
           y multiplicado sus resultados con nuestra metodología única.
         </p>
@@ -50,8 +50,8 @@ const TestimonialsSection = () => {
               <div className="flex items-center gap-4 mb-6">
                 <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-full object-cover border-3 border-blue-200 shadow-lg hover:scale-110 transition-transform duration-300" />
                 <div>
-                  <h4 className="font-bold text-gray-900 text-lg">{testimonial.name}</h4>
-                  <p className="text-sm text-blue-600 font-medium">{testimonial.role}</p>
+                  <h4 className="font-bold text-foreground text-lg">{testimonial.name}</h4>
+                  <p className="text-sm text-primary font-medium">{testimonial.role}</p>
                 </div>
               </div>
 
@@ -63,17 +63,17 @@ const TestimonialsSection = () => {
               </div>
 
               {/* Quote */}
-              <blockquote className="text-gray-700 mb-6 leading-relaxed italic border-l-4 border-gray-200 pl-4">
+              <blockquote className="text-muted-foreground mb-6 leading-relaxed italic border-l-4 border-border pl-4">
                 "{testimonial.quote}"
               </blockquote>
 
               {/* Result highlight */}
-              <div className="bg-gradient-to-r from-blue-50 to-green-50 border-l-4 border-blue-500 p-4 rounded-r-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div className="bg-muted border-l-4 border-primary p-4 rounded-r-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div className="flex items-start gap-2">
-                  <span className="text-blue-500 font-semibold text-lg">🎯</span>
+                  <span className="text-primary font-semibold text-lg">🎯</span>
                   <div>
-                    <p className="text-sm text-gray-600 font-medium mb-1">Resultado:</p>
-                    <p className="text-blue-700 font-bold">{testimonial.result}</p>
+                    <p className="text-sm text-muted-foreground font-medium mb-1">Resultado:</p>
+                    <p className="text-primary font-bold">{testimonial.result}</p>
                   </div>
                 </div>
               </div>
