@@ -163,6 +163,14 @@ export type Database = {
           updated_at: string
         }[]
       }
+      is_admin_authenticated: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
+      log_admin_access: {
+        Args: { admin_email: string }
+        Returns: undefined
+      }
       log_security_event: {
         Args: {
           email?: string
