@@ -57,18 +57,27 @@ export default function Admin() {
   const loadSubmissions = async () => {
     try {
       setLoading(true);
+      console.log('Intentando cargar submissions...');
+      
       const { data, error } = await supabase
         .from('form_submissions')
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      console.log('Respuesta de Supabase:', { data, error });
+      
+      if (error) {
+        console.error('Error de Supabase:', error);
+        throw error;
+      }
+      
+      console.log(`Cargados ${data?.length || 0} registros`);
       setSubmissions(data || []);
     } catch (error) {
       console.error('Error loading submissions:', error);
       toast({
         title: "Error",
-        description: "No se pudieron cargar los datos",
+        description: `No se pudieron cargar los datos: ${error.message}`,
         variant: "destructive"
       });
     } finally {
