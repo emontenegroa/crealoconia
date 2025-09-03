@@ -11,7 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Download, Edit, Trash2, Eye, Filter, RefreshCw, Copy } from 'lucide-react';
+import { Download, Edit, Trash2, Eye, Filter, RefreshCw, Copy, CheckSquare, Square } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface FormSubmission {
   id: string;
@@ -37,6 +38,8 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [selectedSubmission, setSelectedSubmission] = useState<FormSubmission | null>(null);
   const [editMode, setEditMode] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [filters, setFilters] = useState<AdminFilters>({
     email: '',
     completed: null,
@@ -227,6 +230,49 @@ export default function Admin() {
     }
   };
 
+  const deleteMultipleSubmissions = async () => {
+    try {
+      const { error } = await supabase
+        .from('form_submissions')
+        .delete()
+        .in('id', selectedIds);
+
+      if (error) throw error;
+
+      await loadSubmissions();
+      setSelectedIds([]);
+      setShowDeleteConfirm(false);
+      
+      toast({
+        title: "Eliminación exitosa",
+        description: `Se eliminaron ${selectedIds.length} registros correctamente`
+      });
+    } catch (error) {
+      console.error('Error deleting multiple submissions:', error);
+      toast({
+        title: "Error",
+        description: "No se pudieron eliminar los registros",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.length === filteredSubmissions.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(filteredSubmissions.map(sub => sub.id));
+    }
+  };
+
+  const toggleSelectSubmission = (id: string) => {
+    setSelectedIds(prev => 
+      prev.includes(id) 
+        ? prev.filter(selectedId => selectedId !== id)
+        : [...prev, id]
+    );
+  };
+
   const clearFilters = () => {
     setFilters({
       email: '',
@@ -242,6 +288,25 @@ export default function Admin() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Panel de Administración</h1>
         <div className="flex gap-2">
+          {selectedIds.length > 0 && (
+            <>
+              <Button 
+                onClick={() => setShowDeleteConfirm(true)} 
+                variant="destructive" 
+                size="sm"
+              >
+                <Trash2 className="w-4 h-4 mr-2" />
+                Eliminar {selectedIds.length} seleccionados
+              </Button>
+              <Button 
+                onClick={() => setSelectedIds([])} 
+                variant="outline" 
+                size="sm"
+              >
+                Cancelar selección
+              </Button>
+            </>
+          )}
           <Button onClick={loadSubmissions} variant="outline" size="sm">
             <RefreshCw className="w-4 h-4 mr-2" />
             Actualizar
@@ -362,6 +427,13 @@ export default function Admin() {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b">
+                    <th className="text-left p-2 w-12">
+                      <Checkbox
+                        checked={selectedIds.length === filteredSubmissions.length && filteredSubmissions.length > 0}
+                        onCheckedChange={toggleSelectAll}
+                        aria-label="Seleccionar todos"
+                      />
+                    </th>
                     <th className="text-left p-2">Email</th>
                     <th className="text-left p-2">Estado</th>
                     <th className="text-left p-2">Fecha</th>
@@ -373,6 +445,13 @@ export default function Admin() {
                 <tbody>
                   {filteredSubmissions.map((submission) => (
                     <tr key={submission.id} className="border-b hover:bg-muted/50">
+                      <td className="p-2">
+                        <Checkbox
+                          checked={selectedIds.includes(submission.id)}
+                          onCheckedChange={() => toggleSelectSubmission(submission.id)}
+                          aria-label={`Seleccionar ${submission.email}`}
+                        />
+                      </td>
                       <td className="p-2">{submission.email}</td>
                       <td className="p-2">
                         <Badge variant={submission.completed ? "default" : "secondary"}>
@@ -450,6 +529,24 @@ export default function Admin() {
           )}
         </CardContent>
       </Card>
+
+      {/* Modal de confirmación de eliminación múltiple */}
+      <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Confirmar eliminación múltiple?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta acción no se puede deshacer. Se eliminarán permanentemente {selectedIds.length} registros seleccionados.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={deleteMultipleSubmissions} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Eliminar {selectedIds.length} registros
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Modal de edición */}
       {editMode && selectedSubmission && (
