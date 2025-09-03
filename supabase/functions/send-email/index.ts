@@ -257,6 +257,77 @@ const handler = async (req: Request): Promise<Response> => {
           </div>
         `
       };
+    } else if (type === 'admin_temp_key') {
+      // Email para clave temporal de admin
+      const { tempKey } = emailData;
+      
+      const emailContent = {
+        sender: { email: "noreply@crealoconia.com", name: "Kit IA Admin" },
+        to: [{ email: email }],
+        subject: "🔐 Clave temporal para Panel de Administración",
+        htmlContent: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
+            <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+              <h1 style="color: #2d3748; margin-bottom: 20px;">🔐 Acceso al Panel de Administración</h1>
+              
+              <p style="color: #4a5568; font-size: 16px; line-height: 1.6;">
+                Tu clave temporal de acceso es:
+              </p>
+              
+              <div style="background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 8px; padding: 20px; text-align: center; margin: 20px 0;">
+                <h2 style="color: #2d3748; font-size: 32px; font-weight: bold; margin: 0; letter-spacing: 2px;">
+                  ${tempKey}
+                </h2>
+              </div>
+              
+              <p style="color: #718096; font-size: 14px; line-height: 1.6;">
+                • Esta clave expira en 15 minutos<br>
+                • Solo puede ser usada una vez<br>
+                • Si no solicitaste este acceso, ignora este email
+              </p>
+              
+              <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                <p style="color: #a0aec0; font-size: 12px; margin: 0;">
+                  Kit IA - Panel de Administración<br>
+                  Este es un email automático, no responder.
+                </p>
+              </div>
+            </div>
+          </div>
+        `
+      };
+
+      console.log('📧 Enviando clave temporal de admin a:', email);
+      
+      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'api-key': brevoApiKey
+        },
+        body: JSON.stringify(emailContent)
+      });
+
+      console.log('📊 Brevo API Response Status:', response.status);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ Error de Brevo API:', errorText);
+        throw new Error(`Brevo API error: ${response.status} - ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log('✅ Email enviado exitosamente via Brevo v3:', result);
+
+      return new Response(
+        JSON.stringify({ success: true, messageId: result.messageId }),
+        {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 200,
+        }
+      );
+
     } else {
       return new Response(JSON.stringify({ error: 'Tipo de email no válido' }), {
         status: 400,
