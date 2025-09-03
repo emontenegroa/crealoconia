@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import CodeInput from '@/components/ui/CodeInput';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import Admin from './Admin';
 
 export default function AdminRoute() {
@@ -103,6 +104,7 @@ export default function AdminRoute() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
+      <ThemeToggle />
       <div className="w-full max-w-md">
         
         {step === 'email' ? (

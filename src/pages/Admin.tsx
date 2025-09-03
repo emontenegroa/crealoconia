@@ -13,6 +13,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { useToast } from '@/hooks/use-toast';
 import { Download, Edit, Trash2, Eye, Filter, RefreshCw, Copy, CheckSquare, Square } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 interface FormSubmission {
   id: string;
@@ -298,6 +299,8 @@ export default function Admin() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
+      <ThemeToggle />
+      
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Panel de Administración</h1>
         <div className="flex gap-2">

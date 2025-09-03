@@ -102,7 +102,14 @@ serve(async (req) => {
       }
 
       // Enviar email con la clave temporal
-      await sendEmail(email, tempKey);
+      console.log('📧 Enviando email para:', email, 'con código:', tempKey);
+      try {
+        await sendEmail(email, tempKey);
+        console.log('✅ Email enviado exitosamente');
+      } catch (emailError) {
+        console.error('❌ Error enviando email:', emailError);
+        // No fallar por el email, pero loggear el error
+      }
 
       return new Response(
         JSON.stringify({ 
