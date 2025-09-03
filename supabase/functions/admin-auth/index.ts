@@ -6,45 +6,17 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-// Función para generar clave temporal de 6 dígitos
-function generateTempKey(): string {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-}
-
-// Función para llamar a la edge function de envío de email
-async function sendEmail(email: string, tempKey: string) {
-  const response = await fetch(`${supabaseUrl}/functions/v1/send-email`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${supabaseKey}`,
-    },
-    body: JSON.stringify({
-      email,
-      type: 'admin_temp_key',
-      emailData: { tempKey },
-    }),
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Error enviando email: ${response.status} - ${errorText}`);
-  }
-
-  return response.json();
-}
-
 serve(async (req) => {
+  console.log('🚀 admin-auth function started');
+  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
+    console.log('✅ CORS preflight handled');
     return new Response(null, { headers: corsHeaders });
   }
 
   if (req.method !== 'POST') {
+    console.log('❌ Method not allowed:', req.method);
     return new Response(
       JSON.stringify({ error: 'Method not allowed' }),
       { 
@@ -55,20 +27,12 @@ serve(async (req) => {
   }
 
   try {
-    console.log('🚀 admin-auth function called');
-    
+    console.log('📥 Reading request body...');
     const body = await req.json();
-    console.log('📥 Request body:', body);
+    console.log('📋 Request body:', body);
     
     const { email, action, tempKey } = body;
-    
-    // Obtener información de tracking
-    const clientIP = req.headers.get('x-forwarded-for') || 
-                    req.headers.get('x-real-ip') || 
-                    'unknown';
-    const userAgent = req.headers.get('user-agent') || 'unknown';
-
-    console.log('📋 Datos procesados:', { email, action, clientIP });
+    console.log('📧 Email:', email, 'Action:', action);
 
     if (!email) {
       console.log('❌ Email requerido');
@@ -81,27 +45,49 @@ serve(async (req) => {
       );
     }
 
+    // Obtener configuración de Supabase
+    const supabaseUrl = Deno.env.get('SUPABASE_URL');
+    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    
+    console.log('🔧 Supabase URL:', supabaseUrl ? 'configurada' : 'no configurada');
+    console.log('🔑 Service Key:', supabaseKey ? 'configurada' : 'no configurada');
+
+    if (!supabaseUrl || !supabaseKey) {
+      console.error('❌ Variables de entorno faltantes');
+      return new Response(
+        JSON.stringify({ error: 'Configuración de servidor incompleta' }),
+        { 
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      );
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    console.log('✅ Cliente de Supabase creado');
+
     if (action === 'generate') {
-      console.log('🎲 Generando nueva clave temporal');
-      // Generar nueva clave temporal
-      const tempKey = generateTempKey();
-      console.log('🔢 Clave generada:', tempKey);
+      console.log('🎲 Generando código temporal...');
       
-      // Limpiar claves expiradas
-      console.log('🧹 Limpiando claves expiradas');
-      try {
-        await supabase.rpc('cleanup_expired_temp_keys');
-      } catch (cleanupError) {
-        console.error('⚠️ Error limpiando claves (continuando):', cleanupError);
-      }
+      // Generar nueva clave temporal de 6 dígitos
+      const newTempKey = Math.floor(100000 + Math.random() * 900000).toString();
+      console.log('🔢 Código generado:', newTempKey);
       
-      // Guardar la nueva clave temporal con información de tracking
-      console.log('💾 Guardando clave en base de datos');
-      const { error: insertError } = await supabase
+      // Obtener información de tracking
+      const clientIP = req.headers.get('x-forwarded-for') || 
+                      req.headers.get('x-real-ip') || 
+                      'unknown';
+      const userAgent = req.headers.get('user-agent') || 'unknown';
+      
+      console.log('📍 IP:', clientIP, 'User-Agent:', userAgent.substring(0, 50) + '...');
+
+      // Intentar guardar en la base de datos
+      console.log('💾 Guardando en base de datos...');
+      const { data, error: insertError } = await supabase
         .from('admin_temp_keys')
         .insert({
           email,
-          temp_key: tempKey,
+          temp_key: newTempKey,
           ip_address: clientIP,
           user_agent: userAgent,
           location_info: {
@@ -111,12 +97,16 @@ serve(async (req) => {
               'x-real-ip': req.headers.get('x-real-ip')
             }
           }
-        });
+        })
+        .select();
 
       if (insertError) {
-        console.error('❌ Error guardando clave temporal:', insertError);
+        console.error('❌ Error de base de datos:', insertError);
         return new Response(
-          JSON.stringify({ error: `Error de base de datos: ${insertError.message}` }),
+          JSON.stringify({ 
+            error: 'Error de base de datos',
+            details: insertError.message 
+          }),
           { 
             status: 500,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -124,22 +114,40 @@ serve(async (req) => {
         );
       }
       
-      console.log('✅ Clave guardada exitosamente');
+      console.log('✅ Código guardado exitosamente:', data);
 
-      // Enviar email con la clave temporal
-      console.log('📧 Enviando email para:', email, 'con código:', tempKey);
+      // Enviar email
+      console.log('📧 Enviando email...');
       try {
-        await sendEmail(email, tempKey);
-        console.log('✅ Email enviado exitosamente');
+        const emailResponse = await fetch(`${supabaseUrl}/functions/v1/send-email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseKey}`,
+          },
+          body: JSON.stringify({
+            email,
+            type: 'admin_temp_key',
+            emailData: { tempKey: newTempKey },
+          }),
+        });
+
+        console.log('📬 Email response status:', emailResponse.status);
+        
+        if (!emailResponse.ok) {
+          const errorText = await emailResponse.text();
+          console.error('❌ Error enviando email:', errorText);
+        } else {
+          console.log('✅ Email enviado exitosamente');
+        }
       } catch (emailError) {
-        console.error('❌ Error enviando email:', emailError);
-        // No fallar por el email, pero loggear el error
+        console.error('⚠️ Error de email (continuando):', emailError);
       }
 
       return new Response(
         JSON.stringify({ 
           message: 'Código enviado',
-          expiresIn: 60 // segundos
+          expiresIn: 60
         }),
         { 
           status: 200,
@@ -148,7 +156,10 @@ serve(async (req) => {
       );
 
     } else if (action === 'verify') {
+      console.log('🔍 Verificando código...');
+      
       if (!tempKey) {
+        console.log('❌ Código requerido');
         return new Response(
           JSON.stringify({ error: 'Código requerido' }),
           { 
@@ -159,6 +170,7 @@ serve(async (req) => {
       }
 
       // Verificar la clave temporal
+      console.log('🔎 Buscando código en base de datos...');
       const { data, error } = await supabase
         .from('admin_temp_keys')
         .select('*')
@@ -166,9 +178,21 @@ serve(async (req) => {
         .eq('temp_key', tempKey)
         .eq('used', false)
         .gt('expires_at', new Date().toISOString())
-        .single();
+        .maybeSingle();
 
-      if (error || !data) {
+      if (error) {
+        console.error('❌ Error consultando base de datos:', error);
+        return new Response(
+          JSON.stringify({ error: 'Error de consulta' }),
+          { 
+            status: 500,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
+      }
+
+      if (!data) {
+        console.log('❌ Código inválido o expirado');
         return new Response(
           JSON.stringify({ error: 'Código inválido o expirado' }),
           { 
@@ -178,11 +202,17 @@ serve(async (req) => {
         );
       }
 
+      console.log('✅ Código válido encontrado');
+
       // Marcar la clave como usada
-      await supabase
+      const { error: updateError } = await supabase
         .from('admin_temp_keys')
         .update({ used: true })
         .eq('id', data.id);
+
+      if (updateError) {
+        console.error('⚠️ Error marcando código como usado:', updateError);
+      }
 
       return new Response(
         JSON.stringify({ message: 'Autenticación exitosa' }),
@@ -193,6 +223,7 @@ serve(async (req) => {
       );
     }
 
+    console.log('❌ Acción no válida:', action);
     return new Response(
       JSON.stringify({ error: 'Acción no válida' }),
       { 
@@ -202,12 +233,12 @@ serve(async (req) => {
     );
 
   } catch (error) {
-    console.error('💥 Error crítico en admin-auth:', error);
-    console.error('📋 Stack trace:', error.stack);
+    console.error('💥 Error crítico:', error);
+    console.error('📋 Stack:', error.stack);
     return new Response(
       JSON.stringify({ 
         error: 'Error interno del servidor',
-        details: error.message || 'Error desconocido'
+        details: error.message
       }),
       { 
         status: 500,
