@@ -45,6 +45,21 @@ serve(async (req) => {
       );
     }
 
+    // Validar que solo el email autorizado puede acceder
+    const authorizedEmail = 'esteban@crealoconia.com';
+    if (email.toLowerCase() !== authorizedEmail.toLowerCase()) {
+      console.log('❌ Email no autorizado:', email);
+      return new Response(
+        JSON.stringify({ error: 'Email no autorizado para acceso administrativo' }),
+        { 
+          status: 403,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      );
+    }
+    
+    console.log('✅ Email autorizado confirmado');
+
     // Obtener configuración de Supabase
     const supabaseUrl = Deno.env.get('SUPABASE_URL');
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');

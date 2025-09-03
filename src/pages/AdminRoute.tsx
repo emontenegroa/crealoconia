@@ -126,7 +126,7 @@ export default function AdminRoute() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@ejemplo.com"
+                placeholder="esteban@crealoconia.com"
                 className="h-12 text-center text-lg border-gray-200 dark:border-gray-600 rounded-xl 
                          focus:border-gray-900 dark:focus:border-gray-100 
                          focus:ring-gray-900 dark:focus:ring-gray-100
