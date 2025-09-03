@@ -52,7 +52,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white light">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <ProgressDialog
           show={showProgressDialog}
