@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Download, Edit, Trash2, Eye, Filter, RefreshCw } from 'lucide-react';
+import { Download, Edit, Trash2, Eye, Filter, RefreshCw, Copy } from 'lucide-react';
 
 interface FormSubmission {
   id: string;
@@ -468,6 +468,24 @@ export default function Admin() {
 
 // Componente para mostrar detalles
 const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submission }) => {
+  const { toast } = useToast();
+
+  const copyToClipboard = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast({
+        title: "Copiado",
+        description: `${label} copiado al portapapeles`
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "No se pudo copiar al portapapeles",
+        variant: "destructive"
+      });
+    }
+  };
+
   return (
     <Tabs defaultValue="general" className="w-full">
       <TabsList className="grid w-full grid-cols-3">
@@ -516,10 +534,20 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
       </TabsContent>
       
       <TabsContent value="prompts">
-        <div className="space-y-4">
+        <div className="space-y-6">
           {submission.form_data?.generatedPrompts?.superPrompt && (
-            <div>
-              <Label>Super Prompt</Label>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label>Super Prompt</Label>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => copyToClipboard(submission.form_data.generatedPrompts.superPrompt, "Super Prompt")}
+                >
+                  <Copy className="w-4 h-4 mr-2" />
+                  Copiar
+                </Button>
+              </div>
               <Textarea 
                 value={submission.form_data.generatedPrompts.superPrompt} 
                 readOnly 
@@ -528,14 +556,27 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
             </div>
           )}
           {submission.form_data?.generatedPrompts?.lovablePrompt && (
-            <div>
-              <Label>Prompt para Lovable</Label>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label>Prompt para Lovable</Label>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => copyToClipboard(submission.form_data.generatedPrompts.lovablePrompt, "Prompt para Lovable")}
+                >
+                  <Copy className="w-4 h-4 mr-2" />
+                  Copiar
+                </Button>
+              </div>
               <Textarea 
                 value={submission.form_data.generatedPrompts.lovablePrompt} 
                 readOnly 
                 className="min-h-[200px]"
               />
             </div>
+          )}
+          {!submission.form_data?.generatedPrompts?.superPrompt && !submission.form_data?.generatedPrompts?.lovablePrompt && (
+            <p className="text-muted-foreground text-center py-8">No hay prompts generados para este envío</p>
           )}
         </div>
       </TabsContent>
