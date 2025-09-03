@@ -264,34 +264,31 @@ const handler = async (req: Request): Promise<Response> => {
       const emailContent = {
         sender: { email: "noreply@crealoconia.com", name: "Kit IA Admin" },
         to: [{ email: email }],
-        subject: "🔐 Clave temporal para Panel de Administración",
+        subject: "Código de acceso",
         htmlContent: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
-            <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-              <h1 style="color: #2d3748; margin-bottom: 20px;">🔐 Acceso al Panel de Administración</h1>
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 20px; background: #f8f9fa;">
+            <div style="background: white; padding: 48px 32px; border-radius: 12px; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.06);">
               
-              <p style="color: #4a5568; font-size: 16px; line-height: 1.6;">
-                Tu clave temporal de acceso es:
+              <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #007AFF, #5AC8FA); border-radius: 16px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center;">
+                <div style="color: white; font-size: 24px; font-weight: 600;">🔐</div>
+              </div>
+              
+              <h1 style="color: #1d1d1f; font-size: 28px; font-weight: 600; margin: 0 0 8px 0; letter-spacing: -0.5px;">Código de acceso</h1>
+              
+              <p style="color: #86868b; font-size: 17px; margin: 0 0 32px 0; line-height: 1.4;">
+                Usa este código para acceder al panel
               </p>
               
-              <div style="background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 8px; padding: 20px; text-align: center; margin: 20px 0;">
-                <h2 style="color: #2d3748; font-size: 32px; font-weight: bold; margin: 0; letter-spacing: 2px;">
+              <div style="background: #f5f5f7; border-radius: 12px; padding: 24px; margin: 0 0 32px 0;">
+                <div style="color: #1d1d1f; font-size: 48px; font-weight: 700; letter-spacing: 8px; font-family: 'SF Mono', Monaco, monospace;">
                   ${tempKey}
-                </h2>
+                </div>
               </div>
               
-              <p style="color: #718096; font-size: 14px; line-height: 1.6;">
-                • Esta clave expira en 15 minutos<br>
-                • Solo puede ser usada una vez<br>
-                • Si no solicitaste este acceso, ignora este email
+              <p style="color: #86868b; font-size: 15px; margin: 0; line-height: 1.5;">
+                Este código expira en 60 segundos
               </p>
               
-              <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
-                <p style="color: #a0aec0; font-size: 12px; margin: 0;">
-                  Kit IA - Panel de Administración<br>
-                  Este es un email automático, no responder.
-                </p>
-              </div>
             </div>
           </div>
         `

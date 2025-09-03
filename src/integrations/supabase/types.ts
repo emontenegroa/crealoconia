@@ -20,24 +20,33 @@ export type Database = {
           email: string
           expires_at: string
           id: string
+          ip_address: unknown | null
+          location_info: Json | null
           temp_key: string
           used: boolean
+          user_agent: string | null
         }
         Insert: {
           created_at?: string
           email: string
           expires_at?: string
           id?: string
+          ip_address?: unknown | null
+          location_info?: Json | null
           temp_key: string
           used?: boolean
+          user_agent?: string | null
         }
         Update: {
           created_at?: string
           email?: string
           expires_at?: string
           id?: string
+          ip_address?: unknown | null
+          location_info?: Json | null
           temp_key?: string
           used?: boolean
+          user_agent?: string | null
         }
         Relationships: []
       }

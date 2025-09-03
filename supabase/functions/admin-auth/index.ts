@@ -54,7 +54,13 @@ serve(async (req) => {
   }
 
   try {
-    const { email, action } = await req.json();
+    const { email, action, tempKey } = await req.json();
+    
+    // Obtener información de tracking
+    const clientIP = req.headers.get('x-forwarded-for') || 
+                    req.headers.get('x-real-ip') || 
+                    'unknown';
+    const userAgent = req.headers.get('user-agent') || 'unknown';
 
     if (!email) {
       return new Response(
@@ -73,12 +79,21 @@ serve(async (req) => {
       // Limpiar claves expiradas
       await supabase.rpc('cleanup_expired_temp_keys');
       
-      // Guardar la nueva clave temporal
+      // Guardar la nueva clave temporal con información de tracking
       const { error: insertError } = await supabase
         .from('admin_temp_keys')
         .insert({
           email,
-          temp_key: tempKey
+          temp_key: tempKey,
+          ip_address: clientIP,
+          user_agent: userAgent,
+          location_info: {
+            timestamp: new Date().toISOString(),
+            headers: {
+              'x-forwarded-for': req.headers.get('x-forwarded-for'),
+              'x-real-ip': req.headers.get('x-real-ip')
+            }
+          }
         });
 
       if (insertError) {
@@ -90,7 +105,10 @@ serve(async (req) => {
       await sendEmail(email, tempKey);
 
       return new Response(
-        JSON.stringify({ message: 'Clave temporal enviada por email' }),
+        JSON.stringify({ 
+          message: 'Código enviado',
+          expiresIn: 60 // segundos
+        }),
         { 
           status: 200,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -98,11 +116,9 @@ serve(async (req) => {
       );
 
     } else if (action === 'verify') {
-      const { tempKey } = await req.json();
-
       if (!tempKey) {
         return new Response(
-          JSON.stringify({ error: 'Clave temporal es requerida' }),
+          JSON.stringify({ error: 'Código requerido' }),
           { 
             status: 400,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -122,7 +138,7 @@ serve(async (req) => {
 
       if (error || !data) {
         return new Response(
-          JSON.stringify({ error: 'Clave temporal inválida o expirada' }),
+          JSON.stringify({ error: 'Código inválido o expirado' }),
           { 
             status: 401,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' }
