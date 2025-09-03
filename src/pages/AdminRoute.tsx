@@ -7,6 +7,12 @@ import CodeInput from '@/components/ui/CodeInput';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 import Admin from './Admin';
 
+interface AdminSession {
+  email: string;
+  authenticatedAt: number;
+  expiresAt: number;
+}
+
 export default function AdminRoute() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [email, setEmail] = useState('');
@@ -15,6 +21,32 @@ export default function AdminRoute() {
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const { toast } = useToast();
+
+  // Verificar sesión existente al cargar
+  useEffect(() => {
+    const checkExistingSession = () => {
+      const sessionData = localStorage.getItem('admin_session');
+      if (sessionData) {
+        try {
+          const session: AdminSession = JSON.parse(sessionData);
+          const now = Date.now();
+          
+          if (now < session.expiresAt) {
+            setIsAuthenticated(true);
+            setEmail(session.email);
+            return;
+          } else {
+            // Sesión expirada
+            localStorage.removeItem('admin_session');
+          }
+        } catch (error) {
+          localStorage.removeItem('admin_session');
+        }
+      }
+    };
+
+    checkExistingSession();
+  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -79,7 +111,30 @@ export default function AdminRoute() {
 
       if (error) throw error;
 
+      // Crear sesión persistente (24 horas)
+      const now = Date.now();
+      const session: AdminSession = {
+        email,
+        authenticatedAt: now,
+        expiresAt: now + (24 * 60 * 60 * 1000) // 24 horas
+      };
+      
+      localStorage.setItem('admin_session', JSON.stringify(session));
       setIsAuthenticated(true);
+
+      // Log de seguridad
+      await supabase.functions.invoke('send-email', {
+        body: {
+          type: 'admin',
+          to: email,
+          subject: 'Acceso al panel administrativo',
+          data: {
+            timestamp: new Date().toLocaleString('es-ES'),
+            ip: 'N/A' // Sería necesario obtener la IP real
+          }
+        }
+      });
+
     } catch (error) {
       toast({
         title: "Código inválido",
@@ -92,6 +147,18 @@ export default function AdminRoute() {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem('admin_session');
+    setIsAuthenticated(false);
+    setEmail('');
+    setStep('email');
+    setTempKey('');
+    toast({
+      title: "Sesión cerrada",
+      description: "Has cerrado sesión correctamente"
+    });
+  };
+
   const goBack = () => {
     setStep('email');
     setTempKey('');
@@ -99,7 +166,7 @@ export default function AdminRoute() {
   };
 
   if (isAuthenticated) {
-    return <Admin />;
+    return <Admin onLogout={logout} />;
   }
 
   return (
@@ -126,7 +193,7 @@ export default function AdminRoute() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="esteban@crealoconia.com"
+                placeholder="tu@email.com"
                 className="h-12 text-center text-lg border-gray-200 dark:border-gray-600 rounded-xl 
                          focus:border-gray-900 dark:focus:border-gray-100 
                          focus:ring-gray-900 dark:focus:ring-gray-100

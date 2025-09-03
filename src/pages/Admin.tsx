@@ -33,7 +33,11 @@ interface AdminFilters {
   hasLovablePrompt: boolean | null;
 }
 
-export default function Admin() {
+interface AdminProps {
+  onLogout: () => void;
+}
+
+export default function Admin({ onLogout }: AdminProps) {
   const [submissions, setSubmissions] = useState<FormSubmission[]>([]);
   const [filteredSubmissions, setFilteredSubmissions] = useState<FormSubmission[]>([]);
   const [loading, setLoading] = useState(true);
@@ -299,7 +303,17 @@ export default function Admin() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <ThemeToggle />
+      <div className="fixed top-4 right-4 flex items-center gap-2 z-10">
+        <ThemeToggle />
+        <Button 
+          onClick={onLogout}
+          variant="ghost" 
+          size="sm"
+          className="text-muted-foreground hover:text-foreground"
+        >
+          Salir
+        </Button>
+      </div>
       
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Panel de Administración</h1>
