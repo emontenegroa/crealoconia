@@ -12,8 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Download, Edit, Trash2, Eye, Filter, RefreshCw, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Download, Edit, Trash2, Eye, Filter, RefreshCw, Copy, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
@@ -426,23 +426,23 @@ export default function Admin({ onLogout }: AdminProps) {
       <div className="pt-12 sm:pt-0">
         <h1 className="text-2xl md:text-3xl font-bold mb-6">Panel de Administración</h1>
       
-        {/* Navegación por pestañas */}
-        <div className="flex gap-4 mb-6">
-          <Button
-            onClick={() => setActiveTab('submissions')}
-            variant={activeTab === 'submissions' ? 'default' : 'outline'}
-            className="text-sm"
-          >
-            📊 Formularios
-          </Button>
-          <Button
-            onClick={() => setActiveTab('email-tests')}
-            variant={activeTab === 'email-tests' ? 'default' : 'outline'}
-            className="text-sm"
-          >
-            📧 Pruebas de Email
-          </Button>
-        </div>
+      {/* Navegación por pestañas */}
+      <div className="flex gap-2 mb-6 border-b">
+        <Button
+          onClick={() => setActiveTab('submissions')}
+          variant={activeTab === 'submissions' ? 'default' : 'ghost'}
+          className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary"
+        >
+          Formularios
+        </Button>
+        <Button
+          onClick={() => setActiveTab('email-tests')}
+          variant={activeTab === 'email-tests' ? 'default' : 'ghost'}
+          className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary"
+        >
+          Pruebas de Email
+        </Button>
+      </div>
 
         {activeTab === 'submissions' && (
           <>
@@ -456,34 +456,30 @@ export default function Admin({ onLogout }: AdminProps) {
                       onClick={() => setShowDeleteConfirm(true)} 
                       variant="destructive" 
                       size="sm"
-                      className="text-xs sm:text-sm"
                     >
-                      <Trash2 className="w-4 h-4 sm:mr-2" />
-                      <span className="hidden sm:inline">Eliminar {selectedIds.length} seleccionados</span>
-                      <span className="sm:hidden">{selectedIds.length}</span>
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Eliminar ({selectedIds.length})
                     </Button>
                     <Button 
                       onClick={() => setSelectedIds([])} 
                       variant="outline" 
                       size="sm"
-                      className="text-xs sm:text-sm"
                     >
-                      <span className="hidden sm:inline">Cancelar selección</span>
-                      <span className="sm:hidden">✕</span>
+                      Cancelar
                     </Button>
                   </>
                 )}
-                <Button onClick={loadSubmissions} variant="outline" size="sm" className="text-xs sm:text-sm">
-                  <RefreshCw className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">Actualizar</span>
+                <Button onClick={loadSubmissions} variant="outline" size="sm">
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Actualizar
                 </Button>
-                <Button onClick={exportToCSV} variant="outline" size="sm" className="text-xs sm:text-sm">
-                  <Download className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">CSV</span>
+                <Button onClick={exportToCSV} variant="outline" size="sm">
+                  <Download className="w-4 h-4 mr-2" />
+                  Exportar CSV
                 </Button>
-                <Button onClick={exportLovablePrompts} variant="outline" size="sm" className="text-xs sm:text-sm">
-                  <Download className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">Prompts</span>
+                <Button onClick={exportLovablePrompts} variant="outline" size="sm">
+                  <Download className="w-4 h-4 mr-2" />
+                  Exportar Prompts
                 </Button>
               </div>
             </div>
@@ -492,7 +488,7 @@ export default function Admin({ onLogout }: AdminProps) {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Filter className="w-5 h-5" />
+                  <Filter className="w-4 h-4" />
                   Filtros
                 </CardTitle>
               </CardHeader>
@@ -703,38 +699,50 @@ export default function Admin({ onLogout }: AdminProps) {
             <h2 className="text-xl md:text-2xl font-bold">Pruebas del Sistema</h2>
             
             {/* Panel de Prueba de Email */}
-            <Card className="border-green-500/20">
+            <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Mail className="w-5 h-5 text-green-600" />
+                  <Mail className="w-4 h-4" />
                   Prueba de Sistema de Email
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="bg-muted/50 p-4 rounded-lg">
-                  <h3 className="font-medium mb-2">Configuración Actual</h3>
-                  <div className="text-sm text-muted-foreground space-y-1">
-                    <p>📧 Proveedor: Brevo API v3</p>
-                    <p>🔑 API Key: Configurada ✅</p>
-                    <p>📮 Email destino: esteban.montenegro@gmail.com</p>
-                    <p>🚀 Edge Function: send-email</p>
+                <div className="bg-muted/30 p-4 rounded-lg border">
+                  <h3 className="font-medium mb-3">Configuración Actual</h3>
+                  <div className="text-sm text-muted-foreground space-y-2">
+                    <div className="flex justify-between">
+                      <span>Proveedor:</span>
+                      <span>Brevo API v3</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>API Key:</span>
+                      <span className="text-green-600">Configurada</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Email destino:</span>
+                      <span>esteban.montenegro@gmail.com</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Edge Function:</span>
+                      <span>send-email</span>
+                    </div>
                   </div>
                 </div>
 
                 <Button 
                   onClick={runEmailTest} 
                   disabled={emailTesting}
-                  className="w-full bg-green-600 hover:bg-green-700"
+                  className="w-full"
                 >
                   {emailTesting ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Enviando email de prueba...
+                      Enviando prueba...
                     </>
                   ) : (
                     <>
                       <Mail className="w-4 h-4 mr-2" />
-                      Ejecutar Prueba de Email
+                      Ejecutar Prueba
                     </>
                   )}
                 </Button>
@@ -742,19 +750,19 @@ export default function Admin({ onLogout }: AdminProps) {
                 {emailTestResult && (
                   <div className={`p-4 rounded-lg border ${
                     emailTestResult.success 
-                      ? 'bg-green-50 border-green-200 dark:bg-green-900/30 dark:border-green-500/30' 
-                      : 'bg-red-50 border-red-200 dark:bg-red-900/30 dark:border-red-500/30'
+                      ? 'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-500/30' 
+                      : 'bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-500/30'
                   }`}>
                     <div className="flex items-center gap-2 mb-2">
                       {emailTestResult.success ? (
-                        <CheckCircle className="w-5 h-5 text-green-600" />
+                        <CheckCircle className="w-4 h-4 text-green-600" />
                       ) : (
-                        <AlertTriangle className="w-5 h-5 text-red-600" />
+                        <AlertTriangle className="w-4 h-4 text-red-600" />
                       )}
                       <span className={`font-medium ${
                         emailTestResult.success ? 'text-green-800 dark:text-green-300' : 'text-red-800 dark:text-red-300'
                       }`}>
-                        {emailTestResult.success ? '✅ Prueba Exitosa' : '❌ Error en Prueba'}
+                        {emailTestResult.success ? 'Prueba Exitosa' : 'Error en Prueba'}
                       </span>
                     </div>
                     
@@ -765,9 +773,9 @@ export default function Admin({ onLogout }: AdminProps) {
                     </p>
 
                     {emailTestResult.success && (
-                      <div className="mt-3 text-xs text-green-600 dark:text-green-300">
-                        <p>🎉 El sistema de email está funcionando correctamente</p>
-                        <p>📧 Revisa la bandeja de entrada de esteban.montenegro@gmail.com</p>
+                      <div className="mt-3 text-xs text-green-600 dark:text-green-300 space-y-1">
+                        <p>El sistema de email está funcionando correctamente</p>
+                        <p>Revisa la bandeja de entrada de esteban.montenegro@gmail.com</p>
                       </div>
                     )}
                   </div>
@@ -776,28 +784,52 @@ export default function Admin({ onLogout }: AdminProps) {
             </Card>
 
             {/* Información del Sistema */}
-            <Card className="border-blue-500/20">
+            <Card>
               <CardHeader>
-                <CardTitle>📊 Estado del Sistema</CardTitle>
+                <CardTitle>Estado del Sistema</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div className="space-y-2">
-                    <h4 className="text-blue-600 dark:text-blue-300 font-medium">Kit IA - Email System</h4>
-                    <div className="text-muted-foreground space-y-1">
-                      <p>🔧 Edge Function: Activa</p>
-                      <p>🔐 Secretos: Configurados</p>
-                      <p>📡 API: Brevo v3</p>
-                      <p>✉️ Templates: 3 tipos</p>
+                  <div className="space-y-3">
+                    <h4 className="font-medium">Kit IA - Email System</h4>
+                    <div className="text-muted-foreground space-y-2">
+                      <div className="flex justify-between">
+                        <span>Edge Function:</span>
+                        <span>Activa</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Secretos:</span>
+                        <span>Configurados</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>API:</span>
+                        <span>Brevo v3</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Templates:</span>
+                        <span>3 tipos</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <h4 className="text-blue-600 dark:text-blue-300 font-medium">Tipos de Email</h4>
-                    <div className="text-muted-foreground space-y-1">
-                      <p>🧪 Test: Verificación</p>
-                      <p>✅ Confirmación: Cliente</p>
-                      <p>📋 Admin: Esteban</p>
-                      <p>🎯 Todos: Funcionales</p>
+                  <div className="space-y-3">
+                    <h4 className="font-medium">Tipos de Email</h4>
+                    <div className="text-muted-foreground space-y-2">
+                      <div className="flex justify-between">
+                        <span>Test:</span>
+                        <span>Verificación</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Confirmación:</span>
+                        <span>Cliente</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Admin:</span>
+                        <span>Esteban</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Estado:</span>
+                        <span className="text-green-600">Funcionales</span>
+                      </div>
                     </div>
                   </div>
                 </div>
