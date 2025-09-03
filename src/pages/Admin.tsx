@@ -303,19 +303,17 @@ export default function Admin({ onLogout }: AdminProps) {
 
   return (
     <div className="container mx-auto p-4 md:p-6 space-y-6">
-      {/* Header con controles fijos - botones bien separados */}
-      <div className="fixed top-4 right-4 flex items-center gap-3 z-50">
+      {/* Header con controles fijos - botones horizontalmente alineados */}
+      <div className="fixed top-4 right-4 flex items-center gap-2 z-50">
         <Button 
           onClick={onLogout}
           variant="outline" 
           size="sm"
-          className="text-muted-foreground hover:text-foreground bg-background/90 backdrop-blur-sm border-border shadow-sm"
+          className="bg-background/90 backdrop-blur-sm border-border shadow-sm h-9"
         >
           Salir
         </Button>
-        <div className="bg-background/90 backdrop-blur-sm border border-border rounded-md">
-          <ThemeToggle />
-        </div>
+        <ThemeToggle />
       </div>
       
       {/* Título y botones principales - responsive mejorado */}
