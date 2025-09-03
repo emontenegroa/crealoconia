@@ -93,13 +93,15 @@ export default function CodeInput({
             w-12 h-14 text-center text-lg font-medium rounded-lg border-2 
             transition-all duration-200 outline-none
             ${focused === index 
-              ? 'border-blue-500 bg-blue-50' 
+              ? 'border-gray-900 bg-gray-50 dark:border-gray-100 dark:bg-gray-800' 
               : value[index] 
-                ? 'border-gray-300 bg-white' 
-                : 'border-gray-200 bg-gray-50'
+                ? 'border-gray-400 bg-white dark:border-gray-500 dark:bg-gray-900' 
+                : 'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800'
             }
-            ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:border-gray-300'}
-            focus:ring-0 focus:border-blue-500 focus:bg-blue-50
+            ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:border-gray-400 dark:hover:border-gray-500'}
+            focus:ring-0 focus:border-gray-900 focus:bg-gray-50 
+            dark:focus:border-gray-100 dark:focus:bg-gray-800
+            text-gray-900 dark:text-gray-100
           `}
           maxLength={1}
         />

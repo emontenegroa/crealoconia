@@ -269,7 +269,7 @@ const handler = async (req: Request): Promise<Response> => {
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 20px; background: #f8f9fa;">
             <div style="background: white; padding: 48px 32px; border-radius: 12px; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.06);">
               
-              <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #007AFF, #5AC8FA); border-radius: 16px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center;">
+              <div style="width: 56px; height: 56px; background: #000000; border-radius: 16px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center;">
                 <div style="color: white; font-size: 24px; font-weight: 600;">🔐</div>
               </div>
               
@@ -279,7 +279,7 @@ const handler = async (req: Request): Promise<Response> => {
                 Usa este código para acceder al panel
               </p>
               
-              <div style="background: #f5f5f7; border-radius: 12px; padding: 24px; margin: 0 0 32px 0;">
+              <div style="background: #f5f5f7; border-radius: 12px; padding: 24px; margin: 0 0 32px 0; border: 2px solid #000000;">
                 <div style="color: #1d1d1f; font-size: 48px; font-weight: 700; letter-spacing: 8px; font-family: 'SF Mono', Monaco, monospace;">
                   ${tempKey}
                 </div>

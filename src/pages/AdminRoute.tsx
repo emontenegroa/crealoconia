@@ -102,20 +102,20 @@ export default function AdminRoute() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         
         {step === 'email' ? (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-              <div className="text-white text-2xl font-semibold">🔐</div>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center">
+            <div className="w-16 h-16 bg-gray-900 dark:bg-gray-100 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+              <div className="text-white dark:text-gray-900 text-2xl font-semibold">🔐</div>
             </div>
             
-            <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
               Panel de Administración
             </h1>
             
-            <p className="text-gray-500 mb-8">
+            <p className="text-gray-500 dark:text-gray-400 mb-8">
               Ingresa tu email para recibir un código de acceso
             </p>
 
@@ -125,7 +125,12 @@ export default function AdminRoute() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@ejemplo.com"
-                className="h-12 text-center text-lg border-gray-200 rounded-xl focus:border-blue-500 focus:ring-blue-500"
+                className="h-12 text-center text-lg border-gray-200 dark:border-gray-600 rounded-xl 
+                         focus:border-gray-900 dark:focus:border-gray-100 
+                         focus:ring-gray-900 dark:focus:ring-gray-100
+                         bg-white dark:bg-gray-900 
+                         text-gray-900 dark:text-gray-100
+                         placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 disabled={loading}
                 onKeyPress={(e) => e.key === 'Enter' && requestCode()}
               />
@@ -133,27 +138,29 @@ export default function AdminRoute() {
               <Button 
                 onClick={requestCode}
                 disabled={loading || !email}
-                className="w-full h-12 text-base font-medium bg-blue-500 hover:bg-blue-600 rounded-xl"
+                className="w-full h-12 text-base font-medium 
+                         bg-gray-900 hover:bg-gray-800 dark:bg-gray-100 dark:hover:bg-gray-200 
+                         text-white dark:text-gray-900 rounded-xl"
               >
                 {loading ? "Enviando..." : "Enviar código"}
               </Button>
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-              <div className="text-white text-2xl">✉️</div>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center">
+            <div className="w-16 h-16 bg-gray-900 dark:bg-gray-100 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+              <div className="text-white dark:text-gray-900 text-2xl">✉️</div>
             </div>
             
-            <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
               Código enviado
             </h1>
             
-            <p className="text-gray-500 mb-2">
+            <p className="text-gray-500 dark:text-gray-400 mb-2">
               Ingresa el código de 6 dígitos enviado a
             </p>
             
-            <p className="text-gray-900 font-medium mb-8">
+            <p className="text-gray-900 dark:text-gray-100 font-medium mb-8">
               {email}
             </p>
 
@@ -167,7 +174,7 @@ export default function AdminRoute() {
               />
               
               {countdown > 0 && (
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   El código expira en {countdown} segundo{countdown !== 1 ? 's' : ''}
                 </p>
               )}
@@ -175,7 +182,9 @@ export default function AdminRoute() {
               <Button 
                 onClick={verifyCode}
                 disabled={loading || tempKey.length !== 6}
-                className="w-full h-12 text-base font-medium bg-blue-500 hover:bg-blue-600 rounded-xl"
+                className="w-full h-12 text-base font-medium 
+                         bg-gray-900 hover:bg-gray-800 dark:bg-gray-100 dark:hover:bg-gray-200 
+                         text-white dark:text-gray-900 rounded-xl"
               >
                 {loading ? "Verificando..." : "Verificar código"}
               </Button>
@@ -185,7 +194,10 @@ export default function AdminRoute() {
                   onClick={goBack}
                   variant="outline"
                   disabled={loading}
-                  className="flex-1 h-11 text-sm rounded-xl border-gray-200"
+                  className="flex-1 h-11 text-sm rounded-xl 
+                           border-gray-200 dark:border-gray-600 
+                           hover:bg-gray-50 dark:hover:bg-gray-700
+                           text-gray-900 dark:text-gray-100"
                 >
                   Cambiar email
                 </Button>
@@ -195,7 +207,10 @@ export default function AdminRoute() {
                     onClick={requestCode}
                     variant="outline"
                     disabled={loading}
-                    className="flex-1 h-11 text-sm rounded-xl border-gray-200"
+                    className="flex-1 h-11 text-sm rounded-xl 
+                             border-gray-200 dark:border-gray-600 
+                             hover:bg-gray-50 dark:hover:bg-gray-700
+                             text-gray-900 dark:text-gray-100"
                   >
                     Reenviar código
                   </Button>
