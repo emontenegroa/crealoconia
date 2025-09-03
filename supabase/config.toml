@@ -1,1 +1,23 @@
 project_id = "yxagfbefgqlsjrxjtgjr"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[functions.admin-auth]
+verify_jwt = false
+
+[functions.admin-data]
+verify_jwt = false
+
+[functions.send-email]
+verify_jwt = false
+
+[functions.enhance-with-ai]
+verify_jwt = false
+
+[functions.check-abandoned-forms]
+verify_jwt = false

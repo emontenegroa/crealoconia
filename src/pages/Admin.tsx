@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { createClient } from '@supabase/supabase-js';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -67,20 +68,42 @@ export default function Admin({ onLogout }: AdminProps) {
       setLoading(true);
       console.log('Intentando cargar submissions...');
       
-      const { data, error } = await supabase
-        .from('form_submissions')
-        .select('*')
-        .order('created_at', { ascending: false });
+      // Get admin session from localStorage
+      const adminSession = localStorage.getItem('admin_session');
+      
+      if (!adminSession) {
+        toast({
+          title: "Sesión expirada",
+          description: "Por favor, inicia sesión nuevamente",
+          variant: "destructive"
+        });
+        onLogout();
+        return;
+      }
 
-      console.log('Respuesta de Supabase:', { data, error });
+      const sessionData = JSON.parse(adminSession);
+
+      // Use edge function to get data with admin privileges
+      const { data, error } = await supabase.functions.invoke('admin-data', {
+        body: { 
+          email: sessionData.email,
+          action: 'get_submissions'
+        }
+      });
+
+      console.log('Respuesta de admin-data:', { data, error });
       
       if (error) {
-        console.error('Error de Supabase:', error);
-        throw error;
+        console.error('Error de admin-data:', error);
+        throw new Error(error.message || 'Error de función admin');
+      }
+
+      if (data?.error) {
+        throw new Error(data.error);
       }
       
-      console.log(`Cargados ${data?.length || 0} registros`);
-      setSubmissions(data || []);
+      console.log(`Cargados ${data?.submissions?.length || 0} registros`);
+      setSubmissions(data?.submissions || []);
     } catch (error) {
       console.error('Error loading submissions:', error);
       toast({
@@ -186,12 +209,25 @@ export default function Admin({ onLogout }: AdminProps) {
 
   const updateSubmission = async (id: string, updates: Partial<FormSubmission>) => {
     try {
-      const { error } = await supabase
-        .from('form_submissions')
-        .update(updates)
-        .eq('id', id);
+      // Get admin session from localStorage
+      const adminSession = localStorage.getItem('admin_session');
+      if (!adminSession) {
+        onLogout();
+        return;
+      }
+      const sessionData = JSON.parse(adminSession);
 
-      if (error) throw error;
+      const { data, error } = await supabase.functions.invoke('admin-data', {
+        body: { 
+          email: sessionData.email,
+          action: 'update_submission',
+          data: { id, updates }
+        }
+      });
+
+      if (error || data?.error) {
+        throw new Error(data?.error || error?.message || 'Error updating submission');
+      }
 
       await loadSubmissions();
       setEditMode(false);
@@ -213,12 +249,25 @@ export default function Admin({ onLogout }: AdminProps) {
 
   const deleteSubmission = async (id: string) => {
     try {
-      const { error } = await supabase
-        .from('form_submissions')
-        .delete()
-        .eq('id', id);
+      // Get admin session from localStorage
+      const adminSession = localStorage.getItem('admin_session');
+      if (!adminSession) {
+        onLogout();
+        return;
+      }
+      const sessionData = JSON.parse(adminSession);
 
-      if (error) throw error;
+      const { data, error } = await supabase.functions.invoke('admin-data', {
+        body: { 
+          email: sessionData.email,
+          action: 'delete_submission',
+          data: { id }
+        }
+      });
+
+      if (error || data?.error) {
+        throw new Error(data?.error || error?.message || 'Error deleting submission');
+      }
 
       await loadSubmissions();
       toast({
@@ -248,14 +297,27 @@ export default function Admin({ onLogout }: AdminProps) {
         return;
       }
 
-      const { error } = await supabase
-        .from('form_submissions')
-        .delete()
-        .in('id', selectedIds);
+      // Get admin session from localStorage
+      const adminSession = localStorage.getItem('admin_session');
+      if (!adminSession) {
+        onLogout();
+        return;
+      }
+      const sessionData = JSON.parse(adminSession);
 
-      console.log('Resultado de eliminación:', { error });
+      const { data, error } = await supabase.functions.invoke('admin-data', {
+        body: { 
+          email: sessionData.email,
+          action: 'delete_multiple_submissions',
+          data: { ids: selectedIds }
+        }
+      });
 
-      if (error) throw error;
+      console.log('Resultado de eliminación:', { data, error });
+
+      if (error || data?.error) {
+        throw new Error(data?.error || error?.message || 'Error deleting submissions');
+      }
 
       await loadSubmissions();
       setSelectedIds([]);
