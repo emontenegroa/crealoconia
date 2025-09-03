@@ -6,6 +6,10 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+const brevoApiKey = Deno.env.get('BREVO_API_KEY')!;
+
 serve(async (req) => {
   console.log('🚀 admin-auth function started');
   
@@ -60,24 +64,6 @@ serve(async (req) => {
     
     console.log('✅ Email autorizado confirmado');
 
-    // Obtener configuración de Supabase
-    const supabaseUrl = Deno.env.get('SUPABASE_URL');
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
-    
-    console.log('🔧 Supabase URL:', supabaseUrl ? 'configurada' : 'no configurada');
-    console.log('🔑 Service Key:', supabaseKey ? 'configurada' : 'no configurada');
-
-    if (!supabaseUrl || !supabaseKey) {
-      console.error('❌ Variables de entorno faltantes');
-      return new Response(
-        JSON.stringify({ error: 'Configuración de servidor incompleta' }),
-        { 
-          status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
     const supabase = createClient(supabaseUrl, supabaseKey);
     console.log('✅ Cliente de Supabase creado');
 
@@ -131,32 +117,63 @@ serve(async (req) => {
       
       console.log('✅ Código guardado exitosamente:', data);
 
-      // Enviar email
-      console.log('📧 Enviando email...');
+      // Enviar email usando Brevo directamente
+      console.log('📧 Enviando email con Brevo...');
       try {
-        const emailResponse = await fetch(`${supabaseUrl}/functions/v1/send-email`, {
+        const emailContent = {
+          sender: { email: "noreply@crealoconia.com", name: "Panel Admin" },
+          to: [{ email: email }],
+          subject: "Código de acceso",
+          htmlContent: `
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 20px; background: #f8f9fa;">
+              <div style="background: white; padding: 48px 32px; border-radius: 12px; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.06);">
+                
+                <div style="width: 56px; height: 56px; background: #000000; border-radius: 16px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center;">
+                  <div style="color: white; font-size: 24px; font-weight: 600;">🔐</div>
+                </div>
+                
+                <h1 style="color: #1d1d1f; font-size: 28px; font-weight: 600; margin: 0 0 8px 0; letter-spacing: -0.5px;">Código de acceso</h1>
+                
+                <p style="color: #86868b; font-size: 17px; margin: 0 0 32px 0; line-height: 1.4;">
+                  Usa este código para acceder al panel
+                </p>
+                
+                <div style="background: #f5f5f7; border-radius: 12px; padding: 24px; margin: 0 0 32px 0; border: 2px solid #000000;">
+                  <div style="color: #1d1d1f; font-size: 48px; font-weight: 700; letter-spacing: 8px; font-family: 'SF Mono', Monaco, monospace;">
+                    ${newTempKey}
+                  </div>
+                </div>
+                
+                <p style="color: #86868b; font-size: 15px; margin: 0; line-height: 1.5;">
+                  Este código expira en 60 segundos
+                </p>
+                
+              </div>
+            </div>
+          `
+        };
+
+        const emailResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
           method: 'POST',
           headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${supabaseKey}`,
+            'api-key': brevoApiKey
           },
-          body: JSON.stringify({
-            email,
-            type: 'admin_temp_key',
-            emailData: { tempKey: newTempKey },
-          }),
+          body: JSON.stringify(emailContent)
         });
 
-        console.log('📬 Email response status:', emailResponse.status);
+        console.log('📬 Brevo response status:', emailResponse.status);
         
         if (!emailResponse.ok) {
           const errorText = await emailResponse.text();
-          console.error('❌ Error enviando email:', errorText);
+          console.error('❌ Error de Brevo:', errorText);
         } else {
-          console.log('✅ Email enviado exitosamente');
+          const result = await emailResponse.json();
+          console.log('✅ Email enviado exitosamente:', result);
         }
       } catch (emailError) {
-        console.error('⚠️ Error de email (continuando):', emailError);
+        console.error('⚠️ Error de email:', emailError);
       }
 
       return new Response(
