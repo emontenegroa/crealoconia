@@ -232,10 +232,23 @@ export default function Admin() {
 
   const deleteMultipleSubmissions = async () => {
     try {
+      console.log('Intentando eliminar registros:', selectedIds);
+      
+      if (selectedIds.length === 0) {
+        toast({
+          title: "Error",
+          description: "No hay registros seleccionados",
+          variant: "destructive"
+        });
+        return;
+      }
+
       const { error } = await supabase
         .from('form_submissions')
         .delete()
         .in('id', selectedIds);
+
+      console.log('Resultado de eliminación:', { error });
 
       if (error) throw error;
 
@@ -251,7 +264,7 @@ export default function Admin() {
       console.error('Error deleting multiple submissions:', error);
       toast({
         title: "Error",
-        description: "No se pudieron eliminar los registros",
+        description: `No se pudieron eliminar los registros: ${error.message}`,
         variant: "destructive"
       });
     }
