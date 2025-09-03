@@ -145,6 +145,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_admin_rate_limit: {
+        Args: { check_email: string }
+        Returns: boolean
+      }
       cleanup_expired_temp_keys: {
         Args: Record<PropertyKey, never>
         Returns: undefined
@@ -181,6 +185,19 @@ export type Database = {
           user_id?: string
         }
         Returns: string
+      }
+      store_admin_code: {
+        Args: {
+          admin_email: string
+          code: string
+          user_agent_string?: string
+          user_ip?: unknown
+        }
+        Returns: string
+      }
+      verify_admin_code: {
+        Args: { check_code: string; check_email: string }
+        Returns: boolean
       }
     }
     Enums: {

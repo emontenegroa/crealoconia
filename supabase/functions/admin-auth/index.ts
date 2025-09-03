@@ -1,9 +1,15 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// Initialize Supabase client
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 serve(async (req) => {
   console.log('🚀 admin-auth function started');
@@ -49,6 +55,47 @@ serve(async (req) => {
     if (action === 'generate') {
       console.log('🎲 Generando código temporal...');
       
+      // Check rate limiting first
+      const { data: rateLimitOk, error: rateLimitError } = await supabase
+        .rpc('check_admin_rate_limit', { check_email: email });
+      
+      if (rateLimitError) {
+        console.error('❌ Error checking rate limit:', rateLimitError);
+        return new Response(
+          JSON.stringify({ error: 'Error interno de validación' }),
+          { 
+            status: 500,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
+      }
+      
+      if (!rateLimitOk) {
+        console.log('❌ Rate limit exceeded for:', email);
+        
+        // Log the failed attempt
+        await supabase.rpc('log_security_event', {
+          event_type: 'admin_auth_rate_limit',
+          email: email,
+          event_data: { action: 'generate_code_blocked' }
+        });
+        
+        return new Response(
+          JSON.stringify({ error: 'Demasiados intentos. Inténtalo en 5 minutos.' }),
+          { 
+            status: 429,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
+      }
+      
+      // Log the attempt
+      await supabase.rpc('log_security_event', {
+        event_type: 'admin_auth_attempt',
+        email: email,
+        event_data: { action: 'generate_code' }
+      });
+      
       // Generar código de 6 dígitos
       const tempKey = Math.floor(100000 + Math.random() * 900000).toString();
       console.log('🔢 Código generado:', tempKey);
@@ -88,7 +135,7 @@ serve(async (req) => {
                   </div>
                 </div>
                 <p style="color: #86868b; font-size: 15px;">
-                  Este código expira en 60 segundos
+                  Este código expira en 5 minutos
                 </p>
               </div>
             </div>
@@ -123,14 +170,32 @@ serve(async (req) => {
         const result = await emailResponse.json();
         console.log('✅ Email enviado exitosamente:', result);
 
-        // Guardar código temporalmente en memoria (simplificado)
-        // En producción esto iría a la base de datos
-        console.log('✅ Proceso completado exitosamente');
+        // Store the code securely in the database
+        const { data: codeId, error: storeError } = await supabase
+          .rpc('store_admin_code', {
+            admin_email: email,
+            code: tempKey,
+            user_ip: null, // Could be extracted from headers if needed
+            user_agent_string: req.headers.get('user-agent')
+          });
+        
+        if (storeError) {
+          console.error('❌ Error storing code:', storeError);
+          return new Response(
+            JSON.stringify({ error: 'Error interno almacenando código' }),
+            { 
+              status: 500,
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            }
+          );
+        }
+        
+        console.log('✅ Código almacenado con ID:', codeId);
 
         return new Response(
           JSON.stringify({ 
             message: 'Código enviado',
-            expiresIn: 60
+            expiresIn: 300 // 5 minutes
           }),
           { 
             status: 200,
@@ -152,10 +217,122 @@ serve(async (req) => {
     } else if (action === 'verify') {
       console.log('🔍 Verificando código...');
       
-      // Por ahora, simular verificación exitosa para testing
-      // En producción esto verificaría contra la base de datos
+      const { tempKey } = body;
+      
+      if (!tempKey || tempKey.length !== 6) {
+        console.log('❌ Código inválido:', tempKey);
+        
+        await supabase.rpc('log_security_event', {
+          event_type: 'admin_auth_failed',
+          email: email,
+          event_data: { 
+            action: 'verify_code',
+            reason: 'invalid_code_format',
+            code_length: tempKey?.length || 0
+          }
+        });
+        
+        return new Response(
+          JSON.stringify({ error: 'Código inválido' }),
+          { 
+            status: 400,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
+      }
+      
+      // Check rate limiting for verification attempts
+      const { data: rateLimitOk, error: rateLimitError } = await supabase
+        .rpc('check_admin_rate_limit', { check_email: email });
+      
+      if (rateLimitError || !rateLimitOk) {
+        console.log('❌ Rate limit exceeded for verification:', email);
+        
+        await supabase.rpc('log_security_event', {
+          event_type: 'admin_auth_rate_limit',
+          email: email,
+          event_data: { action: 'verify_code_blocked' }
+        });
+        
+        return new Response(
+          JSON.stringify({ error: 'Demasiados intentos. Inténtalo en 5 minutos.' }),
+          { 
+            status: 429,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
+      }
+      
+      // Verify the code using the secure database function
+      const { data: isValid, error: verifyError } = await supabase
+        .rpc('verify_admin_code', {
+          check_email: email,
+          check_code: tempKey
+        });
+      
+      if (verifyError) {
+        console.error('❌ Error verifying code:', verifyError);
+        
+        await supabase.rpc('log_security_event', {
+          event_type: 'admin_auth_failed',
+          email: email,
+          event_data: { 
+            action: 'verify_code',
+            reason: 'database_error',
+            error: verifyError.message
+          }
+        });
+        
+        return new Response(
+          JSON.stringify({ error: 'Error interno de verificación' }),
+          { 
+            status: 500,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
+      }
+      
+      if (!isValid) {
+        console.log('❌ Código inválido o expirado:', tempKey);
+        
+        await supabase.rpc('log_security_event', {
+          event_type: 'admin_auth_failed',
+          email: email,
+          event_data: { 
+            action: 'verify_code',
+            reason: 'invalid_or_expired_code'
+          }
+        });
+        
+        return new Response(
+          JSON.stringify({ error: 'Código inválido o expirado' }),
+          { 
+            status: 401,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
+      }
+      
+      // Success! Log the successful authentication
+      console.log('✅ Autenticación exitosa para:', email);
+      
+      await supabase.rpc('log_security_event', {
+        event_type: 'admin_auth_success',
+        email: email,
+        event_data: { 
+          action: 'verify_code',
+          timestamp: new Date().toISOString()
+        }
+      });
+      
+      // Log admin access for audit trail
+      await supabase.rpc('log_admin_access', { admin_email: email });
+      
       return new Response(
-        JSON.stringify({ message: 'Autenticación exitosa' }),
+        JSON.stringify({ 
+          message: 'Autenticación exitosa',
+          email: email
+        }),
         { 
           status: 200,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }

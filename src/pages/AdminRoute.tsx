@@ -77,7 +77,7 @@ export default function AdminRoute() {
       if (error) throw error;
 
       setStep('code');
-      setCountdown(60);
+      setCountdown(300); // 5 minutes
       toast({
         title: "Código enviado",
         description: "Revisa tu email"
@@ -244,7 +244,7 @@ export default function AdminRoute() {
               
               {countdown > 0 && (
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  El código expira en {countdown} segundo{countdown !== 1 ? 's' : ''}
+                  El código expira en {Math.floor(countdown / 60)}:{(countdown % 60).toString().padStart(2, '0')}
                 </p>
               )}
               
