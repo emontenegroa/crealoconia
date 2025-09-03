@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_temp_keys: {
+        Row: {
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+          temp_key: string
+          used: boolean
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          expires_at?: string
+          id?: string
+          temp_key: string
+          used?: boolean
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          temp_key?: string
+          used?: boolean
+        }
+        Relationships: []
+      }
       ai_usage_tracking: {
         Row: {
           created_at: string
@@ -109,6 +136,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cleanup_expired_temp_keys: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       detect_suspicious_activity: {
         Args: { check_email: string; time_window_minutes?: number }
         Returns: boolean
