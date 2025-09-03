@@ -302,52 +302,58 @@ export default function Admin({ onLogout }: AdminProps) {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="fixed top-4 right-4 flex items-center gap-2 z-10">
-        <ThemeToggle />
+    <div className="container mx-auto p-4 md:p-6 space-y-6">
+      {/* Header con controles fijos - mejorado el z-index y orden */}
+      <div className="fixed top-4 right-4 flex items-center gap-2 z-50">
         <Button 
           onClick={onLogout}
           variant="ghost" 
           size="sm"
-          className="text-muted-foreground hover:text-foreground"
+          className="text-muted-foreground hover:text-foreground bg-background/80 backdrop-blur-sm border border-border"
         >
           Salir
         </Button>
+        <ThemeToggle />
       </div>
       
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Panel de Administración</h1>
-        <div className="flex gap-2">
+      {/* Título y botones principales - responsive mejorado */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-12 sm:pt-0">
+        <h1 className="text-2xl md:text-3xl font-bold">Panel de Administración</h1>
+        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
           {selectedIds.length > 0 && (
             <>
               <Button 
                 onClick={() => setShowDeleteConfirm(true)} 
                 variant="destructive" 
                 size="sm"
+                className="text-xs sm:text-sm"
               >
-                <Trash2 className="w-4 h-4 mr-2" />
-                Eliminar {selectedIds.length} seleccionados
+                <Trash2 className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">Eliminar {selectedIds.length} seleccionados</span>
+                <span className="sm:hidden">{selectedIds.length}</span>
               </Button>
               <Button 
                 onClick={() => setSelectedIds([])} 
                 variant="outline" 
                 size="sm"
+                className="text-xs sm:text-sm"
               >
-                Cancelar selección
+                <span className="hidden sm:inline">Cancelar selección</span>
+                <span className="sm:hidden">✕</span>
               </Button>
             </>
           )}
-          <Button onClick={loadSubmissions} variant="outline" size="sm">
-            <RefreshCw className="w-4 h-4 mr-2" />
-            Actualizar
+          <Button onClick={loadSubmissions} variant="outline" size="sm" className="text-xs sm:text-sm">
+            <RefreshCw className="w-4 h-4 sm:mr-2" />
+            <span className="hidden sm:inline">Actualizar</span>
           </Button>
-          <Button onClick={exportToCSV} variant="outline" size="sm">
-            <Download className="w-4 h-4 mr-2" />
-            Exportar CSV
+          <Button onClick={exportToCSV} variant="outline" size="sm" className="text-xs sm:text-sm">
+            <Download className="w-4 h-4 sm:mr-2" />
+            <span className="hidden sm:inline">CSV</span>
           </Button>
-          <Button onClick={exportLovablePrompts} variant="outline" size="sm">
-            <Download className="w-4 h-4 mr-2" />
-            Exportar Prompts
+          <Button onClick={exportLovablePrompts} variant="outline" size="sm" className="text-xs sm:text-sm">
+            <Download className="w-4 h-4 sm:mr-2" />
+            <span className="hidden sm:inline">Prompts</span>
           </Button>
         </div>
       </div>
@@ -361,7 +367,7 @@ export default function Admin({ onLogout }: AdminProps) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             <div>
               <Label htmlFor="email-filter">Email</Label>
               <Input
@@ -454,7 +460,7 @@ export default function Admin({ onLogout }: AdminProps) {
             <div className="text-center py-8">Cargando datos...</div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
+              <table className="w-full border-collapse min-w-[800px]">
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-2 w-12">
@@ -464,12 +470,12 @@ export default function Admin({ onLogout }: AdminProps) {
                         aria-label="Seleccionar todos"
                       />
                     </th>
-                    <th className="text-left p-2">Email</th>
-                    <th className="text-left p-2">Estado</th>
-                    <th className="text-left p-2">Fecha</th>
-                    <th className="text-left p-2">Marca</th>
-                    <th className="text-left p-2">Prompt Lovable</th>
-                    <th className="text-left p-2">Acciones</th>
+                    <th className="text-left p-2 min-w-[200px]">Email</th>
+                    <th className="text-left p-2 min-w-[100px]">Estado</th>
+                    <th className="text-left p-2 min-w-[100px]">Fecha</th>
+                    <th className="text-left p-2 min-w-[150px]">Marca</th>
+                    <th className="text-left p-2 min-w-[120px]">Prompt Lovable</th>
+                    <th className="text-left p-2 min-w-[150px]">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -482,7 +488,7 @@ export default function Admin({ onLogout }: AdminProps) {
                           aria-label={`Seleccionar ${submission.email}`}
                         />
                       </td>
-                      <td className="p-2">{submission.email}</td>
+                      <td className="p-2 break-all max-w-[200px]">{submission.email}</td>
                       <td className="p-2">
                         <Badge variant={submission.completed ? "default" : "secondary"}>
                           {submission.completed ? "Completado" : "Pendiente"}
@@ -491,7 +497,7 @@ export default function Admin({ onLogout }: AdminProps) {
                       <td className="p-2">
                         {new Date(submission.created_at).toLocaleDateString('es-ES')}
                       </td>
-                      <td className="p-2">{submission.form_data?.marca || '-'}</td>
+                      <td className="p-2 max-w-[150px] truncate" title={submission.form_data?.marca || '-'}>{submission.form_data?.marca || '-'}</td>
                       <td className="p-2">
                         <Badge variant={submission.form_data?.generatedPrompts?.lovablePrompt ? "default" : "outline"}>
                           {submission.form_data?.generatedPrompts?.lovablePrompt ? "Sí" : "No"}
