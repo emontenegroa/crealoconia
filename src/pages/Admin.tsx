@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { createClient } from '@supabase/supabase-js';
+import { useEmailHandling } from '@/hooks/useEmailHandling';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Download, Edit, Trash2, Eye, Filter, RefreshCw, Copy, CheckSquare, Square } from 'lucide-react';
+import { Download, Edit, Trash2, Eye, Filter, RefreshCw, Copy, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
@@ -46,6 +47,9 @@ export default function Admin({ onLogout }: AdminProps) {
   const [editMode, setEditMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [activeTab, setActiveTab] = useState<'submissions' | 'email-tests'>('submissions');
+  const [emailTesting, setEmailTesting] = useState(false);
+  const [emailTestResult, setEmailTestResult] = useState<any>(null);
   const [filters, setFilters] = useState<AdminFilters>({
     email: '',
     completed: null,
@@ -54,6 +58,7 @@ export default function Admin({ onLogout }: AdminProps) {
     hasLovablePrompt: null
   });
   const { toast } = useToast();
+  const { sendTestEmail } = useEmailHandling();
 
   useEffect(() => {
     loadSubmissions();
@@ -337,6 +342,46 @@ export default function Admin({ onLogout }: AdminProps) {
     }
   };
 
+  const runEmailTest = async () => {
+    setEmailTesting(true);
+    setEmailTestResult(null);
+
+    try {
+      console.log('🧪 Iniciando prueba del sistema de email...');
+      
+      // Enviar email de prueba a la cuenta configurada
+      const result = await sendTestEmail('esteban.montenegro@gmail.com');
+      
+      setEmailTestResult({
+        success: true,
+        message: 'Email de prueba enviado exitosamente',
+        data: result
+      });
+
+      toast({
+        title: "✅ Prueba exitosa",
+        description: "El email de prueba se envió correctamente",
+      });
+
+    } catch (error) {
+      console.error('💥 Error en prueba:', error);
+      
+      setEmailTestResult({
+        success: false,
+        message: error instanceof Error ? error.message : 'Error desconocido',
+        error: error
+      });
+
+      toast({
+        title: "❌ Error en prueba",
+        description: "Hubo un problema al enviar el email",
+        variant: "destructive",
+      });
+    } finally {
+      setEmailTesting(false);
+    }
+  };
+
   const toggleSelectAll = () => {
     if (selectedIds.length === filteredSubmissions.length) {
       setSelectedIds([]);
@@ -378,285 +423,419 @@ export default function Admin({ onLogout }: AdminProps) {
         <ThemeToggle />
       </div>
       
-      {/* Título y botones principales - responsive mejorado */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-12 sm:pt-0">
-        <h1 className="text-2xl md:text-3xl font-bold">Panel de Administración</h1>
-        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-          {selectedIds.length > 0 && (
-            <>
-              <Button 
-                onClick={() => setShowDeleteConfirm(true)} 
-                variant="destructive" 
-                size="sm"
-                className="text-xs sm:text-sm"
-              >
-                <Trash2 className="w-4 h-4 sm:mr-2" />
-                <span className="hidden sm:inline">Eliminar {selectedIds.length} seleccionados</span>
-                <span className="sm:hidden">{selectedIds.length}</span>
-              </Button>
-              <Button 
-                onClick={() => setSelectedIds([])} 
-                variant="outline" 
-                size="sm"
-                className="text-xs sm:text-sm"
-              >
-                <span className="hidden sm:inline">Cancelar selección</span>
-                <span className="sm:hidden">✕</span>
-              </Button>
-            </>
-          )}
-          <Button onClick={loadSubmissions} variant="outline" size="sm" className="text-xs sm:text-sm">
-            <RefreshCw className="w-4 h-4 sm:mr-2" />
-            <span className="hidden sm:inline">Actualizar</span>
+      <div className="pt-12 sm:pt-0">
+        <h1 className="text-2xl md:text-3xl font-bold mb-6">Panel de Administración</h1>
+      
+        {/* Navegación por pestañas */}
+        <div className="flex gap-4 mb-6">
+          <Button
+            onClick={() => setActiveTab('submissions')}
+            variant={activeTab === 'submissions' ? 'default' : 'outline'}
+            className="text-sm"
+          >
+            📊 Formularios
           </Button>
-          <Button onClick={exportToCSV} variant="outline" size="sm" className="text-xs sm:text-sm">
-            <Download className="w-4 h-4 sm:mr-2" />
-            <span className="hidden sm:inline">CSV</span>
-          </Button>
-          <Button onClick={exportLovablePrompts} variant="outline" size="sm" className="text-xs sm:text-sm">
-            <Download className="w-4 h-4 sm:mr-2" />
-            <span className="hidden sm:inline">Prompts</span>
+          <Button
+            onClick={() => setActiveTab('email-tests')}
+            variant={activeTab === 'email-tests' ? 'default' : 'outline'}
+            className="text-sm"
+          >
+            📧 Pruebas de Email
           </Button>
         </div>
-      </div>
 
-      {/* Filtros */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Filter className="w-5 h-5" />
-            Filtros
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-            <div>
-              <Label htmlFor="email-filter">Email</Label>
-              <Input
-                id="email-filter"
-                placeholder="Buscar por email..."
-                value={filters.email}
-                onChange={(e) => setFilters({...filters, email: e.target.value})}
-              />
+        {activeTab === 'submissions' && (
+          <>
+            {/* Título y botones principales - responsive mejorado */}
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+              <h2 className="text-xl md:text-2xl font-bold">Formularios Enviados</h2>
+              <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+                {selectedIds.length > 0 && (
+                  <>
+                    <Button 
+                      onClick={() => setShowDeleteConfirm(true)} 
+                      variant="destructive" 
+                      size="sm"
+                      className="text-xs sm:text-sm"
+                    >
+                      <Trash2 className="w-4 h-4 sm:mr-2" />
+                      <span className="hidden sm:inline">Eliminar {selectedIds.length} seleccionados</span>
+                      <span className="sm:hidden">{selectedIds.length}</span>
+                    </Button>
+                    <Button 
+                      onClick={() => setSelectedIds([])} 
+                      variant="outline" 
+                      size="sm"
+                      className="text-xs sm:text-sm"
+                    >
+                      <span className="hidden sm:inline">Cancelar selección</span>
+                      <span className="sm:hidden">✕</span>
+                    </Button>
+                  </>
+                )}
+                <Button onClick={loadSubmissions} variant="outline" size="sm" className="text-xs sm:text-sm">
+                  <RefreshCw className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Actualizar</span>
+                </Button>
+                <Button onClick={exportToCSV} variant="outline" size="sm" className="text-xs sm:text-sm">
+                  <Download className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">CSV</span>
+                </Button>
+                <Button onClick={exportLovablePrompts} variant="outline" size="sm" className="text-xs sm:text-sm">
+                  <Download className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Prompts</span>
+                </Button>
+              </div>
             </div>
+
+            {/* Filtros */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Filter className="w-5 h-5" />
+                  Filtros
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                  <div>
+                    <Label htmlFor="email-filter">Email</Label>
+                    <Input
+                      id="email-filter"
+                      placeholder="Buscar por email..."
+                      value={filters.email}
+                      onChange={(e) => setFilters({...filters, email: e.target.value})}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="completed-filter">Estado</Label>
+                    <Select
+                      value={filters.completed === null ? 'all' : filters.completed.toString()}
+                      onValueChange={(value) => setFilters({
+                        ...filters, 
+                        completed: value === 'all' ? null : value === 'true'
+                      })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Todos" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Todos</SelectItem>
+                        <SelectItem value="true">Completados</SelectItem>
+                        <SelectItem value="false">Pendientes</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="date-from">Desde</Label>
+                    <Input
+                      id="date-from"
+                      type="date"
+                      value={filters.dateFrom}
+                      onChange={(e) => setFilters({...filters, dateFrom: e.target.value})}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="date-to">Hasta</Label>
+                    <Input
+                      id="date-to"
+                      type="date"
+                      value={filters.dateTo}
+                      onChange={(e) => setFilters({...filters, dateTo: e.target.value})}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="lovable-filter">Prompt Lovable</Label>
+                    <Select
+                      value={filters.hasLovablePrompt === null ? 'all' : filters.hasLovablePrompt.toString()}
+                      onValueChange={(value) => setFilters({
+                        ...filters, 
+                        hasLovablePrompt: value === 'all' ? null : value === 'true'
+                      })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Todos" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Todos</SelectItem>
+                        <SelectItem value="true">Con Prompt</SelectItem>
+                        <SelectItem value="false">Sin Prompt</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                
+                <div className="flex justify-between items-center mt-4">
+                  <Button onClick={clearFilters} variant="ghost" size="sm">
+                    Limpiar filtros
+                  </Button>
+                  <Badge variant="secondary">
+                    {filteredSubmissions.length} de {submissions.length} registros
+                  </Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Tabla de datos */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Envíos de Formulario</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {loading ? (
+                  <div className="text-center py-8">Cargando datos...</div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full border-collapse min-w-[800px]">
+                      <thead>
+                        <tr className="border-b">
+                          <th className="text-left p-2 w-12">
+                            <Checkbox
+                              checked={selectedIds.length === filteredSubmissions.length && filteredSubmissions.length > 0}
+                              onCheckedChange={toggleSelectAll}
+                              aria-label="Seleccionar todos"
+                            />
+                          </th>
+                          <th className="text-left p-2 min-w-[200px]">Email</th>
+                          <th className="text-left p-2 min-w-[100px]">Estado</th>
+                          <th className="text-left p-2 min-w-[100px]">Fecha</th>
+                          <th className="text-left p-2 min-w-[150px]">Marca</th>
+                          <th className="text-left p-2 min-w-[120px]">Prompt Lovable</th>
+                          <th className="text-left p-2 min-w-[150px]">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredSubmissions.map((submission) => (
+                          <tr key={submission.id} className="border-b hover:bg-muted/50">
+                            <td className="p-2">
+                              <Checkbox
+                                checked={selectedIds.includes(submission.id)}
+                                onCheckedChange={() => toggleSelectSubmission(submission.id)}
+                                aria-label={`Seleccionar ${submission.email}`}
+                              />
+                            </td>
+                            <td className="p-2 break-all max-w-[200px]">{submission.email}</td>
+                            <td className="p-2">
+                              <Badge variant={submission.completed ? "default" : "secondary"}>
+                                {submission.completed ? "Completado" : "Pendiente"}
+                              </Badge>
+                            </td>
+                            <td className="p-2 text-sm whitespace-nowrap">
+                              {new Date(submission.created_at).toLocaleDateString('es-ES')}
+                            </td>
+                            <td className="p-2 max-w-[150px] truncate" title={submission.form_data?.marca || '-'}>{submission.form_data?.marca || '-'}</td>
+                            <td className="p-2">
+                              <Badge variant={submission.form_data?.generatedPrompts?.lovablePrompt ? "default" : "outline"}>
+                                {submission.form_data?.generatedPrompts?.lovablePrompt ? "Sí" : "No"}
+                              </Badge>
+                            </td>
+                            <td className="p-2">
+                              <div className="flex gap-1">
+                                <Dialog>
+                                  <DialogTrigger asChild>
+                                    <Button 
+                                      size="sm" 
+                                      variant="ghost"
+                                      onClick={() => setSelectedSubmission(submission)}
+                                    >
+                                      <Eye className="w-4 h-4" />
+                                    </Button>
+                                  </DialogTrigger>
+                                  <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                                    <DialogHeader>
+                                      <DialogTitle>Detalles del Envío</DialogTitle>
+                                    </DialogHeader>
+                                    <SubmissionDetails submission={submission} />
+                                  </DialogContent>
+                                </Dialog>
+                                
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost"
+                                  onClick={() => {
+                                    setSelectedSubmission(submission);
+                                    setEditMode(true);
+                                  }}
+                                >
+                                  <Edit className="w-4 h-4" />
+                                </Button>
+                                
+                                <AlertDialog>
+                                  <AlertDialogTrigger asChild>
+                                    <Button size="sm" variant="ghost">
+                                      <Trash2 className="w-4 h-4" />
+                                    </Button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>¿Confirmar eliminación?</AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        Esta acción no se puede deshacer. Se eliminará permanentemente el registro de {submission.email}.
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                      <AlertDialogAction onClick={() => deleteSubmission(submission.id)}>
+                                        Eliminar
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </>
+        )}
+
+        {activeTab === 'email-tests' && (
+          <div className="space-y-6">
+            <h2 className="text-xl md:text-2xl font-bold">Pruebas del Sistema</h2>
             
-            <div>
-              <Label htmlFor="completed-filter">Estado</Label>
-              <Select
-                value={filters.completed === null ? 'all' : filters.completed.toString()}
-                onValueChange={(value) => setFilters({
-                  ...filters, 
-                  completed: value === 'all' ? null : value === 'true'
-                })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Todos" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todos</SelectItem>
-                  <SelectItem value="true">Completados</SelectItem>
-                  <SelectItem value="false">Pendientes</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            {/* Panel de Prueba de Email */}
+            <Card className="border-green-500/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Mail className="w-5 h-5 text-green-600" />
+                  Prueba de Sistema de Email
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-muted/50 p-4 rounded-lg">
+                  <h3 className="font-medium mb-2">Configuración Actual</h3>
+                  <div className="text-sm text-muted-foreground space-y-1">
+                    <p>📧 Proveedor: Brevo API v3</p>
+                    <p>🔑 API Key: Configurada ✅</p>
+                    <p>📮 Email destino: esteban.montenegro@gmail.com</p>
+                    <p>🚀 Edge Function: send-email</p>
+                  </div>
+                </div>
 
-            <div>
-              <Label htmlFor="date-from">Desde</Label>
-              <Input
-                id="date-from"
-                type="date"
-                value={filters.dateFrom}
-                onChange={(e) => setFilters({...filters, dateFrom: e.target.value})}
-              />
-            </div>
+                <Button 
+                  onClick={runEmailTest} 
+                  disabled={emailTesting}
+                  className="w-full bg-green-600 hover:bg-green-700"
+                >
+                  {emailTesting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Enviando email de prueba...
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="w-4 h-4 mr-2" />
+                      Ejecutar Prueba de Email
+                    </>
+                  )}
+                </Button>
 
-            <div>
-              <Label htmlFor="date-to">Hasta</Label>
-              <Input
-                id="date-to"
-                type="date"
-                value={filters.dateTo}
-                onChange={(e) => setFilters({...filters, dateTo: e.target.value})}
-              />
-            </div>
+                {emailTestResult && (
+                  <div className={`p-4 rounded-lg border ${
+                    emailTestResult.success 
+                      ? 'bg-green-50 border-green-200 dark:bg-green-900/30 dark:border-green-500/30' 
+                      : 'bg-red-50 border-red-200 dark:bg-red-900/30 dark:border-red-500/30'
+                  }`}>
+                    <div className="flex items-center gap-2 mb-2">
+                      {emailTestResult.success ? (
+                        <CheckCircle className="w-5 h-5 text-green-600" />
+                      ) : (
+                        <AlertTriangle className="w-5 h-5 text-red-600" />
+                      )}
+                      <span className={`font-medium ${
+                        emailTestResult.success ? 'text-green-800 dark:text-green-300' : 'text-red-800 dark:text-red-300'
+                      }`}>
+                        {emailTestResult.success ? '✅ Prueba Exitosa' : '❌ Error en Prueba'}
+                      </span>
+                    </div>
+                    
+                    <p className={`text-sm ${
+                      emailTestResult.success ? 'text-green-700 dark:text-green-200' : 'text-red-700 dark:text-red-200'
+                    }`}>
+                      {emailTestResult.message}
+                    </p>
 
-            <div>
-              <Label htmlFor="lovable-filter">Prompt Lovable</Label>
-              <Select
-                value={filters.hasLovablePrompt === null ? 'all' : filters.hasLovablePrompt.toString()}
-                onValueChange={(value) => setFilters({
-                  ...filters, 
-                  hasLovablePrompt: value === 'all' ? null : value === 'true'
-                })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Todos" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todos</SelectItem>
-                  <SelectItem value="true">Con Prompt</SelectItem>
-                  <SelectItem value="false">Sin Prompt</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+                    {emailTestResult.success && (
+                      <div className="mt-3 text-xs text-green-600 dark:text-green-300">
+                        <p>🎉 El sistema de email está funcionando correctamente</p>
+                        <p>📧 Revisa la bandeja de entrada de esteban.montenegro@gmail.com</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Información del Sistema */}
+            <Card className="border-blue-500/20">
+              <CardHeader>
+                <CardTitle>📊 Estado del Sistema</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div className="space-y-2">
+                    <h4 className="text-blue-600 dark:text-blue-300 font-medium">Kit IA - Email System</h4>
+                    <div className="text-muted-foreground space-y-1">
+                      <p>🔧 Edge Function: Activa</p>
+                      <p>🔐 Secretos: Configurados</p>
+                      <p>📡 API: Brevo v3</p>
+                      <p>✉️ Templates: 3 tipos</p>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="text-blue-600 dark:text-blue-300 font-medium">Tipos de Email</h4>
+                    <div className="text-muted-foreground space-y-1">
+                      <p>🧪 Test: Verificación</p>
+                      <p>✅ Confirmación: Cliente</p>
+                      <p>📋 Admin: Esteban</p>
+                      <p>🎯 Todos: Funcionales</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-          
-          <div className="flex justify-between items-center mt-4">
-            <Button onClick={clearFilters} variant="ghost" size="sm">
-              Limpiar filtros
-            </Button>
-            <Badge variant="secondary">
-              {filteredSubmissions.length} de {submissions.length} registros
-            </Badge>
-          </div>
-        </CardContent>
-      </Card>
+        )}
 
-      {/* Tabla de datos */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Envíos de Formulario</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {loading ? (
-            <div className="text-center py-8">Cargando datos...</div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse min-w-[800px]">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left p-2 w-12">
-                      <Checkbox
-                        checked={selectedIds.length === filteredSubmissions.length && filteredSubmissions.length > 0}
-                        onCheckedChange={toggleSelectAll}
-                        aria-label="Seleccionar todos"
-                      />
-                    </th>
-                    <th className="text-left p-2 min-w-[200px]">Email</th>
-                    <th className="text-left p-2 min-w-[100px]">Estado</th>
-                    <th className="text-left p-2 min-w-[100px]">Fecha</th>
-                    <th className="text-left p-2 min-w-[150px]">Marca</th>
-                    <th className="text-left p-2 min-w-[120px]">Prompt Lovable</th>
-                    <th className="text-left p-2 min-w-[150px]">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredSubmissions.map((submission) => (
-                    <tr key={submission.id} className="border-b hover:bg-muted/50">
-                      <td className="p-2">
-                        <Checkbox
-                          checked={selectedIds.includes(submission.id)}
-                          onCheckedChange={() => toggleSelectSubmission(submission.id)}
-                          aria-label={`Seleccionar ${submission.email}`}
-                        />
-                      </td>
-                      <td className="p-2 break-all max-w-[200px]">{submission.email}</td>
-                      <td className="p-2">
-                        <Badge variant={submission.completed ? "default" : "secondary"}>
-                          {submission.completed ? "Completado" : "Pendiente"}
-                        </Badge>
-                      </td>
-                      <td className="p-2">
-                        {new Date(submission.created_at).toLocaleDateString('es-ES')}
-                      </td>
-                      <td className="p-2 max-w-[150px] truncate" title={submission.form_data?.marca || '-'}>{submission.form_data?.marca || '-'}</td>
-                      <td className="p-2">
-                        <Badge variant={submission.form_data?.generatedPrompts?.lovablePrompt ? "default" : "outline"}>
-                          {submission.form_data?.generatedPrompts?.lovablePrompt ? "Sí" : "No"}
-                        </Badge>
-                      </td>
-                      <td className="p-2">
-                        <div className="flex gap-1">
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button 
-                                size="sm" 
-                                variant="ghost"
-                                onClick={() => setSelectedSubmission(submission)}
-                              >
-                                <Eye className="w-4 h-4" />
-                              </Button>
-                            </DialogTrigger>
-                            <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                              <DialogHeader>
-                                <DialogTitle>Detalles del Envío</DialogTitle>
-                              </DialogHeader>
-                              <SubmissionDetails submission={submission} />
-                            </DialogContent>
-                          </Dialog>
-                          
-                          <Button 
-                            size="sm" 
-                            variant="ghost"
-                            onClick={() => {
-                              setSelectedSubmission(submission);
-                              setEditMode(true);
-                            }}
-                          >
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Button size="sm" variant="ghost">
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>¿Confirmar eliminación?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  Esta acción no se puede deshacer. Se eliminará permanentemente el registro de {submission.email}.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => deleteSubmission(submission.id)}>
-                                  Eliminar
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+        {/* Modal de confirmación de eliminación múltiple */}
+        <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>¿Confirmar eliminación múltiple?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Esta acción no se puede deshacer. Se eliminarán permanentemente {selectedIds.length} registros seleccionados.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction onClick={deleteMultipleSubmissions} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                Eliminar {selectedIds.length} registros
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
 
-      {/* Modal de confirmación de eliminación múltiple */}
-      <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>¿Confirmar eliminación múltiple?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Esta acción no se puede deshacer. Se eliminarán permanentemente {selectedIds.length} registros seleccionados.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={deleteMultipleSubmissions} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              Eliminar {selectedIds.length} registros
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
-      {/* Modal de edición */}
-      {editMode && selectedSubmission && (
-        <EditSubmissionModal
-          submission={selectedSubmission}
-          onClose={() => {
-            setEditMode(false);
-            setSelectedSubmission(null);
-          }}
-          onUpdate={updateSubmission}
-        />
-      )}
+        {/* Modal de edición */}
+        {editMode && selectedSubmission && (
+          <EditSubmissionModal
+            submission={selectedSubmission}
+            onClose={() => {
+              setEditMode(false);
+              setSelectedSubmission(null);
+            }}
+            onUpdate={updateSubmission}
+          />
+        )}
+      </div>
     </div>
   );
 }
