@@ -26,12 +26,13 @@ async function sendEmail(email: string, tempKey: string) {
     body: JSON.stringify({
       email,
       type: 'admin_temp_key',
-      tempKey,
+      emailData: { tempKey },
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`Error enviando email: ${response.statusText}`);
+    const errorText = await response.text();
+    throw new Error(`Error enviando email: ${response.status} - ${errorText}`);
   }
 
   return response.json();
@@ -54,7 +55,12 @@ serve(async (req) => {
   }
 
   try {
-    const { email, action, tempKey } = await req.json();
+    console.log('🚀 admin-auth function called');
+    
+    const body = await req.json();
+    console.log('📥 Request body:', body);
+    
+    const { email, action, tempKey } = body;
     
     // Obtener información de tracking
     const clientIP = req.headers.get('x-forwarded-for') || 
@@ -62,7 +68,10 @@ serve(async (req) => {
                     'unknown';
     const userAgent = req.headers.get('user-agent') || 'unknown';
 
+    console.log('📋 Datos procesados:', { email, action, clientIP });
+
     if (!email) {
+      console.log('❌ Email requerido');
       return new Response(
         JSON.stringify({ error: 'Email es requerido' }),
         { 
@@ -73,13 +82,21 @@ serve(async (req) => {
     }
 
     if (action === 'generate') {
+      console.log('🎲 Generando nueva clave temporal');
       // Generar nueva clave temporal
       const tempKey = generateTempKey();
+      console.log('🔢 Clave generada:', tempKey);
       
       // Limpiar claves expiradas
-      await supabase.rpc('cleanup_expired_temp_keys');
+      console.log('🧹 Limpiando claves expiradas');
+      try {
+        await supabase.rpc('cleanup_expired_temp_keys');
+      } catch (cleanupError) {
+        console.error('⚠️ Error limpiando claves (continuando):', cleanupError);
+      }
       
       // Guardar la nueva clave temporal con información de tracking
+      console.log('💾 Guardando clave en base de datos');
       const { error: insertError } = await supabase
         .from('admin_temp_keys')
         .insert({
@@ -97,9 +114,17 @@ serve(async (req) => {
         });
 
       if (insertError) {
-        console.error('Error guardando clave temporal:', insertError);
-        throw new Error('Error interno del servidor');
+        console.error('❌ Error guardando clave temporal:', insertError);
+        return new Response(
+          JSON.stringify({ error: `Error de base de datos: ${insertError.message}` }),
+          { 
+            status: 500,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
       }
+      
+      console.log('✅ Clave guardada exitosamente');
 
       // Enviar email con la clave temporal
       console.log('📧 Enviando email para:', email, 'con código:', tempKey);
@@ -177,9 +202,13 @@ serve(async (req) => {
     );
 
   } catch (error) {
-    console.error('Error en admin-auth:', error);
+    console.error('💥 Error crítico en admin-auth:', error);
+    console.error('📋 Stack trace:', error.stack);
     return new Response(
-      JSON.stringify({ error: 'Error interno del servidor' }),
+      JSON.stringify({ 
+        error: 'Error interno del servidor',
+        details: error.message || 'Error desconocido'
+      }),
       { 
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
