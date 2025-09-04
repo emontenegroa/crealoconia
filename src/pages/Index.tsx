@@ -3,14 +3,14 @@ import React from 'react';
 import { toast } from "@/hooks/use-toast";
 import LoadingSpinner from '@/components/LoadingSpinner';
 import HeroSection from '@/components/HeroSection';
-import ImportantNotice from '@/components/ImportantNotice';
-import ProgressDialog from '@/components/ProgressDialog';
-import InitialForm from '@/components/InitialForm';
+import ModernHowItWorks from '@/components/ModernHowItWorks';
+import ValueProposition from '@/components/ValueProposition';
+import ModernInitialForm from '@/components/ModernInitialForm';
 import MainForm from '@/components/MainForm';
-import HowItWorksToggle from '@/components/HowItWorksToggle';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import FAQ from '@/components/FAQ';
-import WhatsAppFloat from '@/components/WhatsAppFloat';
+import ModernThemeToggle from '@/components/ModernThemeToggle';
+import { ThemeProvider } from '@/components/ThemeProvider';
 import { useFormHandler } from '@/hooks/useFormHandler';
 
 // Importar la prueba de email en desarrollo
@@ -52,57 +52,51 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white light">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <ProgressDialog
-          show={showProgressDialog}
-          attemptCount={attemptCount}
-          onLoadPrevious={loadPreviousData}
-          onStartFresh={startFresh}
-        />
-
-        <HeroSection onLoadExample={loadExampleData} />
-        
-        <HowItWorksToggle />
-        
-        <ImportantNotice />
+    <ThemeProvider defaultTheme="light">
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+        <ModernThemeToggle />
         
         {isGenerating ? (
-          <LoadingSpinner />
+          <div className="min-h-screen flex items-center justify-center">
+            <LoadingSpinner />
+          </div>
         ) : !showFullForm ? (
-          <InitialForm
-            formData={formData}
-            onInputChange={handleInputChange}
-            onSubmit={handleFirstStep}
-            isValid={isFirstStepValid}
-            onLoadExample={loadExampleData}
-            onMathCaptchaChange={handleMathCaptchaChange}
-          />
+          <>
+            <HeroSection onLoadExample={loadExampleData} />
+            <ModernHowItWorks />
+            <ValueProposition />
+            <ModernInitialForm
+              formData={formData}
+              onInputChange={handleInputChange}
+              onSubmit={handleFirstStep}
+              isValid={isFirstStepValid}
+              onLoadExample={loadExampleData}
+              onMathCaptchaChange={handleMathCaptchaChange}
+            />
+            <TestimonialsSection />
+            <FAQ />
+          </>
         ) : (
-          <MainForm
-            formData={formData}
-            setFormData={setFormData}
-            onInputChange={handleInputChange}
-            onAIUsageUpdate={handleAIUsageUpdate}
-            sessionId={sessionId}
-            noWebsite={noWebsite}
-            setNoWebsite={setNoWebsite}
-            noInstagram={noInstagram}
-            setNoInstagram={setNoInstagram}
-            onSubmit={handleSubmit}
-            isFormValid={isFormValid}
-            onGenerateWebsite={onGenerateWebsite}
-            onBackToInitial={handleBackToInitial}
-          />
+          <div className="container mx-auto px-4 py-12 max-w-4xl">
+            <MainForm
+              formData={formData}
+              setFormData={setFormData}
+              onInputChange={handleInputChange}
+              onAIUsageUpdate={handleAIUsageUpdate}
+              sessionId={sessionId}
+              noWebsite={noWebsite}
+              setNoWebsite={setNoWebsite}
+              noInstagram={noInstagram}
+              setNoInstagram={setNoInstagram}
+              onSubmit={handleSubmit}
+              isFormValid={isFormValid}
+              onGenerateWebsite={onGenerateWebsite}
+              onBackToInitial={handleBackToInitial}
+            />
+          </div>
         )}
-
-        <TestimonialsSection />
-
-        <FAQ />
       </div>
-      
-      <WhatsAppFloat />
-    </div>
+    </ThemeProvider>
   );
 };
 
