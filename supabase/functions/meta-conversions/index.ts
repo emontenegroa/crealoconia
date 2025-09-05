@@ -1,0 +1,182 @@
+import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.8';
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
+const FACEBOOK_PIXEL_ID = '682721524078717';
+const FACEBOOK_ACCESS_TOKEN = 'EAAdKvg3zpGwBPQ8pFtZBZCUIeyp7QlfUYVDZAdZBf92sh9kSK8ZCm5ByROpbDTIKBtyyoQnKi3sEgh8ZCeR8GFg2EgiuwsqSSqhKIZBhlE24iO03FFZAiZAxZCIuEmuNDZBUVEkNxk8YTlWB3oXGq8xNfSrE7JBDWR0tZBfiTi5ZBrOfOsqLgXKBJH6RBxQI9pOiTW07O5gZDZD';
+const TEST_EVENT_CODE = 'TEST12345'; // Cambiar por el código real del Events Manager
+
+// Hash function for SHA256
+async function sha256(message: string): Promise<string> {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Normalize data for hashing
+function normalizeData(data: string): string {
+  return data.toLowerCase().trim();
+}
+
+interface FacebookEvent {
+  event_name: string;
+  event_time: number;
+  action_source: string;
+  event_source_url: string;
+  event_id: string;
+  user_data: {
+    em?: string;
+    ph?: string;
+    client_ip_address?: string;
+    client_user_agent?: string;
+  };
+  custom_data?: Record<string, any>;
+}
+
+interface ConversionRequest {
+  eventType: 'PageView' | 'Lead' | 'CompleteRegistration' | 'Purchase';
+  eventId: string;
+  eventSourceUrl: string;
+  userAgent: string;
+  clientIpAddress?: string;
+  email?: string;
+  phone?: string;
+  customData?: Record<string, any>;
+}
+
+const handler = async (req: Request): Promise<Response> => {
+  // Handle CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    const requestData: ConversionRequest = await req.json();
+    
+    console.log('Processing Facebook Conversion Event:', {
+      eventType: requestData.eventType,
+      eventId: requestData.eventId,
+      hasEmail: !!requestData.email
+    });
+
+    // Prepare user data with hashing
+    const userData: any = {
+      client_ip_address: requestData.clientIpAddress,
+      client_user_agent: requestData.userAgent
+    };
+
+    // Hash email if provided
+    if (requestData.email) {
+      userData.em = await sha256(normalizeData(requestData.email));
+    }
+
+    // Hash phone if provided
+    if (requestData.phone) {
+      userData.ph = await sha256(normalizeData(requestData.phone));
+    }
+
+    // Create Facebook event
+    const facebookEvent: FacebookEvent = {
+      event_name: requestData.eventType,
+      event_time: Math.floor(Date.now() / 1000),
+      action_source: 'website',
+      event_source_url: requestData.eventSourceUrl,
+      event_id: requestData.eventId,
+      user_data: userData
+    };
+
+    // Add custom data if provided
+    if (requestData.customData) {
+      facebookEvent.custom_data = requestData.customData;
+    }
+
+    // Prepare the payload for Facebook Conversions API
+    const payload = {
+      data: [facebookEvent],
+      test_event_code: TEST_EVENT_CODE, // Remove this line when going to production
+      access_token: FACEBOOK_ACCESS_TOKEN
+    };
+
+    console.log('Sending to Facebook Conversions API:', {
+      url: `https://graph.facebook.com/v18.0/${FACEBOOK_PIXEL_ID}/events`,
+      eventName: facebookEvent.event_name,
+      eventId: facebookEvent.event_id
+    });
+
+    // Send to Facebook Conversions API
+    const facebookResponse = await fetch(
+      `https://graph.facebook.com/v18.0/${FACEBOOK_PIXEL_ID}/events`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    const facebookResult = await facebookResponse.json();
+    
+    if (!facebookResponse.ok) {
+      console.error('Facebook API Error:', facebookResult);
+      throw new Error(`Facebook API Error: ${JSON.stringify(facebookResult)}`);
+    }
+
+    console.log('Facebook Conversion Event sent successfully:', facebookResult);
+
+    // Store event in our database for tracking
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    await supabase
+      .from('conversion_events')
+      .insert({
+        event_type: requestData.eventType,
+        event_id: requestData.eventId,
+        event_source_url: requestData.eventSourceUrl,
+        user_email: requestData.email,
+        facebook_response: facebookResult,
+        created_at: new Date().toISOString()
+      });
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        facebook_response: facebookResult,
+        event_id: requestData.eventId
+      }),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      }
+    );
+
+  } catch (error: any) {
+    console.error('Error in meta-conversions function:', error);
+    
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: error.message
+      }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      }
+    );
+  }
+};
+
+serve(handler);

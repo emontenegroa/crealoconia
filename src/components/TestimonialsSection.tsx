@@ -41,11 +41,11 @@ const TestimonialsSection = () => {
 
       {/* Testimonials Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {testimonials.map((testimonial, index) => <Card key={index} className="hover:shadow-lg transition-all duration-500 border-gray-200 hover:scale-105 animate-fade-in opacity-0" style={{
+        {testimonials.map((testimonial, index) => <Card key={index} className="bg-white hover:shadow-lg transition-all duration-500 border-gray-200 hover:scale-105 animate-fade-in opacity-0" style={{
         animationDelay: `${index * 200}ms`,
         animationFillMode: 'forwards'
       }}>
-            <CardContent className="p-6">
+            <CardContent className="p-6 bg-white">
               {/* Author at top */}
               <div className="flex items-center gap-4 mb-6">
                 <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-full object-cover border-3 border-blue-200 shadow-lg hover:scale-110 transition-transform duration-300" />
