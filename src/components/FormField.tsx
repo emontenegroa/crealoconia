@@ -94,7 +94,7 @@ const FormField = ({
               onClick={() => setIsExpanded(!isExpanded)}
               variant="outline"
               size="sm"
-              className="bg-background border-border text-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200"
+              className="border-gray-300 text-gray-600 hover:text-gray-800 hover:border-gray-400 transition-all duration-200"
             >
               {isExpanded ? (
                 <>
@@ -128,7 +128,7 @@ const FormField = ({
           value={value}
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
-          className="bg-background border-border text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-ring transition-all duration-300 py-3 text-base sm:text-lg"
+          className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500 focus:bg-white focus:border-blue-500 transition-all duration-300 py-3 text-base sm:text-lg"
         />
       )}
       
@@ -138,21 +138,21 @@ const FormField = ({
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
           rows={isExpanded ? 8 : 4}
-          className="bg-background border-border text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-ring transition-all duration-300 text-base sm:text-lg resize-none"
+          className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500 focus:bg-white focus:border-blue-500 transition-all duration-300 text-base sm:text-lg resize-none"
         />
       )}
       
       {type === 'select' && (
         <Select value={value} onValueChange={handleChange}>
-          <SelectTrigger className="bg-background border-border text-foreground focus:bg-background focus:border-ring transition-all duration-300 py-3 text-base sm:text-lg">
-            <SelectValue placeholder="Selecciona tu estilo" className="text-muted-foreground" />
+          <SelectTrigger className="bg-gray-50 border-gray-300 text-gray-900 focus:bg-white focus:border-blue-500 transition-all duration-300 py-3 text-base sm:text-lg">
+            <SelectValue placeholder="Selecciona tu estilo" className="text-gray-500" />
           </SelectTrigger>
-          <SelectContent className="bg-popover border-border">
+          <SelectContent className="bg-white border-gray-300">
             {options?.map((option) => (
               <SelectItem 
                 key={option} 
                 value={option}
-                className="text-popover-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer"
+                className="text-gray-900 hover:bg-blue-50 focus:bg-blue-50 cursor-pointer"
               >
                 {option}
               </SelectItem>

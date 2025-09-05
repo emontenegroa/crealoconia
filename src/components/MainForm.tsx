@@ -43,7 +43,7 @@ const MainForm = ({
   return <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-lg">
       <CardHeader className="text-center pb-6 bg-gray-50 border-b border-gray-200">
         <div className="flex items-center justify-between mb-4">
-          <Button type="button" variant="outline" onClick={onBackToInitial} className="flex items-center gap-2 bg-background border-border text-foreground hover:bg-accent hover:text-accent-foreground">
+          <Button type="button" variant="outline" onClick={onBackToInitial} className="flex items-center gap-2">
             <ArrowLeft className="w-4 h-4" />
             Volver
           </Button>

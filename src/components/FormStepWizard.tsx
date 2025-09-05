@@ -73,7 +73,7 @@ const FormStepWizard = ({
           variant="outline"
           onClick={handlePrevStep}
           disabled={currentStep === 0}
-          className="bg-background border-border text-foreground hover:bg-accent hover:text-accent-foreground"
+          className="bg-white/10 border-white/30 text-white hover:bg-white/20"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Anterior
@@ -84,7 +84,7 @@ const FormStepWizard = ({
             type="button"
             onClick={handleNextStep}
             disabled={!isCurrentStepComplete()}
-            className="bg-primary text-primary-foreground hover:bg-primary/90"
+            className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
           >
             Siguiente
             <ArrowRight className="w-4 h-4 ml-2" />
