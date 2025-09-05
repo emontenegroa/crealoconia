@@ -73,7 +73,7 @@ const FormStepWizard = ({
           variant="outline"
           onClick={handlePrevStep}
           disabled={currentStep === 0}
-          className="bg-white/10 border-white/30 text-white hover:bg-white/20"
+          className="bg-white border-gray-300 text-gray-600 hover:text-gray-800 hover:border-gray-400"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Anterior

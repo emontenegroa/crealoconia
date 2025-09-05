@@ -94,7 +94,7 @@ const FormField = ({
               onClick={() => setIsExpanded(!isExpanded)}
               variant="outline"
               size="sm"
-              className="border-gray-300 text-gray-600 hover:text-gray-800 hover:border-gray-400 transition-all duration-200"
+              className="bg-white border-gray-300 text-gray-600 hover:text-gray-800 hover:border-gray-400 transition-all duration-200"
             >
               {isExpanded ? (
                 <>

@@ -60,7 +60,7 @@ const StrategicContentDisplay = ({ formData, onReset }: StrategicContentDisplayP
             <h1 className="text-2xl font-bold text-gray-900 mb-4">
               Error al generar contenido
             </h1>
-            <Button onClick={onReset}>Volver al formulario</Button>
+            <Button onClick={onReset} className="bg-white border-gray-300 text-gray-600 hover:text-gray-800 hover:border-gray-400">Volver al formulario</Button>
           </div>
         </div>
       </div>
