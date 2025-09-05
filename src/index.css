@@ -137,59 +137,21 @@
   }
 }
 
-/* Animaciones y efectos premium */
+/* Minimal animations */
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px hsl(var(--primary) / 0.6), 0 0 60px hsl(var(--primary) / 0.4);
-  }
-}
-
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes scale-in {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
   }
 }
 
 @keyframes slide-up {
   from {
-    transform: translateY(30px);
+    transform: translateY(20px);
     opacity: 0;
   }
   to {
@@ -198,98 +160,61 @@
   }
 }
 
-/* Clases de utilidad para animaciones */
+/* Minimal animation classes */
 .animate-fade-in {
-  animation: fade-in 0.6s ease-out forwards;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite;
-}
-
-.animate-scale-in {
-  animation: scale-in 0.3s ease-out forwards;
+  animation: fade-in 0.4s ease-out forwards;
 }
 
 .animate-slide-up {
   animation: slide-up 0.5s ease-out forwards;
 }
 
-/* Efectos glassmorphism */
-.glass-card {
-  background: hsl(var(--card-glass));
-  backdrop-filter: var(--backdrop-blur);
-  border: 1px solid hsl(var(--card-border));
-}
-
-.glass-nav {
-  background: hsl(var(--background) / 0.8);
-  backdrop-filter: var(--backdrop-blur);
-  border-bottom: 1px solid hsl(var(--border) / 0.5);
-}
-
-/* Hover effects premium */
-.hover-lift {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hover-lift:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-elegant);
-}
-
-.hover-glow:hover {
-  box-shadow: var(--shadow-glow);
-  transform: scale(1.02);
-}
-
-/* Gradientes de texto */
-.text-gradient {
-  background: var(--gradient-primary);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-secondary {
-  background: var(--gradient-secondary);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Botones premium */
-.btn-gradient {
-  background: var(--gradient-primary);
-  border: none;
-  color: white;
+/* Clean utility classes */
+.text-accent {
+  color: hsl(var(--primary));
   font-weight: 600;
-  transition: all 0.3s ease;
 }
 
-.btn-gradient:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px hsl(var(--primary) / 0.4);
+.btn-primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: 1px solid hsl(var(--primary));
+  font-weight: 500;
+  transition: all 0.2s ease-out;
 }
 
-.btn-glass {
-  background: hsl(var(--card-glass));
-  backdrop-filter: var(--backdrop-blur);
-  border: 1px solid hsl(var(--card-border));
-  transition: all 0.3s ease;
-}
-
-.btn-glass:hover {
-  background: hsl(var(--card-glass));
-  border-color: hsl(var(--primary) / 0.5);
+.btn-primary:hover {
+  background: hsl(var(--primary) / 0.9);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px hsl(var(--foreground) / 0.08);
+}
+
+.btn-outline {
+  background: transparent;
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border));
+  transition: all 0.2s ease-out;
+}
+
+.btn-outline:hover {
+  background: hsl(var(--muted));
+  border-color: hsl(var(--primary));
+}
+
+.card-minimal {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.2s ease-out;
+}
+
+.card-minimal:hover {
+  border-color: hsl(var(--primary) / 0.3);
+  box-shadow: 0 4px 12px hsl(var(--foreground) / 0.08);
+}
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.3);
 }

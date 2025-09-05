@@ -2,10 +2,10 @@
 import React from 'react';
 import { toast } from "@/hooks/use-toast";
 import LoadingSpinner from '@/components/LoadingSpinner';
-import HeroSection from '@/components/HeroSection';
-import ModernHowItWorks from '@/components/ModernHowItWorks';
-import ValueProposition from '@/components/ValueProposition';
-import ModernInitialForm from '@/components/ModernInitialForm';
+import MinimalHeroSection from '@/components/MinimalHeroSection';
+import CleanHowItWorks from '@/components/CleanHowItWorks';
+import CleanValueSection from '@/components/CleanValueSection';
+import CleanForm from '@/components/CleanForm';
 import MainForm from '@/components/MainForm';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import FAQ from '@/components/FAQ';
@@ -47,8 +47,14 @@ const Index = () => {
   } = useFormHandler();
 
   const handleBackToInitial = () => {
-    // No resetear los datos, solo volver al paso inicial
     resetForm();
+  };
+
+  const scrollToForm = () => {
+    const formElement = document.querySelector('[data-form-section]');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -62,10 +68,13 @@ const Index = () => {
           </div>
         ) : !showFullForm ? (
           <>
-            <HeroSection onLoadExample={loadExampleData} />
-            <ModernHowItWorks />
-            <ValueProposition />
-            <ModernInitialForm
+            <MinimalHeroSection 
+              onLoadExample={loadExampleData} 
+              onScrollToForm={scrollToForm}
+            />
+            <CleanHowItWorks />
+            <CleanValueSection />
+            <CleanForm
               formData={formData}
               onInputChange={handleInputChange}
               onSubmit={handleFirstStep}
