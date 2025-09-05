@@ -77,6 +77,36 @@ export type Database = {
         }
         Relationships: []
       }
+      conversion_events: {
+        Row: {
+          created_at: string
+          event_id: string
+          event_source_url: string
+          event_type: string
+          facebook_response: Json | null
+          id: string
+          user_email: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_id: string
+          event_source_url: string
+          event_type: string
+          facebook_response?: Json | null
+          id?: string
+          user_email?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_id?: string
+          event_source_url?: string
+          event_type?: string
+          facebook_response?: Json | null
+          id?: string
+          user_email?: string | null
+        }
+        Relationships: []
+      }
       form_submissions: {
         Row: {
           attempt_number: number

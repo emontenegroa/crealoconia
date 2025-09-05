@@ -21,3 +21,6 @@ verify_jwt = false
 
 [functions.check-abandoned-forms]
 verify_jwt = false
+
+[functions.meta-conversions]
+verify_jwt = false

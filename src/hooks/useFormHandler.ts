@@ -4,6 +4,7 @@ import { useFormPersistence } from '@/hooks/useFormPersistence';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
 import { usePromptGeneration } from '@/hooks/usePromptGeneration';
 import { useSecurityEnforcement } from '@/hooks/useSecurityEnforcement';
+import { useMetaConversions } from '@/hooks/useMetaConversions';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail, validateText, validateWhatsApp, validateUrl } from '@/utils/inputValidation';
 
@@ -61,6 +62,7 @@ export const useFormHandler = () => {
 
   const { sendEmailToAdmin, sendConfirmationEmail } = useEmailHandling();
   const { generateSuperPrompt } = usePromptGeneration();
+  const { trackPageView, trackLead, trackCompleteRegistration } = useMetaConversions();
   
   // Enhanced security enforcement
   const { 
@@ -70,6 +72,11 @@ export const useFormHandler = () => {
     validateAndSanitizeForm, 
     logFormInteraction 
   } = useSecurityEnforcement();
+
+  // Track page view on component mount
+  useEffect(() => {
+    trackPageView();
+  }, [trackPageView]);
 
   // Verificar progreso previo cuando se ingresa el email
   useEffect(() => {
@@ -232,6 +239,12 @@ export const useFormHandler = () => {
     await saveProgress(formData);
     await logFormInteraction('first_step_completed', formData.email);
     
+    // Track Lead event with Meta Conversions API
+    await trackLead(formData.email, {
+      marca: formData.marca,
+      step: 'first_step_completed'
+    });
+    
     setShowFullForm(true);
     
     toast({
@@ -384,6 +397,14 @@ export const useFormHandler = () => {
       
       await markAsCompleted(formDataWithPrompts);
       await logFormInteraction('form_completed', formData.email, { emailsSent });
+      
+      // Track Complete Registration event with Meta Conversions API
+      await trackCompleteRegistration(formData.email, {
+        marca: sanitizedFormData.marca,
+        producto: sanitizedFormData.producto,
+        estilo: sanitizedFormData.estilo,
+        emailsSent
+      });
       
       setIsGenerating(false);
       
