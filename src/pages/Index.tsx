@@ -2,16 +2,15 @@
 import React from 'react';
 import { toast } from "@/hooks/use-toast";
 import LoadingSpinner from '@/components/LoadingSpinner';
-import MinimalHeroSection from '@/components/MinimalHeroSection';
-import CleanHowItWorks from '@/components/CleanHowItWorks';
-import CleanValueSection from '@/components/CleanValueSection';
-import CleanForm from '@/components/CleanForm';
+import HeroSection from '@/components/HeroSection';
+import ImportantNotice from '@/components/ImportantNotice';
+import ProgressDialog from '@/components/ProgressDialog';
+import InitialForm from '@/components/InitialForm';
 import MainForm from '@/components/MainForm';
+import HowItWorksToggle from '@/components/HowItWorksToggle';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import FAQ from '@/components/FAQ';
-import PortfolioGallery from '@/components/PortfolioGallery';
-import ModernThemeToggle from '@/components/ModernThemeToggle';
-import { ThemeProvider } from '@/components/ThemeProvider';
+import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { useFormHandler } from '@/hooks/useFormHandler';
 
 // Importar la prueba de email en desarrollo
@@ -48,66 +47,62 @@ const Index = () => {
   } = useFormHandler();
 
   const handleBackToInitial = () => {
+    // No resetear los datos, solo volver al paso inicial
     resetForm();
   };
 
-  const scrollToForm = () => {
-    const formElement = document.querySelector('[data-form-section]');
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <ThemeProvider defaultTheme="light">
-      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-        <ModernThemeToggle />
+    <div className="min-h-screen bg-white light">
+      <div className="container mx-auto px-4 py-12 max-w-4xl">
+        <ProgressDialog
+          show={showProgressDialog}
+          attemptCount={attemptCount}
+          onLoadPrevious={loadPreviousData}
+          onStartFresh={startFresh}
+        />
+
+        <HeroSection onLoadExample={loadExampleData} />
+        
+        <HowItWorksToggle />
+        
+        <ImportantNotice />
         
         {isGenerating ? (
-          <div className="min-h-screen flex items-center justify-center">
-            <LoadingSpinner />
-          </div>
+          <LoadingSpinner />
         ) : !showFullForm ? (
-          <>
-            <MinimalHeroSection 
-              onLoadExample={loadExampleData} 
-              onScrollToForm={scrollToForm}
-            />
-            <CleanHowItWorks />
-            <CleanValueSection />
-            <CleanForm
-              formData={formData}
-              onInputChange={handleInputChange}
-              onSubmit={handleFirstStep}
-              isValid={isFirstStepValid}
-              onLoadExample={loadExampleData}
-              onMathCaptchaChange={handleMathCaptchaChange}
-            />
-            <PortfolioGallery />
-            <TestimonialsSection />
-            <FAQ />
-          </>
+          <InitialForm
+            formData={formData}
+            onInputChange={handleInputChange}
+            onSubmit={handleFirstStep}
+            isValid={isFirstStepValid}
+            onLoadExample={loadExampleData}
+            onMathCaptchaChange={handleMathCaptchaChange}
+          />
         ) : (
-          <div className="container mx-auto px-4 py-12 max-w-4xl">
-            <MainForm
-              formData={formData}
-              setFormData={setFormData}
-              onInputChange={handleInputChange}
-              onAIUsageUpdate={handleAIUsageUpdate}
-              sessionId={sessionId}
-              noWebsite={noWebsite}
-              setNoWebsite={setNoWebsite}
-              noInstagram={noInstagram}
-              setNoInstagram={setNoInstagram}
-              onSubmit={handleSubmit}
-              isFormValid={isFormValid}
-              onGenerateWebsite={onGenerateWebsite}
-              onBackToInitial={handleBackToInitial}
-            />
-          </div>
+          <MainForm
+            formData={formData}
+            setFormData={setFormData}
+            onInputChange={handleInputChange}
+            onAIUsageUpdate={handleAIUsageUpdate}
+            sessionId={sessionId}
+            noWebsite={noWebsite}
+            setNoWebsite={setNoWebsite}
+            noInstagram={noInstagram}
+            setNoInstagram={setNoInstagram}
+            onSubmit={handleSubmit}
+            isFormValid={isFormValid}
+            onGenerateWebsite={onGenerateWebsite}
+            onBackToInitial={handleBackToInitial}
+          />
         )}
+
+        <TestimonialsSection />
+
+        <FAQ />
       </div>
-    </ThemeProvider>
+      
+      <WhatsAppFloat />
+    </div>
   );
 };
 
