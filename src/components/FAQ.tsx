@@ -7,9 +7,9 @@ const FAQ = () => {
       </h2>
       
       <Accordion type="single" collapsible className="space-y-4">
-        <AccordionItem value="item-1" className="bg-white border border-gray-200 rounded-lg">
-          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">¿Realmente es gratis? </AccordionTrigger>
-          <AccordionContent className="px-6 pb-4 text-gray-700">
+        <AccordionItem value="item-1" className="bg-card border border-border rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-card-foreground hover:no-underline">¿Realmente es gratis? </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-muted-foreground">
             <p className="mb-3">
               <strong>100% gratis, sin letra pequeña.</strong> Obtienes tu Super Prompt IA personalizado y tu sitio web sin pagar absolutamente nada.
             </p>
