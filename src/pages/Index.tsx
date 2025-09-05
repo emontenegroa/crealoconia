@@ -9,6 +9,7 @@ import CleanForm from '@/components/CleanForm';
 import MainForm from '@/components/MainForm';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import FAQ from '@/components/FAQ';
+import PortfolioGallery from '@/components/PortfolioGallery';
 import ModernThemeToggle from '@/components/ModernThemeToggle';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { useFormHandler } from '@/hooks/useFormHandler';
@@ -82,6 +83,7 @@ const Index = () => {
               onLoadExample={loadExampleData}
               onMathCaptchaChange={handleMathCaptchaChange}
             />
+            <PortfolioGallery />
             <TestimonialsSection />
             <FAQ />
           </>
