@@ -239,10 +239,14 @@ export const useFormHandler = () => {
     await saveProgress(formData);
     await logFormInteraction('first_step_completed', formData.email);
     
-    // Track Lead event with Meta Conversions API
+    // Navigate to step 2 for better tracking
+    navigate('/?step=2', { replace: true });
+    
+    // Track Lead event with Meta Conversions API with specific URL
     await trackLead(formData.email, {
       marca: formData.marca,
-      step: 'first_step_completed'
+      step: 'first_step_completed',
+      step_url: window.location.href
     });
     
     setShowFullForm(true);
@@ -262,6 +266,8 @@ export const useFormHandler = () => {
       
       if (previousProgress.marca && previousProgress.email) {
         setShowFullForm(true);
+        // Navigate to step 2 if returning to full form
+        navigate('/?step=2', { replace: true });
       }
       
       toast({
@@ -274,6 +280,8 @@ export const useFormHandler = () => {
   const startFresh = () => {
     setShowProgressDialog(false);
     setShowFullForm(false);
+    // Navigate back to step 1 for fresh start
+    navigate('/', { replace: true });
     toast({
       title: "Nuevo formulario",
       description: "Comenzando un formulario nuevo desde cero.",
@@ -361,6 +369,8 @@ export const useFormHandler = () => {
 
     setIsGenerating(true);
     
+    // Navigate to step 3 (generating) for better tracking
+    navigate('/?step=3', { replace: true });
     try {
       console.log('🔄 Iniciando proceso de generación de Super Prompt...');
       
@@ -398,12 +408,13 @@ export const useFormHandler = () => {
       await markAsCompleted(formDataWithPrompts);
       await logFormInteraction('form_completed', formData.email, { emailsSent });
       
-      // Track Complete Registration event with Meta Conversions API
+      // Track Complete Registration event with Meta Conversions API with specific URL
       await trackCompleteRegistration(formData.email, {
         marca: sanitizedFormData.marca,
         producto: sanitizedFormData.producto,
         estilo: sanitizedFormData.estilo,
-        emailsSent
+        emailsSent,
+        step_url: window.location.href
       });
       
       setIsGenerating(false);
@@ -413,7 +424,8 @@ export const useFormHandler = () => {
         description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Prompt generado correctamente. Revisa el contenido a continuación.",
       });
       
-      navigate('/resultados');
+      // Navigate to step 4 (results/thanks) for better tracking
+      navigate('/?step=4', { replace: true });
       
     } catch (error) {
       console.error('💥 Error durante la generación del prompt:', error);

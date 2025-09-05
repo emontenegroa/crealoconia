@@ -54,12 +54,12 @@ const MathCaptcha: React.FC<MathCaptchaProps> = ({ onVerify }) => {
           value={userAnswer}
           onChange={(e) => handleAnswerChange(e.target.value)}
           placeholder="?"
-          className={`w-20 text-center font-mono ${
+          className={`w-20 text-center font-mono bg-white ${
             userAnswer && isValid 
               ? 'border-green-500 bg-green-50' 
               : userAnswer && !isValid 
               ? 'border-red-500 bg-red-50' 
-              : ''
+              : 'bg-white border-gray-300'
           }`}
         />
         

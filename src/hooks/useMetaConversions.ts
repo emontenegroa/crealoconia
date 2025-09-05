@@ -14,7 +14,7 @@ export const useMetaConversions = () => {
       // Generate unique event ID for deduplication
       const eventId = `${eventData.eventType}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       
-      // Get client information
+      // Get client information with current URL
       const eventSourceUrl = window.location.href;
       const userAgent = navigator.userAgent;
       
