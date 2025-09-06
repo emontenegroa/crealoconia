@@ -17,14 +17,19 @@ export const useStepNavigation = () => {
     return step ? parseInt(step, 10) : 1;
   };
   
-  // Actualizar la URL con el paso actual
+  // Actualizar la URL con el paso actual y hacer scroll al inicio
   const updateStepInURL = (step: number) => {
     const params = new URLSearchParams(location.search);
     params.set('step', step.toString());
     navigate(`${location.pathname}?${params.toString()}`, { replace: true });
+    
+    // Scroll suave al inicio de la página
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   };
   
-  // Inicializar estado basado en la URL
+  // Inicializar estado basado en la URL y hacer scroll al inicio
   useEffect(() => {
     const currentStep = getCurrentStep();
     
@@ -54,6 +59,9 @@ export const useStepNavigation = () => {
       setShowResults(true);
       setCurrentWizardStep(3);
     }
+    
+    // Scroll al inicio cuando cambia el paso desde la URL
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.search]);
   
   // Funciones para navegar entre pasos
