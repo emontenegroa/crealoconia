@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { toast } from "@/hooks/use-toast";
 import LoadingSpinner from '@/components/LoadingSpinner';
 import HeroSection from '@/components/HeroSection';
@@ -22,7 +22,8 @@ if (import.meta.env.DEV) {
 }
 
 const Index = () => {
-  const { showFullForm, showResults } = useStepNavigation();
+  const formRef = useRef<HTMLDivElement>(null);
+  const { showFullForm, showResults, currentURLStep } = useStepNavigation();
   
   const {
     formData,
@@ -54,6 +55,19 @@ const Index = () => {
     // No resetear los datos, solo volver al paso inicial
     resetForm();
   };
+
+  // Scroll al formulario cuando cambien los pasos
+  useEffect(() => {
+    if (showFullForm && formRef.current && currentURLStep >= 2) {
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+      }, 100);
+    }
+  }, [showFullForm, currentURLStep]);
 
   return (
     <div className="min-h-screen bg-white light">
@@ -89,7 +103,8 @@ const Index = () => {
             onMathCaptchaChange={handleMathCaptchaChange}
           />
         ) : (
-          <MainForm
+          <div ref={formRef}>
+            <MainForm
             formData={formData}
             setFormData={setFormData}
             onInputChange={handleInputChange}
@@ -103,7 +118,8 @@ const Index = () => {
             isFormValid={isFormValid}
             onGenerateWebsite={onGenerateWebsite}
             onBackToInitial={handleBackToInitial}
-          />
+            />
+          </div>
         )}
 
         <TestimonialsSection />
