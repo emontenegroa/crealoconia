@@ -5,7 +5,7 @@ import { useEmailHandling } from '@/hooks/useEmailHandling';
 import { usePromptGeneration } from '@/hooks/usePromptGeneration';
 import { useSecurityEnforcement } from '@/hooks/useSecurityEnforcement';
 import { useMetaConversions } from '@/hooks/useMetaConversions';
-import { useNavigate } from 'react-router-dom';
+import { useStepNavigation } from '@/hooks/useStepNavigation';
 import { validateEmail, validateText, validateWhatsApp, validateUrl } from '@/utils/inputValidation';
 
 export interface FormData {
@@ -26,7 +26,18 @@ export interface FormData {
 }
 
 export const useFormHandler = () => {
-  const navigate = useNavigate();
+  const {
+    showFullForm,
+    showResults,
+    currentWizardStep,
+    setShowFullForm,
+    setShowResults,
+    setCurrentWizardStep,
+    goToInitialForm,
+    goToFullForm,
+    goToWizardStep,
+    goToResults
+  } = useStepNavigation();
   
   const [formData, setFormData] = useState<FormData>({
     marca: '',
@@ -42,13 +53,11 @@ export const useFormHandler = () => {
   });
 
   const [isGenerating, setIsGenerating] = useState(false);
-  const [showResults, setShowResults] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
   const [noWebsite, setNoWebsite] = useState(false);
   const [noInstagram, setNoInstagram] = useState(false);
   const [showProgressDialog, setShowProgressDialog] = useState(false);
   const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
-  const [showFullForm, setShowFullForm] = useState(false);
   const [mathCaptchaValid, setMathCaptchaValid] = useState(false);
 
   const {
@@ -240,7 +249,7 @@ export const useFormHandler = () => {
     await logFormInteraction('first_step_completed', formData.email);
     
     // Navigate to step 2 for better tracking
-    navigate('/?step=2', { replace: true });
+    goToFullForm();
     
     // Track Lead event with Meta Conversions API with specific URL
     await trackLead(formData.email, {
@@ -267,7 +276,7 @@ export const useFormHandler = () => {
       if (previousProgress.marca && previousProgress.email) {
         setShowFullForm(true);
         // Navigate to step 2 if returning to full form
-        navigate('/?step=2', { replace: true });
+        goToFullForm();
       }
       
       toast({
@@ -281,7 +290,7 @@ export const useFormHandler = () => {
     setShowProgressDialog(false);
     setShowFullForm(false);
     // Navigate back to step 1 for fresh start
-    navigate('/', { replace: true });
+    goToInitialForm();
     toast({
       title: "Nuevo formulario",
       description: "Comenzando un formulario nuevo desde cero.",
@@ -370,7 +379,7 @@ export const useFormHandler = () => {
     setIsGenerating(true);
     
     // Navigate to step 3 (generating) for better tracking
-    navigate('/?step=3', { replace: true });
+    goToWizardStep(1);
     try {
       console.log('🔄 Iniciando proceso de generación de Super Prompt...');
       
@@ -424,8 +433,8 @@ export const useFormHandler = () => {
         description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Prompt generado correctamente. Revisa el contenido a continuación.",
       });
       
-      // Navigate to step 4 (results/thanks) for better tracking
-      navigate('/?step=4', { replace: true });
+      // Navigate to step 5 (results/thanks) for better tracking
+      goToResults();
       
     } catch (error) {
       console.error('💥 Error durante la generación del prompt:', error);
@@ -440,7 +449,7 @@ export const useFormHandler = () => {
         description: "El contenido se ha generado correctamente. Puede que algunos emails no se hayan enviado.",
       });
       
-      navigate('/resultados');
+      goToResults();
     }
   };
 
@@ -461,7 +470,7 @@ export const useFormHandler = () => {
     });
     setNoWebsite(false);
     setNoInstagram(false);
-    navigate('/');
+    goToInitialForm();
   };
 
   // Validación para el primer paso

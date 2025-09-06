@@ -5,11 +5,10 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import FormWizard from '@/components/FormWizard';
 import WebsitePreview from '@/components/WebsitePreview';
 import { FormData } from '@/hooks/useFormHandler';
+import { useStepNavigation } from '@/hooks/useStepNavigation';
 
 interface FormStepWizardProps {
   showWizard: boolean;
-  currentStep: number;
-  setCurrentStep: (step: number) => void;
   stepFields: string[][];
   stepLabels: string[];
   formData: FormData;
@@ -20,8 +19,6 @@ interface FormStepWizardProps {
 
 const FormStepWizard = ({
   showWizard,
-  currentStep,
-  setCurrentStep,
   stepFields,
   stepLabels,
   formData,
@@ -29,20 +26,21 @@ const FormStepWizard = ({
   noInstagram,
   onGenerateWebsite
 }: FormStepWizardProps) => {
+  const { currentWizardStep, goToWizardStep } = useStepNavigation();
   const handleNextStep = () => {
-    if (currentStep < stepFields.length - 1) {
-      setCurrentStep(currentStep + 1);
+    if (currentWizardStep < stepFields.length - 1) {
+      goToWizardStep(currentWizardStep + 1);
     }
   };
 
   const handlePrevStep = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+    if (currentWizardStep > 0) {
+      goToWizardStep(currentWizardStep - 1);
     }
   };
 
   const isCurrentStepComplete = () => {
-    const currentFields = stepFields[currentStep];
+    const currentFields = stepFields[currentWizardStep];
     return currentFields.every(field => {
       if (field === 'website' && noWebsite) return true;
       if (field === 'instagram' && noInstagram) return true;
@@ -62,7 +60,7 @@ const FormStepWizard = ({
   return (
     <>
       <FormWizard 
-        currentStep={currentStep}
+        currentStep={currentWizardStep}
         totalSteps={stepFields.length}
         stepLabels={stepLabels}
       />
@@ -72,14 +70,14 @@ const FormStepWizard = ({
           type="button"
           variant="outline"
           onClick={handlePrevStep}
-          disabled={currentStep === 0}
+          disabled={currentWizardStep === 0}
           className="bg-white border-gray-300 text-gray-600 hover:text-gray-800 hover:border-gray-400"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Anterior
         </Button>
 
-        {currentStep < stepFields.length - 1 ? (
+        {currentWizardStep < stepFields.length - 1 ? (
           <Button
             type="button"
             onClick={handleNextStep}

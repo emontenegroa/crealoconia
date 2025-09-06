@@ -11,7 +11,10 @@ import HowItWorksToggle from '@/components/HowItWorksToggle';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import FAQ from '@/components/FAQ';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
+import { MetaTracker } from '@/components/MetaTracker';
+import StrategicContentDisplay from '@/components/StrategicContentDisplay';
 import { useFormHandler } from '@/hooks/useFormHandler';
+import { useStepNavigation } from '@/hooks/useStepNavigation';
 
 // Importar la prueba de email en desarrollo
 if (import.meta.env.DEV) {
@@ -19,6 +22,8 @@ if (import.meta.env.DEV) {
 }
 
 const Index = () => {
+  const { showFullForm, showResults } = useStepNavigation();
+  
   const {
     formData,
     setFormData,
@@ -31,7 +36,6 @@ const Index = () => {
     previousProgress,
     attemptCount,
     sessionId,
-    showFullForm,
     handleInputChange,
     handleAIUsageUpdate,
     handleFirstStep,
@@ -53,6 +57,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white light">
+      <MetaTracker />
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <ProgressDialog
           show={showProgressDialog}
@@ -69,6 +74,11 @@ const Index = () => {
         
         {isGenerating ? (
           <LoadingSpinner />
+        ) : showResults ? (
+          <StrategicContentDisplay
+            formData={formData}
+            onReset={resetForm}
+          />
         ) : !showFullForm ? (
           <InitialForm
             formData={formData}
