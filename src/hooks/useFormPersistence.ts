@@ -172,47 +172,16 @@ export const useFormPersistence = () => {
       // Sanitize form data before saving
       const sanitizedData = sanitizeFormData(formData);
 
-      // Primero intentamos obtener el registro existente
-      const { data: existingData, error: selectError } = await supabase
-        .from('form_submissions')
-        .select('id')
-        .eq('email', sanitizedData.email)
-        .eq('completed', false)
-        .maybeSingle();
+      // Usar la función upsert para evitar duplicados
+      const { error } = await supabase.rpc('upsert_form_submission', {
+        p_email: sanitizedData.email,
+        p_form_data: sanitizedData as any,
+        p_attempt_number: attemptCount,
+        p_completed: false
+      });
 
-      if (selectError) {
-        console.error('Error checking existing progress:', selectError);
-        return;
-      }
-
-      if (existingData) {
-        // Si existe, actualizamos
-        const { error: updateError } = await supabase
-          .from('form_submissions')
-          .update({
-            form_data: sanitizedData as any,
-            attempt_number: attemptCount,
-            updated_at: new Date().toISOString(),
-          })
-          .eq('id', existingData.id);
-
-        if (updateError) {
-          console.error('Error updating progress:', updateError);
-        }
-      } else {
-        // Si no existe, insertamos
-        const { error: insertError } = await supabase
-          .from('form_submissions')
-          .insert({
-            email: sanitizedData.email,
-            form_data: sanitizedData as any,
-            attempt_number: attemptCount,
-            completed: false,
-          });
-
-        if (insertError) {
-          console.error('Error inserting progress:', insertError);
-        }
+      if (error) {
+        console.error('Error saving form submission:', error);
       }
     } catch (error) {
       console.error('Error in saveProgress:', error);
@@ -226,14 +195,13 @@ export const useFormPersistence = () => {
     try {
       const sanitizedData = sanitizeFormData(formData);
 
-      const { error } = await supabase
-        .from('form_submissions')
-        .insert({
-          email: sanitizedData.email,
-          form_data: sanitizedData as any,
-          attempt_number: attemptCount,
-          completed: true,
-        });
+      // Usar la función upsert para marcar como completado
+      const { error } = await supabase.rpc('upsert_form_submission', {
+        p_email: sanitizedData.email,
+        p_form_data: sanitizedData as any,
+        p_attempt_number: attemptCount,
+        p_completed: true
+      });
 
       if (error) {
         console.error('Error marking as completed:', error);

@@ -225,6 +225,15 @@ export type Database = {
         }
         Returns: string
       }
+      upsert_form_submission: {
+        Args: {
+          p_attempt_number?: number
+          p_completed?: boolean
+          p_email: string
+          p_form_data: Json
+        }
+        Returns: string
+      }
       verify_admin_code: {
         Args: { check_code: string; check_email: string }
         Returns: boolean
