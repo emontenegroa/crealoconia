@@ -6,8 +6,8 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const FACEBOOK_PIXEL_ID = '682721524078717';
-const FACEBOOK_ACCESS_TOKEN = 'EAAdKvg3zpGwBPQ8pFtZBZCUIeyp7QlfUYVDZAdZBf92sh9kSK8ZCm5ByROpbDTIKBtyyoQnKi3sEgh8ZCeR8GFg2EgiuwsqSSqhKIZBhlE24iO03FFZAiZAxZCIuEmuNDZBUVEkNxk8YTlWB3oXGq8xNfSrE7JBDWR0tZBfiTi5ZBrOfOsqLgXKBJH6RBxQI9pOiTW07O5gZDZD';
+const FACEBOOK_PIXEL_ID = '1681063145914408';
+const FACEBOOK_ACCESS_TOKEN = 'EAAdKvg3zpGwBPeKEx2EKGaMymQ8hzC2W3fZArZA5WS3EOGlHF0bOXcrZCXZBod1o9tK8eeYbhVKOniHQ0tSowm3UIaTBuXlOUUSlT9u5meA7DZCOZCaZBHgU5s2dPaQSuF0p97vuZBIugKeliphU0WHEjdC4BrmwOPGEDdlQgrjmq9bEUyJLxO5241Vk0mnwOV4uQQZDZD';
 const TEST_EVENT_CODE = 'TEST12345'; // Cambiar por el código real del Events Manager
 
 // Hash function for SHA256
