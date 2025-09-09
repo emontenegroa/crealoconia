@@ -72,7 +72,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white light">
       <MetaTracker />
-      <div className="max-w-4xl mx-auto">
+      <div className="container mx-auto px-4 py-12 max-w-4xl">
         <ProgressDialog
           show={showProgressDialog}
           attemptCount={attemptCount}
@@ -82,57 +82,49 @@ const Index = () => {
 
         <HeroSection onLoadExample={loadExampleData} />
         
-        <div className="px-6 space-y-16">
-          <div id="como-funciona">
-            <HowItWorksToggle />
-          </div>
-          
-          <ImportantNotice />
-          
-          {isGenerating ? (
-            <LoadingSpinner />
-          ) : showResults ? (
-            <StrategicContentDisplay
-              formData={formData}
-              onReset={resetForm}
+        <HowItWorksToggle />
+        
+        <ImportantNotice />
+        
+        {isGenerating ? (
+          <LoadingSpinner />
+        ) : showResults ? (
+          <StrategicContentDisplay
+            formData={formData}
+            onReset={resetForm}
+          />
+        ) : !showFullForm ? (
+          <InitialForm
+            formData={formData}
+            onInputChange={handleInputChange}
+            onSubmit={handleFirstStep}
+            isValid={isFirstStepValid}
+            onLoadExample={loadExampleData}
+            onMathCaptchaChange={handleMathCaptchaChange}
+          />
+        ) : (
+          <div ref={formRef}>
+            <MainForm
+            formData={formData}
+            setFormData={setFormData}
+            onInputChange={handleInputChange}
+            onAIUsageUpdate={handleAIUsageUpdate}
+            sessionId={sessionId}
+            noWebsite={noWebsite}
+            setNoWebsite={setNoWebsite}
+            noInstagram={noInstagram}
+            setNoInstagram={setNoInstagram}
+            onSubmit={handleSubmit}
+            isFormValid={isFormValid}
+            onGenerateWebsite={onGenerateWebsite}
+            onBackToInitial={handleBackToInitial}
             />
-          ) : !showFullForm ? (
-            <InitialForm
-              formData={formData}
-              onInputChange={handleInputChange}
-              onSubmit={handleFirstStep}
-              isValid={isFirstStepValid}
-              onLoadExample={loadExampleData}
-              onMathCaptchaChange={handleMathCaptchaChange}
-            />
-          ) : (
-            <div ref={formRef}>
-              <MainForm
-              formData={formData}
-              setFormData={setFormData}
-              onInputChange={handleInputChange}
-              onAIUsageUpdate={handleAIUsageUpdate}
-              sessionId={sessionId}
-              noWebsite={noWebsite}
-              setNoWebsite={setNoWebsite}
-              noInstagram={noInstagram}
-              setNoInstagram={setNoInstagram}
-              onSubmit={handleSubmit}
-              isFormValid={isFormValid}
-              onGenerateWebsite={onGenerateWebsite}
-              onBackToInitial={handleBackToInitial}
-              />
-            </div>
-          )}
-
-          <div id="testimonios">
-            <TestimonialsSection />
           </div>
+        )}
 
-          <div id="faq">
-            <FAQ />
-          </div>
-        </div>
+        <TestimonialsSection />
+
+        <FAQ />
       </div>
       
       <WhatsAppFloat />
