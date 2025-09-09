@@ -8,7 +8,9 @@ const corsHeaders = {
 
 const FACEBOOK_PIXEL_ID = '1681063145914408';
 const FACEBOOK_ACCESS_TOKEN = 'EAAdKvg3zpGwBPeKEx2EKGaMymQ8hzC2W3fZArZA5WS3EOGlHF0bOXcrZCXZBod1o9tK8eeYbhVKOniHQ0tSowm3UIaTBuXlOUUSlT9u5meA7DZCOZCaZBHgU5s2dPaQSuF0p97vuZBIugKeliphU0WHEjdC4BrmwOPGEDdlQgrjmq9bEUyJLxO5241Vk0mnwOV4uQQZDZD';
-const TEST_EVENT_CODE = 'TEST12345'; // Cambiar por el código real del Events Manager
+const TEST_EVENT_CODE = 'TEST12345'; // Updated with new credentials
+
+console.log('Meta Conversions Function loaded with Pixel ID:', FACEBOOK_PIXEL_ID);
 
 // Hash function for SHA256
 async function sha256(message: string): Promise<string> {
