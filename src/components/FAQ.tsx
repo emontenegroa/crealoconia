@@ -11,11 +11,15 @@ const FAQ = () => {
           <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">¿Realmente es gratis? </AccordionTrigger>
           <AccordionContent className="px-6 pb-4 text-gray-700">
             <p className="mb-3">
-              <strong>100% gratis, sin letra pequeña.</strong> Obtienes tu Super Prompt IA personalizado y tu sitio web sin pagar absolutamente nada.
+              Lo que hacemos es seleccionar algunos proyectos y crearles una propuesta 100% funcional de su sitio web, lista para revisar y evaluar sin compromiso.
+            </p>
+            <p className="mb-3">
+              👉 Si el sitio te convence y quieres publicarlo, avanzamos con una sesión de modificación y actualización para dejarlo afinado a tus necesidades.
             </p>
             <p>
-              Mi objetivo es que compruebes el poder de las estrategias con IA para tu negocio. 
-              Cuando veas los resultados, naturalmente querrás llevarlo al siguiente nivel con servicios más avanzados.
+              Esa sesión, junto con la publicación de tu sitio en un dominio propio .com o .cl, tiene un valor de $197.000 CLP.
+              <br />
+              <span className="text-sm text-gray-600">(El valor no incluye el costo del dominio, ya que depende de la extensión y proveedor que elijas).</span>
             </p>
           </AccordionContent>
         </AccordionItem>
