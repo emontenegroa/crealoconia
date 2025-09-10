@@ -21,27 +21,22 @@ const HeroSection = ({
         </div>
       </div>
 
-      {/* Contenido principal - Promesa directa */}
+      {/* Contenido principal */}
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-4 leading-tight">
-          Tu web profesional<br />
-          <span className="text-blue-600">lista en 4 horas</span>
+        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+          Crea tu web profesional<br />
+          en minutos para
         </h1>
         
-        <div className="max-w-2xl mx-auto mb-8">
-          <p className="text-2xl md:text-3xl text-gray-700 font-bold mb-4">
-            Gratis para empezar
-          </p>
-          <p className="text-lg text-gray-600 mb-6">
-            Solo pagas <strong>$197.000 CLP</strong> si decides publicarla
-          </p>
+        <div className="text-4xl md:text-6xl font-bold text-blue-600 mb-8 h-20 flex items-center justify-center">
+          <TypewriterText />
         </div>
         
-        {/* CTA inmediato - Solo necesitamos 2 datos */}
-        <div className="max-w-md mx-auto bg-white border-2 border-blue-200 rounded-xl p-6 shadow-lg">
-          <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
-            Solo necesitamos 2 datos para empezar
-          </h3>
+        <div className="max-w-4xl mx-auto mb-8">
+          <p className="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed mb-6">
+            <span className="text-blue-600 font-bold">Estás haciendo algo valioso.</span> Es hora de mostrarlo con <span className="text-emerald-600 font-bold">claridad, confianza y presencia profesional.</span><br />
+            Tu web no puede seguir siendo un pendiente.
+          </p>
         </div>
       </div>
     </div>;
