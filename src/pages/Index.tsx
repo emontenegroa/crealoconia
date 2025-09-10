@@ -82,14 +82,7 @@ const Index = () => {
 
         <HeroSection onLoadExample={loadExampleData} />
         
-        {isGenerating ? (
-          <LoadingSpinner />
-        ) : showResults ? (
-          <StrategicContentDisplay
-            formData={formData}
-            onReset={resetForm}
-          />
-        ) : !showFullForm ? (
+        {!showFullForm && !showResults && !isGenerating && (
           <InitialForm
             formData={formData}
             onInputChange={handleInputChange}
@@ -98,7 +91,20 @@ const Index = () => {
             onLoadExample={loadExampleData}
             onMathCaptchaChange={handleMathCaptchaChange}
           />
-        ) : (
+        )}
+
+        <HowItWorksToggle />
+        
+        <ImportantNotice />
+        
+        {isGenerating ? (
+          <LoadingSpinner />
+        ) : showResults ? (
+          <StrategicContentDisplay
+            formData={formData}
+            onReset={resetForm}
+          />
+        ) : showFullForm ? (
           <div ref={formRef}>
             <MainForm
             formData={formData}
@@ -116,11 +122,7 @@ const Index = () => {
             onBackToInitial={handleBackToInitial}
             />
           </div>
-        )}
-
-        <HowItWorksToggle />
-        
-        <ImportantNotice />
+        ) : null}
 
         <TestimonialsSection />
 
