@@ -7,7 +7,7 @@ const HowItWorksToggle = () => {
   const [activeSection, setActiveSection] = useState<'how-it-works' | 'behind-scenes'>('how-it-works');
 
   return (
-    <div className="max-w-3xl mx-auto mb-20">
+    <div className="max-w-3xl mx-auto mb-20 mt-16">
       {/* Botones de alternancia */}
       <div className="flex justify-center mb-8">
         <div className="bg-gray-100 rounded-full p-1 flex">
