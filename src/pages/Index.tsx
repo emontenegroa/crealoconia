@@ -90,14 +90,38 @@ const Index = () => {
             onReset={resetForm}
           />
         ) : !showFullForm ? (
-          <InitialForm
-            formData={formData}
-            onInputChange={handleInputChange}
-            onSubmit={handleFirstStep}
-            isValid={isFirstStepValid}
-            onLoadExample={loadExampleData}
-            onMathCaptchaChange={handleMathCaptchaChange}
-          />
+          <>
+            <InitialForm
+              formData={formData}
+              onInputChange={handleInputChange}
+              onSubmit={handleFirstStep}
+              isValid={isFirstStepValid}
+              onLoadExample={loadExampleData}
+              onMathCaptchaChange={handleMathCaptchaChange}
+            />
+            
+            {/* Cómo funciona - versión compacta */}
+            <div className="max-w-3xl mx-auto mb-16 text-center">
+              <h2 className="text-2xl font-bold text-gray-900 mb-8">Cómo funciona</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="p-4">
+                  <div className="text-3xl mb-3">📝</div>
+                  <h3 className="font-bold mb-2">Completas el formulario</h3>
+                  <p className="text-sm text-gray-600">2 datos iniciales + detalles de tu negocio</p>
+                </div>
+                <div className="p-4">
+                  <div className="text-3xl mb-3">⚡</div>
+                  <h3 className="font-bold mb-2">Generamos tu web</h3>
+                  <p className="text-sm text-gray-600">Lista en 4 horas, 100% personalizada</p>
+                </div>
+                <div className="p-4">
+                  <div className="text-3xl mb-3">🚀</div>
+                  <h3 className="font-bold mb-2">Tú decides</h3>
+                  <p className="text-sm text-gray-600">Te gusta? La publicas. No te gusta? No pagas nada</p>
+                </div>
+              </div>
+            </div>
+          </>
         ) : (
           <div ref={formRef}>
             <MainForm
@@ -118,11 +142,11 @@ const Index = () => {
           </div>
         )}
 
-        <ImportantNotice />
-
         <TestimonialsSection />
 
         <FAQ />
+
+        <ImportantNotice />
       </div>
       
       <WhatsAppFloat />
