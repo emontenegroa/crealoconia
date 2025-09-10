@@ -111,6 +111,30 @@ const FAQ = () => {
             </p>
           </AccordionContent>
         </AccordionItem>
+
+        <AccordionItem value="item-8" className="bg-white border border-gray-200 rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
+            ¿Qué pasa si quiero modificar mi sitio después?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-gray-700">
+            <p className="mb-3">
+              Sabemos que en el tiempo vas a querer actualizar textos o imágenes. Para eso ofrecemos un servicio personalizado: nos indicas qué se debe modificar y nosotros lo hacemos por ti.
+            </p>
+            <p className="mb-3">
+              Además, te damos recomendaciones estratégicas sobre cómo presentar la información para que tu sitio siempre luzca profesional y efectivo.
+            </p>
+            <p className="mb-3">
+              <strong>Este servicio funciona mediante paquetes de cambios:</strong>
+            </p>
+            <ul className="list-disc list-inside space-y-1 mb-3">
+              <li>Compras un paquete de 3 cambios por $20.000 CLP.</li>
+              <li>Puedes usarlos cuando quieras, sin límite de tiempo, siempre que tu sitio esté activo.</li>
+            </ul>
+            <p>
+              Así tienes la tranquilidad de mantener tu web actualizada y optimizada sin complicarte con lo técnico.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
       </Accordion>
     </div>;
 };
