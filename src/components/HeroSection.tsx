@@ -24,18 +24,16 @@ const HeroSection = ({
       {/* Contenido principal */}
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-          Crea tu web profesional<br />
-          en minutos para
+          Tu web profesional<br />
+          <span className="text-blue-600">lista en 48 horas</span>
         </h1>
         
-        <div className="text-4xl md:text-6xl font-bold text-blue-600 mb-8 h-20 flex items-center justify-center">
-          <TypewriterText />
-        </div>
-        
-        <div className="max-w-4xl mx-auto mb-8">
+        <div className="max-w-3xl mx-auto mb-8">
           <p className="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed mb-6">
-            <span className="text-blue-600 font-bold">Estás haciendo algo valioso.</span> Es hora de mostrarlo con <span className="text-emerald-600 font-bold">claridad, confianza y presencia profesional.</span><br />
-            Tu web no puede seguir siendo un pendiente.
+            <span className="text-blue-600 font-bold">Completa el formulario</span> y recibe una propuesta 100% funcional de tu sitio web <span className="text-emerald-600 font-bold">sin compromiso</span>
+          </p>
+          <p className="text-lg text-gray-600 mb-4">
+            ✅ Solo pagas si decides publicarlo: <strong>$197.000 CLP</strong>
           </p>
         </div>
       </div>

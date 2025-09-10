@@ -82,10 +82,6 @@ const Index = () => {
 
         <HeroSection onLoadExample={loadExampleData} />
         
-        <HowItWorksToggle />
-        
-        <ImportantNotice />
-        
         {isGenerating ? (
           <LoadingSpinner />
         ) : showResults ? (
@@ -121,6 +117,8 @@ const Index = () => {
             />
           </div>
         )}
+
+        <ImportantNotice />
 
         <TestimonialsSection />
 
