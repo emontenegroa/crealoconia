@@ -24,3 +24,6 @@ verify_jwt = false
 
 [functions.meta-conversions]
 verify_jwt = false
+
+[functions.admin-tags]
+verify_jwt = false
