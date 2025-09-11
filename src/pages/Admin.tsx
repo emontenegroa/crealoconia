@@ -17,6 +17,7 @@ import { Download, Edit, Trash2, Eye, Filter, RefreshCw, CheckSquare, Square, Ma
 import { useToast } from '@/hooks/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface FormSubmission {
   id: string;
@@ -449,6 +450,32 @@ export default function Admin({ onLogout }: AdminProps) {
     return completedFields;
   };
 
+  const getMissingFields = (formData: any) => {
+    if (!formData) return ['email', 'marca', 'whatsapp', 'website', 'instagram', 'quien_eres', 'problemas', 'preguntas_frecuentes', 'estilo', 'producto'];
+    
+    const fieldLabels = {
+      'email': 'Email',
+      'marca': 'Marca',
+      'whatsapp': 'WhatsApp',
+      'website': 'Sitio Web',
+      'instagram': 'Instagram',
+      'quien_eres': 'Quién Eres',
+      'problemas': 'Problemas',
+      'preguntas_frecuentes': 'Preguntas Frecuentes',
+      'estilo': 'Estilo',
+      'producto': 'Producto'
+    };
+    
+    const fields = Object.keys(fieldLabels);
+    
+    const missingFields = fields.filter(field => {
+      const value = formData[field];
+      return !value || value.toString().trim().length === 0;
+    });
+    
+    return missingFields.map(field => fieldLabels[field]);
+  };
+
   const handleWhatsAppContact = (submission: FormSubmission) => {
     const whatsappNumber = submission.form_data?.whatsapp;
     if (!whatsappNumber) return;
@@ -781,9 +808,29 @@ Fundador de CrealoconIA
                             </td>
                             <td className="p-2 max-w-[150px] truncate" title={submission.form_data?.marca || '-'}>{submission.form_data?.marca || '-'}</td>
                             <td className="p-2">
-                              <Badge variant="outline" className="text-xs">
-                                {calculateProgress(submission.form_data)}/10
-                              </Badge>
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Badge variant="outline" className="text-xs cursor-help">
+                                      {calculateProgress(submission.form_data)}/10
+                                    </Badge>
+                                  </TooltipTrigger>
+                                  <TooltipContent className="max-w-xs">
+                                    {getMissingFields(submission.form_data).length > 0 ? (
+                                      <div>
+                                        <p className="font-medium mb-1">Campos faltantes:</p>
+                                        <ul className="text-xs space-y-0.5">
+                                          {getMissingFields(submission.form_data).map((field, index) => (
+                                            <li key={index}>• {field}</li>
+                                          ))}
+                                        </ul>
+                                      </div>
+                                    ) : (
+                                      <p className="text-xs">✅ Todos los campos completados</p>
+                                    )}
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
                             </td>
                             <td className="p-2">
                               <div className="flex flex-wrap gap-1">
