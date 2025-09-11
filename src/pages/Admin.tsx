@@ -470,11 +470,14 @@ export default function Admin({ onLogout }: AdminProps) {
     
     const missingFields = fields.filter(field => {
       const value = formData[field];
-      const isEmpty = !value || 
-                     (typeof value === 'string' && value.trim().length === 0) || 
-                     (Array.isArray(value) && value.length === 0) ||
-                     (typeof value === 'object' && value !== null && Object.keys(value).length === 0);
-      return isEmpty;
+      
+      // Verificar si el campo está vacío
+      if (!value) return true;
+      if (typeof value === 'string' && value.trim().length === 0) return true;
+      if (Array.isArray(value) && value.length === 0) return true;
+      if (typeof value === 'object' && value !== null && Object.keys(value).length === 0) return true;
+      
+      return false;
     });
     
     return missingFields.map(field => fieldLabels[field]);
@@ -819,20 +822,24 @@ Fundador de CrealoconIA
                                     {calculateProgress(submission.form_data)}/10
                                   </Badge>
                                 </TooltipTrigger>
-                                <TooltipContent className="max-w-xs p-3 z-50 bg-popover border border-border">
-                                  {getMissingFields(submission.form_data).length > 0 ? (
-                                    <div>
-                                      <p className="font-medium mb-2">Campos faltantes:</p>
-                                      <ul className="text-xs space-y-1">
-                                        {getMissingFields(submission.form_data).map((field, index) => (
-                                          <li key={index}>• {field}</li>
-                                        ))}
-                                      </ul>
-                                    </div>
-                                  ) : (
-                                    <p className="text-xs">✅ Todos los campos completados</p>
-                                  )}
-                                </TooltipContent>
+                                 <TooltipContent className="max-w-xs p-3 bg-popover border border-border text-popover-foreground">
+                                   {(() => {
+                                     const missingFields = getMissingFields(submission.form_data);
+                                     console.log('Missing fields for', submission.email, ':', missingFields);
+                                     return missingFields.length > 0 ? (
+                                       <div>
+                                         <p className="font-medium mb-2">Campos faltantes:</p>
+                                         <ul className="text-xs space-y-1">
+                                           {missingFields.map((field, index) => (
+                                             <li key={index}>• {field}</li>
+                                           ))}
+                                         </ul>
+                                       </div>
+                                     ) : (
+                                       <p className="text-xs">✅ Todos los campos completados</p>
+                                     );
+                                   })()}
+                                 </TooltipContent>
                               </Tooltip>
                             </td>
                             <td className="p-2">
