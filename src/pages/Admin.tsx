@@ -179,7 +179,13 @@ export default function Admin({ onLogout }: AdminProps) {
     const csvData = filteredSubmissions.map(sub => [
       sub.email,
       sub.completed ? 'Sí' : 'No',
-      new Date(sub.created_at).toLocaleDateString('es-ES'),
+      new Date(sub.created_at).toLocaleString('es-ES', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
       sub.attempt_number,
       sub.form_data?.generatedPrompts?.lovablePrompt ? 'Sí' : 'No',
       sub.form_data?.marca || '',
@@ -744,7 +750,13 @@ Fundador de CrealoconIA
                               </Badge>
                             </td>
                             <td className="p-2 text-sm whitespace-nowrap">
-                              {new Date(submission.created_at).toLocaleDateString('es-ES')}
+                              {new Date(submission.created_at).toLocaleString('es-ES', {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
                             </td>
                             <td className="p-2 max-w-[150px] truncate" title={submission.form_data?.marca || '-'}>{submission.form_data?.marca || '-'}</td>
                             <td className="p-2">
@@ -1128,7 +1140,14 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
           </div>
           <div>
             <Label>Fecha de Creación</Label>
-            <Input value={new Date(submission.created_at).toLocaleString('es-ES')} readOnly />
+            <Input value={new Date(submission.created_at).toLocaleString('es-ES', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit'
+            })} readOnly />
           </div>
           <div>
             <Label>Número de Intento</Label>
