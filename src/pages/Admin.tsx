@@ -497,32 +497,34 @@ export default function Admin({ onLogout }: AdminProps) {
     setSelectedEmailSubmission(submission);
     setEmailType(type);
     if (type === 'follow-up') {
-      setCustomEmailSubject('¿Completamos tu sitio web en CrealoconIA?');
-      setCustomEmailContent(`Hola ${submission.form_data?.marca || submission.email},
+      setCustomEmailSubject('Completa tu información para tu sitio web personalizado');
+      setCustomEmailContent(`Hola 👋🏻 ${submission.form_data?.marca || submission.email},
 
-Vimos que iniciaste el proceso en CrealoconIA, pero no llegaste a completar las preguntas.
-Esas preguntas son la clave: con ellas nuestro sistema crea tu sitio web automáticamente, con textos, diseño y estructura pensados para tu proyecto.
+Revisamos tus respuestas en Crealoconia y vimos que quedaron incompletas o demasiado breves.
 
-👉 Si completas el formulario ahora, podrás tener tu sitio en minutos y revisarlo de inmediato.
+Esto es clave: mientras más detalles entregues, mejor podemos preparar tu propuesta de sitio web.
 
-Completar formulario aquí: ${window.location.origin}
+👉 La buena noticia es que aún puedes completarlo y ser considerado para la creación de tu página personalizada.
 
-¿Por qué vale la pena terminarlo?
-✅ Obtienes un sitio web real, no una demo
-✅ Hecho a partir de tus respuestas, sin plantillas genéricas
-✅ Disponible para revisión gratuita antes de decidir avanzar
-✅ Una forma rápida de ver tu negocio en digital sin dolores de cabeza técnicos
+Para ayudarte, añadimos un botón de IA junto a cada campo. Con él puedes mejorar tus respuestas en segundos, haciéndolas más claras y atractivas.
 
-Recuerda: quienes completan el formulario reciben su sitio web listo para ver, navegar y evaluar.
+Recuerda: seleccionamos algunos proyectos y les creamos una propuesta 100% funcional, lista para revisar sin compromiso.
 
-El siguiente paso está en tus manos:
-👉 Completar formulario aquí: ${window.location.origin}
+👉 Si el sitio te convence y decides publicarlo, avanzamos con una sesión de ajustes y la puesta en línea en un dominio propio (.com o .cl).
 
-Si tienes dudas, escríbeme directo a WhatsApp: +56 9 6279 1772
+Esa sesión, junto con la publicación, tiene un valor de $197.000 CLP.
+(El valor no incluye el dominio, ya que depende del proveedor que elijas).
 
-Saludos,
+👉 Completa tu formulario aquí: crealoconia.com
+
+Si tienes dudas, escríbeme directo a mi WhatsApp: +56 9 6279 1772.
+
+✅ Da el paso ahora, completa tu información y asegura tu sitio.
+
+Un saludo,
 Esteban Montenegro
 Fundador de CrealoconIA
+📲 WhatsApp: +56 9 6279 1772
 📲 WhatsApp: +56 9 6279 1772`);
     } else {
       setCustomEmailSubject('');
