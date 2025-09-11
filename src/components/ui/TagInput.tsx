@@ -67,6 +67,24 @@ export function TagInput({ value, onChange, placeholder = "Buscar o crear tags..
 
   const loadTags = async () => {
     try {
+      const response = await fetch('https://yxagfbefgqlsjrxjtgjr.supabase.co/functions/v1/admin-tags', {
+        headers: {
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4YWdmYmVmZ3Fsc2pyeGp0Z2pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMTk3MDksImV4cCI6MjA2Mzg5NTcwOX0.lARyIy_arVLqJguAT_gpjWe5CXUDhdBHvpEuJP0Kvvs`,
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4YWdmYmVmZ3Fsc2pyeGp0Z2pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMTk3MDksImV4cCI6MjA2Mzg5NTcwOX0.lARyIy_arVLqJguAT_gpjWe5CXUDhdBHvpEuJP0Kvvs',
+        },
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setAllTags(data || []);
+        return;
+      }
+    } catch (error) {
+      console.error('Error loading tags from edge function:', error);
+    }
+    
+    // Fallback to direct Supabase call
+    try {
       const { data, error } = await supabase
         .from('tags')
         .select('*')
@@ -74,8 +92,8 @@ export function TagInput({ value, onChange, placeholder = "Buscar o crear tags..
       
       if (error) throw error;
       setAllTags(data || []);
-    } catch (error) {
-      console.error('Error loading tags:', error);
+    } catch (fallbackError) {
+      console.error('Fallback error loading tags:', fallbackError);
     }
   };
 
@@ -83,13 +101,18 @@ export function TagInput({ value, onChange, placeholder = "Buscar o crear tags..
     const color = TAG_COLORS[Math.floor(Math.random() * TAG_COLORS.length)];
     
     try {
-      const { data, error } = await supabase
-        .from('tags')
-        .insert({ name, color })
-        .select()
-        .single();
+      const response = await fetch('https://yxagfbefgqlsjrxjtgjr.supabase.co/functions/v1/admin-tags', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4YWdmYmVmZ3Fsc2pyeGp0Z2pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMTk3MDksImV4cCI6MjA2Mzg5NTcwOX0.lARyIy_arVLqJguAT_gpjWe5CXUDhdBHvpEuJP0Kvvs`,
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4YWdmYmVmZ3Fsc2pyeGp0Z2pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMTk3MDksImV4cCI6MjA2Mzg5NTcwOX0.lARyIy_arVLqJguAT_gpjWe5CXUDhdBHvpEuJP0Kvvs',
+        },
+        body: JSON.stringify({ name, color }),
+      });
       
-      if (error) throw error;
+      if (!response.ok) throw new Error('Failed to create tag');
+      const data = await response.json();
       
       setAllTags(prev => [...prev, data]);
       return data;
