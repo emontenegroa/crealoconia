@@ -20,8 +20,18 @@ interface TagInputProps {
 }
 
 const TAG_COLORS = [
-  '#10b981', '#f59e0b', '#ef4444', '#22c55e', '#dc2626', '#f97316',
-  '#3b82f6', '#8b5cf6', '#06b6d4', '#84cc16', '#f43f5e', '#6366f1'
+  '#E8F5E8', // Verde pastel
+  '#FFF4E6', // Naranja pastel  
+  '#FFE6E6', // Rojo pastel
+  '#E6F4FF', // Azul pastel
+  '#F3E8FF', // Púrpura pastel
+  '#E6FFFA', // Teal pastel
+  '#FFF0F5', // Rosa pastel
+  '#F0F8FF', // Azul claro pastel
+  '#F5F5DC', // Beige pastel
+  '#E0FFE0', // Verde menta pastel
+  '#FFE4E1', // Rosa salmón pastel
+  '#E6E6FA'  // Lavanda pastel
 ];
 
 export function TagInput({ value, onChange, placeholder = "Buscar o crear tags...", className }: TagInputProps) {
