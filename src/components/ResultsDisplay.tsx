@@ -170,21 +170,21 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                   <div className="flex items-start gap-3">
                     <span className="font-bold text-gray-900">1.</span>
                     <div>
-                      <span className="font-semibold">📧 Abre tu correo:</span>
+                      <span className="font-semibold text-gray-900">📧 Abre tu correo:</span>
                       <span className="text-gray-800"> revisa las instrucciones.</span>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="font-bold text-gray-900">2.</span>
                     <div>
-                      <span className="font-semibold">🌐 Recibe tu web:</span>
+                      <span className="font-semibold text-gray-900">🌐 Recibe tu web:</span>
                       <span className="text-gray-800"> analiza el diseño funcional que hemos creado para ti.</span>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="font-bold text-gray-900">3.</span>
                     <div>
-                      <span className="font-semibold">🎁 Usa tu Super Prompt:</span>
+                      <span className="font-semibold text-gray-900">🎁 Usa tu Super Prompt:</span>
                       <span className="text-gray-800"> potencia tu comunicación digital.</span>
                     </div>
                   </div>
