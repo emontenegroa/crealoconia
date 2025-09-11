@@ -433,7 +433,7 @@ export const useFormHandler = () => {
         description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Prompt generado correctamente. Revisa el contenido a continuación.",
       });
       
-      // Navigate to step 5 (results/thanks) for better tracking
+      // Redirigir a la página de resultados final
       goToResults();
       
     } catch (error) {
