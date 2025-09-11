@@ -121,7 +121,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
             </p>
           </div>
 
-          <Button onClick={onReset} variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300">
+          <Button onClick={onReset} variant="outline" className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Crear otro Kit IA
           </Button>
