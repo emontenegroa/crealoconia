@@ -125,6 +125,17 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                   📧 Revisa tu bandeja de entrada
                 </h2>
+                
+                {/* SPAM Alert */}
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                  <p className="text-yellow-800 font-semibold text-center mb-2">
+                    ⚠️ IMPORTANTE: Revisa tu carpeta de SPAM
+                  </p>
+                  <p className="text-yellow-700 text-sm text-center">
+                    Si no ves más correos nuestros en tu bandeja principal, búscalos en spam/correo no deseado y márcanos como "no es spam"
+                  </p>
+                </div>
+                
                 <div className="space-y-3 text-gray-800">
                   <p>Ahí encontrarás las instrucciones importantes para el siguiente paso.</p>
                   <p>Ese correo te dirá cómo revisar tu web y cómo avanzar en la publicación si decides hacerlo.</p>
