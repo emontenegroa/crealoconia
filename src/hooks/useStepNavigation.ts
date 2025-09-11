@@ -48,11 +48,11 @@ export const useStepNavigation = () => {
       setShowFullForm(true);
       setShowResults(false);
       setCurrentWizardStep(2);
-    } else if (currentStep === 5) {
-      // Paso 5: Resultados/Felicidades
-      setShowFullForm(true);
+    } else if (currentStep >= 5) {
+      // Paso 5+: Redirigir a resultados
+      setShowFullForm(false);
       setShowResults(true);
-      setCurrentWizardStep(3);
+      setCurrentWizardStep(0);
     }
   }, [location.search]);
   
@@ -73,7 +73,8 @@ export const useStepNavigation = () => {
   };
   
   const goToResults = () => {
-    updateStepInURL(5);
+    // Redirigir a la página de resultados en lugar de step=5
+    window.location.href = '/resultados';
   };
   
   return {
