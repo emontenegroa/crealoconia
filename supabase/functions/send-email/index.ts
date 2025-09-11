@@ -252,15 +252,15 @@ const handler = async (req: Request): Promise<Response> => {
                     Para que te inspires, aquí algunos proyectos que ya hemos generado:
                   </p>
                   
-                  <div style="margin: 16px 0;">
-                    <p style="color: #6b7280; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 20px;">
-                      • Total Sport<br>
-                      • Gatitos<br>
-                      • MST Traslados<br>
-                      • Esteban Montenegro<br>
-                      • Hampi
-                    </p>
-                  </div>
+                   <div style="margin: 16px 0;">
+                     <p style="color: #6b7280; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 20px;">
+                       • <a href="https://totalsport.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">Total Sport</a><br>
+                       • <a href="https://gatitos.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">Gatitos</a><br>
+                       • <a href="https://mstraslados.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">MST Traslados</a><br>
+                       • <a href="https://emontenegroa.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">Esteban Montenegro</a><br>
+                       • <a href="https://hampi.cl/" style="color: #3b82f6; text-decoration: none;">Hampi</a>
+                     </p>
+                   </div>
                   
                   <p style="color: #4b5563; font-size: 16px; line-height: 1.5; margin: 16px 0 0 0;">
                     Cada uno nació de las mismas 10 preguntas que respondiste en el formulario.
@@ -293,15 +293,8 @@ const handler = async (req: Request): Promise<Response> => {
                     Si luego decides publicar tu sitio, potenciaremos aún más tu comunicación digital.
                   </p>
                   
-                  <div style="background: white; border: 1px solid #d1fae5; border-radius: 8px; padding: 20px; position: relative;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                      <h3 style="color: #059669; font-size: 16px; font-weight: 600; margin: 0;">Tu Super Prompt personalizado:</h3>
-                      <button 
-                        onclick="navigator.clipboard.writeText(document.getElementById('superPromptContent').textContent); this.textContent='✅ Copiado!'; this.style.background='#10b981'; setTimeout(() => { this.textContent='📋 Copiar'; this.style.background='#059669'; }, 2000)" 
-                        style="background: #059669; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
-                        📋 Copiar
-                      </button>
-                    </div>
+                   <div style="background: white; border: 1px solid #d1fae5; border-radius: 8px; padding: 20px; position: relative;">
+                     <h3 style="color: #059669; font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">Tu Super Prompt personalizado:</h3>
                     <div 
                       id="superPromptContent" 
                       style="font-family: 'SF Mono', Monaco, 'Courier New', monospace; font-size: 12px; line-height: 1.4; white-space: pre-wrap; max-height: 200px; overflow-y: auto; color: #374151; background: #f9fafb; padding: 16px; border-radius: 4px; border: 1px solid #e5e7eb;">
