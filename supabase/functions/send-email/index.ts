@@ -1,5 +1,6 @@
 
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.8';
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -8,9 +9,10 @@ const corsHeaders = {
 };
 
 interface EmailRequest {
-  type: 'test' | 'admin' | 'confirmation';
+  type: 'test' | 'admin' | 'confirmation' | 'custom' | 'follow-up';
   email: string;
   data?: any;
+  submissionId?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -21,13 +23,23 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const BREVO_API_KEY = Deno.env.get('BREVO_API_KEY');
+    const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
+    const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
     
     if (!BREVO_API_KEY) {
       console.error('❌ BREVO_API_KEY no está configurada');
       throw new Error('BREVO_API_KEY no está configurada en las variables de entorno');
     }
 
-    const { type, email, data }: EmailRequest = await req.json();
+    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+      console.error('❌ Variables de Supabase no están configuradas');
+      throw new Error('Variables de Supabase no están configuradas');
+    }
+
+    // Inicializar cliente de Supabase
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
+    const { type, email, data, submissionId }: EmailRequest = await req.json();
     
     console.log(`📧 Enviando email de tipo: ${type} a: ${email}`);
 
@@ -427,6 +439,92 @@ FORMATOS DISPONIBLES:
         }
       );
 
+    } else if (type === 'custom') {
+      // Email personalizado
+      emailPayload = {
+        sender: {
+          name: "Esteban de CrealoconIA",
+          email: "esteban@crealoconia.com"
+        },
+        to: [{ email: email, name: data.name || email }],
+        subject: data.subject || "Mensaje personalizado de CrealoconIA",
+        htmlContent: data.message || "Mensaje personalizado enviado desde CrealoconIA"
+      };
+    } else if (type === 'follow-up') {
+      // Email de seguimiento predefinido
+      emailPayload = {
+        sender: {
+          name: "Esteban de CrealoconIA",
+          email: "esteban@crealoconia.com"
+        },
+        to: [{ email: email, name: data.name || email }],
+        subject: "¿Quieres completar tu sitio web en CrealoconIA?",
+        htmlContent: `
+          <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; padding: 0;">
+            
+            <div style="background: white; padding: 32px 32px 24px 32px;">
+              <h1 style="color: #1f2937; font-size: 24px; font-weight: 600; margin: 0 0 16px 0; line-height: 1.3;">
+                Hola ${data.name || 'allí'},
+              </h1>
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0;">
+                Vimos que iniciaste el proceso en CrealoconIA, pero no llegaste a completar las preguntas.
+              </p>
+            </div>
+
+            <div style="padding: 0 32px 32px 32px;">
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0;">
+                Esas preguntas son la clave: con ellas nuestro sistema crea tu sitio web automáticamente, con textos, diseño y estructura pensados para tu proyecto.
+              </p>
+
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 24px; margin: 24px 0;">
+                <p style="color: #059669; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">
+                  👉 Si completas el formulario ahora, podrás tener tu sitio en minutos y revisarlo de inmediato.
+                </p>
+                <div style="text-align: center; margin: 24px 0;">
+                  <a href="https://crealoconia.com" style="background: #059669; color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">
+                    Completar formulario aquí
+                  </a>
+                </div>
+              </div>
+
+              <h3 style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 24px 0 16px 0;">
+                ¿Por qué vale la pena terminarlo?
+              </h3>
+              <ul style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0; padding-left: 20px;">
+                <li style="margin-bottom: 8px;">✅ Obtienes un sitio web real, no una demo</li>
+                <li style="margin-bottom: 8px;">✅ Hecho a partir de tus respuestas, sin plantillas genéricas</li>
+                <li style="margin-bottom: 8px;">✅ Disponible para revisión gratuita antes de decidir avanzar</li>
+                <li style="margin-bottom: 8px;">✅ Una forma rápida de ver tu negocio en digital sin dolores de cabeza técnicos</li>
+              </ul>
+
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 24px 0;">
+                Recuerda: quienes completan el formulario reciben su sitio web listo para ver, navegar y evaluar.
+              </p>
+
+              <div style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; margin: 24px 0; text-align: center;">
+                <p style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">
+                  El siguiente paso está en tus manos:
+                </p>
+                <a href="https://crealoconia.com" style="background: #059669; color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 16px;">
+                  👉 Completar formulario aquí
+                </a>
+                <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 16px 0 0 0;">
+                  Si tienes dudas, escríbeme directo a WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none;">+56 9 6279 1772</a>
+                </p>
+              </div>
+
+              <div style="background: #f8fafc; padding: 24px; border-top: 1px solid #e5e7eb; margin-top: 32px;">
+                <p style="color: #4b5563; font-size: 16px; margin: 0 0 8px 0; line-height: 1.6;">
+                  Saludos,<br>
+                  <strong>Esteban Montenegro</strong><br>
+                  Fundador de CrealoconIA<br>
+                  📲 WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none;">+56 9 6279 1772</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        `
+      };
     } else {
       return new Response(JSON.stringify({ error: 'Tipo de email no válido' }), {
         status: 400,
@@ -451,6 +549,47 @@ FORMATOS DISPONIBLES:
     if (response.ok) {
       const responseData = await response.json();
       console.log('✅ Email enviado exitosamente via Brevo v3:', responseData);
+      
+      // Agregar tag automáticamente después de enviar el email
+      if (submissionId && (type === 'custom' || type === 'follow-up')) {
+        try {
+          const tagToAdd = type === 'custom' ? 'email-personalizado' : 'email-seguimiento';
+          
+          // Obtener el registro actual para conservar tags existentes
+          const { data: currentSubmission, error: fetchError } = await supabase
+            .from('form_submissions')
+            .select('tags')
+            .eq('id', submissionId)
+            .single();
+
+          if (!fetchError && currentSubmission) {
+            const currentTags = currentSubmission.tags || [];
+            const newTags = [...currentTags];
+            
+            // Solo agregar el tag si no existe ya
+            if (!newTags.includes(tagToAdd)) {
+              newTags.push(tagToAdd);
+              
+              const { error: updateError } = await supabase
+                .from('form_submissions')
+                .update({ tags: newTags })
+                .eq('id', submissionId);
+
+              if (updateError) {
+                console.error('❌ Error actualizando tags:', updateError);
+              } else {
+                console.log(`✅ Tag '${tagToAdd}' agregado automáticamente al registro ${submissionId}`);
+              }
+            } else {
+              console.log(`📝 Tag '${tagToAdd}' ya existe en el registro ${submissionId}`);
+            }
+          }
+        } catch (tagError) {
+          console.error('❌ Error procesando tags:', tagError);
+          // No fallar el envío del email por error en tags
+        }
+      }
+      
       return new Response(JSON.stringify({ 
         success: true, 
         data: responseData,

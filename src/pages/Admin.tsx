@@ -485,11 +485,14 @@ Fundador de CrealoconIA
       
       const { data, error } = await supabase.functions.invoke('send-email', {
         body: {
-          type: 'custom',
-          to: selectedEmailSubmission.email,
-          subject: customEmailSubject,
-          content: customEmailContent,
-          name: selectedEmailSubmission.form_data?.marca || selectedEmailSubmission.email
+          type: emailType,
+          email: selectedEmailSubmission.email,
+          submissionId: selectedEmailSubmission.id,
+          data: {
+            subject: customEmailSubject,
+            message: customEmailContent,
+            name: selectedEmailSubmission.form_data?.marca || selectedEmailSubmission.email
+          }
         }
       });
 
@@ -504,6 +507,8 @@ Fundador de CrealoconIA
       setSelectedEmailSubmission(null);
       setCustomEmailSubject('');
       setCustomEmailContent('');
+      // Recargar datos para mostrar el tag actualizado
+      loadSubmissions();
     } catch (error: any) {
       console.error('Error enviando email:', error);
       toast({
