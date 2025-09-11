@@ -451,8 +451,6 @@ export default function Admin({ onLogout }: AdminProps) {
   };
 
   const getMissingFields = (formData: any) => {
-    if (!formData) return ['email', 'marca', 'whatsapp', 'website', 'instagram', 'quien_eres', 'problemas', 'preguntas_frecuentes', 'estilo', 'producto'];
-    
     const fieldLabels = {
       'email': 'Email',
       'marca': 'Marca',
@@ -466,11 +464,17 @@ export default function Admin({ onLogout }: AdminProps) {
       'producto': 'Producto'
     };
     
+    if (!formData) return Object.values(fieldLabels);
+    
     const fields = Object.keys(fieldLabels);
     
     const missingFields = fields.filter(field => {
       const value = formData[field];
-      return !value || value.toString().trim().length === 0;
+      const isEmpty = !value || 
+                     (typeof value === 'string' && value.trim().length === 0) || 
+                     (Array.isArray(value) && value.length === 0) ||
+                     (typeof value === 'object' && value !== null && Object.keys(value).length === 0);
+      return isEmpty;
     });
     
     return missingFields.map(field => fieldLabels[field]);
@@ -760,7 +764,8 @@ Fundador de CrealoconIA
                 {loading ? (
                   <div className="text-center py-8">Cargando datos...</div>
                 ) : (
-                  <div className="overflow-x-auto">
+                  <TooltipProvider>
+                    <div className="overflow-x-auto">
                     <table className="w-full border-collapse min-w-[800px]">
                       <thead>
                         <tr className="border-b">
@@ -808,29 +813,27 @@ Fundador de CrealoconIA
                             </td>
                             <td className="p-2 max-w-[150px] truncate" title={submission.form_data?.marca || '-'}>{submission.form_data?.marca || '-'}</td>
                             <td className="p-2">
-                              <TooltipProvider>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Badge variant="outline" className="text-xs cursor-help">
-                                      {calculateProgress(submission.form_data)}/10
-                                    </Badge>
-                                  </TooltipTrigger>
-                                  <TooltipContent className="max-w-xs">
-                                    {getMissingFields(submission.form_data).length > 0 ? (
-                                      <div>
-                                        <p className="font-medium mb-1">Campos faltantes:</p>
-                                        <ul className="text-xs space-y-0.5">
-                                          {getMissingFields(submission.form_data).map((field, index) => (
-                                            <li key={index}>• {field}</li>
-                                          ))}
-                                        </ul>
-                                      </div>
-                                    ) : (
-                                      <p className="text-xs">✅ Todos los campos completados</p>
-                                    )}
-                                  </TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Badge variant="outline" className="text-xs cursor-help">
+                                    {calculateProgress(submission.form_data)}/10
+                                  </Badge>
+                                </TooltipTrigger>
+                                <TooltipContent className="max-w-xs p-3 z-50 bg-popover border border-border">
+                                  {getMissingFields(submission.form_data).length > 0 ? (
+                                    <div>
+                                      <p className="font-medium mb-2">Campos faltantes:</p>
+                                      <ul className="text-xs space-y-1">
+                                        {getMissingFields(submission.form_data).map((field, index) => (
+                                          <li key={index}>• {field}</li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  ) : (
+                                    <p className="text-xs">✅ Todos los campos completados</p>
+                                  )}
+                                </TooltipContent>
+                              </Tooltip>
                             </td>
                             <td className="p-2">
                               <div className="flex flex-wrap gap-1">
@@ -938,7 +941,8 @@ Fundador de CrealoconIA
                         ))}
                       </tbody>
                     </table>
-                  </div>
+                    </div>
+                  </TooltipProvider>
                 )}
               </CardContent>
             </Card>
