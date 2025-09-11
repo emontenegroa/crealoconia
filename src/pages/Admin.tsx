@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Download, Edit, Trash2, Eye, Filter, RefreshCw, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle, Copy } from 'lucide-react';
+import { Download, Edit, Trash2, Eye, Filter, RefreshCw, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle, Copy, MessageCircle, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
 import ThemeToggle from '@/components/ui/ThemeToggle';
@@ -25,6 +25,7 @@ interface FormSubmission {
   updated_at: string;
   completed: boolean;
   attempt_number: number;
+  tags: string[];
 }
 
 interface AdminFilters {
@@ -33,6 +34,7 @@ interface AdminFilters {
   dateFrom: string;
   dateTo: string;
   hasLovablePrompt: boolean | null;
+  tag: string;
 }
 
 interface AdminProps {
@@ -50,12 +52,18 @@ export default function Admin({ onLogout }: AdminProps) {
   const [activeTab, setActiveTab] = useState<'submissions' | 'email-tests'>('submissions');
   const [emailTesting, setEmailTesting] = useState(false);
   const [emailTestResult, setEmailTestResult] = useState<any>(null);
+  const [showEmailDialog, setShowEmailDialog] = useState(false);
+  const [selectedEmailSubmission, setSelectedEmailSubmission] = useState<FormSubmission | null>(null);
+  const [emailType, setEmailType] = useState<'custom' | 'follow-up'>('custom');
+  const [customEmailSubject, setCustomEmailSubject] = useState('');
+  const [customEmailContent, setCustomEmailContent] = useState('');
   const [filters, setFilters] = useState<AdminFilters>({
     email: '',
     completed: null,
     dateFrom: '',
     dateTo: '',
-    hasLovablePrompt: null
+    hasLovablePrompt: null,
+    tag: ''
   });
   const { toast } = useToast();
   const { sendTestEmail } = useEmailHandling();
@@ -151,6 +159,14 @@ export default function Admin({ onLogout }: AdminProps) {
         const hasPrompt = sub.form_data?.generatedPrompts?.lovablePrompt;
         return filters.hasLovablePrompt ? !!hasPrompt : !hasPrompt;
       });
+    }
+
+    if (filters.tag) {
+      filtered = filtered.filter(sub => 
+        sub.tags && sub.tags.some(tag => 
+          tag.toLowerCase().includes(filters.tag.toLowerCase())
+        )
+      );
     }
 
     setFilteredSubmissions(filtered);
@@ -404,8 +420,100 @@ export default function Admin({ onLogout }: AdminProps) {
       completed: null,
       dateFrom: '',
       dateTo: '',
-      hasLovablePrompt: null
+      hasLovablePrompt: null,
+      tag: ''
     });
+  };
+
+  const handleWhatsAppContact = (submission: FormSubmission) => {
+    const name = submission.form_data?.marca || submission.email;
+    const message = `Hola ${name}! Te escribo desde CrealoconIA. ¿Cómo estás?`;
+    const url = `https://wa.me/56962791772?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+
+  const handleSendEmail = (submission: FormSubmission, type: 'custom' | 'follow-up') => {
+    setSelectedEmailSubmission(submission);
+    setEmailType(type);
+    if (type === 'follow-up') {
+      setCustomEmailSubject('¿Completamos tu sitio web en CrealoconIA?');
+      setCustomEmailContent(`Hola ${submission.form_data?.marca || submission.email},
+
+Vimos que iniciaste el proceso en CrealoconIA, pero no llegaste a completar las preguntas.
+Esas preguntas son la clave: con ellas nuestro sistema crea tu sitio web automáticamente, con textos, diseño y estructura pensados para tu proyecto.
+
+👉 Si completas el formulario ahora, podrás tener tu sitio en minutos y revisarlo de inmediato.
+
+Completar formulario aquí: ${window.location.origin}
+
+¿Por qué vale la pena terminarlo?
+✅ Obtienes un sitio web real, no una demo
+✅ Hecho a partir de tus respuestas, sin plantillas genéricas
+✅ Disponible para revisión gratuita antes de decidir avanzar
+✅ Una forma rápida de ver tu negocio en digital sin dolores de cabeza técnicos
+
+Recuerda: quienes completan el formulario reciben su sitio web listo para ver, navegar y evaluar.
+
+El siguiente paso está en tus manos:
+👉 Completar formulario aquí: ${window.location.origin}
+
+Si tienes dudas, escríbeme directo a WhatsApp: +56 9 6279 1772
+
+Saludos,
+Esteban Montenegro
+Fundador de CrealoconIA
+📲 WhatsApp: +56 9 6279 1772`);
+    } else {
+      setCustomEmailSubject('');
+      setCustomEmailContent('');
+    }
+    setShowEmailDialog(true);
+  };
+
+  const sendCustomEmail = async () => {
+    if (!selectedEmailSubmission || !customEmailSubject || !customEmailContent) {
+      toast({
+        title: "Error",
+        description: "Por favor completa todos los campos",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      setEmailTesting(true);
+      
+      const { data, error } = await supabase.functions.invoke('send-email', {
+        body: {
+          type: 'custom',
+          to: selectedEmailSubmission.email,
+          subject: customEmailSubject,
+          content: customEmailContent,
+          name: selectedEmailSubmission.form_data?.marca || selectedEmailSubmission.email
+        }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Email enviado",
+        description: `Email enviado correctamente a ${selectedEmailSubmission.email}`,
+      });
+      
+      setShowEmailDialog(false);
+      setSelectedEmailSubmission(null);
+      setCustomEmailSubject('');
+      setCustomEmailContent('');
+    } catch (error: any) {
+      console.error('Error enviando email:', error);
+      toast({
+        title: "Error",
+        description: `Error al enviar email: ${error.message}`,
+        variant: "destructive"
+      });
+    } finally {
+      setEmailTesting(false);
+    }
   };
 
   return (
@@ -545,6 +653,16 @@ export default function Admin({ onLogout }: AdminProps) {
                   </div>
 
                   <div>
+                    <Label htmlFor="tag-filter">Tag</Label>
+                    <Input
+                      id="tag-filter"
+                      placeholder="Buscar por tag..."
+                      value={filters.tag}
+                      onChange={(e) => setFilters({...filters, tag: e.target.value})}
+                    />
+                  </div>
+
+                  <div>
                     <Label htmlFor="lovable-filter">Prompt Lovable</Label>
                     <Select
                       value={filters.hasLovablePrompt === null ? 'all' : filters.hasLovablePrompt.toString()}
@@ -600,8 +718,9 @@ export default function Admin({ onLogout }: AdminProps) {
                           <th className="text-left p-2 min-w-[100px]">Estado</th>
                           <th className="text-left p-2 min-w-[100px]">Fecha</th>
                           <th className="text-left p-2 min-w-[150px]">Marca</th>
+                          <th className="text-left p-2 min-w-[120px]">Tags</th>
                           <th className="text-left p-2 min-w-[120px]">Prompt Lovable</th>
-                          <th className="text-left p-2 min-w-[150px]">Acciones</th>
+                          <th className="text-left p-2 min-w-[200px]">Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -625,64 +744,106 @@ export default function Admin({ onLogout }: AdminProps) {
                             </td>
                             <td className="p-2 max-w-[150px] truncate" title={submission.form_data?.marca || '-'}>{submission.form_data?.marca || '-'}</td>
                             <td className="p-2">
+                              <div className="flex flex-wrap gap-1">
+                                {submission.tags && submission.tags.length > 0 ? (
+                                  submission.tags.map((tag, index) => (
+                                    <Badge key={index} variant="outline" className="text-xs">
+                                      {tag}
+                                    </Badge>
+                                  ))
+                                ) : (
+                                  <span className="text-muted-foreground text-sm">Sin tags</span>
+                                )}
+                              </div>
+                            </td>
+                            <td className="p-2">
                               <Badge variant={submission.form_data?.generatedPrompts?.lovablePrompt ? "default" : "outline"}>
                                 {submission.form_data?.generatedPrompts?.lovablePrompt ? "Sí" : "No"}
                               </Badge>
                             </td>
-                            <td className="p-2">
-                              <div className="flex gap-1">
-                                <Dialog>
-                                  <DialogTrigger asChild>
-                                    <Button 
-                                      size="sm" 
-                                      variant="ghost"
-                                      onClick={() => setSelectedSubmission(submission)}
-                                    >
-                                      <Eye className="w-4 h-4" />
-                                    </Button>
-                                  </DialogTrigger>
-                                  <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                                    <DialogHeader>
-                                      <DialogTitle>Detalles del Envío</DialogTitle>
-                                    </DialogHeader>
-                                    <SubmissionDetails submission={submission} />
-                                  </DialogContent>
-                                </Dialog>
-                                
-                                <Button 
-                                  size="sm" 
-                                  variant="ghost"
-                                  onClick={() => {
-                                    setSelectedSubmission(submission);
-                                    setEditMode(true);
-                                  }}
-                                >
-                                  <Edit className="w-4 h-4" />
-                                </Button>
-                                
-                                <AlertDialog>
-                                  <AlertDialogTrigger asChild>
-                                    <Button size="sm" variant="ghost">
-                                      <Trash2 className="w-4 h-4" />
-                                    </Button>
-                                  </AlertDialogTrigger>
-                                  <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                      <AlertDialogTitle>¿Confirmar eliminación?</AlertDialogTitle>
-                                      <AlertDialogDescription>
-                                        Esta acción no se puede deshacer. Se eliminará permanentemente el registro de {submission.email}.
-                                      </AlertDialogDescription>
-                                    </AlertDialogHeader>
-                                    <AlertDialogFooter>
-                                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                      <AlertDialogAction onClick={() => deleteSubmission(submission.id)}>
-                                        Eliminar
-                                      </AlertDialogAction>
-                                    </AlertDialogFooter>
-                                  </AlertDialogContent>
-                                </AlertDialog>
-                              </div>
-                            </td>
+                             <td className="p-2">
+                               <div className="flex gap-1 flex-wrap">
+                                 <Dialog>
+                                   <DialogTrigger asChild>
+                                     <Button 
+                                       size="sm" 
+                                       variant="ghost"
+                                       onClick={() => setSelectedSubmission(submission)}
+                                       title="Ver detalles"
+                                     >
+                                       <Eye className="w-4 h-4" />
+                                     </Button>
+                                   </DialogTrigger>
+                                   <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                                     <DialogHeader>
+                                       <DialogTitle>Detalles del Envío</DialogTitle>
+                                     </DialogHeader>
+                                     <SubmissionDetails submission={submission} />
+                                   </DialogContent>
+                                 </Dialog>
+                                 
+                                 <Button 
+                                   size="sm" 
+                                   variant="ghost"
+                                   onClick={() => {
+                                     setSelectedSubmission(submission);
+                                     setEditMode(true);
+                                   }}
+                                   title="Editar"
+                                 >
+                                   <Edit className="w-4 h-4" />
+                                 </Button>
+
+                                 <Button 
+                                   size="sm" 
+                                   variant="ghost"
+                                   onClick={() => handleWhatsAppContact(submission)}
+                                   className="text-green-600 hover:text-green-700"
+                                   title="Contactar por WhatsApp"
+                                 >
+                                   <MessageCircle className="w-4 h-4" />
+                                 </Button>
+
+                                 <Select onValueChange={(value) => handleSendEmail(submission, value as 'custom' | 'follow-up')}>
+                                   <SelectTrigger asChild>
+                                     <Button 
+                                       size="sm" 
+                                       variant="ghost"
+                                       className="text-blue-600 hover:text-blue-700"
+                                       title="Enviar email"
+                                     >
+                                       <Mail className="w-4 h-4" />
+                                     </Button>
+                                   </SelectTrigger>
+                                   <SelectContent>
+                                     <SelectItem value="custom">Email personalizado</SelectItem>
+                                     <SelectItem value="follow-up">Email seguimiento</SelectItem>
+                                   </SelectContent>
+                                 </Select>
+                                 
+                                 <AlertDialog>
+                                   <AlertDialogTrigger asChild>
+                                     <Button size="sm" variant="ghost" title="Eliminar">
+                                       <Trash2 className="w-4 h-4" />
+                                     </Button>
+                                   </AlertDialogTrigger>
+                                   <AlertDialogContent>
+                                     <AlertDialogHeader>
+                                       <AlertDialogTitle>¿Confirmar eliminación?</AlertDialogTitle>
+                                       <AlertDialogDescription>
+                                         Esta acción no se puede deshacer. Se eliminará permanentemente el registro de {submission.email}.
+                                       </AlertDialogDescription>
+                                     </AlertDialogHeader>
+                                     <AlertDialogFooter>
+                                       <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                       <AlertDialogAction onClick={() => deleteSubmission(submission.id)}>
+                                         Eliminar
+                                       </AlertDialogAction>
+                                     </AlertDialogFooter>
+                                   </AlertDialogContent>
+                                 </AlertDialog>
+                               </div>
+                             </td>
                           </tr>
                         ))}
                       </tbody>
@@ -868,6 +1029,68 @@ export default function Admin({ onLogout }: AdminProps) {
           />
         )}
       </div>
+
+      {/* Dialog para envío de emails personalizados */}
+      <Dialog open={showEmailDialog} onOpenChange={setShowEmailDialog}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>
+              {emailType === 'custom' ? 'Enviar Email Personalizado' : 'Enviar Email de Seguimiento'}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="recipient">Destinatario</Label>
+              <Input
+                id="recipient"
+                value={selectedEmailSubmission?.email || ''}
+                disabled
+              />
+            </div>
+            <div>
+              <Label htmlFor="subject">Asunto</Label>
+              <Input
+                id="subject"
+                value={customEmailSubject}
+                onChange={(e) => setCustomEmailSubject(e.target.value)}
+                placeholder="Asunto del email"
+              />
+            </div>
+            <div>
+              <Label htmlFor="content">Contenido</Label>
+              <Textarea
+                id="content"
+                value={customEmailContent}
+                onChange={(e) => setCustomEmailContent(e.target.value)}
+                placeholder="Contenido del email"
+                className="min-h-[300px]"
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setShowEmailDialog(false)}
+                disabled={emailTesting}
+              >
+                Cancelar
+              </Button>
+              <Button
+                onClick={sendCustomEmail}
+                disabled={emailTesting || !customEmailSubject || !customEmailContent}
+              >
+                {emailTesting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Enviando...
+                  </>
+                ) : (
+                  'Enviar Email'
+                )}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
@@ -999,16 +1222,19 @@ const EditSubmissionModal: React.FC<{
   const [formData, setFormData] = useState({
     email: submission.email,
     completed: submission.completed,
-    form_data: JSON.stringify(submission.form_data, null, 2)
+    form_data: JSON.stringify(submission.form_data, null, 2),
+    tags: submission.tags?.join(', ') || ''
   });
 
   const handleSave = () => {
     try {
       const parsedFormData = JSON.parse(formData.form_data);
+      const tagsArray = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
       onUpdate(submission.id, {
         email: formData.email,
         completed: formData.completed,
-        form_data: parsedFormData
+        form_data: parsedFormData,
+        tags: tagsArray
       });
     } catch (error) {
       alert('Error en el formato JSON de los datos del formulario');
@@ -1040,6 +1266,16 @@ const EditSubmissionModal: React.FC<{
               onChange={(e) => setFormData({...formData, completed: e.target.checked})}
             />
             <Label htmlFor="edit-completed">Completado</Label>
+          </div>
+
+          <div>
+            <Label htmlFor="edit-tags">Tags (separados por comas)</Label>
+            <Input
+              id="edit-tags"
+              value={formData.tags}
+              onChange={(e) => setFormData({...formData, tags: e.target.value})}
+              placeholder="tag1, tag2, tag3"
+            />
           </div>
           
           <div>

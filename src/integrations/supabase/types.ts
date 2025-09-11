@@ -115,6 +115,7 @@ export type Database = {
           email: string
           form_data: Json
           id: string
+          tags: string[] | null
           updated_at: string
         }
         Insert: {
@@ -124,6 +125,7 @@ export type Database = {
           email: string
           form_data?: Json
           id?: string
+          tags?: string[] | null
           updated_at?: string
         }
         Update: {
@@ -133,6 +135,7 @@ export type Database = {
           email?: string
           form_data?: Json
           id?: string
+          tags?: string[] | null
           updated_at?: string
         }
         Relationships: []
