@@ -174,7 +174,7 @@ export default function Admin({ onLogout }: AdminProps) {
   };
 
   const exportToCSV = () => {
-    const headers = ['Email', 'Completado', 'Fecha Creación', 'Intentos', 'Tiene Prompt Lovable', 'Marca', 'Quien Eres'];
+    const headers = ['Email', 'Completado', 'Fecha Creación', 'Intentos', 'Progreso', 'Tiene Prompt Lovable', 'Marca', 'Quien Eres'];
     
     const csvData = filteredSubmissions.map(sub => [
       sub.email,
@@ -187,6 +187,7 @@ export default function Admin({ onLogout }: AdminProps) {
         minute: '2-digit'
       }),
       sub.attempt_number,
+      `${calculateProgress(sub.form_data)}/17`,
       sub.form_data?.generatedPrompts?.lovablePrompt ? 'Sí' : 'No',
       sub.form_data?.marca || '',
       sub.form_data?.quien_eres || ''
@@ -432,10 +433,31 @@ export default function Admin({ onLogout }: AdminProps) {
     });
   };
 
+  const calculateProgress = (formData: any) => {
+    if (!formData) return 0;
+    
+    const fields = [
+      'marca', 'tipoNegocio', 'audienciaObjetivo', 'problemaSoluciona', 
+      'propuestaValor', 'competencia', 'diferenciacion', 'testimonios',
+      'objetivos', 'resultadosEsperados', 'whatsapp', 'instagram',
+      'facebook', 'linkedin', 'web', 'coloresPrimarios', 'colorSecundario'
+    ];
+    
+    const completedFields = fields.filter(field => {
+      const value = formData[field];
+      return value && value.toString().trim().length > 0;
+    }).length;
+    
+    return completedFields;
+  };
+
   const handleWhatsAppContact = (submission: FormSubmission) => {
+    const whatsappNumber = submission.form_data?.whatsapp;
+    if (!whatsappNumber) return;
+    
     const name = submission.form_data?.marca || submission.email;
     const message = `Hola ${name}! Te escribo desde CrealoconIA. ¿Cómo estás?`;
-    const url = `https://wa.me/56962791772?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
 
@@ -728,6 +750,7 @@ Fundador de CrealoconIA
                           <th className="text-left p-2 min-w-[100px]">Estado</th>
                           <th className="text-left p-2 min-w-[100px]">Fecha</th>
                           <th className="text-left p-2 min-w-[150px]">Marca</th>
+                          <th className="text-left p-2 min-w-[80px]">Progreso</th>
                           <th className="text-left p-2 min-w-[120px]">Tags</th>
                           <th className="text-left p-2 min-w-[120px]">Prompt Lovable</th>
                           <th className="text-left p-2 min-w-[200px]">Acciones</th>
@@ -759,6 +782,11 @@ Fundador de CrealoconIA
                               })}
                             </td>
                             <td className="p-2 max-w-[150px] truncate" title={submission.form_data?.marca || '-'}>{submission.form_data?.marca || '-'}</td>
+                            <td className="p-2">
+                              <Badge variant="outline" className="text-xs">
+                                {calculateProgress(submission.form_data)}/17
+                              </Badge>
+                            </td>
                             <td className="p-2">
                               <div className="flex flex-wrap gap-1">
                                 {submission.tags && submission.tags.length > 0 ? (
@@ -806,15 +834,27 @@ Fundador de CrealoconIA
                                    <Edit className="w-4 h-4" />
                                  </Button>
 
-                                 <Button 
-                                   size="sm" 
-                                   variant="ghost"
-                                   onClick={() => handleWhatsAppContact(submission)}
-                                   className="text-green-600 hover:text-green-700"
-                                   title="Contactar por WhatsApp"
-                                 >
-                                   <MessageCircle className="w-4 h-4" />
-                                 </Button>
+                                  {submission.form_data?.whatsapp ? (
+                                    <Button 
+                                      size="sm" 
+                                      variant="ghost"
+                                      onClick={() => handleWhatsAppContact(submission)}
+                                      className="text-green-600 hover:text-green-700"
+                                      title={`Contactar por WhatsApp: ${submission.form_data.whatsapp}`}
+                                    >
+                                      <MessageCircle className="w-4 h-4" />
+                                    </Button>
+                                  ) : (
+                                    <Button 
+                                      size="sm" 
+                                      variant="ghost"
+                                      disabled
+                                      className="text-gray-400"
+                                      title="Sin WhatsApp registrado"
+                                    >
+                                      <MessageCircle className="w-4 h-4" />
+                                    </Button>
+                                  )}
 
                                   <Select onValueChange={(value) => handleSendEmail(submission, value as 'custom' | 'follow-up')}>
                                     <SelectTrigger className="h-8 w-8 p-0">
