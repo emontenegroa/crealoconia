@@ -94,7 +94,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
             🎉 ¡Felicitaciones!
           </h1>
           
-          <div className="max-w-3xl mx-auto space-y-6 text-lg text-gray-700 mb-8">
+          <div className="max-w-3xl mx-auto space-y-6 text-lg text-gray-800 mb-8">
             <p className="font-medium">
               Acabas de dar el paso hacia tu web fácil, rápida y profesional.
             </p>
@@ -125,7 +125,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                   📧 Revisa tu bandeja de entrada
                 </h2>
-                <div className="space-y-3 text-gray-700">
+                <div className="space-y-3 text-gray-800">
                   <p>Ahí encontrarás las instrucciones importantes para el siguiente paso.</p>
                   <p>Ese correo te dirá cómo revisar tu web y cómo avanzar en la publicación si decides hacerlo.</p>
                   <p className="font-semibold">👉 Es fundamental que lo leas para no perder tu proyecto.</p>
@@ -137,7 +137,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                   🎯 Importante
                 </h2>
-                <div className="space-y-3 text-gray-700">
+                <div className="space-y-3 text-gray-800">
                   <p>En Crealoconia no generamos sitios para todos los formularios.</p>
                   <p>Seleccionamos algunos proyectos y les creamos una propuesta 100% funcional, lista para revisar y evaluar sin compromiso.</p>
                   <p className="font-semibold">👉 Si tu sitio te convence y quieres publicarlo, avanzaremos con una sesión de ajuste y actualización para dejarlo afinado a tus necesidades y publicarlo en tu propio dominio.</p>
@@ -149,7 +149,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                   🎁 Bonus de regalo
                 </h2>
-                <div className="space-y-3 text-gray-700">
+                <div className="space-y-3 text-gray-800">
                   <p>Además de tu web, recibirás un Super Prompt exclusivo para ChatGPT.</p>
                   <p>Con él podrás crear:</p>
                   <ul className="list-disc pl-6 space-y-1">
@@ -171,21 +171,21 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                     <span className="font-bold text-gray-900">1.</span>
                     <div>
                       <span className="font-semibold">📧 Abre tu correo:</span>
-                      <span className="text-gray-700"> revisa las instrucciones.</span>
+                      <span className="text-gray-800"> revisa las instrucciones.</span>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="font-bold text-gray-900">2.</span>
                     <div>
                       <span className="font-semibold">🌐 Recibe tu web:</span>
-                      <span className="text-gray-700"> analiza el diseño funcional que hemos creado para ti.</span>
+                      <span className="text-gray-800"> analiza el diseño funcional que hemos creado para ti.</span>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="font-bold text-gray-900">3.</span>
                     <div>
                       <span className="font-semibold">🎁 Usa tu Super Prompt:</span>
-                      <span className="text-gray-700"> potencia tu comunicación digital.</span>
+                      <span className="text-gray-800"> potencia tu comunicación digital.</span>
                     </div>
                   </div>
                 </div>
@@ -196,7 +196,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                   💬 ¿Necesitas ayuda en el camino?
                 </h2>
-                <p className="text-gray-700 mb-4">Estamos disponibles para ti:</p>
+                <p className="text-gray-800 mb-4">Estamos disponibles para ti:</p>
                 <div className="flex items-center justify-center gap-4">
                   <a 
                     href={`mailto:esteban@crealoconia.com?subject=Consulta sobre mi proyecto ${formData.marca}`} 
