@@ -205,6 +205,45 @@ const handler = async (req: Request): Promise<Response> => {
                   </p>
                 </div>
                 
+                <!-- Prioridad: Información sobre el sitio web -->
+                <div style="background: #f0f9ff; border: 1px solid #e0e7ff; border-radius: 12px; padding: 32px; margin: 32px 0;">
+                  <h2 style="color: #1e40af; font-size: 24px; font-weight: 600; margin: 0 0 20px 0; text-align: center;">🌐 Tu Sitio Web Personalizado</h2>
+                  
+                  <div style="border-bottom: 1px solid #c7d2fe; padding-bottom: 20px; margin-bottom: 20px;">
+                    <h3 style="color: #1e40af; font-size: 18px; font-weight: 600; margin: 0 0 12px 0;">🔑 Inversión para publicar tu sitio</h3>
+                    
+                    <p style="color: #3730a3; font-size: 16px; line-height: 1.5; margin: 0 0 12px 0;">
+                      Lo que hacemos es seleccionar algunos proyectos y crearles una versión funcional de su sitio web, sin compromiso.
+                    </p>
+                    
+                    <p style="color: #3730a3; font-size: 16px; line-height: 1.5; margin: 0 0 12px 0;">
+                      Si el resultado te convence y quieres publicarlo, avanzamos con:
+                    </p>
+                    
+                    <div style="margin: 12px 0;">
+                      <p style="color: #4338ca; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 20px;">
+                        ✔️ Una sesión de ajuste y actualización<br>
+                        ✔️ Publicación en dominio propio .com o .cl
+                      </p>
+                    </div>
+                    
+                    <p style="color: #1e40af; font-size: 18px; line-height: 1.5; margin: 16px 0 0 0; text-align: center;">
+                      <strong>Inversión: $197.000 CLP</strong><br>
+                      <span style="color: #6366f1; font-size: 14px;">(No incluye el costo del dominio, ya que depende de la extensión y proveedor que elijas).</span>
+                    </p>
+                  </div>
+                  
+                  <div style="text-align: center;">
+                    <h3 style="color: #1e40af; font-size: 18px; font-weight: 600; margin: 0 0 12px 0;">📩 ¿Quieres avanzar?</h3>
+                    <p style="color: #3730a3; font-size: 16px; line-height: 1.5; margin: 0 0 12px 0;">
+                      Si deseas que generemos tu sitio de muestra y darle prioridad a tu proyecto, responde a este correo con un <strong>"Sí, quiero avanzar"</strong>.
+                    </p>
+                    <p style="color: #3730a3; font-size: 16px; line-height: 1.5; margin: 0;">
+                      Así podremos guiarte en el siguiente paso y acompañarte en la publicación de tu página.
+                    </p>
+                  </div>
+                </div>
+                
                 <!-- Ejemplos Section -->
                 <div style="border-bottom: 1px solid #e5e7eb; padding-bottom: 32px; margin-bottom: 32px;">
                   <h2 style="color: #1f2937; font-size: 22px; font-weight: 600; margin: 0 0 16px 0;">🌐 Ejemplos de sitios ya creados con Crealoconia</h2>
@@ -228,45 +267,20 @@ const handler = async (req: Request): Promise<Response> => {
                   </p>
                 </div>
                 
-                <!-- Inversión Section -->
-                <div style="border-bottom: 1px solid #e5e7eb; padding-bottom: 32px; margin-bottom: 32px;">
-                  <h2 style="color: #1f2937; font-size: 22px; font-weight: 600; margin: 0 0 16px 0;">🔑 Inversión para publicar tu sitio</h2>
+                <!-- Super Prompt Section - SIEMPRE INCLUIDO -->
+                <div style="background: #f0fdf4; border: 1px solid #d1fae5; border-radius: 12px; padding: 24px; margin: 32px 0;">
+                  <h2 style="color: #059669; font-size: 22px; font-weight: 600; margin: 0 0 16px 0;">🎁 Bonus adelantado: Tu Super Prompt para ChatGPT</h2>
                   
-                  <p style="color: #4b5563; font-size: 16px; line-height: 1.5; margin: 0 0 16px 0;">
-                    Lo que hacemos es seleccionar algunos proyectos y crearles una versión funcional de su sitio web, sin compromiso.
-                  </p>
-                  
-                  <p style="color: #4b5563; font-size: 16px; line-height: 1.5; margin: 0 0 16px 0;">
-                    Si el resultado te convence y quieres publicarlo, avanzamos con:
-                  </p>
-                  
-                  <div style="margin: 16px 0;">
-                    <p style="color: #6b7280; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 20px;">
-                      ✔️ Una sesión de ajuste y actualización<br>
-                      ✔️ Publicación en dominio propio .com o .cl
-                    </p>
-                  </div>
-                  
-                  <p style="color: #1f2937; font-size: 16px; line-height: 1.5; margin: 16px 0 0 0;">
-                    <strong>Inversión: $197.000 CLP</strong><br>
-                    <span style="color: #6b7280; font-size: 14px;">(No incluye el costo del dominio, ya que depende de la extensión y proveedor que elijas).</span>
-                  </p>
-                </div>
-                
-                <!-- Bonus Section -->
-                <div style="border-bottom: 1px solid #e5e7eb; padding-bottom: 32px; margin-bottom: 32px;">
-                  <h2 style="color: #1f2937; font-size: 22px; font-weight: 600; margin: 0 0 16px 0;">🎁 Bonus adelantado</h2>
-                  
-                  <p style="color: #4b5563; font-size: 16px; line-height: 1.5; margin: 0 0 16px 0;">
+                  <p style="color: #047857; font-size: 16px; line-height: 1.5; margin: 0 0 16px 0;">
                     Por haber completado el formulario, ya recibes ahora un Super Prompt optimizado para ChatGPT.
                   </p>
                   
-                  <p style="color: #4b5563; font-size: 16px; line-height: 1.5; margin: 0 0 16px 0;">
+                  <p style="color: #047857; font-size: 16px; line-height: 1.5; margin: 0 0 16px 0;">
                     Con este prompt podrás generar:
                   </p>
                   
-                  <div style="margin: 16px 0;">
-                    <p style="color: #6b7280; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 20px;">
+                  <div style="margin: 16px 0 24px 0;">
+                    <p style="color: #065f46; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 20px;">
                       • Contenido para redes sociales<br>
                       • Emails de venta y captación<br>
                       • Estrategias y guiones comerciales<br>
@@ -274,40 +288,54 @@ const handler = async (req: Request): Promise<Response> => {
                     </p>
                   </div>
                   
-                  <p style="color: #4b5563; font-size: 16px; line-height: 1.5; margin: 16px 0 0 0;">
-                    Este recurso ya es tuyo, sin condiciones.<br>
+                  <p style="color: #047857; font-size: 16px; line-height: 1.5; margin: 0 0 24px 0;">
+                    <strong>Este recurso ya es tuyo, sin condiciones.</strong><br>
                     Si luego decides publicar tu sitio, potenciaremos aún más tu comunicación digital.
                   </p>
-                </div>
-                
-                ${formData.generatedPrompts?.superPrompt ? `
-                <!-- Super Prompt Section -->
-                <div style="background: #f0f9ff; border: 1px solid #e0e7ff; border-radius: 8px; padding: 24px; margin: 32px 0;">
-                  <h2 style="color: #1e40af; font-size: 18px; font-weight: 600; margin: 0 0 12px 0;">🤖 Tu Super Prompt para ChatGPT</h2>
-                  <p style="color: #1e40af; font-size: 14px; margin: 0 0 16px 0;">
-                    Copia este prompt completo y úsalo en ChatGPT para generar todo tu contenido:
-                  </p>
-                  <div style="background: white; border: 1px solid #e5e7eb; border-radius: 6px; padding: 16px; font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.4; white-space: pre-wrap; max-height: 200px; overflow-y: auto;">
-${formData.generatedPrompts.superPrompt}
+                  
+                  <div style="background: white; border: 1px solid #d1fae5; border-radius: 8px; padding: 20px; position: relative;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                      <h3 style="color: #059669; font-size: 16px; font-weight: 600; margin: 0;">Tu Super Prompt personalizado:</h3>
+                      <button 
+                        onclick="navigator.clipboard.writeText(document.getElementById('superPromptContent').textContent); this.textContent='✅ Copiado!'; this.style.background='#10b981'; setTimeout(() => { this.textContent='📋 Copiar'; this.style.background='#059669'; }, 2000)" 
+                        style="background: #059669; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                        📋 Copiar
+                      </button>
+                    </div>
+                    <div 
+                      id="superPromptContent" 
+                      style="font-family: 'SF Mono', Monaco, 'Courier New', monospace; font-size: 12px; line-height: 1.4; white-space: pre-wrap; max-height: 200px; overflow-y: auto; color: #374151; background: #f9fafb; padding: 16px; border-radius: 4px; border: 1px solid #e5e7eb;">
+${formData.generatedPrompts?.superPrompt || `Eres un experto en estrategia digital y copywriting para ${formData.marca || 'mi marca'}. Tu objetivo es crear contenido que convierta y posicione la marca como líder en su sector.
+
+CONTEXTO DE LA MARCA:
+- Marca: ${formData.marca || '[Nombre de la marca]'}
+- Perfil: ${formData.quien_eres || '[Descripción del negocio]'}
+- Problemas que resuelve: ${formData.problemas || '[Problemas principales]'}
+- Producto/servicio principal: ${formData.producto || '[Producto o servicio]'}
+- Estilo de comunicación: ${formData.estilo || 'profesional y cercano'}
+
+INSTRUCCIONES:
+1. Siempre mantén el tono ${formData.estilo || 'profesional y cercano'}
+2. Enfócate en los beneficios, no solo en las características
+3. Usa datos y testimonios cuando sea posible
+4. Incluye llamadas a la acción claras y específicas
+5. Adapta el contenido al canal (Instagram, LinkedIn, email, etc.)
+
+FORMATOS DISPONIBLES:
+- Posts para redes sociales
+- Emails de marketing
+- Textos para landing pages
+- Scripts para videos
+- Descripciones de productos
+- Campañas publicitarias
+
+¿Qué tipo de contenido necesitas crear hoy?`}
+                    </div>
                   </div>
-                </div>
-                ` : ''}
-                
-                <!-- ¿Quieres avanzar? Section -->
-                <div style="border-bottom: 1px solid #e5e7eb; padding-bottom: 32px; margin-bottom: 32px;">
-                  <h2 style="color: #1f2937; font-size: 22px; font-weight: 600; margin: 0 0 16px 0;">📩 ¿Quieres avanzar?</h2>
-                  
-                  <p style="color: #4b5563; font-size: 16px; line-height: 1.5; margin: 0 0 16px 0;">
-                    Si deseas que generemos tu sitio de muestra y darle prioridad a tu proyecto, responde a este correo con un "Sí, quiero avanzar".
-                  </p>
-                  
-                  <p style="color: #4b5563; font-size: 16px; line-height: 1.5; margin: 0;">
-                    Así podremos guiarte en el siguiente paso y acompañarte en la publicación de tu página.
-                  </p>
                 </div>
                 
                 <!-- Footer -->
-                <div style="text-align: center;">
+                <div style="text-align: center; border-top: 1px solid #e5e7eb; padding-top: 32px;">
                   <p style="color: #9ca3af; font-size: 14px; line-height: 1.5; margin: 0 0 16px 0;">
                     ✨ Sin compromiso inicial • Selección limitada de proyectos • Hecho para quienes quieren dar el paso
                   </p>
