@@ -175,6 +175,160 @@ const handler = async (req: Request): Promise<Response> => {
           </div>
         `
       };
+    } else if (type === 'admin') {
+      emailPayload = {
+        sender: {
+          name: "Kit IA - Nueva Submisión",
+          email: "noreply@crealoconia.com"
+        },
+        to: [{ email: email }],
+        subject: `🧠 Nueva submisión Kit IA - ${data?.marca || 'Sin marca'}`,
+        htmlContent: `
+          <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; background: white; padding: 20px;">
+            <div style="background: linear-gradient(135deg, #7C3AED 0%, #3B82F6 100%); padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+              <h1 style="color: white; font-size: 28px; margin: 0 0 10px 0; font-weight: bold;">🧠 Nueva Submisión - Kit IA</h1>
+              <p style="color: white; margin: 0; font-size: 16px; opacity: 0.9;">Datos del formulario completado</p>
+            </div>
+            
+            <div style="background: #F8FAFC; padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #3B82F6;">
+              <h2 style="color: #1E293B; margin: 0 0 15px 0; font-size: 18px;">📊 Información Básica</h2>
+              <p style="margin: 8px 0; color: #475569;"><strong>Marca/Negocio:</strong> ${data?.marca || 'No especificado'}</p>
+              <p style="margin: 8px 0; color: #475569;"><strong>Email:</strong> ${data?.email || 'No especificado'}</p>
+              <p style="margin: 8px 0; color: #475569;"><strong>WhatsApp:</strong> ${data?.whatsapp || 'No especificado'}</p>
+              <p style="margin: 8px 0; color: #475569;"><strong>Website:</strong> ${data?.website || 'No especificado'}</p>
+              <p style="margin: 8px 0; color: #475569;"><strong>Instagram:</strong> ${data?.instagram || 'No especificado'}</p>
+            </div>
+
+            <div style="background: #FEF7FF; padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #7C3AED;">
+              <h2 style="color: #1E293B; margin: 0 0 15px 0; font-size: 18px;">🎯 Información del Negocio</h2>
+              <p style="margin: 12px 0; color: #475569;"><strong>¿Quién eres?</strong><br>${data?.quien_eres || 'No especificado'}</p>
+              <p style="margin: 12px 0; color: #475569;"><strong>Problemas que resuelves:</strong><br>${data?.problemas || 'No especificado'}</p>
+              <p style="margin: 12px 0; color: #475569;"><strong>Preguntas frecuentes:</strong><br>${data?.preguntas_frecuentes || 'No especificado'}</p>
+              <p style="margin: 12px 0; color: #475569;"><strong>Estilo de comunicación:</strong><br>${data?.estilo || 'No especificado'}</p>
+              <p style="margin: 12px 0; color: #475569;"><strong>Producto/Servicio:</strong><br>${data?.producto || 'No especificado'}</p>
+            </div>
+
+            ${data?.generatedPrompts ? `
+            <div style="background: #F0FDF4; padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #10B981;">
+              <h2 style="color: #1E293B; margin: 0 0 15px 0; font-size: 18px;">🚀 Prompts Generados</h2>
+              <p style="margin: 8px 0; color: #059669; font-weight: 600;">✅ Super Prompt generado exitosamente</p>
+              ${data.generatedPrompts.lovablePrompt ? '<p style="margin: 8px 0; color: #059669; font-weight: 600;">✅ Prompt de Lovable generado</p>' : ''}
+            </div>
+            ` : ''}
+
+            <div style="background: #F1F5F9; padding: 20px; border-radius: 12px; text-align: center; margin-top: 30px;">
+              <p style="margin: 0; color: #64748B; font-size: 14px;">
+                Submisión recibida: ${new Date().toLocaleDateString('es-ES', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  timeZone: 'America/Santiago'
+                })}
+              </p>
+            </div>
+          </div>
+        `
+      };
+    } else if (type === 'confirmation') {
+      emailPayload = {
+        sender: {
+          name: "Esteban de CrealoconIA",
+          email: "esteban@crealoconia.com"
+        },
+        to: [{ email: email, name: data?.marca || email }],
+        subject: `🧠 Tu Kit IA está listo - ${data?.marca || 'Kit Personalizado'}`,
+        htmlContent: `
+          <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; background: white; padding: 0;">
+            
+            <!-- Header -->
+            <div style="background: linear-gradient(135deg, #7C3AED 0%, #3B82F6 100%); padding: 40px 30px; text-align: center; border-radius: 12px 12px 0 0;">
+              <h1 style="color: white; font-size: 32px; margin: 0 0 10px 0; font-weight: bold;">🧠 ¡Tu Kit IA está listo!</h1>
+              <p style="color: white; margin: 0; font-size: 18px; opacity: 0.9;">Super Prompt personalizado para ${data?.marca || 'tu proyecto'}</p>
+            </div>
+
+            <!-- Contenido principal -->
+            <div style="padding: 40px 30px;">
+              
+              <div style="background: #F0FDF4; padding: 25px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid #10B981;">
+                <h2 style="color: #059669; margin: 0 0 15px 0; font-size: 20px;">🎉 ¡Perfecto! Tu Kit IA ha sido generado</h2>
+                <p style="color: #059669; margin: 0; font-size: 16px; line-height: 1.6;">
+                  Hemos creado un <strong>Super Prompt personalizado</strong> basado en toda la información que nos proporcionaste sobre <strong>${data?.marca || 'tu proyecto'}</strong>.
+                </p>
+              </div>
+
+              <div style="background: #FEF7FF; padding: 25px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid #7C3AED;">
+                <h3 style="color: #7C3AED; margin: 0 0 15px 0; font-size: 18px;">📋 Qué incluye tu Kit IA:</h3>
+                <ul style="color: #475569; margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+                  <li>✅ <strong>Super Prompt personalizado</strong> para generar contenido específico de tu marca</li>
+                  <li>✅ <strong>15 días de contenido</strong> para redes sociales listo para usar</li>
+                  <li>✅ <strong>Textos completos para tu web</strong> optimizados para conversión</li>
+                  <li>✅ <strong>Prompt para crear tu sitio web</strong> automáticamente en Lovable</li>
+                  <li>✅ <strong>Todo personalizado</strong> según tu estilo de comunicación y audiencia</li>
+                </ul>
+              </div>
+
+              <div style="background: #F0F9FF; padding: 25px; border-radius: 12px; margin-bottom: 30px; text-align: center; border: 2px solid #3B82F6;">
+                <h3 style="color: #1E40AF; margin: 0 0 15px 0; font-size: 20px;">🚀 Próximos pasos</h3>
+                <p style="color: #1E40AF; margin: 0 0 20px 0; font-size: 16px; line-height: 1.6;">
+                  Revisa tu Kit IA directamente en la plataforma donde lo generaste. <br>
+                  <strong>¡Ya está disponible para usar!</strong>
+                </p>
+                <div style="margin: 25px 0;">
+                  <a href="https://crealoconia.com" style="background: #3B82F6; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; display: inline-block;">
+                    📱 Ver mi Kit IA ahora
+                  </a>
+                </div>
+              </div>
+
+              <div style="background: #FFFBEB; padding: 25px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid #F59E0B;">
+                <h3 style="color: #D97706; margin: 0 0 15px 0; font-size: 18px;">💡 Cómo usar tu Super Prompt</h3>
+                <ol style="color: #92400E; margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+                  <li>Copia el Super Prompt que generamos para ti</li>
+                  <li>Pégalo en ChatGPT, Claude o tu IA favorita</li>
+                  <li>¡Empieza a generar contenido profesional al instante!</li>
+                </ol>
+              </div>
+
+              <div style="background: #F8FAFC; padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+                <h3 style="color: #475569; margin: 0 0 15px 0; font-size: 18px;">📞 ¿Necesitas ayuda?</h3>
+                <p style="color: #475569; margin: 0 0 15px 0; line-height: 1.6;">
+                  Si tienes alguna duda sobre cómo usar tu Kit IA o quieres optimizar aún más tu estrategia digital, 
+                  no dudes en contactarme directamente:
+                </p>
+                <p style="color: #475569; margin: 0; line-height: 1.6;">
+                  📱 WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none; font-weight: 600;">+56 9 6279 1772</a><br>
+                  📧 Email: <a href="mailto:esteban@crealoconia.com" style="color: #3B82F6; text-decoration: none;">esteban@crealoconia.com</a>
+                </p>
+              </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div style="background: #F1F5F9; padding: 30px; text-align: center; border-radius: 0 0 12px 12px;">
+              <p style="margin: 0 0 10px 0; color: #64748B; font-size: 16px; font-weight: 600;">
+                Saludos,<br>
+                <strong style="color: #1E293B;">Esteban Montenegro</strong>
+              </p>
+              <p style="margin: 0; color: #64748B; font-size: 14px;">
+                Fundador de CrealoconIA | Experto en IA para emprendedores
+              </p>
+              <p style="margin: 10px 0 0 0; color: #94A3B8; font-size: 12px;">
+                Kit generado: ${new Date().toLocaleDateString('es-ES', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  timeZone: 'America/Santiago'
+                })}
+              </p>
+            </div>
+
+          </div>
+        `
+      };
     } else if (type === 'admin_temp_key') {
       const { tempKey } = data;
       
