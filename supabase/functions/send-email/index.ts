@@ -351,7 +351,7 @@ FORMATOS DISPONIBLES:
               <p style="color: #4b5563; font-size: 16px; margin: 0 0 8px 0; line-height: 1.6;">
                 Saludos,<br>
                 <strong>Esteban Montenegro</strong><br>
-                <a href="https://wa.me/56974445566" style="color: #059669; text-decoration: none;">WhatsApp</a><br>
+                <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none;">WhatsApp</a><br>
                 Fundador de Crealoconia.com
               </p>
             </div>
