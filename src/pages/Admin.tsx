@@ -1236,7 +1236,7 @@ const TagFilterSelect: React.FC<{ value: string; onChange: (value: string) => vo
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="all">Todos los tags</SelectItem>
-        {allTags.map((tag) => (
+        {allTags.filter(tag => tag.name && tag.name.trim() !== '').map((tag) => (
           <SelectItem key={tag.name} value={tag.name}>
             <div className="flex items-center gap-2">
               <div 

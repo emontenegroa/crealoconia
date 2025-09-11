@@ -90,12 +90,13 @@ export function TagInput({ value, onChange, placeholder = "Buscar o crear tags..
   };
 
   const handleAddTag = async (tagName: string) => {
-    if (!tagName.trim() || value.includes(tagName)) return;
+    const trimmedName = tagName.trim();
+    if (!trimmedName || value.includes(trimmedName)) return;
 
-    let existingTag = allTags.find(tag => tag.name.toLowerCase() === tagName.toLowerCase());
+    let existingTag = allTags.find(tag => tag.name.toLowerCase() === trimmedName.toLowerCase());
     
     if (!existingTag) {
-      existingTag = await createTag(tagName.trim());
+      existingTag = await createTag(trimmedName);
       if (!existingTag) return;
     }
 
