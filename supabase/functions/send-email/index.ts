@@ -108,64 +108,68 @@ const handler = async (req: Request): Promise<Response> => {
           email: "esteban@crealoconia.com"
         },
         to: [{ email: email, name: data?.name || email }],
-        subject: "¿Quieres completar tu sitio web en CrealoconIA?",
+        subject: "Completa tu información para tu sitio web personalizado",
         htmlContent: `
           <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; padding: 0;">
             
             <div style="background: white; padding: 32px 32px 24px 32px;">
               <h1 style="color: #1f2937; font-size: 24px; font-weight: 600; margin: 0 0 16px 0; line-height: 1.3;">
-                Hola ${data?.name || 'allí'},
+                Hola 👋🏻 ${data?.name || 'allí'},
               </h1>
-              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0;">
-                Vimos que iniciaste el proceso en CrealoconIA, pero no llegaste a completar las preguntas.
+              
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+                Revisamos tus respuestas en Crealoconia y vimos que quedaron incompletas o demasiado breves.
               </p>
-            </div>
 
-            <div style="padding: 0 32px 32px 32px;">
-              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0;">
-                Esas preguntas son la clave: con ellas nuestro sistema crea tu sitio web automáticamente, con textos, diseño y estructura pensados para tu proyecto.
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+                Esto es clave: <strong>mientras más detalles entregues, mejor podemos preparar tu propuesta de sitio web</strong>.
               </p>
 
               <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 24px; margin: 24px 0;">
                 <p style="color: #059669; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">
-                  👉 Si completas el formulario ahora, podrás tener tu sitio en minutos y revisarlo de inmediato.
+                  👉 La buena noticia es que aún puedes completarlo y ser considerado para la creación de tu página personalizada.
                 </p>
-                <div style="text-align: center; margin: 24px 0;">
-                  <a href="https://crealoconia.com" style="background: #059669; color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">
-                    Completar formulario aquí
-                  </a>
-                </div>
               </div>
 
-              <h3 style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 24px 0 16px 0;">
-                ¿Por qué vale la pena terminarlo?
-              </h3>
-              <ul style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0; padding-left: 20px;">
-                <li style="margin-bottom: 8px;">✅ Obtienes un sitio web real, no una demo</li>
-                <li style="margin-bottom: 8px;">✅ Hecho a partir de tus respuestas, sin plantillas genéricas</li>
-                <li style="margin-bottom: 8px;">✅ Disponible para revisión gratuita antes de decidir avanzar</li>
-                <li style="margin-bottom: 8px;">✅ Una forma rápida de ver tu negocio en digital sin dolores de cabeza técnicos</li>
-              </ul>
-
-              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 24px 0;">
-                Recuerda: quienes completan el formulario reciben su sitio web listo para ver, navegar y evaluar.
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 20px 0;">
+                Para ayudarte, añadimos un <strong>botón de IA junto a cada campo</strong>. Con él puedes mejorar tus respuestas en segundos, haciéndolas más claras y atractivas.
               </p>
 
-              <div style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; margin: 24px 0; text-align: center;">
-                <p style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">
-                  El siguiente paso está en tus manos:
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 20px 0;">
+                Recuerda: seleccionamos algunos proyectos y les creamos una propuesta 100% funcional, lista para revisar sin compromiso.
+              </p>
+
+              <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 24px; margin: 24px 0;">
+                <p style="color: #92400e; font-size: 16px; font-weight: 600; margin: 0 0 12px 0;">
+                  👉 Si el sitio te convence y decides publicarlo, avanzamos con una sesión de ajustes y la puesta en línea en un dominio propio (.com o .cl).
                 </p>
-                <a href="https://crealoconia.com" style="background: #059669; color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 16px;">
-                  👉 Completar formulario aquí
+                <p style="color: #92400e; font-size: 16px; margin: 0 0 8px 0;">
+                  Esa sesión, junto con la publicación, tiene un valor de <strong>$197.000 CLP</strong>.
+                </p>
+                <p style="color: #92400e; font-size: 14px; margin: 0; font-style: italic;">
+                  (El valor no incluye el dominio, ya que depende del proveedor que elijas).
+                </p>
+              </div>
+
+              <div style="text-align: center; margin: 32px 0;">
+                <a href="https://crealoconia.com" style="background: #059669; color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; font-size: 18px;">
+                  👉 Completa tu formulario aquí: crealoconia.com
                 </a>
-                <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 16px 0 0 0;">
-                  Si tienes dudas, escríbeme directo a WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none;">+56 9 6279 1772</a>
+              </div>
+
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 20px 0;">
+                Si tienes dudas, escríbeme directo a mi WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none; font-weight: 600;">+56 9 6279 1772</a>.
+              </p>
+
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
+                <p style="color: #059669; font-size: 18px; font-weight: 600; margin: 0;">
+                  ✅ Da el paso ahora, completa tu información y asegura tu sitio.
                 </p>
               </div>
 
               <div style="background: #f8fafc; padding: 24px; border-top: 1px solid #e5e7eb; margin-top: 32px;">
                 <p style="color: #4b5563; font-size: 16px; margin: 0 0 8px 0; line-height: 1.6;">
-                  Saludos,<br>
+                  Un saludo,<br>
                   <strong>Esteban Montenegro</strong><br>
                   Fundador de CrealoconIA<br>
                   📲 WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none;">+56 9 6279 1772</a>
