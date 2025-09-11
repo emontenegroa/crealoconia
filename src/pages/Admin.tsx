@@ -761,19 +761,19 @@ Fundador de CrealoconIA
                                 {submission.form_data?.generatedPrompts?.lovablePrompt ? "Sí" : "No"}
                               </Badge>
                             </td>
-                             <td className="p-2">
-                               <div className="flex gap-1 flex-wrap">
-                                 <Dialog>
-                                   <DialogTrigger asChild>
-                                     <Button 
-                                       size="sm" 
-                                       variant="ghost"
-                                       onClick={() => setSelectedSubmission(submission)}
-                                       title="Ver detalles"
-                                     >
-                                       <Eye className="w-4 h-4" />
-                                     </Button>
-                                   </DialogTrigger>
+                              <td className="p-2">
+                                <div className="flex gap-1 flex-wrap">
+                                  <Dialog>
+                                    <DialogTrigger>
+                                      <Button 
+                                        size="sm" 
+                                        variant="ghost"
+                                        onClick={() => setSelectedSubmission(submission)}
+                                        title="Ver detalles"
+                                      >
+                                        <Eye className="w-4 h-4" />
+                                      </Button>
+                                    </DialogTrigger>
                                    <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                                      <DialogHeader>
                                        <DialogTitle>Detalles del Envío</DialogTitle>
@@ -814,12 +814,12 @@ Fundador de CrealoconIA
                                     </SelectContent>
                                   </Select>
                                  
-                                 <AlertDialog>
-                                   <AlertDialogTrigger asChild>
-                                     <Button size="sm" variant="ghost" title="Eliminar">
-                                       <Trash2 className="w-4 h-4" />
-                                     </Button>
-                                   </AlertDialogTrigger>
+                                  <AlertDialog>
+                                    <AlertDialogTrigger>
+                                      <Button size="sm" variant="ghost" title="Eliminar">
+                                        <Trash2 className="w-4 h-4" />
+                                      </Button>
+                                    </AlertDialogTrigger>
                                    <AlertDialogContent>
                                      <AlertDialogHeader>
                                        <AlertDialogTitle>¿Confirmar eliminación?</AlertDialogTitle>
