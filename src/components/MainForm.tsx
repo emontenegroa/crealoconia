@@ -78,12 +78,21 @@ const MainForm = ({
               <AlertDialogHeader>
                 <AlertDialogTitle className="flex items-center gap-2 text-blue-800">
                   <AlertTriangle className="w-5 h-5" />
-                  ¿Generar sitio web?
+                  ¿Estás seguro de generar tu sitio web?
                 </AlertDialogTitle>
                 <AlertDialogDescription className="text-left space-y-3">
                   <p className="font-medium text-gray-800">
                     Vas a generar tu sitio web para <strong>{formData.marca}</strong>
                   </p>
+                  
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm">
+                    <p className="text-amber-800 font-medium mb-2">💡 <strong>Importante:</strong></p>
+                    <p className="text-amber-700">
+                      Entre más detalles entregues en tus respuestas, mejor podemos diseñar tu propuesta de sitio web. 
+                      ¿Quieres revisar y complementar alguna respuesta antes de continuar?
+                    </p>
+                  </div>
+                  
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
                     <p className="text-blue-800 mb-2">📧 <strong>Recibirás 2 emails en:</strong></p>
                     <p className="text-blue-700 font-medium">{formData.email}</p>
