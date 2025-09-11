@@ -173,6 +173,30 @@ export type Database = {
         }
         Relationships: []
       }
+      tags: {
+        Row: {
+          color: string
+          created_at: string
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          color?: string
+          created_at?: string
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -189,6 +213,10 @@ export type Database = {
       detect_suspicious_activity: {
         Args: { check_email: string; time_window_minutes?: number }
         Returns: boolean
+      }
+      get_or_create_tag: {
+        Args: { tag_color?: string; tag_name: string }
+        Returns: string
       }
       get_user_submission: {
         Args: { user_email: string }

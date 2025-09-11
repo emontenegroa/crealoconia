@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import { TagInput } from '@/components/ui/TagInput';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -659,11 +660,9 @@ Fundador de CrealoconIA
 
                   <div>
                     <Label htmlFor="tag-filter">Tag</Label>
-                    <Input
-                      id="tag-filter"
-                      placeholder="Buscar por tag..."
+                    <TagFilterSelect
                       value={filters.tag}
-                      onChange={(e) => setFilters({...filters, tag: e.target.value})}
+                      onChange={(value) => setFilters({...filters, tag: value})}
                     />
                   </div>
 
@@ -751,11 +750,7 @@ Fundador de CrealoconIA
                             <td className="p-2">
                               <div className="flex flex-wrap gap-1">
                                 {submission.tags && submission.tags.length > 0 ? (
-                                  submission.tags.map((tag, index) => (
-                                    <Badge key={index} variant="outline" className="text-xs">
-                                      {tag}
-                                    </Badge>
-                                  ))
+                                  <TagDisplayList tags={submission.tags} />
                                 ) : (
                                   <span className="text-muted-foreground text-sm">Sin tags</span>
                                 )}
@@ -1212,6 +1207,97 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
 };
 
 // Modal de edición
+// Component for tag filter dropdown
+const TagFilterSelect: React.FC<{ value: string; onChange: (value: string) => void }> = ({ value, onChange }) => {
+  const [allTags, setAllTags] = useState<{ name: string; color: string }[]>([]);
+
+  useEffect(() => {
+    const loadTags = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('tags')
+          .select('name, color')
+          .order('name');
+        
+        if (error) throw error;
+        setAllTags(data || []);
+      } catch (error) {
+        console.error('Error loading tags:', error);
+      }
+    };
+    
+    loadTags();
+  }, []);
+
+  return (
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger>
+        <SelectValue placeholder="Seleccionar tag..." />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="">Todos los tags</SelectItem>
+        {allTags.map((tag) => (
+          <SelectItem key={tag.name} value={tag.name}>
+            <div className="flex items-center gap-2">
+              <div 
+                className="w-3 h-3 rounded-full border" 
+                style={{ backgroundColor: tag.color }}
+              />
+              {tag.name}
+            </div>
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+};
+
+// Component for displaying tags with colors
+const TagDisplayList: React.FC<{ tags: string[] }> = ({ tags }) => {
+  const [allTags, setAllTags] = useState<{ name: string; color: string }[]>([]);
+
+  useEffect(() => {
+    const loadTags = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('tags')
+          .select('name, color');
+        
+        if (error) throw error;
+        setAllTags(data || []);
+      } catch (error) {
+        console.error('Error loading tags:', error);
+      }
+    };
+    
+    loadTags();
+  }, []);
+
+  const getTagColor = (tagName: string) => {
+    const tag = allTags.find(t => t.name === tagName);
+    return tag?.color || '#3b82f6';
+  };
+
+  return (
+    <>
+      {tags.map((tag, index) => (
+        <Badge 
+          key={index} 
+          variant="outline" 
+          className="text-xs"
+          style={{ 
+            backgroundColor: getTagColor(tag) + '20', 
+            color: getTagColor(tag), 
+            borderColor: getTagColor(tag) 
+          }}
+        >
+          {tag}
+        </Badge>
+      ))}
+    </>
+  );
+};
+
 const EditSubmissionModal: React.FC<{
   submission: FormSubmission;
   onClose: () => void;
@@ -1221,18 +1307,17 @@ const EditSubmissionModal: React.FC<{
     email: submission.email,
     completed: submission.completed,
     form_data: JSON.stringify(submission.form_data, null, 2),
-    tags: submission.tags?.join(', ') || ''
+    tags: submission.tags || []
   });
 
   const handleSave = () => {
     try {
       const parsedFormData = JSON.parse(formData.form_data);
-      const tagsArray = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
       onUpdate(submission.id, {
         email: formData.email,
         completed: formData.completed,
         form_data: parsedFormData,
-        tags: tagsArray
+        tags: formData.tags
       });
     } catch (error) {
       alert('Error en el formato JSON de los datos del formulario');
@@ -1267,12 +1352,11 @@ const EditSubmissionModal: React.FC<{
           </div>
 
           <div>
-            <Label htmlFor="edit-tags">Tags (separados por comas)</Label>
-            <Input
-              id="edit-tags"
+            <Label htmlFor="edit-tags">Tags</Label>
+            <TagInput
               value={formData.tags}
-              onChange={(e) => setFormData({...formData, tags: e.target.value})}
-              placeholder="tag1, tag2, tag3"
+              onChange={(newTags) => setFormData({...formData, tags: newTags})}
+              placeholder="Buscar o crear tags..."
             />
           </div>
           
