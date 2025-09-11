@@ -197,7 +197,9 @@ const handler = async (req: Request): Promise<Response> => {
                 Antes de avanzar, queremos asegurarnos de que este paso realmente encaje con lo que buscas.
               </p>
               
-              <hr style="border: none; border-top: 1px solid #e5e5e7; margin: 30px 0;">
+              <div style="text-align: center; margin: 30px 0;">
+                <div style="width: 50px; height: 1px; background: #e5e5e7; margin: 0 auto;"></div>
+              </div>
               
               <h2 style="color: #1d1d1f; font-size: 20px; margin: 30px 0 15px 0; font-weight: 600;">🌐 Ejemplos de sitios ya creados con Crealoconia</h2>
               
@@ -217,7 +219,9 @@ const handler = async (req: Request): Promise<Response> => {
                 Cada uno nació de las mismas 10 preguntas que respondiste en el formulario.
               </p>
               
-              <hr style="border: none; border-top: 1px solid #e5e5e7; margin: 30px 0;">
+              <div style="text-align: center; margin: 30px 0;">
+                <div style="width: 50px; height: 1px; background: #e5e5e7; margin: 0 auto;"></div>
+              </div>
               
               <h2 style="color: #1d1d1f; font-size: 20px; margin: 30px 0 15px 0; font-weight: 600;">🔑 Inversión para publicar tu sitio</h2>
               
@@ -236,10 +240,12 @@ const handler = async (req: Request): Promise<Response> => {
               
               <p style="color: #1d1d1f; font-size: 17px; margin: 20px 0; line-height: 1.5;">
                 <strong>Inversión: $197.000 CLP</strong><br>
-                (No incluye el costo del dominio, ya que depende de la extensión y proveedor que elijas).
+                <span style="color: #86868b; font-size: 15px;">(No incluye el costo del dominio, ya que depende de la extensión y proveedor que elijas).</span>
               </p>
               
-              <hr style="border: none; border-top: 1px solid #e5e5e7; margin: 30px 0;">
+              <div style="text-align: center; margin: 30px 0;">
+                <div style="width: 50px; height: 1px; background: #e5e5e7; margin: 0 auto;"></div>
+              </div>
               
               <h2 style="color: #1d1d1f; font-size: 20px; margin: 30px 0 15px 0; font-weight: 600;">🎁 Bonus adelantado</h2>
               
@@ -263,7 +269,9 @@ const handler = async (req: Request): Promise<Response> => {
                 Si luego decides publicar tu sitio, potenciaremos aún más tu comunicación digital.
               </p>
               
-              <hr style="border: none; border-top: 1px solid #e5e5e7; margin: 30px 0;">
+              <div style="text-align: center; margin: 30px 0;">
+                <div style="width: 50px; height: 1px; background: #e5e5e7; margin: 0 auto;"></div>
+              </div>
               
               ${formData.generatedPrompts?.superPrompt ? `
               <div style="background: #f0f9ff; padding: 25px; border-radius: 8px; margin: 25px 0; border: 1px solid #e0e7ff;">
@@ -288,7 +296,9 @@ const handler = async (req: Request): Promise<Response> => {
                 Así podremos guiarte en el siguiente paso y acompañarte en la publicación de tu página.
               </p>
               
-              <hr style="border: none; border-top: 1px solid #e5e5e7; margin: 30px 0;">
+              <div style="text-align: center; margin: 30px 0;">
+                <div style="width: 50px; height: 1px; background: #e5e5e7; margin: 0 auto;"></div>
+              </div>
               
               <p style="color: #86868b; font-size: 15px; margin: 20px 0; line-height: 1.5; text-align: center;">
                 ✨ Sin compromiso inicial • Selección limitada de proyectos • Hecho para quienes quieren dar el paso
