@@ -804,22 +804,15 @@ Fundador de CrealoconIA
                                    <MessageCircle className="w-4 h-4" />
                                  </Button>
 
-                                 <Select onValueChange={(value) => handleSendEmail(submission, value as 'custom' | 'follow-up')}>
-                                   <SelectTrigger asChild>
-                                     <Button 
-                                       size="sm" 
-                                       variant="ghost"
-                                       className="text-blue-600 hover:text-blue-700"
-                                       title="Enviar email"
-                                     >
-                                       <Mail className="w-4 h-4" />
-                                     </Button>
-                                   </SelectTrigger>
-                                   <SelectContent>
-                                     <SelectItem value="custom">Email personalizado</SelectItem>
-                                     <SelectItem value="follow-up">Email seguimiento</SelectItem>
-                                   </SelectContent>
-                                 </Select>
+                                  <Select onValueChange={(value) => handleSendEmail(submission, value as 'custom' | 'follow-up')}>
+                                    <SelectTrigger className="h-8 w-8 p-0">
+                                      <Mail className="w-4 h-4 text-blue-600" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      <SelectItem value="custom">Email personalizado</SelectItem>
+                                      <SelectItem value="follow-up">Email seguimiento</SelectItem>
+                                    </SelectContent>
+                                  </Select>
                                  
                                  <AlertDialog>
                                    <AlertDialogTrigger asChild>
