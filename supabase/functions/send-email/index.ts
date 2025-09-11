@@ -170,7 +170,7 @@ const handler = async (req: Request): Promise<Response> => {
       const formData = data;
       emailPayload = {
         sender: {
-          name: "Kit IA - Crealoconia",
+          name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
         to: [
@@ -179,7 +179,7 @@ const handler = async (req: Request): Promise<Response> => {
             name: formData.marca
           }
         ],
-        subject: `🧠 Tu Kit IA está listo`,
+        subject: `Hola! Tu sitio web está casi listo para publicar`,
         htmlContent: `
           <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; padding: 0;">
             
