@@ -179,125 +179,144 @@ const handler = async (req: Request): Promise<Response> => {
             name: formData.marca
           }
         ],
-        subject: `Tu sitio web está casi listo 🚀`,
+        subject: `🧠 Tu Kit IA está listo`,
         htmlContent: `
-          <div style="min-height: 100vh; background: linear-gradient(to bottom right, #f0f9ff, #f3e8ff, #f0fdf4); padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-            <div style="max-width: 600px; margin: 0 auto; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06); border: 1px solid rgba(229, 231, 235, 0.5);">
-              <div style="padding: 48px 32px;">
+          <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; padding: 0;">
+            
+            <!-- Header -->
+            <div style="background: white; padding: 32px 32px 24px 32px;">
+              <h1 style="color: #1f2937; font-size: 24px; font-weight: 600; margin: 0 0 16px 0; line-height: 1.3;">
+                Hola ${formData.marca},
+              </h1>
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0;">
+                Gracias por completar el formulario en <strong>Crealoconia.com</strong>. Con la información que compartiste, crearemos tu sitio web oficial con diseño moderno, colores armónicos y una estructura pensada específicamente para resaltar lo que ofreces.
+              </p>
+            </div>
+
+            <!-- Main Content -->
+            <div style="padding: 0 32px 32px 32px;">
+              
+              <!-- Bonus Section -->
+              <div style="background: #f8fafc; border-left: 4px solid #10b981; border-radius: 8px; padding: 24px; margin: 24px 0;">
+                <h2 style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">
+                  🎁 Bonus Adelantado: Tu Super Prompt para ChatGPT
+                </h2>
+                <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 16px 0;">
+                  Por haber completado el formulario, ya recibes <strong>AHORA</strong> un Super Prompt optimizado para ChatGPT.
+                </p>
+                <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 16px 0;">
+                  Con este prompt podrás generar:
+                </p>
+                <ul style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 16px 0; padding-left: 20px;">
+                  <li>Contenido viral para redes sociales</li>
+                  <li>Emails de venta y captación de clientes</li>
+                  <li>Estrategias y guiones comerciales efectivos</li>
+                  <li>Textos de alta conversión para tu negocio</li>
+                </ul>
+                <p style="color: #059669; font-size: 16px; line-height: 1.6; margin: 0; font-weight: 600;">
+                  Este recurso ya es tuyo, sin condiciones.
+                </p>
+              </div>
+
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 24px 0;">
+                Si luego decides publicar tu sitio, potenciaremos aún más tu comunicación digital con estrategias avanzadas.
+              </p>
+
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 24px 0;">
+                Ahora, sobre tu sitio web... queremos asegurarnos de que esto realmente se alinee con lo que buscas.
+              </p>
+
+              <!-- Website Process Section -->
+              <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; margin: 24px 0;">
+                <h2 style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">
+                  Tu Sitio Web Personalizado
+                </h2>
+                <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 16px 0;">
+                  Nuestro proceso es simple y efectivo:
+                </p>
+                <ol style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0; padding-left: 20px;">
+                  <li><strong>Creamos tu sitio 100% funcional</strong> - Sin compromiso, solo con la confianza de que el resultado te va a encantar</li>
+                  <li><strong>Si te gusta, avanzamos el mismo día</strong> con una sesión completa de ajustes y publicación</li>
+                  <li><strong>Tu sitio queda en línea</strong> con tu dominio propio (.com o .cl) ese mismo día</li>
+                </ol>
+
+                <h3 style="color: #1f2937; font-size: 16px; font-weight: 600; margin: 24px 0 16px 0;">
+                  La sesión de publicación incluye:
+                </h3>
                 
-                <!-- Header -->
-                <div style="text-align: center; margin-bottom: 48px;">
-                  <h1 style="color: #1f2937; font-size: 32px; font-weight: 600; margin: 0; letter-spacing: -0.5px; line-height: 1.2;">
-                    Tu sitio web está casi listo 🚀
-                  </h1>
+                <div style="background: #f8fafc; border-radius: 6px; padding: 20px; margin: 16px 0;">
+                  <p style="color: #059669; font-size: 18px; font-weight: 700; margin: 0 0 16px 0; text-align: center;">
+                    Inversión total: $197.000 CLP
+                  </p>
+                  <ul style="color: #4b5563; font-size: 15px; line-height: 1.6; margin: 0; padding-left: 20px; list-style: none;">
+                    <li style="margin-bottom: 8px;">✅ <strong>Modificaciones de textos</strong> - Ajustamos todo el copy a tu gusto</li>
+                    <li style="margin-bottom: 8px;">✅ <strong>Cambio de imágenes</strong> - Seleccionamos las mejores para tu negocio</li>
+                    <li style="margin-bottom: 8px;">✅ <strong>Asesoría 1 a 1</strong> - Con un experto de más de 10 años de experiencia</li>
+                    <li style="margin-bottom: 8px;">✅ <strong>Publicación inmediata</strong> - Tu sitio en línea el mismo día</li>
+                    <li style="margin-bottom: 8px;">✅ <strong>Configuración completa</strong> - WhatsApp, botón de pago, formularios de contacto</li>
+                  </ul>
                 </div>
-                
-                <!-- Content Sections -->
-                <div style="margin-bottom: 40px;">
-                  <p style="color: #1f2937; font-size: 17px; line-height: 1.5; margin: 0 0 20px 0;">Hola,</p>
-                  
-                  <p style="color: #1f2937; font-size: 17px; line-height: 1.5; margin: 0 0 20px 0;">
-                    Gracias por completar el formulario en Crealoconia.com. Con la información que compartiste, podemos generar tu sitio web de muestra con diseño moderno, colores armónicos y una estructura pensada para resaltar lo que ofreces.
-                  </p>
-                  
-                  <p style="color: #1f2937; font-size: 17px; line-height: 1.5; margin: 0 0 30px 0;">
-                    Antes de avanzar, queremos asegurarnos de que este paso realmente encaje con lo que buscas.
-                  </p>
-                </div>
-                
-                <!-- Prioridad: Información sobre el sitio web -->
-                <div style="background: #f0f9ff; border: 1px solid #e0e7ff; border-radius: 12px; padding: 32px; margin: 32px 0;">
-                  <h2 style="color: #1e40af; font-size: 24px; font-weight: 600; margin: 0 0 20px 0; text-align: center;">🌐 Tu Sitio Web Personalizado</h2>
-                  
-                  <div style="border-bottom: 1px solid #c7d2fe; padding-bottom: 20px; margin-bottom: 20px;">
-                    <h3 style="color: #1e40af; font-size: 18px; font-weight: 600; margin: 0 0 12px 0;">🔑 Inversión para publicar tu sitio</h3>
-                    
-                    <p style="color: #3730a3; font-size: 16px; line-height: 1.5; margin: 0 0 12px 0;">
-                      Lo que hacemos es seleccionar algunos proyectos y crearles una versión funcional de su sitio web, sin compromiso.
-                    </p>
-                    
-                    <p style="color: #3730a3; font-size: 16px; line-height: 1.5; margin: 0 0 12px 0;">
-                      Si el resultado te convence y quieres publicarlo, avanzamos con:
-                    </p>
-                    
-                    <div style="margin: 12px 0;">
-                      <p style="color: #4338ca; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 20px;">
-                        ✔️ Una sesión de ajuste y actualización<br>
-                        ✔️ Publicación en dominio propio .com o .cl
-                      </p>
-                    </div>
-                    
-                    <p style="color: #1e40af; font-size: 18px; line-height: 1.5; margin: 16px 0 0 0; text-align: center;">
-                      <strong>Inversión: $197.000 CLP</strong><br>
-                      <span style="color: #6366f1; font-size: 14px;">(No incluye el costo del dominio, ya que depende de la extensión y proveedor que elijas).</span>
-                    </p>
-                  </div>
-                  
-                  <div style="text-align: center;">
-                    <h3 style="color: #1e40af; font-size: 18px; font-weight: 600; margin: 0 0 12px 0;">📩 ¿Quieres avanzar?</h3>
-                    <p style="color: #3730a3; font-size: 16px; line-height: 1.5; margin: 0 0 12px 0;">
-                      Si deseas que generemos tu sitio de muestra y darle prioridad a tu proyecto, responde a este correo con un <strong>"Sí, quiero avanzar"</strong>.
-                    </p>
-                    <p style="color: #3730a3; font-size: 16px; line-height: 1.5; margin: 0;">
-                      Así podremos guiarte en el siguiente paso y acompañarte en la publicación de tu página.
-                    </p>
-                  </div>
-                </div>
-                
-                <!-- Ejemplos Section -->
-                <div style="border-bottom: 1px solid #e5e7eb; padding-bottom: 32px; margin-bottom: 32px;">
-                  <h2 style="color: #1f2937; font-size: 22px; font-weight: 600; margin: 0 0 16px 0;">🌐 Ejemplos de sitios ya creados con Crealoconia</h2>
-                  
-                  <p style="color: #4b5563; font-size: 16px; line-height: 1.5; margin: 0 0 16px 0;">
-                    Para que te inspires, aquí algunos proyectos que ya hemos generado:
-                  </p>
-                  
-                   <div style="margin: 16px 0;">
-                     <p style="color: #6b7280; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 20px;">
-                       • <a href="https://totalsport.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">Total Sport</a><br>
-                       • <a href="https://gatitos.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">Gatitos</a><br>
-                       • <a href="https://mstraslados.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">MST Traslados</a><br>
-                       • <a href="https://emontenegroa.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">Esteban Montenegro</a><br>
-                       • <a href="https://hampi.cl/" style="color: #3b82f6; text-decoration: none;">Hampi</a>
-                     </p>
-                   </div>
-                  
-                  <p style="color: #4b5563; font-size: 16px; line-height: 1.5; margin: 16px 0 0 0;">
-                    Cada uno nació de las mismas 10 preguntas que respondiste en el formulario.
+
+                <p style="color: #059669; font-size: 16px; line-height: 1.6; margin: 16px 0 0 0; font-weight: 600; text-align: center;">
+                  Nuestro objetivo: que salgas de la sesión con tu sitio web completamente publicado y funcionando.
+                </p>
+              </div>
+
+              <!-- Examples Section -->
+              <div style="margin: 24px 0;">
+                <h3 style="color: #1f2937; font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">
+                  Sitios reales ya creados con Crealoconia:
+                </h3>
+                <div style="margin: 16px 0;">
+                  <p style="color: #4b5563; font-size: 16px; line-height: 1.8; margin: 0;">
+                    • <a href="https://totalsport.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">https://totalsport.crealoconia.com/</a><br>
+                    • <a href="https://gatitos.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">https://gatitos.crealoconia.com/</a><br>
+                    • <a href="https://mstraslados.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">https://mstraslados.crealoconia.com/</a><br>
+                    • <a href="https://emontenegroa.crealoconia.com/" style="color: #3b82f6; text-decoration: none;">https://emontenegroa.crealoconia.com/</a><br>
+                    • <a href="https://hampi.cl/" style="color: #3b82f6; text-decoration: none;">https://hampi.cl/</a>
                   </p>
                 </div>
-                
-                <!-- Super Prompt Section - SIEMPRE INCLUIDO -->
-                <div style="background: #f0fdf4; border: 1px solid #d1fae5; border-radius: 12px; padding: 24px; margin: 32px 0;">
-                  <h2 style="color: #059669; font-size: 22px; font-weight: 600; margin: 0 0 16px 0;">🎁 Bonus adelantado: Tu Super Prompt para ChatGPT</h2>
-                  
-                  <p style="color: #047857; font-size: 16px; line-height: 1.5; margin: 0 0 16px 0;">
-                    Por haber completado el formulario, ya recibes ahora un Super Prompt optimizado para ChatGPT.
-                  </p>
-                  
-                  <p style="color: #047857; font-size: 16px; line-height: 1.5; margin: 0 0 16px 0;">
-                    Con este prompt podrás generar:
-                  </p>
-                  
-                  <div style="margin: 16px 0 24px 0;">
-                    <p style="color: #065f46; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 20px;">
-                      • Contenido para redes sociales<br>
-                      • Emails de venta y captación<br>
-                      • Estrategias y guiones comerciales<br>
-                      • Textos de alta conversión para tu negocio
-                    </p>
-                  </div>
-                  
-                  <p style="color: #047857; font-size: 16px; line-height: 1.5; margin: 0 0 24px 0;">
-                    <strong>Este recurso ya es tuyo, sin condiciones.</strong><br>
-                    Si luego decides publicar tu sitio, potenciaremos aún más tu comunicación digital.
-                  </p>
-                  
-                   <div style="background: white; border: 1px solid #d1fae5; border-radius: 8px; padding: 20px; position: relative;">
-                     <h3 style="color: #059669; font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">Tu Super Prompt personalizado:</h3>
-                    <div 
-                      id="superPromptContent" 
-                      style="font-family: 'SF Mono', Monaco, 'Courier New', monospace; font-size: 12px; line-height: 1.4; white-space: pre-wrap; max-height: 200px; overflow-y: auto; color: #374151; background: #f9fafb; padding: 16px; border-radius: 4px; border: 1px solid #e5e7eb;">
+                <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 16px 0 0 0; font-style: italic;">
+                  * Todos estos proyectos fueron creados y publicados el mismo día de la sesión.
+                </p>
+              </div>
+
+              <!-- CTA Section -->
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 24px; margin: 32px 0;">
+                <h3 style="color: #059669; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">
+                  ¿Quieres avanzar?
+                </h3>
+                <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 16px 0;">
+                  Si deseas que creemos tu sitio y darle prioridad a tu proyecto, responde este correo con <strong>"Sí, quiero avanzar"</strong>.
+                </p>
+                <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0;">
+                  Tan pronto recibamos tu confirmación, comenzaremos a crear tu sitio y te presentaremos tu nueva página web.
+                </p>
+              </div>
+
+              <!-- Guarantee Section -->
+              <div style="margin: 24px 0;">
+                <h3 style="color: #1f2937; font-size: 16px; font-weight: 600; margin: 0 0 12px 0;">
+                  ¿Y si no te gusta el resultado?
+                </h3>
+                <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0;">
+                  Sin problema. Te ayudamos a encontrar la solución perfecta, ya sea conectándote con alguno de nuestros partners o guiándote hacia la mejor alternativa para tu proyecto.
+                </p>
+              </div>
+
+              <div style="text-align: center; margin: 32px 0 24px 0;">
+                <h3 style="color: #059669; font-size: 18px; font-weight: 600; margin: 0 0 8px 0;">
+                  ¿Listo para tener tu sitio web profesional?
+                </h3>
+                <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0;">
+                  Esperamos tu respuesta para comenzar.
+                </p>
+              </div>
+
+              <!-- Super Prompt Section -->
+              <div style="background: white; border: 1px solid #d1fae5; border-radius: 8px; padding: 20px; margin: 32px 0;">
+                <h3 style="color: #059669; font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">Tu Super Prompt personalizado:</h3>
+                <div style="font-family: 'SF Mono', Monaco, 'Courier New', monospace; font-size: 12px; line-height: 1.4; white-space: pre-wrap; max-height: 200px; overflow-y: auto; color: #374151; background: #f9fafb; padding: 16px; border-radius: 4px; border: 1px solid #e5e7eb;">
 ${formData.generatedPrompts?.superPrompt || `Eres un experto en estrategia digital y copywriting para ${formData.marca || 'mi marca'}. Tu objetivo es crear contenido que convierta y posicione la marca como líder en su sector.
 
 CONTEXTO DE LA MARCA:
@@ -323,24 +342,20 @@ FORMATOS DISPONIBLES:
 - Campañas publicitarias
 
 ¿Qué tipo de contenido necesitas crear hoy?`}
-                    </div>
-                  </div>
                 </div>
-                
-                <!-- Footer -->
-                <div style="text-align: center; border-top: 1px solid #e5e7eb; padding-top: 32px;">
-                  <p style="color: #9ca3af; font-size: 14px; line-height: 1.5; margin: 0 0 16px 0;">
-                    ✨ Sin compromiso inicial • Selección limitada de proyectos • Hecho para quienes quieren dar el paso
-                  </p>
-                  
-                  <div style="background: rgba(255, 255, 255, 0.8); border-radius: 8px; padding: 16px; display: inline-block;">
-                    <p style="margin: 0 0 4px 0; color: #1f2937; font-size: 16px; font-weight: 600;">El equipo de Crealoconia.com</p>
-                    <p style="margin: 0; color: #6b7280; font-size: 14px;">esteban@crealoconia.com</p>
-                  </div>
-                </div>
-                
               </div>
             </div>
+
+            <!-- Footer -->
+            <div style="background: #f8fafc; padding: 24px; border-top: 1px solid #e5e7eb;">
+              <p style="color: #4b5563; font-size: 16px; margin: 0 0 8px 0; line-height: 1.6;">
+                Saludos,<br>
+                <strong>Esteban Montenegro</strong><br>
+                <a href="https://wa.me/56974445566" style="color: #059669; text-decoration: none;">WhatsApp</a><br>
+                Fundador de Crealoconia.com
+              </p>
+            </div>
+            
           </div>
         `
       };
