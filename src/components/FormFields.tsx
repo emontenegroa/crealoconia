@@ -92,6 +92,7 @@ const FormFields = ({
           <Checkbox 
             id="no-website" 
             checked={noWebsite}
+            className="border-black data-[state=checked]:border-black"
             onCheckedChange={(checked) => {
               setNoWebsite(checked as boolean);
               if (checked) {
@@ -119,6 +120,7 @@ const FormFields = ({
           <Checkbox 
             id="no-instagram" 
             checked={noInstagram}
+            className="border-black data-[state=checked]:border-black"
             onCheckedChange={(checked) => {
               setNoInstagram(checked as boolean);
               if (checked) {
