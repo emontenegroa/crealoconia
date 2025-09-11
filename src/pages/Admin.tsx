@@ -187,7 +187,7 @@ export default function Admin({ onLogout }: AdminProps) {
         minute: '2-digit'
       }),
       sub.attempt_number,
-      `${calculateProgress(sub.form_data)}/17`,
+      `${calculateProgress(sub.form_data)}/10`,
       sub.form_data?.generatedPrompts?.lovablePrompt ? 'Sí' : 'No',
       sub.form_data?.marca || '',
       sub.form_data?.quien_eres || ''
@@ -437,10 +437,8 @@ export default function Admin({ onLogout }: AdminProps) {
     if (!formData) return 0;
     
     const fields = [
-      'marca', 'tipoNegocio', 'audienciaObjetivo', 'problemaSoluciona', 
-      'propuestaValor', 'competencia', 'diferenciacion', 'testimonios',
-      'objetivos', 'resultadosEsperados', 'whatsapp', 'instagram',
-      'facebook', 'linkedin', 'web', 'coloresPrimarios', 'colorSecundario'
+      'email', 'marca', 'whatsapp', 'website', 'instagram',
+      'quien_eres', 'problemas', 'preguntas_frecuentes', 'estilo', 'producto'
     ];
     
     const completedFields = fields.filter(field => {
@@ -784,7 +782,7 @@ Fundador de CrealoconIA
                             <td className="p-2 max-w-[150px] truncate" title={submission.form_data?.marca || '-'}>{submission.form_data?.marca || '-'}</td>
                             <td className="p-2">
                               <Badge variant="outline" className="text-xs">
-                                {calculateProgress(submission.form_data)}/17
+                                {calculateProgress(submission.form_data)}/10
                               </Badge>
                             </td>
                             <td className="p-2">
