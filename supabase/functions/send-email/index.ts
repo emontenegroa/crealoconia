@@ -246,6 +246,15 @@ const handler = async (req: Request): Promise<Response> => {
               <h1 style="color: #1f2937; font-size: 24px; font-weight: 600; margin: 0 0 16px 0; line-height: 1.3;">
                 Hola ${data?.marca || 'allí'},
               </h1>
+              <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 16px; margin: 0 0 24px 0; text-align: center;">
+                <p style="color: #92400e; font-size: 16px; font-weight: 600; margin: 0 0 8px 0;">
+                  ⚠️ IMPORTANTE: Revisa tu carpeta de SPAM
+                </p>
+                <p style="color: #92400e; font-size: 14px; margin: 0; line-height: 1.4;">
+                  Si no ves más correos nuestros en tu bandeja principal, búscalos en spam/correo no deseado y márcanos como "no es spam"
+                </p>
+              </div>
+              
               <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0;">
                 Gracias por completar el formulario en Crealoconia.com. Con la información que compartiste, crearemos tu sitio web oficial con diseño moderno, colores armónicos y una estructura pensada específicamente para resaltar lo que ofreces.
               </p>
