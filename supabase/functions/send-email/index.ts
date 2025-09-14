@@ -183,7 +183,7 @@ const handler = async (req: Request): Promise<Response> => {
       emailPayload = {
         sender: {
           name: "Kit IA - Nueva Submisión",
-          email: "noreply@crealoconia.com"
+          email: "esteban@crealoconia.com"
         },
         to: [{ email: email }],
         subject: `🧠 Nueva submisión Kit IA - ${data?.marca || 'Sin marca'}`,
@@ -411,7 +411,7 @@ const handler = async (req: Request): Promise<Response> => {
       const { tempKey } = data;
       
       emailPayload = {
-        sender: { email: "noreply@crealoconia.com", name: "Kit IA Admin" },
+        sender: { email: "esteban@crealoconia.com", name: "Kit IA Admin" },
         to: [{ email: email }],
         subject: "Código de acceso",
         htmlContent: `
