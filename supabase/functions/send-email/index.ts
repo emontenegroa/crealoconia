@@ -387,16 +387,21 @@ const handler = async (req: Request): Promise<Response> => {
                 Nuestro objetivo: que salgas de la sesión con tu sitio web completamente publicado y funcionando.
               </p>
               
-              <h3 style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 24px 0 16px 0;">
-                Sitios reales ya creados con Crealoconia:
-              </h3>
-              <ul style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 16px 0; padding-left: 0; list-style: none;">
-                <li style="margin-bottom: 4px;"><a href="https://totalsport.crealoconia.com/" style="color: #059669; text-decoration: none;">https://totalsport.crealoconia.com/</a></li>
-                <li style="margin-bottom: 4px;"><a href="https://gatitos.crealoconia.com/" style="color: #059669; text-decoration: none;">https://gatitos.crealoconia.com/</a></li>
-                <li style="margin-bottom: 4px;"><a href="https://mstraslados.crealoconia.com/" style="color: #059669; text-decoration: none;">https://mstraslados.crealoconia.com/</a></li>
-                <li style="margin-bottom: 4px;"><a href="https://emontenegroa.crealoconia.com/" style="color: #059669; text-decoration: none;">https://emontenegroa.crealoconia.com/</a></li>
-                <li style="margin-bottom: 4px;"><a href="https://hampi.cl/" style="color: #059669; text-decoration: none;">https://hampi.cl/</a></li>
-              </ul>
+               <h3 style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 24px 0 16px 0;">
+                 🌐 Ejemplos de sitios creados con Crealoconia:
+               </h3>
+               <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
+                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-sonrisas.png" alt="Ejemplo Sonrisas" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-ate.png" alt="Ejemplo ATE" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-colegio.png" alt="Ejemplo Colegio" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-ecopartner.png" alt="Ejemplo EcoPartner" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+               </div>
+               <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
+                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-gatitos.png" alt="Ejemplo Gatitos" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-lux.png" alt="Ejemplo Lux" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-propiedades.png" alt="Ejemplo Propiedades" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-taxi.png" alt="Ejemplo Taxi" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+               </div>
               <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0; font-style: italic;">
                 Todos estos proyectos fueron creados y publicados el mismo día de la sesión.
               </p>
