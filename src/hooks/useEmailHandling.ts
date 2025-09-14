@@ -98,9 +98,40 @@ export const useEmailHandling = () => {
     }
   };
 
+  const sendProposalEmail = async (formData: FormData, submissionId?: string) => {
+    try {
+      console.log('📨 Enviando email de propuesta al usuario:', formData.email);
+      
+      const { data, error } = await supabase.functions.invoke('send-email', {
+        body: {
+          type: 'proposal',
+          email: formData.email,
+          data: {
+            name: formData.marca,
+            ...formData
+          },
+          submissionId
+        }
+      });
+
+      if (error) {
+        console.error('❌ Error en edge function:', error);
+        throw error;
+      }
+
+      console.log('✅ Email de propuesta enviado exitosamente:', data);
+      return true;
+      
+    } catch (error) {
+      console.error('💥 Error en sendProposalEmail:', error);
+      throw error;
+    }
+  };
+
   return {
     sendEmailToAdmin,
     sendConfirmationEmail,
-    sendTestEmail
+    sendTestEmail,
+    sendProposalEmail
   };
 };

@@ -8,7 +8,7 @@ const corsHeaders = {
 };
 
 interface EmailRequest {
-  type: 'test' | 'admin' | 'confirmation' | 'custom' | 'follow-up' | 'admin_temp_key';
+  type: 'test' | 'admin' | 'confirmation' | 'custom' | 'follow-up' | 'admin_temp_key' | 'proposal';
   email: string;
   data?: any;
   submissionId?: string;
@@ -164,6 +164,77 @@ const handler = async (req: Request): Promise<Response> => {
               <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
                 <p style="color: #059669; font-size: 18px; font-weight: 600; margin: 0;">
                   ✅ Da el paso ahora, completa tu información y asegura tu sitio.
+                </p>
+              </div>
+
+              <div style="background: #f8fafc; padding: 24px; border-top: 1px solid #e5e7eb; margin-top: 32px;">
+                <p style="color: #4b5563; font-size: 16px; margin: 0 0 8px 0; line-height: 1.6;">
+                  Un saludo,<br>
+                  <strong>Esteban Montenegro</strong><br>
+                  Fundador de CrealoconIA<br>
+                  📲 WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none;">+56 9 6279 1772</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        `
+      };
+    } else if (type === 'proposal') {
+      emailPayload = {
+        sender: {
+          name: "Esteban de CrealoconIA",
+          email: "esteban@crealoconia.com"
+        },
+        to: [{ email: email, name: data?.name || email }],
+        subject: "Propuesta personalizada para tu sitio web",
+        htmlContent: `
+          <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; padding: 0;">
+            
+            <div style="background: white; padding: 32px 32px 24px 32px;">
+              <h1 style="color: #1f2937; font-size: 24px; font-weight: 600; margin: 0 0 16px 0; line-height: 1.3;">
+                Hola 👋🏻 ${data?.name || 'allí'},
+              </h1>
+              
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+                Revisamos tus respuestas en Crealoconia y vimos un gran potencial en tu proyecto. Se nota el compromiso y la claridad con que completaste el formulario, y eso nos permite avanzar hacia la creación de tu sitio web personalizado.
+              </p>
+
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 24px; margin: 24px 0;">
+                <p style="color: #059669; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">
+                  👉 El proceso es muy simple:
+                </p>
+                <ol style="color: #059669; font-size: 16px; line-height: 1.6; margin: 0; padding-left: 20px;">
+                  <li style="margin-bottom: 8px;">Con tus respuestas generamos una propuesta 100% funcional, lista para revisar sin compromiso.</li>
+                  <li style="margin-bottom: 8px;">Si te gusta y aceptas el sitio, hacemos una sesión de ajustes para dejarlo exactamente como lo necesitas (textos, fotos, colores).</li>
+                  <li style="margin-bottom: 0;">En esa misma sesión publicamos tu web en tu propio dominio (.com o .cl).</li>
+                </ol>
+              </div>
+
+              <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 24px; margin: 24px 0;">
+                <p style="color: #92400e; font-size: 16px; font-weight: 600; margin: 0 0 12px 0;">
+                  La inversión es de $197.000 CLP por 2 años, lo que incluye la sesión personalizada y la publicación en tu dominio.
+                </p>
+                <p style="color: #92400e; font-size: 14px; margin: 0; font-style: italic;">
+                  (El costo del dominio depende del proveedor que elijas).
+                </p>
+              </div>
+
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 20px 0;">
+                Con Crealoconia obtienes una herramienta profesional, rápida y sin complicaciones técnicas.
+              </p>
+
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 24px; margin: 24px 0;">
+                <p style="color: #059669; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">
+                  👉 Para avanzar, solo responde este correo diciendo "Sí, quiero mi sitio" y damos el vamos.
+                </p>
+                <p style="color: #059669; font-size: 16px; line-height: 1.6; margin: 0;">
+                  📲 Si prefieres, también puedes escribirme directo a mi WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none; font-weight: 600;">+56 9 6279 1772</a>.
+                </p>
+              </div>
+
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
+                <p style="color: #059669; font-size: 18px; font-weight: 600; margin: 0;">
+                  ✅ Da el paso ahora y asegura tu sitio.
                 </p>
               </div>
 
@@ -468,9 +539,10 @@ const handler = async (req: Request): Promise<Response> => {
       console.log('✅ Email enviado exitosamente via Brevo v3:', responseData);
       
       // Agregar tag automáticamente después de enviar el email
-      if (submissionId && (type === 'custom' || type === 'follow-up')) {
+      if (submissionId && (type === 'custom' || type === 'follow-up' || type === 'proposal')) {
         try {
-          const tagToAdd = type === 'custom' ? 'email-personalizado' : 'email-seguimiento';
+          const tagToAdd = type === 'custom' ? 'email-personalizado' : 
+                          type === 'follow-up' ? 'email-seguimiento' : 'email-propuesta';
           
           // Obtener el registro actual para conservar tags existentes
           const { data: currentSubmission, error: fetchError } = await supabase
