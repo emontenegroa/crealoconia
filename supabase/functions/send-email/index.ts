@@ -7,6 +7,25 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+// Función para convertir imagen a base64
+async function getImageAsBase64(imageName: string): Promise<string> {
+  try {
+    // Leer la imagen desde el directorio public/lovable-uploads
+    const response = await fetch(`https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/${imageName}`);
+    if (!response.ok) {
+      console.error(`Error loading image ${imageName}:`, response.status);
+      return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==";
+    }
+    
+    const arrayBuffer = await response.arrayBuffer();
+    const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+    return `data:image/png;base64,${base64}`;
+  } catch (error) {
+    console.error(`Error converting image ${imageName} to base64:`, error);
+    return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==";
+  }
+}
+
 interface EmailRequest {
   type: 'test' | 'admin' | 'confirmation' | 'custom' | 'follow-up' | 'admin_temp_key' | 'proposal';
   email: string;
@@ -314,6 +333,48 @@ const handler = async (req: Request): Promise<Response> => {
         },
         to: [{ email: email, name: data?.marca || email }],
         subject: `🧠 Tu Kit IA está listo - ${data?.marca || 'Kit Personalizado'}`,
+        attachment: [
+          {
+            name: "ejemplos-sonrisas.png",
+            content: await getImageAsBase64("ejemplos-sonrisas.png"),
+            contentId: "sonrisas"
+          },
+          {
+            name: "ejemplos-ate.png", 
+            content: await getImageAsBase64("ejemplos-ate.png"),
+            contentId: "ate"
+          },
+          {
+            name: "ejemplos-colegio.png",
+            content: await getImageAsBase64("ejemplos-colegio.png"),
+            contentId: "colegio"
+          },
+          {
+            name: "ejemplos-ecopartner.png",
+            content: await getImageAsBase64("ejemplos-ecopartner.png"),
+            contentId: "ecopartner"
+          },
+          {
+            name: "ejemplos-gatitos.png",
+            content: await getImageAsBase64("ejemplos-gatitos.png"),
+            contentId: "gatitos"
+          },
+          {
+            name: "ejemplos-lux.png",
+            content: await getImageAsBase64("ejemplos-lux.png"),
+            contentId: "lux"
+          },
+          {
+            name: "ejemplos-propiedades.png",
+            content: await getImageAsBase64("ejemplos-propiedades.png"),
+            contentId: "propiedades"
+          },
+          {
+            name: "ejemplos-taxi.png",
+            content: await getImageAsBase64("ejemplos-taxi.png"),
+            contentId: "taxi"
+          }
+        ],
         htmlContent: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: white; color: #333;">
             
@@ -387,21 +448,21 @@ const handler = async (req: Request): Promise<Response> => {
                 Nuestro objetivo: que salgas de la sesión con tu sitio web completamente publicado y funcionando.
               </p>
               
-               <h3 style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 24px 0 16px 0;">
-                 🌐 Ejemplos de sitios creados con Crealoconia:
-               </h3>
-               <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
-                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-sonrisas.png" alt="Ejemplo Sonrisas" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-ate.png" alt="Ejemplo ATE" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-colegio.png" alt="Ejemplo Colegio" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-ecopartner.png" alt="Ejemplo EcoPartner" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-               </div>
-               <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
-                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-gatitos.png" alt="Ejemplo Gatitos" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-lux.png" alt="Ejemplo Lux" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-propiedades.png" alt="Ejemplo Propiedades" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                 <img src="https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/ejemplos-taxi.png" alt="Ejemplo Taxi" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-               </div>
+              <h3 style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 24px 0 16px 0;">
+                🌐 Ejemplos de sitios creados con Crealoconia:
+              </h3>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
+                <img src="cid:sonrisas" alt="Ejemplo Sonrisas" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="cid:ate" alt="Ejemplo ATE" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="cid:colegio" alt="Ejemplo Colegio" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="cid:ecopartner" alt="Ejemplo EcoPartner" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
+                <img src="cid:gatitos" alt="Ejemplo Gatitos" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="cid:lux" alt="Ejemplo Lux" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="cid:propiedades" alt="Ejemplo Propiedades" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="cid:taxi" alt="Ejemplo Taxi" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+              </div>
               <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0; font-style: italic;">
                 Todos estos proyectos fueron creados y publicados el mismo día de la sesión.
               </p>
