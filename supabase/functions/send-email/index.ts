@@ -605,15 +605,17 @@ const handler = async (req: Request): Promise<Response> => {
       console.log('✅ Email enviado exitosamente via Brevo v3:', responseData);
       
       // Agregar tag automáticamente después de enviar el email
-      if (submissionId && (type === 'custom' || type === 'follow-up' || type === 'proposal')) {
+      if (submissionId && (type === 'custom' || type === 'follow-up' || type === 'proposal' || type === 'confirmation')) {
         try {
           const tagToAdd = type === 'custom' ? 'email-personalizado' : 
-                          type === 'follow-up' ? 'email-seguimiento' : 'email-propuesta';
+                          type === 'follow-up' ? 'email-seguimiento' : 
+                          type === 'proposal' ? 'email-propuesta' :
+                          type === 'confirmation' ? 'email-enviado' : 'email-enviado';
           
-          // Obtener el registro actual para conservar tags existentes
+          // Obtener el registro actual para conservar tags existentes y verificar si es actualización
           const { data: currentSubmission, error: fetchError } = await supabase
             .from('form_submissions')
-            .select('tags')
+            .select('tags, created_at, updated_at')
             .eq('id', submissionId)
             .single();
 
@@ -621,22 +623,43 @@ const handler = async (req: Request): Promise<Response> => {
             const currentTags = currentSubmission.tags || [];
             const newTags = [...currentTags];
             
-            // Solo agregar el tag si no existe ya
+            // Verificar si es una actualización (si updated_at > created_at)
+            const isUpdate = new Date(currentSubmission.updated_at) > new Date(currentSubmission.created_at);
+            
+            // Agregar tag de "Actualizado" si es una actualización
+            if (isUpdate && !newTags.includes('Actualizado')) {
+              newTags.push('Actualizado');
+            }
+            
+            // Solo agregar el tag principal si no existe ya
             if (!newTags.includes(tagToAdd)) {
               newTags.push(tagToAdd);
+            }
+            
+            // Actualizar tags y fecha si hubo cambios
+            if (newTags.length !== currentTags.length || isUpdate) {
+              const updateData: any = { tags: newTags };
+              
+              // Si es una actualización de confirmación, actualizar la fecha para que aparezca primero
+              if (type === 'confirmation' && isUpdate) {
+                updateData.created_at = new Date().toISOString();
+              }
               
               const { error: updateError } = await supabase
                 .from('form_submissions')
-                .update({ tags: newTags })
+                .update(updateData)
                 .eq('id', submissionId);
 
               if (updateError) {
-                console.error('❌ Error actualizando tags:', updateError);
+                console.error('❌ Error actualizando registro:', updateError);
               } else {
-                console.log(`✅ Tag '${tagToAdd}' agregado automáticamente al registro ${submissionId}`);
+                console.log(`✅ Registro actualizado - Tags: ${newTags.join(', ')} - ID: ${submissionId}`);
+                if (isUpdate) {
+                  console.log(`🔄 Tag 'Actualizado' agregado al registro existente`);
+                }
               }
             } else {
-              console.log(`📝 Tag '${tagToAdd}' ya existe en el registro ${submissionId}`);
+              console.log(`📝 Tags ya existen en el registro ${submissionId}`);
             }
           }
         } catch (tagError) {
