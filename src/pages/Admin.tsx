@@ -56,7 +56,7 @@ export default function Admin({ onLogout }: AdminProps) {
   const [emailTestResult, setEmailTestResult] = useState<any>(null);
   const [showEmailDialog, setShowEmailDialog] = useState(false);
   const [selectedEmailSubmission, setSelectedEmailSubmission] = useState<FormSubmission | null>(null);
-  const [emailType, setEmailType] = useState<'custom' | 'follow-up'>('custom');
+  const [emailType, setEmailType] = useState<'custom' | 'follow-up' | 'proposal'>('custom');
   const [customEmailSubject, setCustomEmailSubject] = useState('');
   const [customEmailContent, setCustomEmailContent] = useState('');
   const [filters, setFilters] = useState<AdminFilters>({
@@ -493,7 +493,7 @@ export default function Admin({ onLogout }: AdminProps) {
     window.open(url, '_blank');
   };
 
-  const handleSendEmail = (submission: FormSubmission, type: 'custom' | 'follow-up') => {
+  const handleSendEmail = (submission: FormSubmission, type: 'custom' | 'follow-up' | 'proposal') => {
     setSelectedEmailSubmission(submission);
     setEmailType(type);
     if (type === 'follow-up') {
@@ -525,6 +525,31 @@ Un saludo,
 Esteban Montenegro
 Fundador de CrealoconIA
 📲 WhatsApp: +56 9 6279 1772
+📲 WhatsApp: +56 9 6279 1772`);
+    } else if (type === 'proposal') {
+      setCustomEmailSubject('Tu propuesta de sitio web está lista 🚀');
+      setCustomEmailContent(`Hola 👋🏻 ${submission.form_data?.marca || submission.email},
+
+Revisamos tus respuestas en Crealoconia y vimos un gran potencial en tu proyecto. Se nota el compromiso y la claridad con que completaste el formulario, y eso nos permite avanzar hacia la creación de tu sitio web personalizado.
+
+👉 El proceso es muy simple:
+	1.	Con tus respuestas generamos una propuesta 100% funcional, lista para revisar sin compromiso.
+	2.	Si te gusta y aceptas el sitio, hacemos una sesión de ajustes para dejarlo exactamente como lo necesitas (textos, fotos, colores).
+	3.	En esa misma sesión publicamos tu web en tu propio dominio (.com o .cl).
+
+La inversión es de $197.000 CLP por 2 años, lo que incluye la sesión personalizada y la publicación en tu dominio.
+(El costo del dominio depende del proveedor que elijas).
+
+Con Crealoconia obtienes una herramienta profesional, rápida y sin complicaciones técnicas.
+
+👉 Para avanzar, solo responde este correo diciendo "Sí, quiero mi sitio" y damos el vamos.
+📲 Si prefieres, también puedes escribirme directo a mi WhatsApp: +56 9 6279 1772.
+
+✅ Da el paso ahora y asegura tu sitio.
+
+Un saludo,
+Esteban Montenegro
+Fundador de CrealoconIA
 📲 WhatsApp: +56 9 6279 1772`);
     } else {
       setCustomEmailSubject('');
@@ -913,15 +938,16 @@ Fundador de CrealoconIA
                                     </Button>
                                   )}
 
-                                  <Select onValueChange={(value) => handleSendEmail(submission, value as 'custom' | 'follow-up')}>
-                                    <SelectTrigger className="h-8 w-8 p-0">
-                                      <Mail className="w-4 h-4 text-blue-600" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      <SelectItem value="custom">Email personalizado</SelectItem>
-                                      <SelectItem value="follow-up">Email seguimiento</SelectItem>
-                                    </SelectContent>
-                                  </Select>
+                                   <Select onValueChange={(value) => handleSendEmail(submission, value as 'custom' | 'follow-up' | 'proposal')}>
+                                     <SelectTrigger className="h-8 w-8 p-0">
+                                       <Mail className="w-4 h-4 text-blue-600" />
+                                     </SelectTrigger>
+                                     <SelectContent>
+                                       <SelectItem value="custom">Email personalizado</SelectItem>
+                                       <SelectItem value="follow-up">Email seguimiento</SelectItem>
+                                       <SelectItem value="proposal">Email propuesta</SelectItem>
+                                     </SelectContent>
+                                   </Select>
                                  
                                   <AlertDialog>
                                     <AlertDialogTrigger>
@@ -1138,7 +1164,9 @@ Fundador de CrealoconIA
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>
-              {emailType === 'custom' ? 'Enviar Email Personalizado' : 'Enviar Email de Seguimiento'}
+              {emailType === 'custom' ? 'Enviar Email Personalizado' : 
+               emailType === 'follow-up' ? 'Enviar Email de Seguimiento' : 
+               'Enviar Email de Propuesta'}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
