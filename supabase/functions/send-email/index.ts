@@ -61,6 +61,17 @@ const handler = async (req: Request): Promise<Response> => {
     
     console.log(`📧 Enviando email de tipo: ${type} a: ${email}`);
 
+    // Detectar dominio público para servir imágenes del mismo sistema
+    const originHeader = req.headers.get('origin') || req.headers.get('referer') || '';
+    let baseUrl = 'https://2339e053-200d-4ba5-96b8-75aba0910eb1.sandbox.lovable.dev';
+    try {
+      if (originHeader) {
+        const u = new URL(originHeader);
+        baseUrl = u.origin;
+      }
+    } catch (_) { /* ignore errors */ }
+    console.log('🖼️ Base URL para imágenes:', baseUrl);
+
     let emailPayload: any;
 
     if (type === 'test') {
@@ -410,16 +421,16 @@ const handler = async (req: Request): Promise<Response> => {
                 🌐 Ejemplos de sitios creados con Crealoconia:
               </h3>
               <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
-                <img src="https://yxagfbefgqlsjrxjtgjr.lovable.app/lovable-uploads/ejemplos-sonrisas.png" alt="Ejemplo Sonrisas" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="https://yxagfbefgqlsjrxjtgjr.lovable.app/lovable-uploads/ejemplos-ate.png" alt="Ejemplo ATE" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="https://yxagfbefgqlsjrxjtgjr.lovable.app/lovable-uploads/ejemplos-colegio.png" alt="Ejemplo Colegio" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="https://yxagfbefgqlsjrxjtgjr.lovable.app/lovable-uploads/ejemplos-ecopartner.png" alt="Ejemplo EcoPartner" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-sonrisas.png" alt="Ejemplo Sonrisas" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-ate.png" alt="Ejemplo ATE" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-colegio.png" alt="Ejemplo Colegio" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-ecopartner.png" alt="Ejemplo EcoPartner" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
               </div>
               <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
-                <img src="https://yxagfbefgqlsjrxjtgjr.lovable.app/lovable-uploads/ejemplos-gatitos.png" alt="Ejemplo Gatitos" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="https://yxagfbefgqlsjrxjtgjr.lovable.app/lovable-uploads/ejemplos-lux.png" alt="Ejemplo Lux" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="https://yxagfbefgqlsjrxjtgjr.lovable.app/lovable-uploads/ejemplos-propiedades.png" alt="Ejemplo Propiedades" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="https://yxagfbefgqlsjrxjtgjr.lovable.app/lovable-uploads/ejemplos-taxi.png" alt="Ejemplo Taxi" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-gatitos.png" alt="Ejemplo Gatitos" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-lux.png" alt="Ejemplo Lux" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-propiedades.png" alt="Ejemplo Propiedades" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-taxi.png" alt="Ejemplo Taxi" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
               </div>
               <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0; font-style: italic;">
                 Todos estos proyectos fueron creados y publicados el mismo día de la sesión.
