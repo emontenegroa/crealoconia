@@ -10,8 +10,8 @@ const corsHeaders = {
 // Función para convertir imagen a base64
 async function getImageAsBase64(imageName: string): Promise<string> {
   try {
-    // Leer la imagen desde el directorio public/lovable-uploads
-    const response = await fetch(`https://yxagfbefgqlsjrxjtgjr.supabase.co/storage/v1/object/public/website-assets/${imageName}`);
+    // Leer la imagen desde el directorio public/lovable-uploads usando la URL correcta del proyecto
+    const response = await fetch(`https://yxagfbefgqlsjrxjtgjr.lovable.app/${imageName}`);
     if (!response.ok) {
       console.error(`Error loading image ${imageName}:`, response.status);
       return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==";
