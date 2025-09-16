@@ -441,23 +441,25 @@ const handler = async (req: Request): Promise<Response> => {
               <h3 style="color: #1f2937; font-size: 18px; font-weight: 600; margin: 24px 0 16px 0;">
                 🌐 Ejemplos de sitios creados con Crealoconia:
               </h3>
-              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-sonrisas.png" alt="Ejemplo Sonrisas" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-ate.png" alt="Ejemplo ATE" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-colegio.png" alt="Ejemplo Colegio" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-ecopartner.png" alt="Ejemplo EcoPartner" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-sonrisas.png" alt="Ejemplo Sonrisas" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-ate.png" alt="Ejemplo ATE" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-colegio.png" alt="Ejemplo Colegio" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
               </div>
-              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-gatitos.png" alt="Ejemplo Gatitos" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-lux.png" alt="Ejemplo Lux" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-propiedades.png" alt="Ejemplo Propiedades" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-taxi.png" alt="Ejemplo Taxi" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-ecopartner.png" alt="Ejemplo EcoPartner" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-gatitos.png" alt="Ejemplo Gatitos" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-lux.png" alt="Ejemplo Lux" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
               </div>
-              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-emprendedora.png" alt="Ejemplo Emprendedora" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-artetransfer.png" alt="Ejemplo Arte Transfer" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-dojo.png" alt="Ejemplo Dojo" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <img src="${baseUrl}/lovable-uploads/ejemplos-tenis.png" alt="Ejemplo Tenis" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-propiedades.png" alt="Ejemplo Propiedades" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-taxi.png" alt="Ejemplo Taxi" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-emprendedora.png" alt="Ejemplo Emprendedora" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-artetransfer.png" alt="Ejemplo Arte Transfer" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-dojo.png" alt="Ejemplo Dojo" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-tenis.png" alt="Ejemplo Tenis" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; max-width: 180px;">
               </div>
               <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0; font-style: italic;">
                 Todos estos proyectos fueron creados y publicados el mismo día de la sesión.
