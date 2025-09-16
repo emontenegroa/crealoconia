@@ -435,6 +435,10 @@ const handler = async (req: Request): Promise<Response> => {
                 <img src="${baseUrl}/lovable-uploads/ejemplos-propiedades.png" alt="Ejemplo Propiedades" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
                 <img src="${baseUrl}/lovable-uploads/ejemplos-taxi.png" alt="Ejemplo Taxi" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
               </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-emprendedora.png" alt="Ejemplo Emprendedora" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-artetransfer.png" alt="Ejemplo Arte Transfer" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+              </div>
               <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0; font-style: italic;">
                 Todos estos proyectos fueron creados y publicados el mismo día de la sesión.
               </p>
