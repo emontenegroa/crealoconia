@@ -61,13 +61,16 @@ const handler = async (req: Request): Promise<Response> => {
     
     console.log(`📧 Enviando email de tipo: ${type} a: ${email}`);
 
-    // Detectar dominio público para servir imágenes del mismo sistema
+    // Base URL fija para imágenes servidas desde el mismo sistema
+    let baseUrl = 'https://crealoconia.com';
     const originHeader = req.headers.get('origin') || req.headers.get('referer') || '';
-    let baseUrl = 'https://2339e053-200d-4ba5-96b8-75aba0910eb1.sandbox.lovable.dev';
     try {
       if (originHeader) {
         const u = new URL(originHeader);
-        baseUrl = u.origin;
+        // Solo aceptar orígenes públicos válidos
+        if (u.hostname.includes('crealoconia.com') || u.hostname.includes('yxagfbefgqlsjrxjtgjr.lovable.app')) {
+          baseUrl = u.origin;
+        }
       }
     } catch (_) { /* ignore errors */ }
     console.log('🖼️ Base URL para imágenes:', baseUrl);
