@@ -79,7 +79,7 @@ const handler = async (req: Request): Promise<Response> => {
     const imagesToCheck = [
       'ejemplos-sonrisas.png','ejemplos-ate.png','ejemplos-colegio.png','ejemplos-ecopartner.png',
       'ejemplos-gatitos.png','ejemplos-lux.png','ejemplos-propiedades.png','ejemplos-taxi.png',
-      'ejemplos-emprendedora.png','ejemplos-artetransfer.png'
+      'ejemplos-emprendedora.png','ejemplos-artetransfer.png','ejemplos-dojo.png','ejemplos-tenis.png'
     ];
     try {
       await Promise.all(imagesToCheck.map(async (img) => {
@@ -456,6 +456,8 @@ const handler = async (req: Request): Promise<Response> => {
               <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
                 <img src="${baseUrl}/lovable-uploads/ejemplos-emprendedora.png" alt="Ejemplo Emprendedora" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
                 <img src="${baseUrl}/lovable-uploads/ejemplos-artetransfer.png" alt="Ejemplo Arte Transfer" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-dojo.png" alt="Ejemplo Dojo" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <img src="${baseUrl}/lovable-uploads/ejemplos-tenis.png" alt="Ejemplo Tenis" style="width: 150px; height: auto; border-radius: 8px; border: 1px solid #e5e7eb;">
               </div>
               <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0; font-style: italic;">
                 Todos estos proyectos fueron creados y publicados el mismo día de la sesión.
