@@ -61,19 +61,37 @@ const handler = async (req: Request): Promise<Response> => {
     
     console.log(`📧 Enviando email de tipo: ${type} a: ${email}`);
 
-    // Base URL fija para imágenes servidas desde el mismo sistema
-    let baseUrl = 'https://crealoconia.com';
+    // Base URL para imágenes: por defecto el dominio de la app en producción
+    let baseUrl = 'https://yxagfbefgqlsjrxjtgjr.lovable.app';
     const originHeader = req.headers.get('origin') || req.headers.get('referer') || '';
     try {
       if (originHeader) {
         const u = new URL(originHeader);
-        // Solo aceptar orígenes públicos válidos
+        // Solo aceptar orígenes públicos válidos conocidos
         if (u.hostname.includes('crealoconia.com') || u.hostname.includes('yxagfbefgqlsjrxjtgjr.lovable.app')) {
           baseUrl = u.origin;
         }
       }
     } catch (_) { /* ignore errors */ }
     console.log('🖼️ Base URL para imágenes:', baseUrl);
+
+    // Verificación previa: comprobar que todas las imágenes de ejemplo respondan 200
+    const imagesToCheck = [
+      'ejemplos-sonrisas.png','ejemplos-ate.png','ejemplos-colegio.png','ejemplos-ecopartner.png',
+      'ejemplos-gatitos.png','ejemplos-lux.png','ejemplos-propiedades.png','ejemplos-taxi.png',
+      'ejemplos-emprendedora.png','ejemplos-artetransfer.png'
+    ];
+    try {
+      await Promise.all(imagesToCheck.map(async (img) => {
+        try {
+          const url = `${baseUrl}/lovable-uploads/${img}`;
+          const res = await fetch(url, { method: 'HEAD' });
+          console.log(`🖼️ Check ${img}: ${res.status} - ${url}`);
+        } catch (e) {
+          console.log(`💥 Error checking ${img}:`, e?.message || e);
+        }
+      }));
+    } catch (_) { /* ignore */ }
 
     let emailPayload: any;
 
