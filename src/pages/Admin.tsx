@@ -645,6 +645,85 @@ Fundador de CrealoconIA
         </Button>
       </div>
 
+      {activeTab === 'email-tests' && (
+        <div className="space-y-6">
+          <h2 className="text-xl md:text-2xl font-bold">Sistema de Validación de Email</h2>
+          
+          <div className="max-w-2xl mx-auto">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Mail className="w-5 h-5" />
+                  Validador del Sistema de Email
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Button 
+                  onClick={runEmailTest} 
+                  disabled={emailTesting}
+                  className="w-full"
+                >
+                  {emailTesting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Validando sistema...
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="w-4 h-4 mr-2" />
+                      Probar Sistema de Email
+                    </>
+                  )}
+                </Button>
+
+                {emailTestResult && (
+                  <div className={`p-4 rounded-lg border ${
+                    emailTestResult.success 
+                      ? 'bg-green-50 border-green-200' 
+                      : 'bg-red-50 border-red-200'
+                  }`}>
+                    <div className="flex items-center gap-2 mb-2">
+                      {emailTestResult.success ? (
+                        <CheckCircle className="w-5 h-5 text-green-600" />
+                      ) : (
+                        <AlertTriangle className="w-5 h-5 text-red-600" />
+                      )}
+                      <span className={`font-medium ${
+                        emailTestResult.success ? 'text-green-800' : 'text-red-800'
+                      }`}>
+                        {emailTestResult.success ? 'Sistema funcionando correctamente' : 'Error en el sistema'}
+                      </span>
+                    </div>
+                    
+                    {emailTestResult.message && (
+                      <p className={`text-sm ${
+                        emailTestResult.success ? 'text-green-700' : 'text-red-700'
+                      }`}>
+                        {emailTestResult.message}
+                      </p>
+                    )}
+
+                    {emailTestResult.success && emailTestResult.data && (
+                      <div className="mt-3 text-sm text-green-700">
+                        <p>✅ Email de prueba: Enviado</p>
+                        <p>✅ Email de confirmación: Enviado</p>
+                        <p>✅ Email administrativo: Enviado</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <div className="text-xs text-gray-500 space-y-1">
+                  <p>• Este test envía emails reales a esteban.montenegro@gmail.com</p>
+                  <p>• Valida la configuración de Brevo API y las edge functions</p>
+                  <p>• Prueba los 3 tipos de email: test, confirmación y administrativo</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      )}
+
         {activeTab === 'submissions' && (
           <>
             {/* Título y botones principales - responsive mejorado */}

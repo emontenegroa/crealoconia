@@ -9,7 +9,7 @@ import ResultadosPrueba from "./pages/ResultadosPrueba";
 
 import NotFound from "./pages/NotFound";
 import AdminRoute from "./pages/AdminRoute";
-import EmailTest from "./pages/EmailTest";
+
 
 const queryClient = new QueryClient();
 
@@ -24,7 +24,6 @@ const App = () => (
           <Route path="/resultados" element={<ResultadosPrueba />} />
           
           <Route path="/admin" element={<AdminRoute />} />
-          <Route path="/email-test" element={<EmailTest />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
