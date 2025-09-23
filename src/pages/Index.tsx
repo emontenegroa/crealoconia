@@ -8,8 +8,10 @@ import ProgressDialog from '@/components/ProgressDialog';
 import InitialForm from '@/components/InitialForm';
 import MainForm from '@/components/MainForm';
 import HowItWorksToggle from '@/components/HowItWorksToggle';
-import TestimonialsSection from '@/components/TestimonialsSection';
-import FAQ from '@/components/FAQ';
+import ImprovedTestimonials from '@/components/ImprovedTestimonials';
+import TransparentPricing from '@/components/TransparentPricing';
+import StickyMobileCTA from '@/components/StickyMobileCTA';
+import ImprovedFAQ from '@/components/ImprovedFAQ';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { MetaTracker } from '@/components/MetaTracker';
 import StrategicContentDisplay from '@/components/StrategicContentDisplay';
@@ -24,6 +26,15 @@ if (import.meta.env.DEV) {
 const Index = () => {
   const formRef = useRef<HTMLDivElement>(null);
   const { showFullForm, showResults, currentURLStep } = useStepNavigation();
+  
+  // Scroll al formulario para el CTA pegajoso
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start',
+      inline: 'nearest'
+    });
+  };
   
   const {
     formData,
@@ -93,7 +104,11 @@ const Index = () => {
           />
         )}
 
+        <TransparentPricing />
+        
         <HowItWorksToggle />
+        
+        <ImprovedTestimonials />
         
         <ImportantNotice />
         
@@ -124,12 +139,17 @@ const Index = () => {
           </div>
         ) : null}
 
-        <TestimonialsSection />
+        {/* Testimonials mejorados ya están arriba */}
 
-        <FAQ />
+        <ImprovedFAQ />
       </div>
       
       <WhatsAppFloat />
+      
+      <StickyMobileCTA 
+        isVisible={!showFullForm && !showResults && !isGenerating}
+        onClick={scrollToForm}
+      />
     </div>
   );
 };

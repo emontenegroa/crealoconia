@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Mail } from "lucide-react";
 import FormField from '@/components/FormField';
 import { FormData } from '@/hooks/useFormHandler';
-import MathCaptcha from '@/components/ui/MathCaptcha';
+// MathCaptcha removido para mejor UX
 interface InitialFormProps {
   formData: FormData;
   onInputChange: (name: string, value: string) => void;
@@ -59,19 +59,20 @@ const InitialForm = ({
           <FormField type="input" label="2. Correo electrónico (donde recibirás tu Kit IA)" placeholder="Ej: info@tumarca.com" name="email" value={formData.email} onChange={onInputChange} icon={Mail} />
 
           <div className="space-y-4">
-            <MathCaptcha onVerify={onMathCaptchaChange} />
-
-            <Button type="submit" className="w-full py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" disabled={!isValid}>
-              CONTINUAR CON EL FORMULARIO
+            <Button type="submit" className="w-full py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" disabled={!isValid}>
+              🚀 CREAR MI SITIO AHORA
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
+            
+            <p className="text-center text-sm text-gray-600">
+              ✅ Propuesta inicial 100% gratuita • ⚡ Resultados en 4 horas
+            </p>
           </div>
 
           <div className="text-center space-y-3">
             <p className="text-gray-600 text-sm">
-              🔐 100% seguro y sin spam
+              🔐 Tus datos están seguros • 📧 No enviamos spam • ✨ Cancelación libre
             </p>
-            
           </div>
         </form>
       </CardContent>

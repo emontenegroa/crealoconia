@@ -58,7 +58,7 @@ export const useFormHandler = () => {
   const [noInstagram, setNoInstagram] = useState(false);
   const [showProgressDialog, setShowProgressDialog] = useState(false);
   const [previousProgress, setPreviousProgress] = useState<FormData | null>(null);
-  const [mathCaptchaValid, setMathCaptchaValid] = useState(false);
+  const [mathCaptchaValid, setMathCaptchaValid] = useState(true); // Simplificado - removido captcha intrusivo
 
   const {
     sessionId,
@@ -206,15 +206,7 @@ export const useFormHandler = () => {
       return;
     }
 
-    // Validar captcha matemático
-    if (!mathCaptchaValid) {
-      toast({
-        title: "Verificación requerida",
-        description: "Por favor completa la verificación matemática.",
-        variant: "destructive",
-      });
-      return;
-    }
+    // Captcha removido para mejorar UX - implementar honeypot o ReCAPTCHA invisible si es necesario
     
     // Enhanced rate limiting
     if (!enforceRateLimit(formData.email, 'email_submission')) {
@@ -477,7 +469,7 @@ export const useFormHandler = () => {
   const isFirstStepValid = () => {
     const emailValidation = validateEmail(formData.email);
     const marcaValidation = validateText(formData.marca, 'Marca', 100, true);
-    return emailValidation.isValid && marcaValidation.isValid && mathCaptchaValid;
+    return emailValidation.isValid && marcaValidation.isValid;
   };
 
   // Función para manejar el cambio del captcha matemático
