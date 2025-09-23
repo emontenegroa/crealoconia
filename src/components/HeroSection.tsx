@@ -41,27 +41,13 @@ const HeroSection = ({
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-emerald-500/10 to-blue-500/10 rounded-full blur-3xl"></div>
       
       <div className="relative z-10 container mx-auto px-4 py-6">
-        {/* Header con branding personalizado */}
-        <div className="flex items-center justify-between mb-12">
+        {/* Header minimalista */}
+        <div className="flex items-center mb-12">
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <div>
-              <span className="text-white font-bold text-xl tracking-tight">Crealoconia</span>
-              <div className="text-blue-300 text-sm font-medium">by Esteban Montenegro</div>
-            </div>
-          </div>
-          
-          <div className="hidden md:flex items-center space-x-6 text-slate-300 text-sm">
-            <div className="flex items-center space-x-2">
-              <Zap className="w-4 h-4 text-yellow-400" />
-              <span>4 horas</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Trophy className="w-4 h-4 text-emerald-400" />
-              <span>100% profesional</span>
-            </div>
+            <span className="text-white font-bold text-xl tracking-tight">Crealoconia</span>
           </div>
         </div>
 
@@ -139,58 +125,51 @@ const HeroSection = ({
 
           {/* Columna derecha - Portfolio visual (5 columnas) */}
           <div className="lg:col-span-5 relative lg:block hidden">
-            <div className="relative">
-              {/* Contenedor principal del portfolio */}
-              <div className="relative w-full max-w-md mx-auto">
-                <div className="text-center mb-6">
-                  <h3 className="text-white font-semibold text-lg mb-2">Sitios web creados</h3>
-                  <p className="text-slate-400 text-sm">con Crealoconia</p>
-                </div>
-                
-                {/* Grid de imágenes flotantes */}
-                <div className="relative">
-                  {portfolioImages.map((image, index) => {
+            <div className="relative h-full flex items-center">
+              {/* Grid de imágenes más grandes */}
+              <div className="relative w-full max-w-lg mx-auto">
+                <div className="grid grid-cols-2 gap-4 h-96">
+                  {portfolioImages.slice(0, 4).map((image, index) => {
                     const positions = [
-                      "top-0 left-4 rotate-6",
-                      "top-8 right-0 -rotate-3",
-                      "top-20 left-8 rotate-12",
-                      "top-32 right-4 -rotate-6",
-                      "top-44 left-12 rotate-3"
+                      "row-span-1 rotate-2",
+                      "row-span-1 -rotate-1",
+                      "row-span-1 rotate-1",
+                      "row-span-1 -rotate-2"
                     ];
                     
                     return (
                       <div
                         key={index}
-                        className={`absolute w-24 h-16 ${positions[index]} animate-fade-in hover-scale`}
+                        className={`${positions[index]} animate-fade-in hover-scale`}
                         style={{ 
                           animationDelay: image.delay,
                           animationDuration: '0.6s',
                           animationFillMode: 'both'
                         }}
                       >
-                        <div className="relative group">
+                        <div className="relative group h-full">
                           <img
                             src={image.src}
                             alt={image.title}
-                            className="w-full h-full object-cover rounded-lg shadow-lg border-2 border-white/20 group-hover:border-blue-400/50 transition-all duration-300"
+                            className="w-full h-full object-cover rounded-2xl shadow-xl border-2 border-white/10 group-hover:border-white/30 transition-all duration-300"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div className="absolute bottom-1 left-1 right-1">
-                              <p className="text-white text-xs font-medium truncate">{image.title}</p>
-                            </div>
-                          </div>
-                          
-                          {/* Efecto de brillo */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12 rounded-lg"></div>
+                          {/* Efecto de brillo sutil */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12 rounded-2xl"></div>
                         </div>
                       </div>
                     );
                   })}
+                  
+                  {/* Imagen central flotante */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-24 rotate-3 animate-fade-in hover-scale z-10"
+                       style={{ animationDelay: '2s' }}>
+                    <img
+                      src={portfolioImages[4].src}
+                      alt={portfolioImages[4].title}
+                      className="w-full h-full object-cover rounded-xl shadow-2xl border-2 border-white/20 hover:border-white/40 transition-all duration-300"
+                    />
+                  </div>
                 </div>
-                
-                {/* Elementos decorativos de fondo */}
-                <div className="absolute top-16 right-8 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-xl"></div>
-                <div className="absolute bottom-8 left-4 w-24 h-24 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-full blur-lg"></div>
               </div>
             </div>
           </div>
