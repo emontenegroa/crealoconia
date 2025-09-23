@@ -12,6 +12,7 @@ import ImprovedTestimonials from '@/components/ImprovedTestimonials';
 import TransparentPricing from '@/components/TransparentPricing';
 import StickyMobileCTA from '@/components/StickyMobileCTA';
 import ImprovedFAQ from '@/components/ImprovedFAQ';
+import PortfolioSection from '@/components/PortfolioSection';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { MetaTracker } from '@/components/MetaTracker';
 import StrategicContentDisplay from '@/components/StrategicContentDisplay';
@@ -103,6 +104,7 @@ const Index = () => {
           <div className="container mx-auto px-4 py-12 max-w-4xl space-y-16">
             <TransparentPricing />
             <HowItWorksToggle />
+            <PortfolioSection />
             <ImprovedTestimonials />
             <ImportantNotice />
             <ImprovedFAQ />
