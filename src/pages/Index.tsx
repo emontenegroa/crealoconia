@@ -81,47 +81,47 @@ const Index = () => {
   }, [showFullForm, currentURLStep]);
 
   return (
-    <div className="min-h-screen bg-white light">
+    <div className="min-h-screen bg-background">
       <MetaTracker />
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <ProgressDialog
-          show={showProgressDialog}
-          attemptCount={attemptCount}
-          onLoadPrevious={loadPreviousData}
-          onStartFresh={startFresh}
-        />
+      
+      <ProgressDialog
+        show={showProgressDialog}
+        attemptCount={attemptCount}
+        onLoadPrevious={loadPreviousData}
+        onStartFresh={startFresh}
+      />
 
-        <HeroSection onLoadExample={loadExampleData} />
-        
-        {!showFullForm && !showResults && !isGenerating && (
-          <InitialForm
+      {!showFullForm && !showResults && !isGenerating ? (
+        <>
+          <HeroSection 
             formData={formData}
             onInputChange={handleInputChange}
             onSubmit={handleFirstStep}
             isValid={isFirstStepValid}
-            onLoadExample={loadExampleData}
-            onMathCaptchaChange={handleMathCaptchaChange}
           />
-        )}
-
-        <TransparentPricing />
-        
-        <HowItWorksToggle />
-        
-        <ImprovedTestimonials />
-        
-        <ImportantNotice />
-        
-        {isGenerating ? (
+          
+          <div className="container mx-auto px-4 py-12 max-w-4xl space-y-16">
+            <TransparentPricing />
+            <HowItWorksToggle />
+            <ImprovedTestimonials />
+            <ImportantNotice />
+            <ImprovedFAQ />
+          </div>
+        </>
+      ) : isGenerating ? (
+        <div className="min-h-screen flex items-center justify-center">
           <LoadingSpinner />
-        ) : showResults ? (
+        </div>
+      ) : showResults ? (
+        <div className="container mx-auto px-4 py-12 max-w-4xl">
           <StrategicContentDisplay
             formData={formData}
             onReset={resetForm}
           />
-        ) : showFullForm ? (
-          <div ref={formRef}>
-            <MainForm
+        </div>
+      ) : showFullForm ? (
+        <div ref={formRef} className="container mx-auto px-4 py-12 max-w-4xl">
+          <MainForm
             formData={formData}
             setFormData={setFormData}
             onInputChange={handleInputChange}
@@ -135,14 +135,9 @@ const Index = () => {
             isFormValid={isFormValid}
             onGenerateWebsite={onGenerateWebsite}
             onBackToInitial={handleBackToInitial}
-            />
-          </div>
-        ) : null}
-
-        {/* Testimonials mejorados ya están arriba */}
-
-        <ImprovedFAQ />
-      </div>
+          />
+        </div>
+      ) : null}
       
       <WhatsAppFloat />
       
