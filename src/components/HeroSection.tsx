@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Users, Mail, ArrowRight } from "lucide-react";
+import { Users, Mail, ArrowRight, Sparkles, Zap, Trophy } from "lucide-react";
 import { FormData } from '@/hooks/useFormHandler';
 
 interface HeroSectionProps {
@@ -18,122 +18,189 @@ const HeroSection = ({
   onSubmit,
   isValid
 }: HeroSectionProps) => {
+  const portfolioImages = [
+    { src: "/ejemplos/emontenegroa.png", title: "Esteban Montenegro", delay: "0s" },
+    { src: "/ejemplos/totalsport.png", title: "Total Sport", delay: "0.5s" },
+    { src: "/ejemplos/artescreen.png", title: "Arte Transfer", delay: "1s" },
+    { src: "/ejemplos/mamasmentorasscren.png", title: "Mamás Mentoras", delay: "1.5s" },
+    { src: "/ejemplos/gatitos-2.png", title: "Gatitos Barbería", delay: "2s" }
+  ];
+
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Gradiente de fondo sutil */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/20"></div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
+      {/* Patrón de fondo personalizado */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+          backgroundSize: '24px 24px'
+        }}></div>
+      </div>
       
-      <div className="relative z-10 container mx-auto px-4 py-8">
-        {/* Header con logo */}
-        <div className="flex items-center justify-between mb-16">
-          <div className="flex items-center">
-            <img 
-              src="/lovable-uploads/d5a1d369-f067-4b34-8454-e4ea330bfa99.png" 
-              alt="Crealo con IA" 
-              className="w-10 h-10 object-contain opacity-90" 
-            />
-            <span className="ml-3 text-foreground font-medium text-lg">Crealo con IA</span>
+      {/* Gradientes sutiles personalizados */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-emerald-500/10 to-blue-500/10 rounded-full blur-3xl"></div>
+      
+      <div className="relative z-10 container mx-auto px-4 py-6">
+        {/* Header con branding personalizado */}
+        <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+              <Sparkles className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <span className="text-white font-bold text-xl tracking-tight">Crealoconia</span>
+              <div className="text-blue-300 text-sm font-medium">by Esteban Montenegro</div>
+            </div>
+          </div>
+          
+          <div className="hidden md:flex items-center space-x-6 text-slate-300 text-sm">
+            <div className="flex items-center space-x-2">
+              <Zap className="w-4 h-4 text-yellow-400" />
+              <span>4 horas</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Trophy className="w-4 h-4 text-emerald-400" />
+              <span>100% profesional</span>
+            </div>
           </div>
         </div>
 
-        {/* Contenido principal - Layout de dos columnas */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
-          {/* Columna izquierda - Contenido */}
-          <div className="space-y-8">
+        {/* Contenido principal */}
+        <div className="grid lg:grid-cols-12 gap-8 items-center min-h-[75vh]">
+          {/* Columna izquierda - Contenido (8 columnas) */}
+          <div className="lg:col-span-7 space-y-8">
             <div className="space-y-6">
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                <span className="text-foreground">Sitios web</span>
-                <br />
-                <span className="text-foreground">profesionales</span>
-                <br />
-                <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                  comienzan aquí.
+              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm font-medium backdrop-blur-sm">
+                <Sparkles className="w-4 h-4 mr-2" />
+                Transformación digital inteligente
+              </div>
+              
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
+                <span className="block">Tu sitio web</span>
+                <span className="block">profesional</span>
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent block">
+                  listo en 4 horas
                 </span>
               </h1>
               
-              <p className="text-lg text-muted-foreground max-w-md leading-relaxed">
-                Responde 2 preguntas y recibe tu super prompt de IA personalizado y tu página web lista para vender en menos de 4 horas.
+              <p className="text-lg text-slate-300 max-w-lg leading-relaxed">
+                Combino experiencia en marketing digital con inteligencia artificial para crear sitios web que realmente 
+                <span className="text-blue-300 font-medium"> conectan con tus clientes</span> y generan resultados.
               </p>
             </div>
 
-            {/* Formulario integrado */}
-            <form onSubmit={onSubmit} className="space-y-4 max-w-md">
-              <div className="space-y-3">
-                <div>
+            {/* Formulario profesional */}
+            <form onSubmit={onSubmit} className="space-y-4 max-w-lg">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="relative">
                   <Input
                     name="marca"
                     value={formData.marca}
                     onChange={(e) => onInputChange('marca', e.target.value)}
-                    placeholder="Nombre de tu emprendimiento"
-                    className="h-12 text-base bg-card/50 border-border/50 focus:border-primary transition-colors backdrop-blur-sm"
+                    placeholder="Tu marca o negocio"
+                    className="h-14 text-base bg-white/10 border-white/20 text-white placeholder:text-slate-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 backdrop-blur-sm rounded-xl"
                   />
                 </div>
                 
-                <div>
+                <div className="relative">
                   <Input
                     name="email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => onInputChange('email', e.target.value)}
                     placeholder="tu@email.com"
-                    className="h-12 text-base bg-card/50 border-border/50 focus:border-primary transition-colors backdrop-blur-sm"
+                    className="h-14 text-base bg-white/10 border-white/20 text-white placeholder:text-slate-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 backdrop-blur-sm rounded-xl"
                   />
                 </div>
               </div>
 
               <Button 
                 type="submit" 
-                className="h-12 px-8 text-base font-medium bg-foreground hover:bg-foreground/90 text-background transition-all duration-200" 
+                className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] w-full md:w-auto" 
                 disabled={!isValid}
               >
-                Crear mi sitio web
+                <Sparkles className="w-5 h-5 mr-2" />
+                Crear mi sitio web ahora
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               
-              <p className="text-xs text-muted-foreground">
-                ✅ Propuesta inicial gratuita • ⚡ Resultados en 4 horas
-              </p>
+              <div className="flex items-center space-x-6 text-sm">
+                <div className="flex items-center text-emerald-400">
+                  <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2"></div>
+                  Propuesta gratuita
+                </div>
+                <div className="flex items-center text-blue-400">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                  Entrega en 4 horas
+                </div>
+              </div>
             </form>
           </div>
 
-          {/* Columna derecha - Elemento visual */}
-          <div className="relative lg:block hidden">
+          {/* Columna derecha - Portfolio visual (5 columnas) */}
+          <div className="lg:col-span-5 relative lg:block hidden">
             <div className="relative">
-              {/* Contenedor principal con efecto glassmorphism */}
-              <div className="relative w-80 h-96 mx-auto">
-                {/* Fondo con gradiente */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-accent/20 rounded-3xl backdrop-blur-sm border border-border/30"></div>
-                
-                {/* Elementos flotantes decorativos */}
-                <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full opacity-80 animate-pulse"></div>
-                <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-br from-accent to-accent/70 rounded-full opacity-60 animate-pulse" style={{ animationDelay: '1s' }}></div>
-                
-                {/* Contenido interno simulando una interfaz */}
-                <div className="relative p-8 h-full flex flex-col justify-center items-center text-center space-y-4">
-                  <div className="w-full space-y-3">
-                    <div className="h-3 bg-primary/30 rounded-full animate-pulse"></div>
-                    <div className="h-3 bg-primary/20 rounded-full w-4/5 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                    <div className="h-3 bg-primary/15 rounded-full w-3/5 animate-pulse" style={{ animationDelay: '1s' }}></div>
-                  </div>
-                  
-                  <div className="w-24 h-24 bg-gradient-to-br from-primary/30 to-primary/10 rounded-2xl flex items-center justify-center">
-                    <div className="w-12 h-12 bg-primary/40 rounded-xl animate-pulse"></div>
-                  </div>
-                  
-                  <div className="space-y-2 w-full">
-                    <div className="h-2 bg-muted/30 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-                    <div className="h-2 bg-muted/20 rounded-full w-3/4 animate-pulse" style={{ animationDelay: '2s' }}></div>
-                  </div>
+              {/* Contenedor principal del portfolio */}
+              <div className="relative w-full max-w-md mx-auto">
+                <div className="text-center mb-6">
+                  <h3 className="text-white font-semibold text-lg mb-2">Sitios web creados</h3>
+                  <p className="text-slate-400 text-sm">con Crealoconia</p>
                 </div>
+                
+                {/* Grid de imágenes flotantes */}
+                <div className="relative">
+                  {portfolioImages.map((image, index) => {
+                    const positions = [
+                      "top-0 left-4 rotate-6",
+                      "top-8 right-0 -rotate-3",
+                      "top-20 left-8 rotate-12",
+                      "top-32 right-4 -rotate-6",
+                      "top-44 left-12 rotate-3"
+                    ];
+                    
+                    return (
+                      <div
+                        key={index}
+                        className={`absolute w-24 h-16 ${positions[index]} animate-fade-in hover-scale`}
+                        style={{ 
+                          animationDelay: image.delay,
+                          animationDuration: '0.6s',
+                          animationFillMode: 'both'
+                        }}
+                      >
+                        <div className="relative group">
+                          <img
+                            src={image.src}
+                            alt={image.title}
+                            className="w-full h-full object-cover rounded-lg shadow-lg border-2 border-white/20 group-hover:border-blue-400/50 transition-all duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="absolute bottom-1 left-1 right-1">
+                              <p className="text-white text-xs font-medium truncate">{image.title}</p>
+                            </div>
+                          </div>
+                          
+                          {/* Efecto de brillo */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12 rounded-lg"></div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                
+                {/* Elementos decorativos de fondo */}
+                <div className="absolute top-16 right-8 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-xl"></div>
+                <div className="absolute bottom-8 left-4 w-24 h-24 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-full blur-lg"></div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Indicador de scroll */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-muted-foreground text-sm flex flex-col items-center space-y-2">
-          <span>Conoce más</span>
-          <div className="w-6 h-10 border border-border rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-bounce"></div>
+        {/* Indicador de scroll personalizado */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-slate-400 text-sm flex flex-col items-center space-y-3">
+          <span className="font-medium">Descubre más</span>
+          <div className="w-6 h-10 border-2 border-slate-500 rounded-full flex justify-center relative">
+            <div className="w-1 h-3 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full mt-2 animate-bounce"></div>
           </div>
         </div>
       </div>

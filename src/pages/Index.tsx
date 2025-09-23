@@ -101,10 +101,9 @@ const Index = () => {
             isValid={isFirstStepValid}
           />
           
-          <div className="container mx-auto px-4 py-12 max-w-4xl space-y-16">
+          <div className="container mx-auto px-4 py-12 max-w-6xl space-y-16">
             <TransparentPricing />
             <HowItWorksToggle />
-            <PortfolioSection />
             <ImprovedTestimonials />
             <ImportantNotice />
             <ImprovedFAQ />
