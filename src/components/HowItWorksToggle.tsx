@@ -10,13 +10,13 @@ const HowItWorksToggle = () => {
     <div className="max-w-3xl mx-auto mb-20 mt-16">
       {/* Botones de alternancia */}
       <div className="flex justify-center mb-8">
-        <div className="bg-gray-100 rounded-full p-1 flex">
+        <div className="bg-muted rounded-full p-1 flex">
           <button
             onClick={() => setActiveSection('how-it-works')}
             className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
               activeSection === 'how-it-works'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             Cómo funciona
@@ -25,8 +25,8 @@ const HowItWorksToggle = () => {
             onClick={() => setActiveSection('behind-scenes')}
             className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
               activeSection === 'behind-scenes'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             Cómo lo hacemos

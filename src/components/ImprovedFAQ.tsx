@@ -4,19 +4,19 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const ImprovedFAQ = () => {
   return (
     <div className="max-w-4xl mx-auto mt-20 px-4">
-      <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+      <h2 className="text-3xl font-bold text-center text-foreground mb-12">
         🤔 Preguntas Frecuentes
       </h2>
       
       {/* Precios y Tiempos */}
       <div className="mb-8">
-        <h3 className="text-xl font-bold text-blue-800 mb-4">💰 Precios y Tiempos</h3>
+        <h3 className="text-xl font-bold text-primary mb-4">💰 Precios y Tiempos</h3>
         <Accordion type="single" collapsible className="space-y-2">
-          <AccordionItem value="price-1" className="bg-white border border-gray-200 rounded-lg">
-            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
+          <AccordionItem value="price-1" className="bg-card border border-border rounded-lg">
+            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-foreground hover:no-underline">
               ¿Realmente es gratis?
             </AccordionTrigger>
-            <AccordionContent className="px-6 pb-4 text-gray-700">
+            <AccordionContent className="px-6 pb-4 text-muted-foreground">
               <p><strong>Sí, completamente gratis.</strong> Recibes tu super prompt y una propuesta funcional sin pagar nada.</p>
               <p className="mt-2">Solo pagas $197.000 CLP si decides publicar el sitio en tu dominio personalizado.</p>
             </AccordionContent>

@@ -4,27 +4,27 @@ import { Check, X } from "lucide-react";
 
 const TransparentPricing = () => {
   return (
-    <div className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+    <div className="py-16 bg-muted/30">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Precios 100% Transparentes
           </h2>
-          <p className="text-xl text-gray-700">
+          <p className="text-xl text-muted-foreground">
             Sin sorpresas, sin letra pequeña. Esto es exactamente lo que pagas:
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mb-8">
           {/* Propuesta Gratuita */}
-          <Card className="border-2 border-emerald-200 bg-white relative">
+          <Card className="border-2 border-emerald-500/30 bg-card relative">
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
               <span className="bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-bold">
                 100% GRATIS
               </span>
             </div>
             <CardHeader className="text-center pt-8">
-              <CardTitle className="text-2xl text-emerald-800">Propuesta Inicial</CardTitle>
+              <CardTitle className="text-2xl text-emerald-700">Propuesta Inicial</CardTitle>
               <div className="text-4xl font-bold text-emerald-600">$0 CLP</div>
             </CardHeader>
             <CardContent>
@@ -54,15 +54,15 @@ const TransparentPricing = () => {
           </Card>
 
           {/* Publicación Completa */}
-          <Card className="border-2 border-blue-200 bg-white relative">
+          <Card className="border-2 border-primary/30 bg-card relative">
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-bold">
+              <span className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-bold">
                 OPCIONAL
               </span>
             </div>
             <CardHeader className="text-center pt-8">
-              <CardTitle className="text-2xl text-blue-800">Publicación en Tu Dominio</CardTitle>
-              <div className="text-4xl font-bold text-blue-600">$197.000 CLP</div>
+              <CardTitle className="text-2xl text-primary">Publicación en Tu Dominio</CardTitle>
+              <div className="text-4xl font-bold text-primary">$197.000 CLP</div>
             </CardHeader>
             <CardContent>
               <ul className="space-y-3 mb-4">
@@ -89,18 +89,18 @@ const TransparentPricing = () => {
               </ul>
               
               <div className="border-t pt-4">
-                <h4 className="font-bold text-gray-800 mb-2">⚠️ No incluye:</h4>
-                <ul className="space-y-1 text-sm text-gray-600">
+                <h4 className="font-bold text-foreground mb-2">⚠️ No incluye:</h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
                   <li className="flex items-center gap-2">
-                    <X className="w-4 h-4 text-red-500" />
+                    <X className="w-4 h-4 text-destructive" />
                     <span>Dominio (~$15.000-25.000 CLP/año)</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <X className="w-4 h-4 text-red-500" />
+                    <X className="w-4 h-4 text-destructive" />
                     <span>Hosting (~$8.000-15.000 CLP/mes)</span>
                   </li>
                 </ul>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-muted-foreground mt-2">
                   Te recomendamos proveedores confiables y económicos
                 </p>
               </div>
@@ -109,16 +109,16 @@ const TransparentPricing = () => {
         </div>
 
         {/* Paquete de Cambios */}
-        <Card className="bg-purple-50 border-purple-200">
+        <Card className="bg-accent/50 border-accent">
           <CardContent className="p-6">
             <div className="text-center">
-              <h3 className="text-xl font-bold text-purple-800 mb-2">
+              <h3 className="text-xl font-bold text-accent-foreground mb-2">
                 💡 Paquete de Cambios Adicionales
               </h3>
-              <p className="text-purple-700 mb-4">
+              <p className="text-accent-foreground mb-4">
                 ¿Necesitas modificaciones después? 3 cambios por solo <span className="font-bold">$20.000 CLP</span>
               </p>
-              <p className="text-sm text-purple-600">
+              <p className="text-sm text-muted-foreground">
                 Incluye: cambios de texto, colores, imágenes, secciones adicionales
               </p>
             </div>
@@ -126,8 +126,8 @@ const TransparentPricing = () => {
         </Card>
 
         <div className="mt-8 text-center">
-          <div className="bg-blue-100 border border-blue-300 rounded-lg p-4 inline-block">
-            <p className="text-blue-800 font-medium">
+          <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 inline-block">
+            <p className="text-primary font-medium">
               🛡️ <strong>Garantía total:</strong> Si no te encanta tu sitio, te devolvemos tu dinero o lo ajustamos sin costo
             </p>
           </div>
