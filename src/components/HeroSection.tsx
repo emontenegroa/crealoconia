@@ -24,11 +24,14 @@ const HeroSection = ({
   isValid
 }: HeroSectionProps) => {
   const portfolioImages = [
-    { src: "/ejemplos/emontenegroa.png", title: "Esteban Montenegro", delay: "0s" },
-    { src: "/ejemplos/totalsport.png", title: "Total Sport", delay: "0.5s" },
-    { src: "/ejemplos/artescreen.png", title: "Arte Transfer", delay: "1s" },
-    { src: "/ejemplos/mamasmentorasscren.png", title: "Mamás Mentoras", delay: "1.5s" },
-    { src: "/ejemplos/gatitos-2.png", title: "Gatitos Barbería", delay: "2s" }
+    { src: "/ejemplos/totalsport-mobile.png", title: "Total Sport", delay: "0s" },
+    { src: "/ejemplos/tenispro-mobile.png", title: "HP Tenispro", delay: "0.5s" },
+    { src: "/ejemplos/agrocert-mobile.png", title: "AgroCert", delay: "1s" },
+    { src: "/ejemplos/hampi-mobile.png", title: "Hampi Paatcha", delay: "1.5s" },
+    { src: "/ejemplos/hector-mobile.png", title: "Héctor Tennis", delay: "2s" },
+    { src: "/ejemplos/traslados-mobile.png", title: "M&S Traslados", delay: "2.5s" },
+    { src: "/ejemplos/mamasmentoras-mobile.png", title: "Mamás Mentoras", delay: "3s" },
+    { src: "/ejemplos/circulos-mobile.png", title: "Círculos de Vida", delay: "3.5s" }
   ];
 
   return (
@@ -127,63 +130,56 @@ const HeroSection = ({
             </form>
           </div>
 
-          {/* Columna derecha - Carrusel mobile (5 columnas) */}
+          {/* Columna derecha - Carrusel mobile con celular fijo (5 columnas) */}
           <div className="lg:col-span-5 relative lg:block hidden">
             <div className="relative h-full flex items-center justify-center">
-              <div className="w-full max-w-xl">
-                <Carousel
-                  opts={{
-                    align: "center",
-                    loop: true,
-                  }}
-                  className="w-full"
-                >
-                  <CarouselContent className="-ml-2 md:-ml-4">
-                    {portfolioImages.map((image, index) => (
-                      <CarouselItem key={index} className="pl-2 md:pl-4 basis-3/5">
-                        <div className="relative mx-auto w-48 h-96 animate-fade-in" 
-                             style={{ 
-                               animationDelay: `${index * 0.2}s`,
-                               animationDuration: '0.6s',
-                               animationFillMode: 'both'
-                             }}>
-                          {/* Marco del teléfono */}
-                          <div className="relative w-full h-full bg-slate-900 rounded-[2.5rem] p-2 shadow-2xl border-4 border-slate-700">
-                            {/* Pantalla del teléfono */}
-                            <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden relative">
-                              {/* Barra superior del teléfono */}
-                              <div className="absolute top-0 left-0 right-0 h-8 bg-white z-10 flex items-center justify-between px-6 text-xs text-black">
-                                <span className="font-medium">9:41</span>
-                                <div className="flex items-center space-x-1">
-                                  <div className="w-4 h-2 border border-black rounded-sm">
-                                    <div className="w-3 h-1 bg-black rounded-sm m-0.5"></div>
-                                  </div>
-                                </div>
-                              </div>
-                              
-                              {/* Contenido de la página web */}
-                              <div className="pt-8 h-full">
-                                <img
-                                  src={image.src}
-                                  alt={image.title}
-                                  className="w-full h-full object-cover object-top"
-                                />
-                              </div>
-                              
-                              {/* Indicador home del iPhone */}
-                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-black rounded-full opacity-40"></div>
-                            </div>
-                            
-                            {/* Título flotante */}
-                            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 py-1">
-                              <span className="text-white text-sm font-medium">{image.title}</span>
-                            </div>
-                          </div>
+              <div className="relative w-48 h-96">
+                {/* Marco del teléfono - FIJO */}
+                <div className="absolute inset-0 bg-slate-900 rounded-[2.5rem] p-2 shadow-2xl border-4 border-slate-700 z-20">
+                  {/* Pantalla del teléfono - contenedor */}
+                  <div className="w-full h-full rounded-[2rem] overflow-hidden relative">
+                    {/* Barra superior del teléfono - FIJA */}
+                    <div className="absolute top-0 left-0 right-0 h-8 bg-black/80 backdrop-blur-sm z-30 flex items-center justify-between px-6 text-xs text-white">
+                      <span className="font-medium">9:41</span>
+                      <div className="flex items-center space-x-1">
+                        <div className="w-4 h-2 border border-white rounded-sm">
+                          <div className="w-3 h-1 bg-white rounded-sm m-0.5"></div>
                         </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
+                      </div>
+                    </div>
+                    
+                    {/* Carrusel de imágenes - solo las imágenes se mueven */}
+                    <Carousel
+                      opts={{
+                        align: "center",
+                        loop: true,
+                      }}
+                      className="w-full h-full"
+                    >
+                      <CarouselContent className="h-full">
+                        {portfolioImages.map((image, index) => (
+                          <CarouselItem key={index} className="h-full">
+                            <div className="h-full pt-8">
+                              <img
+                                src={image.src}
+                                alt={image.title}
+                                className="w-full h-full object-cover object-top"
+                              />
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                    </Carousel>
+                    
+                    {/* Indicador home del iPhone - FIJO */}
+                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-white/40 rounded-full z-30"></div>
+                  </div>
+                </div>
+                
+                {/* Título flotante dinámico */}
+                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 py-1 z-30">
+                  <span className="text-white text-sm font-medium">Páginas web profesionales</span>
+                </div>
               </div>
             </div>
           </div>
