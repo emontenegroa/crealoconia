@@ -30,6 +30,13 @@ const Metodologia = () => {
     descripcion: "Te enviamos tu página para revisión y feedback",
     tiempo: "24 horas",
     detalles: "Página funcional completa con dominio temporal para revisión"
+  }, {
+    numero: "05",
+    icono: <Clock className="w-8 h-8 text-blue-500" />,
+    titulo: "Sesión personalizada",
+    descripcion: "Agenda tu sesión de 15 minutos para que conozcas tu página y resolver tus consultas",
+    tiempo: "15 minutos",
+    detalles: "Haces el pago y agendamos la sesión personalizada para las integraciones que necesites realizar y publicar tu sitio web"
   }];
   return <div className="py-16 bg-background">
       <div className="max-w-6xl mx-auto px-4">
@@ -38,7 +45,7 @@ const Metodologia = () => {
             Mi Metodología: Simple, Rápida y Efectiva 🎯
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            En solo 4 pasos convertimos tu información en una página web profesional que genera resultados
+            En solo 5 pasos convertimos tu información en una página web profesional que genera resultados
           </p>
         </div>
 
