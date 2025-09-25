@@ -85,16 +85,16 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
     // Repeat celebration after 3 seconds
     setTimeout(triggerMegaConfetti, 3000);
   }, []);
-  return <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-emerald-50">
+  return <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       <div className="container mx-auto px-4 py-12">
         
         {/* Celebration Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
             🎉 ¡Felicitaciones!
           </h1>
           
-          <div className="max-w-3xl mx-auto space-y-6 text-lg text-gray-800 mb-8">
+          <div className="max-w-3xl mx-auto space-y-6 text-lg text-white/90 mb-8">
             <p className="font-medium">
               Acabas de dar el paso hacia tu web fácil, rápida y profesional.
             </p>
@@ -109,34 +109,34 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
             </p>
           </div>
 
-          <Button onClick={onReset} variant="outline" className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300">
+          <Button onClick={onReset} variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-all duration-300">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Crear otro Kit IA
           </Button>
         </div>
 
         {/* Main Content */}
-        <Card className="max-w-4xl mx-auto bg-white/95 backdrop-blur shadow-lg border border-gray-200">
+        <Card className="max-w-4xl mx-auto bg-slate-800/90 backdrop-blur shadow-xl border border-slate-700">
           <CardContent className="p-8">
             <div className="space-y-10">
               
               {/* Email Section */}
-              <div className="border-b border-gray-200 pb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <div className="border-b border-slate-600 pb-8">
+                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
                   📧 Revisa tu bandeja de entrada
                 </h2>
                 
                 {/* SPAM Alert */}
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
-                  <p className="text-yellow-800 font-semibold text-center mb-2">
+                <div className="bg-yellow-900/30 border border-yellow-600 rounded-lg p-4 mb-4">
+                  <p className="text-yellow-200 font-semibold text-center mb-2">
                     ⚠️ IMPORTANTE: Revisa tu carpeta de SPAM
                   </p>
-                  <p className="text-yellow-700 text-sm text-center">
+                  <p className="text-yellow-300 text-sm text-center">
                     Si no ves más correos nuestros en tu bandeja principal, búscalos en spam/correo no deseado y márcanos como "no es spam"
                   </p>
                 </div>
                 
-                <div className="space-y-3 text-gray-800">
+                <div className="space-y-3 text-slate-300">
                   <p>Ahí encontrarás las instrucciones importantes para el siguiente paso.</p>
                   <p>Ese correo te dirá cómo revisar tu web y cómo avanzar en la publicación si decides hacerlo.</p>
                   <p className="font-semibold">👉 Es fundamental que lo leas para no perder tu proyecto.</p>
@@ -144,11 +144,11 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               </div>
 
               {/* Important Section */}
-              <div className="border-b border-gray-200 pb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <div className="border-b border-slate-600 pb-8">
+                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
                   🎯 Importante
                 </h2>
-                <div className="space-y-3 text-gray-800">
+                <div className="space-y-3 text-slate-300">
                   <p>En Crealoconia no generamos sitios para todos los formularios.</p>
                   <p>Seleccionamos algunos proyectos y les creamos una propuesta 100% funcional, lista para revisar y evaluar sin compromiso.</p>
                   <p className="font-semibold">👉 Si tu sitio te convence y quieres publicarlo, avanzaremos con una sesión de ajuste y actualización para dejarlo afinado a tus necesidades y publicarlo en tu propio dominio.</p>
@@ -156,11 +156,11 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               </div>
 
               {/* Bonus Section */}
-              <div className="border-b border-gray-200 pb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <div className="border-b border-slate-600 pb-8">
+                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
                   🎁 Bonus de regalo
                 </h2>
-                <div className="space-y-3 text-gray-800">
+                <div className="space-y-3 text-slate-300">
                   <p>Además de tu web, recibirás un Super Prompt exclusivo para ChatGPT.</p>
                   <p>Con él podrás crear:</p>
                   <ul className="list-disc pl-6 space-y-1">
@@ -173,30 +173,30 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               </div>
 
               {/* Next Steps Section */}
-              <div className="border-b border-gray-200 pb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <div className="border-b border-slate-600 pb-8">
+                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                   🚀 Tus próximos pasos
                 </h2>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <span className="font-bold text-gray-900">1.</span>
+                    <span className="font-bold text-white">1.</span>
                     <div>
-                      <span className="font-semibold text-gray-900">📧 Abre tu correo:</span>
-                      <span className="text-gray-800"> revisa las instrucciones.</span>
+                      <span className="font-semibold text-white">📧 Abre tu correo:</span>
+                      <span className="text-slate-300"> revisa las instrucciones.</span>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="font-bold text-gray-900">2.</span>
+                    <span className="font-bold text-white">2.</span>
                     <div>
-                      <span className="font-semibold text-gray-900">🌐 Recibe tu web:</span>
-                      <span className="text-gray-800"> analiza el diseño funcional que hemos creado para ti.</span>
+                      <span className="font-semibold text-white">🌐 Recibe tu web:</span>
+                      <span className="text-slate-300"> analiza el diseño funcional que hemos creado para ti.</span>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="font-bold text-gray-900">3.</span>
+                    <span className="font-bold text-white">3.</span>
                     <div>
-                      <span className="font-semibold text-gray-900">🎁 Usa tu Super Prompt:</span>
-                      <span className="text-gray-800"> potencia tu comunicación digital.</span>
+                      <span className="font-semibold text-white">🎁 Usa tu Super Prompt:</span>
+                      <span className="text-slate-300"> potencia tu comunicación digital.</span>
                     </div>
                   </div>
                 </div>
@@ -204,10 +204,10 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
 
               {/* Support Section */}
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                   💬 ¿Necesitas ayuda en el camino?
                 </h2>
-                <p className="text-gray-800 mb-4">Estamos disponibles para ti:</p>
+                <p className="text-slate-300 mb-4">Estamos disponibles para ti:</p>
                 <div className="flex items-center justify-center gap-4">
                   <a 
                     href={`mailto:esteban@crealoconia.com?subject=Consulta sobre mi proyecto ${formData.marca}`} 
@@ -234,11 +234,11 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
 
         {/* Footer */}
         <div className="text-center mt-12">
-          <div className="bg-white/80 backdrop-blur rounded-xl p-6 max-w-md mx-auto">
-            <p className="text-gray-600 font-medium">
-              <strong className="text-blue-600 text-lg">Crealoconia.com</strong>
+          <div className="bg-slate-800/80 backdrop-blur rounded-xl p-6 max-w-md mx-auto border border-slate-700">
+            <p className="text-slate-300 font-medium">
+              <strong className="text-blue-400 text-lg">Crealoconia.com</strong>
             </p>
-            <p className="text-gray-500 text-sm mt-2">
+            <p className="text-slate-400 text-sm mt-2">
               Tu presencia digital sin complicaciones ✨
             </p>
           </div>
