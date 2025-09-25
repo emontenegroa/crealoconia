@@ -1,32 +1,8 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Award, Users, Zap, Gift, ArrowRight, Sparkles } from "lucide-react";
+import { Award, Users, Zap, Gift } from "lucide-react";
 
 const QuienSoy = () => {
-  const scrollToForm = () => {
-    // Scroll to the top where the form is
-    window.scrollTo({ 
-      top: 0, 
-      behavior: 'smooth' 
-    });
-    
-    // After scrolling, highlight the form fields
-    setTimeout(() => {
-      const inputs = document.querySelectorAll('input[name="marca"], input[name="email"]');
-      inputs.forEach((input) => {
-        const element = input as HTMLElement;
-        element.style.animation = 'pulse 1s ease-in-out 2';
-        element.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.5)';
-        
-        // Remove the highlight after animation
-        setTimeout(() => {
-          element.style.animation = '';
-          element.style.boxShadow = '';
-        }, 2000);
-      });
-    }, 800);
-  };
   return <div className="py-16 bg-background">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
@@ -144,19 +120,6 @@ const QuienSoy = () => {
               </ul>
             </div>
           </div>
-            </div>
-            
-            {/* Call to Action Button */}
-            <div className="mt-8">
-              <Button 
-                onClick={scrollToForm}
-                size="lg"
-                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] px-8 py-4 text-lg font-semibold"
-              >
-                <Sparkles className="w-5 h-5 mr-2" />
-                Empezar ahora
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
             </div>
           </div>
     </div>;
