@@ -1,10 +1,8 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, X } from "lucide-react";
-
 const TransparentPricing = () => {
-  return (
-    <div className="py-16 bg-muted/30">
+  return <div className="py-16 bg-muted/30">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -90,15 +88,15 @@ const TransparentPricing = () => {
               </ul>
               
               <div className="border-t pt-4">
-                <h4 className="font-bold text-foreground mb-2">⚠️ No incluye:</h4>
+                
                 <ul className="space-y-1 text-sm text-muted-foreground">
                   <li className="flex items-center gap-2">
                     <X className="w-4 h-4 text-destructive" />
-                    <span>Dominio (~$15.000-25.000 CLP/año)</span>
+                    <span>No incluye Dominio (~$15.000-25.000 CLP/año)</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <X className="w-4 h-4 text-destructive" />
-                    <span>Hosting (~$8.000-15.000 CLP/mes)</span>
+                    
+                    
                   </li>
                 </ul>
                 <p className="text-xs text-muted-foreground mt-2">
@@ -134,8 +132,6 @@ const TransparentPricing = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default TransparentPricing;
