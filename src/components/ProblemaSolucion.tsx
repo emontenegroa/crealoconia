@@ -17,7 +17,7 @@ const ProblemaSolucion = () => {
     {
       icon: <Wrench className="w-6 h-6 text-red-500" />,
       titulo: "Falta de experiencia técnica",
-      descripcion: "No tienes conocimientos técnicos y no sabes con quién crear tu página web"
+      descripcion: "No tienes conocimientos técnicos, lo haces tu pero a la mitad te das cuenta que no era tan fácil como parecía y no sabes como continuar."
     },
     {
       icon: <DollarSign className="w-6 h-6 text-red-500" />,
