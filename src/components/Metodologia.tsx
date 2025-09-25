@@ -1,45 +1,37 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { MessageSquare, Brain, Palette, Rocket, Clock, CheckCircle } from "lucide-react";
-
 const Metodologia = () => {
-  const pasos = [
-    {
-      numero: "01",
-      icono: <MessageSquare className="w-8 h-8 text-blue-600" />,
-      titulo: "Responde 10 preguntas",
-      descripcion: "Formulario inteligente que captura la esencia de tu negocio",
-      tiempo: "5 minutos",
-      detalles: "Preguntas estratégicas sobre tu marca, audiencia, servicios y objetivos"
-    },
-    {
-      numero: "02", 
-      icono: <Brain className="w-8 h-8 text-purple-600" />,
-      titulo: "IA analiza y estructura",
-      descripcion: "Inteligencia artificial procesa tu información y crea la arquitectura",
-      tiempo: "Automático",
-      detalles: "Genera textos, estructura de contenido y estrategia de conversión"
-    },
-    {
-      numero: "03",
-      icono: <Palette className="w-8 h-8 text-emerald-600" />,
-      titulo: "Diseño y desarrollo",
-      descripcion: "Creamos el diseño visual y desarrollamos tu página web",
-      tiempo: "18-20 horas",
-      detalles: "Diseño profesional, responsive, optimizado para conversión"
-    },
-    {
-      numero: "04",
-      icono: <Rocket className="w-8 h-8 text-orange-600" />,
-      titulo: "Entrega y revisión",
-      descripcion: "Te enviamos tu página para revisión y feedback",
-      tiempo: "24 horas",
-      detalles: "Página funcional completa con dominio temporal para revisión"
-    }
-  ];
-
-  return (
-    <div className="py-16 bg-background">
+  const pasos = [{
+    numero: "01",
+    icono: <MessageSquare className="w-8 h-8 text-blue-600" />,
+    titulo: "Responde 10 preguntas",
+    descripcion: "Formulario inteligente que captura la esencia de tu negocio",
+    tiempo: "5 minutos",
+    detalles: "Preguntas estratégicas sobre tu marca, audiencia, servicios y objetivos"
+  }, {
+    numero: "02",
+    icono: <Brain className="w-8 h-8 text-purple-600" />,
+    titulo: "IA analiza y estructura",
+    descripcion: "Inteligencia artificial procesa tu información y crea la arquitectura",
+    tiempo: "Automático",
+    detalles: "Genera textos, estructura de contenido y estrategia de conversión"
+  }, {
+    numero: "03",
+    icono: <Palette className="w-8 h-8 text-emerald-600" />,
+    titulo: "Diseño y desarrollo",
+    descripcion: "Creamos el diseño visual y desarrollamos tu página web",
+    tiempo: "18-20 horas",
+    detalles: "Diseño profesional, responsive, optimizado para conversión"
+  }, {
+    numero: "04",
+    icono: <Rocket className="w-8 h-8 text-orange-600" />,
+    titulo: "Entrega y revisión",
+    descripcion: "Te enviamos tu página para revisión y feedback",
+    tiempo: "24 horas",
+    detalles: "Página funcional completa con dominio temporal para revisión"
+  }];
+  return <div className="py-16 bg-background">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -56,8 +48,7 @@ const Metodologia = () => {
           <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary to-emerald-500 hidden lg:block"></div>
           
           <div className="space-y-12">
-            {pasos.map((paso, index) => (
-              <div key={index} className={`flex items-center gap-8 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+            {pasos.map((paso, index) => <div key={index} className={`flex items-center gap-8 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
                 {/* Contenido */}
                 <div className="flex-1">
                   <Card className="border border-border bg-card hover:shadow-lg transition-shadow">
@@ -89,37 +80,12 @@ const Metodologia = () => {
 
                 {/* Espaciador */}
                 <div className="flex-1 hidden lg:block"></div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
         {/* Garantías y beneficios adicionales */}
-        <div className="mt-16 grid md:grid-cols-3 gap-6">
-          <Card className="bg-emerald-50 border-emerald-200">
-            <CardContent className="p-6 text-center">
-              <CheckCircle className="w-12 h-12 text-emerald-600 mx-auto mb-4" />
-              <h3 className="font-bold text-foreground mb-2">Garantía de satisfacción</h3>
-              <p className="text-muted-foreground text-sm">Si no te gusta, lo ajustamos sin costo</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-blue-50 border-blue-200">
-            <CardContent className="p-6 text-center">
-              <Clock className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="font-bold text-foreground mb-2">Entrega garantizada</h3>
-              <p className="text-muted-foreground text-sm">24 horas o devolvemos tu dinero</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-purple-50 border-purple-200">
-            <CardContent className="p-6 text-center">
-              <Brain className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-              <h3 className="font-bold text-foreground mb-2">Tecnología de punta</h3>
-              <p className="text-muted-foreground text-sm">Inteligencia artificial de última generación</p>
-            </CardContent>
-          </Card>
-        </div>
+        
 
         {/* CTA de la metodología */}
         <div className="mt-12 text-center">
@@ -140,8 +106,6 @@ const Metodologia = () => {
           </Card>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Metodologia;
