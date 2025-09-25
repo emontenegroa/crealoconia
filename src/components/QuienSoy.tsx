@@ -113,11 +113,9 @@ const QuienSoy = () => {
             <div className="bg-primary/10 border border-primary/30 rounded-lg p-6">
               <h4 className="font-semibold text-primary mb-3">Mi enfoque único:</h4>
               <ul className="space-y-2 text-foreground text-sm">
-                <li>✅ No tecnicismos innecesarios</li>
-                <li>✅ Diseño enfocado en conversión</li>
-                <li>✅ Textos que conectan emocionalmente</li>
-                <li>✅ Entrega rápida y sin frustraciones</li>
-                <li>✅ Acompañamiento personalizado</li>
+                <li>✅ Los textos de tu página web ya vienen generados con estrategia de marketing para la venta (así configuré la inteligencia artificial para ti).</li>
+                <li>✅ Es rápido y fácil (para que no lo abandones a la mitad)</li>
+                <li>✅ No estás solo con la IA, incluye un acompañamiento personalizado conmigo en el proceso.</li>
               </ul>
             </div>
           </div>
