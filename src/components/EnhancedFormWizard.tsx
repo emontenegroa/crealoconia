@@ -25,7 +25,15 @@ const EnhancedFormWizard = ({ currentStep, totalSteps, stepLabels }: EnhancedFor
       {/* Indicador de progreso principal */}
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-white mb-2">
-          Pregunta {currentStep + 1} de {totalSteps}
+          {currentStep === 1 ? (
+            <>
+              <Sparkles className="w-6 h-6 text-purple-400 inline-block animate-pulse mr-2" />
+              Generando tu Kit IA...
+              <Sparkles className="w-6 h-6 text-purple-400 inline-block animate-pulse ml-2" />
+            </>
+          ) : (
+            `Pregunta ${currentStep + 1} de ${totalSteps}`
+          )}
         </h2>
         <p className="text-slate-300">
           {stepLabels[currentStep]}

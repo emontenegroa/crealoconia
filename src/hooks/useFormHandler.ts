@@ -375,6 +375,7 @@ export const useFormHandler = () => {
     
     // Navigate to step 3 (generating) for better tracking
     goToWizardStep(1);
+    
     try {
       console.log('🔄 Iniciando proceso de generación de Super Prompt...');
       
@@ -440,10 +441,8 @@ export const useFormHandler = () => {
         description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Prompt generado correctamente. Revisa el contenido a continuación.",
       });
       
-      // Redirigir a la página de resultados final usando navegación de React Router
-      setTimeout(() => {
-        window.location.href = '/resultados';
-      }, 100);
+      // Redirigir a la página de resultados INMEDIATAMENTE
+      window.location.href = '/resultados';
       
     } catch (error) {
       console.error('💥 Error durante la generación del prompt:', error);
@@ -458,10 +457,8 @@ export const useFormHandler = () => {
         description: "El contenido se ha generado correctamente. Puede que algunos emails no se hayan enviado.",
       });
       
-      // Redirigir a resultados incluso si hay errores
-      setTimeout(() => {
-        window.location.href = '/resultados';
-      }, 100);
+      // Redirigir a resultados incluso si hay errores INMEDIATAMENTE
+      window.location.href = '/resultados';
     }
   };
 

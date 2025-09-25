@@ -118,7 +118,7 @@ const Index = () => {
           </div>
         </>
       ) : isGenerating ? (
-        <LoadingSpinnerEnhanced formData={formData} />
+        <LoadingSpinnerEnhanced marca={formData.marca} />
       ) : showResults ? (
         <FinalScreen formData={formData} />
       ) : showFullForm ? (

@@ -308,7 +308,7 @@ const handler = async (req: Request): Promise<Response> => {
           email: "esteban@crealoconia.com"
         },
         to: [{ email: email }],
-        subject: `🧠 Nueva submisión Kit IA - ${data?.marca || 'Sin marca'}`,
+        subject: `🧠 Nueva submisión Kit IA - ${data?.marca || 'Sin marca'} (${data?.email || 'Sin email'})`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; background: white; padding: 20px;">
             <div style="background: linear-gradient(135deg, #7C3AED 0%, #3B82F6 100%); padding: 30px; border-radius: 12px; margin-bottom: 30px;">
