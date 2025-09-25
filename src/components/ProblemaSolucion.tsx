@@ -128,15 +128,15 @@ const ProblemaSolucion = () => {
           <Card className="bg-primary/10 border-primary/30 max-w-3xl mx-auto">
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-primary mb-4">
-                ¿Listo para cambiar tu experiencia? 🚀
+                NO es el clásico texto de ChatGPT 🚀
               </h3>
               <p className="text-foreground mb-6">
-                Deja atrás las frustraciones y obtén la página web profesional que tu negocio merece
+                La inteligencia artificial toma tus respuestas y las transforma en algo genial. CrealoconIA no te categoriza por rubro o servicio, lo crea para ti (colores, diseño, texto, diagrama de proceso, imágenes, llamados a la acción)
               </p>
               <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
-                <span>✅ Sin tecnicismos</span>
-                <span>✅ Sin esperas</span>
-                <span>✅ Sin riesgos</span>
+                <span>✅ Personalizado para ti</span>
+                <span>✅ No genérico</span>
+                <span>✅ 100% único</span>
               </div>
             </CardContent>
           </Card>
