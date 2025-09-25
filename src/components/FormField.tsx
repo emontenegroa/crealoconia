@@ -82,8 +82,8 @@ const FormField = ({
   return (
     <div className="space-y-3 group">
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-        <Label className="text-gray-900 text-base sm:text-lg font-medium flex items-center gap-3 flex-1 min-w-0">
-          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 group-hover:text-blue-700 transition-colors flex-shrink-0" />
+        <Label className="text-white text-base sm:text-lg font-medium flex items-center gap-3 flex-1 min-w-0">
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 group-hover:text-blue-300 transition-colors flex-shrink-0" />
           <span className="break-words">{label}</span>
         </Label>
         
@@ -94,7 +94,7 @@ const FormField = ({
               onClick={() => setIsExpanded(!isExpanded)}
               variant="outline"
               size="sm"
-              className="bg-white border-gray-300 text-gray-600 hover:text-gray-800 hover:border-gray-400 transition-all duration-200"
+              className="bg-white/10 border-white/20 text-white hover:text-white hover:bg-white/20 transition-all duration-200"
             >
               {isExpanded ? (
                 <>
@@ -128,7 +128,7 @@ const FormField = ({
           value={value}
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
-          className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500 focus:bg-white focus:border-blue-500 transition-all duration-300 py-3 text-base sm:text-lg"
+          className="bg-white/10 border-white/20 text-white placeholder:text-white/70 focus:bg-white/20 focus:border-blue-400 transition-all duration-300 py-3 text-base sm:text-lg"
         />
       )}
       
@@ -138,14 +138,14 @@ const FormField = ({
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
           rows={isExpanded ? 8 : 4}
-          className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500 focus:bg-white focus:border-blue-500 transition-all duration-300 text-base sm:text-lg resize-none"
+          className="bg-white/10 border-white/20 text-white placeholder:text-white/70 focus:bg-white/20 focus:border-blue-400 transition-all duration-300 text-base sm:text-lg resize-none"
         />
       )}
       
       {type === 'select' && (
         <Select value={value} onValueChange={handleChange}>
-          <SelectTrigger className="bg-gray-50 border-gray-300 text-gray-900 focus:bg-white focus:border-blue-500 transition-all duration-300 py-3 text-base sm:text-lg">
-            <SelectValue placeholder="Selecciona tu estilo" className="text-gray-500" />
+          <SelectTrigger className="bg-white/10 border-white/20 text-white focus:bg-white/20 focus:border-blue-400 transition-all duration-300 py-3 text-base sm:text-lg">
+            <SelectValue placeholder="Selecciona tu estilo" className="text-white/70" />
           </SelectTrigger>
           <SelectContent className="bg-white border-gray-300">
             {options?.map((option) => (
