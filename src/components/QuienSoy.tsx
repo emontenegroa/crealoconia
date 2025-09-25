@@ -9,8 +9,10 @@ const QuienSoy = () => {
             Hola, soy Esteban Montenegro 👋
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Mentor en tecnología especializado en ayudar a profesionales y emprendedores 
-            a crear su presencia digital con inteligencia artificial
+            Soy el humano detras de creealoconia. llevo mas de 20 años trabajando con tecnologia y me he especializado en Inteligencia artificial
+          </p>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mt-4">
+            Ayudo a las personas a entender y encontrar soluciones con ayuda de herramientas tecnologicas, siendo una de mis pasiones la intelogencia artificial.
           </p>
         </div>
 
@@ -19,8 +21,8 @@ const QuienSoy = () => {
           <div className="space-y-6">
             <div className="space-y-4">
               <p className="text-lg text-foreground leading-relaxed">
-                He visto cómo muchos profesionales talentosos se frustran al intentar crear su página web. 
-                Se pierden en tecnicismos, gastan tiempo y dinero sin resultados, o terminan con sitios que no reflejan su experiencia.
+                He visto cómo muchas personas se frustran al intentar crear su página web. 
+                Se pierden en palabras tecnicas tecnicismos que no entienden, gastan tiempo y plata sin tener los resultados que esperaban.
               </p>
               
               <p className="text-lg text-foreground leading-relaxed">
@@ -30,7 +32,7 @@ const QuienSoy = () => {
               
               <p className="text-lg text-foreground leading-relaxed">
                 Mi misión es simple: que lo que tú haces y sabes <span className="font-semibold text-primary mx-[10px]">se vea genial</span> 
-                y conecte con tus clientes ideales.
+                y conecte con tus clientes ideales, sin que te tengas que partir la cabeza pensando como hacerlo.
               </p>
             </div>
 
