@@ -5,46 +5,59 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Users, Mail, ArrowRight, Sparkles, Zap, Trophy } from "lucide-react";
 import { FormData } from '@/hooks/useFormHandler';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 interface HeroSectionProps {
   formData: FormData;
   onInputChange: (name: string, value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   isValid: boolean;
 }
-
 const HeroSection = ({
   formData,
   onInputChange,
   onSubmit,
   isValid
 }: HeroSectionProps) => {
-  const portfolioImages = [
-    { src: "/ejemplos/totalsport-mobile.png", title: "Total Sport", delay: "0s" },
-    { src: "/ejemplos/tenispro-mobile.png", title: "HP Tenispro", delay: "0.5s" },
-    { src: "/ejemplos/agrocert-mobile.png", title: "AgroCert", delay: "1s" },
-    { src: "/ejemplos/hampi-mobile.png", title: "Hampi Paatcha", delay: "1.5s" },
-    { src: "/ejemplos/hector-mobile.png", title: "Héctor Tennis", delay: "2s" },
-    { src: "/ejemplos/traslados-mobile.png", title: "M&S Traslados", delay: "2.5s" },
-    { src: "/ejemplos/mamasmentoras-mobile.png", title: "Mamás Mentoras", delay: "3s" },
-    { src: "/ejemplos/circulos-mobile.png", title: "Círculos de Vida", delay: "3.5s" }
-  ];
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
+  const portfolioImages = [{
+    src: "/ejemplos/totalsport-mobile.png",
+    title: "Total Sport",
+    delay: "0s"
+  }, {
+    src: "/ejemplos/tenispro-mobile.png",
+    title: "HP Tenispro",
+    delay: "0.5s"
+  }, {
+    src: "/ejemplos/agrocert-mobile.png",
+    title: "AgroCert",
+    delay: "1s"
+  }, {
+    src: "/ejemplos/hampi-mobile.png",
+    title: "Hampi Paatcha",
+    delay: "1.5s"
+  }, {
+    src: "/ejemplos/hector-mobile.png",
+    title: "Héctor Tennis",
+    delay: "2s"
+  }, {
+    src: "/ejemplos/traslados-mobile.png",
+    title: "M&S Traslados",
+    delay: "2.5s"
+  }, {
+    src: "/ejemplos/mamasmentoras-mobile.png",
+    title: "Mamás Mentoras",
+    delay: "3s"
+  }, {
+    src: "/ejemplos/circulos-mobile.png",
+    title: "Círculos de Vida",
+    delay: "3.5s"
+  }];
+  return <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
       {/* Patrón de fondo personalizado */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
-          backgroundSize: '24px 24px'
-        }}></div>
+        backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+        backgroundSize: '24px 24px'
+      }}></div>
       </div>
       
       {/* Gradientes sutiles personalizados */}
@@ -89,42 +102,22 @@ const HeroSection = ({
             <form onSubmit={onSubmit} className="space-y-4 max-w-lg">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="relative">
-                  <Input
-                    name="marca"
-                    value={formData.marca}
-                    onChange={(e) => onInputChange('marca', e.target.value)}
-                    placeholder="Tu negocio o marca personal"
-                    className="h-14 text-base bg-white/10 border-white/20 text-white placeholder:text-slate-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 backdrop-blur-sm rounded-xl"
-                  />
+                  <Input name="marca" value={formData.marca} onChange={e => onInputChange('marca', e.target.value)} placeholder="Tu negocio o marca personal" className="h-14 text-base bg-white/10 border-white/20 text-white placeholder:text-slate-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 backdrop-blur-sm rounded-xl" />
                 </div>
                 
                 <div className="relative">
-                  <Input
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => onInputChange('email', e.target.value)}
-                    placeholder="tu@email.com"
-                    className="h-14 text-base bg-white/10 border-white/20 text-white placeholder:text-slate-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 backdrop-blur-sm rounded-xl"
-                  />
+                  <Input name="email" type="email" value={formData.email} onChange={e => onInputChange('email', e.target.value)} placeholder="tu@email.com" className="h-14 text-base bg-white/10 border-white/20 text-white placeholder:text-slate-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 backdrop-blur-sm rounded-xl" />
                 </div>
               </div>
 
-              <Button 
-                type="submit" 
-                className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] w-full md:w-auto" 
-                disabled={!isValid}
-              >
+              <Button type="submit" className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] w-full md:w-auto" disabled={!isValid}>
                 <Sparkles className="w-5 h-5 mr-2" />
                 Empezar ahora
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               
               <div className="flex items-center space-x-6 text-sm">
-                <div className="flex items-center text-emerald-400">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2"></div>
-                  100% gratuito
-                </div>
+                
                 <div className="flex items-center text-blue-400">
                   <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
                   Entrega en 24 horas
@@ -140,37 +133,24 @@ const HeroSection = ({
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative w-[700px] h-[700px]">
                   {/* Carrusel de imágenes que se extienden más allá del celular */}
-                  <Carousel
-                    plugins={[
-                      Autoplay({
-                        delay: 2000,
-                      }),
-                    ]}
-                    opts={{
-                      align: "center",
-                      loop: true,
-                    }}
-                    className="w-full h-full"
-                  >
+                  <Carousel plugins={[Autoplay({
+                  delay: 2000
+                })]} opts={{
+                  align: "center",
+                  loop: true
+                }} className="w-full h-full">
                     <CarouselContent className="h-full -ml-4">
-                      {portfolioImages.map((image, index) => (
-                        <CarouselItem key={index} className="h-full pl-4 basis-full">
+                      {portfolioImages.map((image, index) => <CarouselItem key={index} className="h-full pl-4 basis-full">
                           <div className="relative w-full h-full flex items-center justify-center">
                             {/* Imagen extendida que va por detrás con transición suave */}
                             <div className="absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out">
-                              <img
-                                src={image.src}
-                                alt={image.title}
-                                className="w-[500px] h-[800px] object-cover object-top rounded-3xl shadow-2xl transition-transform duration-700 ease-in-out hover:scale-105"
-                                style={{
-                                  filter: 'blur(1px) brightness(0.8)',
-                                  transform: 'scale(1.1)'
-                                }}
-                              />
+                              <img src={image.src} alt={image.title} className="w-[500px] h-[800px] object-cover object-top rounded-3xl shadow-2xl transition-transform duration-700 ease-in-out hover:scale-105" style={{
+                            filter: 'blur(1px) brightness(0.8)',
+                            transform: 'scale(1.1)'
+                          }} />
                             </div>
                           </div>
-                        </CarouselItem>
-                      ))}
+                        </CarouselItem>)}
                     </CarouselContent>
                   </Carousel>
                 </div>
@@ -188,36 +168,23 @@ const HeroSection = ({
                       <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-36 h-9 bg-black rounded-full z-50 border-2 border-slate-700"></div>
                       
                       {/* Carrusel sincronizado dentro del iPhone con transiciones */}
-                      <Carousel
-                        plugins={[
-                          Autoplay({
-                            delay: 2000,
-                          }),
-                        ]}
-                        opts={{
-                          align: "center",
-                          loop: true,
-                        }}
-                        className="w-full h-full"
-                      >
+                      <Carousel plugins={[Autoplay({
+                      delay: 2000
+                    })]} opts={{
+                      align: "center",
+                      loop: true
+                    }} className="w-full h-full">
                         <CarouselContent className="h-full">
-                          {portfolioImages.map((image, index) => (
-                            <CarouselItem key={index} className="h-full">
+                          {portfolioImages.map((image, index) => <CarouselItem key={index} className="h-full">
                               <div className="h-full relative">
-                                <img
-                                  src={image.src}
-                                  alt={image.title}
-                                  className="w-full h-full object-cover object-top transition-all duration-700 ease-in-out scale-100 hover:scale-105"
-                                  style={{
-                                    minHeight: '100%',
-                                    objectPosition: 'top center'
-                                  }}
-                                />
+                                <img src={image.src} alt={image.title} className="w-full h-full object-cover object-top transition-all duration-700 ease-in-out scale-100 hover:scale-105" style={{
+                              minHeight: '100%',
+                              objectPosition: 'top center'
+                            }} />
                                 {/* Gradiente sutil para el Dynamic Island */}
                                 <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/30 to-transparent z-40"></div>
                               </div>
-                            </CarouselItem>
-                          ))}
+                            </CarouselItem>)}
                         </CarouselContent>
                         
                         {/* Flechas de navegación personalizadas */}
@@ -256,7 +223,6 @@ const HeroSection = ({
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
 export default HeroSection;
