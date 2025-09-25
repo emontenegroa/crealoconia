@@ -1,20 +1,19 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Sparkles, Mail, Clock, Users } from "lucide-react";
-
 interface FinalScreenProps {
   formData: any;
 }
-
-const FinalScreen = ({ formData }: FinalScreenProps) => {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
+const FinalScreen = ({
+  formData
+}: FinalScreenProps) => {
+  return <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
       {/* Patrón de fondo */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
-          backgroundSize: '24px 24px'
-        }}></div>
+        backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+        backgroundSize: '24px 24px'
+      }}></div>
       </div>
       
       {/* Gradientes sutiles */}
@@ -119,13 +118,9 @@ const FinalScreen = ({ formData }: FinalScreenProps) => {
 
               {/* Ejemplo visual */}
               <div className="text-center">
-                <p className="text-slate-400 text-sm mb-4">Ejemplo de sitio similar al tuyo:</p>
+                
                 <div className="relative max-w-md mx-auto">
-                  <img
-                    src="/ejemplos/emontenegroa.png"
-                    alt="Ejemplo de sitio web profesional"
-                    className="w-full rounded-lg shadow-xl border border-white/20"
-                  />
+                  
                 </div>
               </div>
             </CardContent>
@@ -135,8 +130,8 @@ const FinalScreen = ({ formData }: FinalScreenProps) => {
         {/* Footer */}
         <div className="mt-12 text-center">
           <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-slate-400 text-sm">
-            <a href="mailto:esteban@crealoconia.com" className="hover:text-white transition-colors">
-              📧 esteban@crealoconia.com
+            <a href="mailto:somos@crealoconia.com" className="hover:text-white transition-colors">
+              📧 somos@crealoconia.com
             </a>
             <a href="https://instagram.com/crealocon.ia" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
               📱 @crealocon.ia
@@ -145,15 +140,8 @@ const FinalScreen = ({ formData }: FinalScreenProps) => {
               🔒 Política de privacidad
             </span>
           </div>
-          <div className="mt-4">
-            <p className="text-slate-500 text-xs">
-              Creado con ❤️ en <a href="https://crealoconia.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">crealoconia.com</a>
-            </p>
-          </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default FinalScreen;
