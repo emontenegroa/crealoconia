@@ -98,27 +98,13 @@ const Index = () => {
         onStartFresh={startFresh}
       />
 
-      {showWelcome ? (
-        <WelcomeScreen onStart={goToInitialForm} />
-      ) : !showFullForm && !showResults && !isGenerating ? (
-        <>
-          <HeroSection 
-            formData={formData}
-            onInputChange={handleInputChange}
-            onSubmit={handleFirstStep}
-            isValid={isFirstStepValid}
-          />
-          
-          <div className="space-y-0">
-            <QuienSoy />
-            <ProblemaSolucion />
-            <Metodologia />
-            <ImprovedTestimonials />
-            <TestimonialEspecial />
-            <TransparentPricing />
-            <ImprovedFAQ />
-          </div>
-        </>
+      {!showFullForm && !showResults && !isGenerating ? (
+        <HeroSection 
+          formData={formData}
+          onInputChange={handleInputChange}
+          onSubmit={handleFirstStep}
+          isValid={isFirstStepValid}
+        />
       ) : isGenerating ? (
         <div className="min-h-screen flex items-center justify-center">
           <LoadingSpinner />
@@ -148,7 +134,7 @@ const Index = () => {
       <WhatsAppFloat />
       
       <StickyMobileCTA 
-        isVisible={!showWelcome && !showFullForm && !showResults && !isGenerating}
+        isVisible={!showFullForm && !showResults && !isGenerating}
         onClick={scrollToForm}
       />
     </div>

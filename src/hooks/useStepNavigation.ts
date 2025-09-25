@@ -15,7 +15,7 @@ export const useStepNavigation = () => {
   const getCurrentStep = (): number => {
     const params = new URLSearchParams(location.search);
     const step = params.get('step');
-    return step ? parseInt(step, 10) : 0; // Iniciar en 0 para mostrar bienvenida
+    return step ? parseInt(step, 10) : 1; // Iniciar en 1 para mostrar formulario inicial
   };
   
   // Actualizar la URL con el paso actual (sin scroll automático)
@@ -29,13 +29,7 @@ export const useStepNavigation = () => {
   useEffect(() => {
     const currentStep = getCurrentStep();
     
-    if (currentStep === 0) {
-      // Paso 0: Pantalla de bienvenida
-      setShowWelcome(true);
-      setShowFullForm(false);
-      setShowResults(false);
-      setCurrentWizardStep(0);
-    } else if (currentStep === 1) {
+    if (currentStep === 1) {
       // Paso 1: Formulario inicial
       setShowWelcome(false);
       setShowFullForm(false);
