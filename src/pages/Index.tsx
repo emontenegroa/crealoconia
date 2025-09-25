@@ -99,12 +99,24 @@ const Index = () => {
       />
 
       {!showFullForm && !showResults && !isGenerating ? (
-        <HeroSection 
-          formData={formData}
-          onInputChange={handleInputChange}
-          onSubmit={handleFirstStep}
-          isValid={isFirstStepValid}
-        />
+        <>
+          <HeroSection 
+            formData={formData}
+            onInputChange={handleInputChange}
+            onSubmit={handleFirstStep}
+            isValid={isFirstStepValid}
+          />
+          
+          <div className="space-y-0">
+            <QuienSoy />
+            <ProblemaSolucion />
+            <Metodologia />
+            <ImprovedTestimonials />
+            <TestimonialEspecial />
+            <TransparentPricing />
+            <ImprovedFAQ />
+          </div>
+        </>
       ) : isGenerating ? (
         <div className="min-h-screen flex items-center justify-center">
           <LoadingSpinner />
