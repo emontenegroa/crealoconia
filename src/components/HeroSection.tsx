@@ -137,7 +137,7 @@ const HeroSection = ({
             <div className="relative h-full flex items-center justify-center overflow-hidden">
               {/* Contenedor para las imágenes que pasan por detrás */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-[700px] h-[600px]">
+                <div className="relative w-[700px] h-[700px]">
                   {/* Carrusel de imágenes que se extienden más allá del celular */}
                   <Carousel
                     opts={{
@@ -155,7 +155,7 @@ const HeroSection = ({
                               <img
                                 src={image.src}
                                 alt={image.title}
-                                className="w-[500px] h-[700px] object-cover object-top rounded-3xl shadow-2xl transition-transform duration-700 ease-in-out hover:scale-105"
+                                className="w-[500px] h-[800px] object-cover object-top rounded-3xl shadow-2xl transition-transform duration-700 ease-in-out hover:scale-105"
                                 style={{
                                   filter: 'blur(1px) brightness(0.8)',
                                   transform: 'scale(1.1)'
@@ -170,9 +170,9 @@ const HeroSection = ({
                 </div>
               </div>
 
-              {/* iPhone 17 Pro fijo por encima - Tamaño más realista */}
-              <div className="relative z-30 w-96 h-[650px]">
-                {/* Marco del iPhone 17 Pro con proporciones reales */}
+              {/* iPhone 17 Pro fijo por encima - Más largo */}
+              <div className="relative z-30 w-96 h-[750px]">
+                {/* Marco del iPhone 17 Pro con proporciones más largas */}
                 <div className="relative w-full h-full bg-gradient-to-b from-slate-800 to-slate-900 rounded-[4rem] p-2 shadow-2xl">
                   {/* Borde interno del iPhone */}
                   <div className="w-full h-full bg-black rounded-[3.7rem] p-2">
@@ -196,7 +196,11 @@ const HeroSection = ({
                                 <img
                                   src={image.src}
                                   alt={image.title}
-                                  className="w-full h-full object-cover object-top transition-all duration-700 ease-in-out"
+                                  className="w-full h-full object-cover object-top transition-all duration-700 ease-in-out scale-100 hover:scale-105"
+                                  style={{
+                                    minHeight: '100%',
+                                    objectPosition: 'top center'
+                                  }}
                                 />
                                 {/* Gradiente sutil para el Dynamic Island */}
                                 <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/30 to-transparent z-40"></div>
@@ -216,12 +220,12 @@ const HeroSection = ({
                   </div>
                   
                   {/* Botones laterales del iPhone con tamaño proporcionado */}
-                  <div className="absolute right-0 top-24 w-1.5 h-20 bg-slate-700 rounded-l-lg"></div>
-                  <div className="absolute right-0 top-48 w-1.5 h-10 bg-slate-700 rounded-l-lg"></div>
-                  <div className="absolute right-0 top-64 w-1.5 h-10 bg-slate-700 rounded-l-lg"></div>
+                  <div className="absolute right-0 top-28 w-1.5 h-20 bg-slate-700 rounded-l-lg"></div>
+                  <div className="absolute right-0 top-52 w-1.5 h-10 bg-slate-700 rounded-l-lg"></div>
+                  <div className="absolute right-0 top-68 w-1.5 h-10 bg-slate-700 rounded-l-lg"></div>
                   
                   {/* Botón de encendido */}
-                  <div className="absolute left-0 top-40 w-1.5 h-16 bg-slate-700 rounded-r-lg"></div>
+                  <div className="absolute left-0 top-44 w-1.5 h-16 bg-slate-700 rounded-r-lg"></div>
                 </div>
                 
                 {/* Título flotante dinámico con animación */}
