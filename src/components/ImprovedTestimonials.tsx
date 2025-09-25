@@ -10,7 +10,7 @@ const ImprovedTestimonials = () => {
       image: "/lovable-uploads/ejemplos-emprendedora.png",
       quote: "He vivido procesos muy engorrosos, me pedían mucha información que se copiaba y pegaba tal cual, sin dinamismo. Me encanta que esta opción me permita usar mi cuenta de google y el dinamismo que le agregaron a mi info. Quedé muy impresionada de ver todo lo que construyeron con solo responder 10 preguntas 👏🏻",
       result: "4to intento exitoso",
-      website: "hampi.cl"
+      website: "https://hampi.cl"
     },
     {
       name: "Marina", 
@@ -18,7 +18,7 @@ const ImprovedTestimonials = () => {
       image: "/lovable-uploads/ejemplos-sonrisas.png",
       quote: "Probé el Kit IA y la mentoría de Esteban, y sinceramente… fue un antes y un después. Llevaba mucho tiempo (y plata) tratando de tener una página que fuera bonita y que realmente reflejara lo que soy. Con este sistema, en pocos días obtuve una web que me representa de verdad, y sin enredos.",
       result: "Página en 24 horas",
-      website: "lapolillaazucarada.cl"
+      website: "https://lapolillaazucarada.cl"
     },
     {
       name: "Rocío Sánchez",
@@ -26,7 +26,7 @@ const ImprovedTestimonials = () => {
       image: "/lovable-uploads/ejemplos-dojo.png", 
       quote: "En muy poco tiempo creé un quiz con IA y el resultado fue espectacular. Era parte de un lead magnet, y no solo fue rápido y simple, sino que sentí total acompañamiento. Esteban no solo entrega tecnología, te mentorea con claridad y generosidad.",
       result: "Quiz con IA exitoso",
-      website: "soyrociosanchez.com"
+      website: "https://rociosanchez-quiz.crealoconia.com/"
     }
   ];
 
