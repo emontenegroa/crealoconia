@@ -1,10 +1,8 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Users, Zap, Heart } from "lucide-react";
-
 const QuienSoy = () => {
-  return (
-    <div className="py-16 bg-background">
+  return <div className="py-16 bg-background">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -31,7 +29,7 @@ const QuienSoy = () => {
               </p>
               
               <p className="text-lg text-foreground leading-relaxed">
-                Mi misión es simple: que lo que tú haces y sabes <span className="font-semibold text-primary">se vea genial</span> 
+                Mi misión es simple: que lo que tú haces y sabes <span className="font-semibold text-primary mx-[10px]">se vea genial</span> 
                 y conecte con tus clientes ideales.
               </p>
             </div>
@@ -109,8 +107,6 @@ const QuienSoy = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default QuienSoy;
