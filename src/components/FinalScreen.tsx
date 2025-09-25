@@ -135,8 +135,8 @@ const FinalScreen = ({ formData }: FinalScreenProps) => {
         {/* Footer */}
         <div className="mt-12 text-center">
           <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-slate-400 text-sm">
-            <a href="mailto:somos@crealoconia.com" className="hover:text-white transition-colors">
-              📧 somos@crealoconia.com
+            <a href="mailto:esteban@crealoconia.com" className="hover:text-white transition-colors">
+              📧 esteban@crealoconia.com
             </a>
             <a href="https://instagram.com/crealocon.ia" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
               📱 @crealocon.ia
@@ -144,6 +144,11 @@ const FinalScreen = ({ formData }: FinalScreenProps) => {
             <span className="hover:text-white transition-colors cursor-pointer">
               🔒 Política de privacidad
             </span>
+          </div>
+          <div className="mt-4">
+            <p className="text-slate-500 text-xs">
+              Creado con ❤️ en <a href="https://crealoconia.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">crealoconia.com</a>
+            </p>
           </div>
         </div>
       </div>

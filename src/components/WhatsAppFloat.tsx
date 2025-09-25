@@ -3,7 +3,7 @@ import { MessageCircle } from 'lucide-react';
 
 const WhatsAppFloat = () => {
   const phoneNumber = '56962791772';
-  const message = 'Hola! Me interesa saber más sobre crear mi sitio web profesional 🚀';
+  const message = 'Hola Esteban! Me interesa saber más sobre crear mi sitio web profesional con Crealoconia 🚀';
   
   const handleWhatsAppClick = () => {
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;

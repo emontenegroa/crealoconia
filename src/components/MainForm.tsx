@@ -186,9 +186,9 @@ const MainForm = ({
                 id="no-website"
                 checked={noWebsite}
                 onChange={(e) => setNoWebsite(e.target.checked)}
-                className="rounded border-white/30 bg-white/10 text-blue-500 focus:ring-blue-500"
+                className="w-4 h-4 rounded border-white/50 bg-white/20 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
               />
-              <label htmlFor="no-website" className="text-sm text-slate-300">
+              <label htmlFor="no-website" className="text-sm text-white font-medium cursor-pointer">
                 No tengo sitio web actual
               </label>
             </div>
@@ -216,9 +216,9 @@ const MainForm = ({
                 id="no-instagram"
                 checked={noInstagram}
                 onChange={(e) => setNoInstagram(e.target.checked)}
-                className="rounded border-white/30 bg-white/10 text-blue-500 focus:ring-blue-500"
+                className="w-4 h-4 rounded border-white/50 bg-white/20 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
               />
-              <label htmlFor="no-instagram" className="text-sm text-slate-300">
+              <label htmlFor="no-instagram" className="text-sm text-white font-medium cursor-pointer">
                 No tengo Instagram
               </label>
             </div>
@@ -346,8 +346,8 @@ const MainForm = ({
           {/* Footer */}
           <div className="mt-8 text-center">
             <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-slate-400 text-sm">
-              <a href="mailto:somos@crealoconia.com" className="hover:text-white transition-colors">
-                📧 somos@crealoconia.com
+              <a href="mailto:esteban@crealoconia.com" className="hover:text-white transition-colors">
+                📧 esteban@crealoconia.com
               </a>
               <a href="https://instagram.com/crealocon.ia" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                 📱 @crealocon.ia
@@ -355,6 +355,11 @@ const MainForm = ({
               <span className="hover:text-white transition-colors cursor-pointer">
                 🔒 Política de privacidad
               </span>
+            </div>
+            <div className="mt-4">
+              <p className="text-slate-500 text-xs">
+                Creado con ❤️ en <a href="https://crealoconia.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">crealoconia.com</a>
+              </p>
             </div>
           </div>
         </div>

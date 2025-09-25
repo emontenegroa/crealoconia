@@ -1,7 +1,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import { toast } from "@/hooks/use-toast";
-import LoadingSpinner from '@/components/LoadingSpinner';
+import LoadingSpinnerEnhanced from '@/components/LoadingSpinnerEnhanced';
 import HeroSection from '@/components/HeroSection';
 import ImportantNotice from '@/components/ImportantNotice';
 import ProgressDialog from '@/components/ProgressDialog';
@@ -118,9 +118,7 @@ const Index = () => {
           </div>
         </>
       ) : isGenerating ? (
-        <div className="min-h-screen flex items-center justify-center">
-          <LoadingSpinner />
-        </div>
+        <LoadingSpinnerEnhanced formData={formData} />
       ) : showResults ? (
         <FinalScreen formData={formData} />
       ) : showFullForm ? (
