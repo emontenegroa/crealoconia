@@ -51,7 +51,7 @@ const Metodologia = () => {
   }, {
     numero: "04",
     icono: <Clock className="w-8 h-8 text-blue-500" />,
-    titulo: "Sesión personalizada",
+    titulo: "Conoce tu página web",
     descripcion: "Agenda tu sesión de 15 minutos para que conozcas tu página y resolver tus consultas",
     tiempo: "15 minutos",
     detalles: "Haces el pago y agendamos la sesión personalizada para las integraciones que necesites realizar y publicar tu sitio web"
