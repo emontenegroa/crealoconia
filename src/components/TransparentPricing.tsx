@@ -102,7 +102,7 @@ const TransparentPricing = () => {
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-blue-600" />
-                  <span>Hosting incluido por 2 años</span>
+                  <span>Super Prompt de Marketing para tus redes sociales</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-blue-600" />
