@@ -52,9 +52,9 @@ const Metodologia = () => {
     numero: "04",
     icono: <Clock className="w-8 h-8 text-blue-500" />,
     titulo: "Conoce tu página web",
-    descripcion: "Agenda tu sesión de 15 minutos para que conozcas tu página y resolver tus consultas",
+    descripcion: "Agenda tu sesión de 15 minutos para que conozcas tu página y resuelvas tus consultas",
     tiempo: "15 minutos",
-    detalles: "Haces el pago y agendamos la sesión personalizada para las integraciones que necesites realizar y publicar tu sitio web"
+    detalles: "Aquí mismo haces el pago y agendamos tu sesión de mentoría 1 a 1 para las integraciones necesarias y publicar tu sitio web"
   }];
   return <div className="py-16 bg-background">
       <div className="max-w-6xl mx-auto px-4">
