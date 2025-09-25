@@ -137,7 +137,7 @@ const HeroSection = ({
             <div className="relative h-full flex items-center justify-center overflow-hidden">
               {/* Contenedor para las imágenes que pasan por detrás */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-[600px] h-[500px]">
+                <div className="relative w-[700px] h-[600px]">
                   {/* Carrusel de imágenes que se extienden más allá del celular */}
                   <Carousel
                     opts={{
@@ -155,7 +155,7 @@ const HeroSection = ({
                               <img
                                 src={image.src}
                                 alt={image.title}
-                                className="w-[400px] h-[600px] object-cover object-top rounded-3xl shadow-2xl transition-transform duration-700 ease-in-out hover:scale-105"
+                                className="w-[500px] h-[700px] object-cover object-top rounded-3xl shadow-2xl transition-transform duration-700 ease-in-out hover:scale-105"
                                 style={{
                                   filter: 'blur(1px) brightness(0.8)',
                                   transform: 'scale(1.1)'
@@ -170,16 +170,16 @@ const HeroSection = ({
                 </div>
               </div>
 
-              {/* iPhone 17 Pro fijo por encima */}
-              <div className="relative z-30 w-80 h-[520px]">
-                {/* Marco del iPhone 17 Pro */}
-                <div className="relative w-full h-full bg-gradient-to-b from-slate-800 to-slate-900 rounded-[3.5rem] p-1 shadow-2xl">
+              {/* iPhone 17 Pro fijo por encima - Tamaño más realista */}
+              <div className="relative z-30 w-96 h-[650px]">
+                {/* Marco del iPhone 17 Pro con proporciones reales */}
+                <div className="relative w-full h-full bg-gradient-to-b from-slate-800 to-slate-900 rounded-[4rem] p-2 shadow-2xl">
                   {/* Borde interno del iPhone */}
-                  <div className="w-full h-full bg-black rounded-[3.2rem] p-1">
+                  <div className="w-full h-full bg-black rounded-[3.7rem] p-2">
                     {/* Pantalla del iPhone */}
-                    <div className="w-full h-full rounded-[3rem] overflow-hidden relative bg-black">
+                    <div className="w-full h-full rounded-[3.5rem] overflow-hidden relative bg-black">
                       {/* Dynamic Island */}
-                      <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-black rounded-full z-50 border-2 border-slate-700"></div>
+                      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-36 h-9 bg-black rounded-full z-50 border-2 border-slate-700"></div>
                       
                       {/* Carrusel sincronizado dentro del iPhone con transiciones */}
                       <Carousel
@@ -199,34 +199,34 @@ const HeroSection = ({
                                   className="w-full h-full object-cover object-top transition-all duration-700 ease-in-out"
                                 />
                                 {/* Gradiente sutil para el Dynamic Island */}
-                                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/30 to-transparent z-40"></div>
+                                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/30 to-transparent z-40"></div>
                               </div>
                             </CarouselItem>
                           ))}
                         </CarouselContent>
                         
                         {/* Flechas de navegación personalizadas */}
-                        <CarouselPrevious className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 bg-white/20 hover:bg-white/30 border-white/30 text-white backdrop-blur-sm transition-all duration-300" />
-                        <CarouselNext className="absolute right-4 top-1/2 transform -translate-y-1/2 z-50 bg-white/20 hover:bg-white/30 border-white/30 text-white backdrop-blur-sm transition-all duration-300" />
+                        <CarouselPrevious className="absolute left-6 top-1/2 transform -translate-y-1/2 z-50 bg-white/20 hover:bg-white/30 border-white/30 text-white backdrop-blur-sm transition-all duration-300 w-12 h-12" />
+                        <CarouselNext className="absolute right-6 top-1/2 transform -translate-y-1/2 z-50 bg-white/20 hover:bg-white/30 border-white/30 text-white backdrop-blur-sm transition-all duration-300 w-12 h-12" />
                       </Carousel>
                       
                       {/* Indicador home del iPhone */}
-                      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/60 rounded-full z-50"></div>
+                      <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-36 h-1.5 bg-white/60 rounded-full z-50"></div>
                     </div>
                   </div>
                   
-                  {/* Botón lateral del iPhone */}
-                  <div className="absolute right-0 top-20 w-1 h-16 bg-slate-700 rounded-l-lg"></div>
-                  <div className="absolute right-0 top-40 w-1 h-8 bg-slate-700 rounded-l-lg"></div>
-                  <div className="absolute right-0 top-52 w-1 h-8 bg-slate-700 rounded-l-lg"></div>
+                  {/* Botones laterales del iPhone con tamaño proporcionado */}
+                  <div className="absolute right-0 top-24 w-1.5 h-20 bg-slate-700 rounded-l-lg"></div>
+                  <div className="absolute right-0 top-48 w-1.5 h-10 bg-slate-700 rounded-l-lg"></div>
+                  <div className="absolute right-0 top-64 w-1.5 h-10 bg-slate-700 rounded-l-lg"></div>
                   
                   {/* Botón de encendido */}
-                  <div className="absolute left-0 top-32 w-1 h-12 bg-slate-700 rounded-r-lg"></div>
+                  <div className="absolute left-0 top-40 w-1.5 h-16 bg-slate-700 rounded-r-lg"></div>
                 </div>
                 
                 {/* Título flotante dinámico con animación */}
-                <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-3 z-50 transition-all duration-300 hover:bg-white/15">
-                  <span className="text-white text-base font-medium">iPhone 17 Pro • Páginas web profesionales</span>
+                <div className="absolute -bottom-14 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-3 z-50 transition-all duration-300 hover:bg-white/15">
+                  <span className="text-white text-lg font-medium">iPhone 17 Pro • Páginas web profesionales</span>
                 </div>
               </div>
             </div>
