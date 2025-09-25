@@ -15,41 +15,7 @@ const TransparentPricing = () => {
 
         <div className="grid md:grid-cols-2 gap-8 mb-8">
           {/* Propuesta Gratuita */}
-          <Card className="border-2 border-emerald-500/30 bg-card relative">
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <span className="bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-bold">
-                100% GRATIS
-              </span>
-            </div>
-            <CardHeader className="text-center pt-8">
-              <CardTitle className="text-2xl text-emerald-700">Propuesta Gratuita</CardTitle>
-              <div className="text-4xl font-bold text-emerald-600">$0 CLP</div>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-emerald-600" />
-                  <span>Página web funcional completa</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-emerald-600" />
-                  <span>Diseño profesional y responsive</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-emerald-600" />
-                  <span>Textos creados con IA</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-emerald-600" />
-                  <span>Estructura optimizada para conversión</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-emerald-600" />
-                  <span>Entrega en 24 horas máximo</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+          
 
           {/* Publicación Completa */}
           <Card className="border-2 border-primary/30 bg-card relative">
@@ -71,15 +37,12 @@ const TransparentPricing = () => {
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-blue-600" />
-                  <span>Mentoría personalizada 1 a 1 para mejoras</span>
+                  <span>Mentoría personalizada 1 a 1 </span>
                 </li>
+                
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-blue-600" />
-                  <span>Hosting incluido por 2 años</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-blue-600" />
-                  <span>Configuración técnica completa</span>
+                  <span>Configuración técnica completa!, olvídate de hosting, dns, etc.  </span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-blue-600" />
@@ -91,8 +54,8 @@ const TransparentPricing = () => {
                 
                 <ul className="space-y-1 text-sm text-muted-foreground">
                   <li className="flex items-center gap-2">
-                    <X className="w-4 h-4 text-destructive" />
-                    <span>No incluye Dominio (~$15.000-25.000 CLP/año)</span>
+                    
+                    <span>Te podemos ayudar a obtener el dominio  </span>
                   </li>
                   <li className="flex items-center gap-2">
                     
