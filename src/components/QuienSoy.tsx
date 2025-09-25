@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Award, Users, Zap, Heart } from "lucide-react";
+import { Award, Users, Zap, Gift } from "lucide-react";
 const QuienSoy = () => {
   return <div className="py-16 bg-background">
       <div className="max-w-6xl mx-auto px-4">
@@ -103,9 +103,9 @@ const QuienSoy = () => {
               
               <Card className="bg-card border border-border">
                 <CardContent className="p-6 text-center">
-                  <Heart className="w-8 h-8 text-red-500 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-foreground">4.9/5</div>
-                  <div className="text-sm text-muted-foreground">Satisfacción cliente</div>
+                  <Gift className="w-8 h-8 text-purple-500 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-foreground">SuperPrompt</div>
+                  <div className="text-sm text-muted-foreground">Para Marketing en redes sociales</div>
                 </CardContent>
               </Card>
             </div>
