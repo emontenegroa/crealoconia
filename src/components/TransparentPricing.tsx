@@ -1,7 +1,34 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Check, X, Sparkles, ArrowRight } from "lucide-react";
 const TransparentPricing = () => {
+  const scrollToForm = () => {
+    // Scroll to the top where the form is
+    window.scrollTo({ 
+      top: 0, 
+      behavior: 'smooth' 
+    });
+    
+    // After scrolling, highlight the form fields
+    setTimeout(() => {
+      const inputs = document.querySelectorAll('input[name="marca"], input[name="email"]');
+      inputs.forEach(input => {
+        if (input instanceof HTMLElement) {
+          input.style.transform = 'scale(1.05)';
+          input.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.5)';
+          input.style.transition = 'all 0.3s ease';
+          
+          // Reset after animation
+          setTimeout(() => {
+            input.style.transform = 'scale(1)';
+            input.style.boxShadow = '';
+          }, 2000);
+        }
+      });
+    }, 800);
+  };
+
   return <div className="py-16 bg-muted/30">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
@@ -126,9 +153,15 @@ const TransparentPricing = () => {
 
         {/* Botón de llamado a la acción */}
         <div className="mt-8 text-center">
-          <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-lg text-lg font-bold transition-colors">
-            🚀 Crear Mi Página Web Ahora
-          </button>
+          <Button 
+            onClick={scrollToForm}
+            size="lg"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] px-8 py-4 text-lg font-semibold"
+          >
+            <Sparkles className="w-5 h-5 mr-2" />
+            Empezar ahora
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
         </div>
 
         <div className="mt-8 text-center">
