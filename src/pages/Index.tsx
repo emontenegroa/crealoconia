@@ -14,6 +14,10 @@ import StickyMobileCTA from '@/components/StickyMobileCTA';
 import ImprovedFAQ from '@/components/ImprovedFAQ';
 import PortfolioSection from '@/components/PortfolioSection';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
+import QuienSoy from '@/components/QuienSoy';
+import ProblemaSolucion from '@/components/ProblemaSolucion';
+import Metodologia from '@/components/Metodologia';
+import TestimonialEspecial from '@/components/TestimonialEspecial';
 import { MetaTracker } from '@/components/MetaTracker';
 import StrategicContentDisplay from '@/components/StrategicContentDisplay';
 import { useFormHandler } from '@/hooks/useFormHandler';
@@ -101,11 +105,13 @@ const Index = () => {
             isValid={isFirstStepValid}
           />
           
-          <div className="container mx-auto px-4 py-12 max-w-6xl space-y-16">
-            <TransparentPricing />
-            <HowItWorksToggle />
+          <div className="space-y-0">
+            <QuienSoy />
+            <ProblemaSolucion />
+            <Metodologia />
             <ImprovedTestimonials />
-            <ImportantNotice />
+            <TestimonialEspecial />
+            <TransparentPricing />
             <ImprovedFAQ />
           </div>
         </>

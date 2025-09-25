@@ -5,122 +5,92 @@ const ImprovedFAQ = () => {
   return (
     <div className="max-w-4xl mx-auto mt-20 px-4">
       <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-        🤔 Preguntas Frecuentes
+        Dudas Frecuentes sobre CrealoconIA 🤔
       </h2>
       
-      {/* Precios y Tiempos */}
-      <div className="mb-8">
-        <h3 className="text-xl font-bold text-primary mb-4">💰 Precios y Tiempos</h3>
-        <Accordion type="single" collapsible className="space-y-2">
-          <AccordionItem value="price-1" className="bg-card border border-border rounded-lg">
-            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-foreground hover:no-underline">
-              ¿Realmente es gratis?
-            </AccordionTrigger>
-            <AccordionContent className="px-6 pb-4 text-muted-foreground">
-              <p><strong>Sí, completamente gratis.</strong> Recibes tu super prompt y una propuesta funcional sin pagar nada.</p>
-              <p className="mt-2">Solo pagas $197.000 CLP si decides publicar el sitio en tu dominio personalizado.</p>
-            </AccordionContent>
-          </AccordionItem>
+      <Accordion type="single" collapsible className="space-y-4">
+        <AccordionItem value="dominio" className="bg-card border border-border rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-foreground hover:no-underline">
+            ¿Es necesario comprar un dominio para alojar la página?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-muted-foreground">
+            <p>No es obligatorio. El dominio lo puede comprar el cliente directamente o nosotros nos encargamos de la compra y configuración.</p>
+            <p className="mt-2">Te recomendamos proveedores confiables y económicos para que tengas las mejores opciones.</p>
+          </AccordionContent>
+        </AccordionItem>
 
-          <AccordionItem value="price-2" className="bg-white border border-gray-200 rounded-lg">
-            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
-              ¿Cuánto tiempo toma?
-            </AccordionTrigger>
-            <AccordionContent className="px-6 pb-4 text-gray-700">
-              <p><strong>Super prompt:</strong> Email inmediato</p>
-              <p><strong>Sitio web:</strong> Máximo 4 horas</p>
-              <p className="mt-2">Trabajamos de lunes a viernes, 9:00 a 18:00 hrs.</p>
-            </AccordionContent>
-          </AccordionItem>
+        <AccordionItem value="whatsapp" className="bg-card border border-border rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-foreground hover:no-underline">
+            ¿Se puede vincular con WhatsApp?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-muted-foreground">
+            <p><strong>Sí, absolutamente.</strong> Configuramos botones de WhatsApp integrados para que tus clientes puedan contactarte directamente desde cualquier parte de tu página web de forma inmediata.</p>
+          </AccordionContent>
+        </AccordionItem>
 
-          <AccordionItem value="price-3" className="bg-white border border-gray-200 rounded-lg">
-            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
-              ¿Qué incluye el precio de $197.000 CLP?
-            </AccordionTrigger>
-            <AccordionContent className="px-6 pb-4 text-gray-700">
-              <p>✅ Publicación en tu dominio personalizado</p>
-              <p>✅ Sesión de personalización (1 hora)</p>
-              <p>✅ Configuración técnica completa</p>
-              <p>✅ 30 días de soporte incluido</p>
-              <p className="mt-2 text-red-600"><strong>No incluye:</strong> Dominio (~$15-25k/año) ni hosting (~$8-15k/mes)</p>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </div>
+        <AccordionItem value="modificaciones" className="bg-card border border-border rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-foreground hover:no-underline">
+            ¿Se puede modificar la estructura y textos después?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-muted-foreground">
+            <p><strong>Por supuesto.</strong> Incluimos una mentoría personalizada 1 a 1 para realizar modificaciones al sitio que creamos.</p>
+            <p className="mt-2">También ofrecemos paquetes de cambios adicionales cuando los necesites.</p>
+          </AccordionContent>
+        </AccordionItem>
 
-      {/* Personalización y Calidad */}
-      <div className="mb-8">
-        <h3 className="text-xl font-bold text-emerald-800 mb-4">🎨 Personalización y Calidad</h3>
-        <Accordion type="single" collapsible className="space-y-2">
-          <AccordionItem value="quality-1" className="bg-white border border-gray-200 rounded-lg">
-            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
-              ¿Mi sitio será único o usan plantillas?
-            </AccordionTrigger>
-            <AccordionContent className="px-6 pb-4 text-gray-700">
-              <p><strong>100% único y personalizado</strong> basado en tus respuestas del formulario.</p>
-              <p className="mt-2">Cada sitio se crea desde cero con tu marca, colores, contenido y estructura específica.</p>
-            </AccordionContent>
-          </AccordionItem>
+        <AccordionItem value="engorroso" className="bg-card border border-border rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-foreground hover:no-underline">
+            El crear una página web me resultó muy engorroso en el pasado
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-muted-foreground">
+            <p><strong>Lo entendemos perfectamente</strong> - es la frustración #1 de nuestros clientes.</p>
+            <p className="mt-2">Por eso creamos CrealoconIA: solo respondes 10 preguntas y nosotros nos encargamos de todo lo técnico. Nada de procesos engorrosos ni información que se copia y pega sin dinamismo.</p>
+          </AccordionContent>
+        </AccordionItem>
 
-          <AccordionItem value="quality-2" className="bg-white border border-gray-200 rounded-lg">
-            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
-              ¿Puedo hacer cambios después?
-            </AccordionTrigger>
-            <AccordionContent className="px-6 pb-4 text-gray-700">
-              <p><strong>Paquete de 3 cambios:</strong> $20.000 CLP</p>
-              <p>Incluye: textos, colores, imágenes, secciones adicionales</p>
-              <p className="mt-2">30 días de soporte gratuito para errores técnicos incluido.</p>
-            </AccordionContent>
-          </AccordionItem>
+        <AccordionItem value="precio" className="bg-card border border-border rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-foreground hover:no-underline">
+            ¿Qué incluye exactamente el precio de $197.000 CLP?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-muted-foreground">
+            <p>✅ Página web publicada con tu dominio .com o .cl</p>
+            <p>✅ Mentoría personalizada 1 a 1 para mejoras</p>
+            <p>✅ Hosting incluido por 2 años completos</p>
+            <p>✅ Configuración técnica completa</p>
+            <p>✅ Soporte técnico incluido</p>
+          </AccordionContent>
+        </AccordionItem>
 
-          <AccordionItem value="quality-3" className="bg-white border border-gray-200 rounded-lg">
-            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
-              ¿Qué pasa si no me gusta el resultado?
-            </AccordionTrigger>
-            <AccordionContent className="px-6 pb-4 text-gray-700">
-              <p><strong>Garantía 100%:</strong> Si no te encanta tu sitio, te devolvemos tu dinero o lo ajustamos sin costo.</p>
-              <p className="mt-2">Nuestro objetivo es tu completa satisfacción.</p>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </div>
+        <AccordionItem value="tiempo" className="bg-card border border-border rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-foreground hover:no-underline">
+            ¿Realmente entregan en 24 horas?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-muted-foreground">
+            <p><strong>Sí, creamos la página web con inteligencia artificial en tiempo récord.</strong></p>
+            <p className="mt-2">En 24 horas máximo tienes tu propuesta completa para revisar. Si decides publicar, la configuración final toma unas horas adicionales.</p>
+          </AccordionContent>
+        </AccordionItem>
 
-      {/* Soporte Técnico */}
-      <div className="mb-8">
-        <h3 className="text-xl font-bold text-purple-800 mb-4">🛠️ Soporte Técnico</h3>
-        <Accordion type="single" collapsible className="space-y-2">
-          <AccordionItem value="tech-1" className="bg-white border border-gray-200 rounded-lg">
-            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
-              ¿Qué pasa si no sé usar ChatGPT?
-            </AccordionTrigger>
-            <AccordionContent className="px-6 pb-4 text-gray-700">
-              <p>Te enviamos <strong>instrucciones paso a paso súper simples</strong>, incluso si nunca has usado ChatGPT.</p>
-              <p className="mt-2">Soporte directo vía email para resolver cualquier duda.</p>
-            </AccordionContent>
-          </AccordionItem>
+        <AccordionItem value="garantia" className="bg-card border border-border rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-foreground hover:no-underline">
+            ¿Qué pasa si no me gusta el resultado?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-muted-foreground">
+            <p><strong>La propuesta inicial es 100% gratuita</strong>, así que no hay riesgo.</p>
+            <p className="mt-2">Si decides publicar y no quedas satisfecho, resolvemos dudas técnicas y de diseño del sitio hasta que esté perfecto para ti.</p>
+          </AccordionContent>
+        </AccordionItem>
 
-          <AccordionItem value="tech-2" className="bg-white border border-gray-200 rounded-lg">
-            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
-              ¿Cómo manejan mis datos personales?
-            </AccordionTrigger>
-            <AccordionContent className="px-6 pb-4 text-gray-700">
-              <p>Tus datos están protegidos con encriptación SSL.</p>
-              <p>Solo los usamos para crear tu sitio y enviarte las entregas.</p>
-              <p className="mt-2"><strong>No enviamos spam</strong> y puedes darte de baja cuando quieras.</p>
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="tech-3" className="bg-white border border-gray-200 rounded-lg">
-            <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
-              ¿Funciona en móviles?
-            </AccordionTrigger>
-            <AccordionContent className="px-6 pb-4 text-gray-700">
-              <p><strong>Sí, 100% responsivo.</strong> Tu sitio se verá perfecto en computador, tablet y móvil.</p>
-              <p className="mt-2">Optimizado para velocidad y experiencia de usuario.</p>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </div>
+        <AccordionItem value="ia" className="bg-card border border-border rounded-lg">
+          <AccordionTrigger className="px-6 py-4 text-left font-semibold text-foreground hover:no-underline">
+            ¿Por qué usan inteligencia artificial?
+          </AccordionTrigger>
+          <AccordionContent className="px-6 pb-4 text-muted-foreground">
+            <p><strong>La IA nos permite crear páginas web profesionales en tiempo récord</strong>, con textos optimizados, estructura inteligente y diseño moderno.</p>
+            <p className="mt-2">Combinamos la velocidad de la tecnología con nuestra experiencia en conversión.</p>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 };

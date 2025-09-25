@@ -5,28 +5,28 @@ import { Star, ExternalLink } from "lucide-react";
 const ImprovedTestimonials = () => {
   const testimonials = [
     {
-      name: "María González",
-      role: "Coach de Vida",
+      name: "Cami",
+      role: "Fundadora de Hampi.cl",
       image: "/lovable-uploads/ejemplos-emprendedora.png",
-      quote: "En 3 días ya tenía 15 leads nuevos desde mi sitio web. El super prompt me ayudó a crear contenido que realmente conecta.",
-      result: "+300% leads en 2 semanas",
-      website: "#"
+      quote: "He vivido procesos muy engorrosos, me pedían mucha información que se copiaba y pegaba tal cual, sin dinamismo. Me encanta que esta opción me permita usar mi cuenta de google y el dinamismo que le agregaron a mi info. Quedé muy impresionada de ver todo lo que construyeron con solo responder 10 preguntas 👏🏻",
+      result: "4to intento exitoso",
+      website: "hampi.cl"
     },
     {
-      name: "Carlos Mendoza", 
-      role: "Consultor Digital",
-      image: "/lovable-uploads/ejemplos-dojo.png",
-      quote: "Mi sitio anterior no generaba nada. Con este nuevo enfoque, ya cerré 2 mentorías en el primer mes.",
-      result: "$680.000 CLP facturados",
-      website: "#"
+      name: "Marina", 
+      role: "Fundadora de La Polilla Azucarada",
+      image: "/lovable-uploads/ejemplos-sonrisas.png",
+      quote: "Probé el Kit IA y la mentoría de Esteban, y sinceramente… fue un antes y un después. Llevaba mucho tiempo (y plata) tratando de tener una página que fuera bonita y que realmente reflejara lo que soy. Con este sistema, en pocos días obtuve una web que me representa de verdad, y sin enredos.",
+      result: "Página en 24 horas",
+      website: "lapolillaazucarada.cl"
     },
     {
-      name: "Ana Sofía Torres",
-      role: "Terapeuta Holística",
-      image: "/lovable-uploads/ejemplos-sonrisas.png", 
-      quote: "El prompt me dio ideas de contenido para 6 meses. Mi Instagram creció de 800 a 2.300 seguidores.",
-      result: "+190% seguidores",
-      website: "#"
+      name: "Rocío Sánchez",
+      role: "soyrociosanchez.com",
+      image: "/lovable-uploads/ejemplos-dojo.png", 
+      quote: "En muy poco tiempo creé un quiz con IA y el resultado fue espectacular. Era parte de un lead magnet, y no solo fue rápido y simple, sino que sentí total acompañamiento. Esteban no solo entrega tecnología, te mentorea con claridad y generosidad.",
+      result: "Quiz con IA exitoso",
+      website: "soyrociosanchez.com"
     }
   ];
 
@@ -35,10 +35,10 @@ const ImprovedTestimonials = () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Resultados Reales de Nuestros Clientes
+            Casos de Éxito Reales
           </h2>
           <p className="text-xl text-muted-foreground">
-            No son solo testimonios bonitos. Son resultados medibles:
+            Estos son algunos de nuestros clientes que ya tienen su página web funcionando:
           </p>
         </div>
 
@@ -91,20 +91,20 @@ const ImprovedTestimonials = () => {
           <Card className="bg-primary/10 border-primary/30 max-w-2xl mx-auto">
             <CardContent className="p-6">
               <h3 className="text-xl font-bold text-primary mb-2">
-                🎯 Promedio de resultados de nuestros clientes:
+                🎯 Estadísticas de CrealoconIA:
               </h3>
               <div className="grid md:grid-cols-3 gap-4 text-center">
                 <div>
-                  <div className="text-2xl font-bold text-primary">+250%</div>
-                  <div className="text-muted-foreground text-sm">Aumento en leads</div>
+                  <div className="text-2xl font-bold text-primary">24h</div>
+                  <div className="text-muted-foreground text-sm">Tiempo de entrega</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-emerald-600">72h</div>
-                  <div className="text-muted-foreground text-sm">Primer contacto</div>
+                  <div className="text-2xl font-bold text-emerald-600">50+</div>
+                  <div className="text-muted-foreground text-sm">Páginas creadas</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-accent-foreground">4.9/5</div>
-                  <div className="text-muted-foreground text-sm">Satisfacción</div>
+                  <div className="text-2xl font-bold text-accent-foreground">100%</div>
+                  <div className="text-muted-foreground text-sm">Con IA</div>
                 </div>
               </div>
             </CardContent>

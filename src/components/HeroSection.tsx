@@ -58,20 +58,20 @@ const HeroSection = ({
             <div className="space-y-6">
               <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm font-medium backdrop-blur-sm">
                 <Sparkles className="w-4 h-4 mr-2" />
-                Transformación digital inteligente
+                CrealoconIA.com - Páginas web con IA
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
-                <span className="block">Tu sitio web</span>
+                <span className="block">Tu página web</span>
                 <span className="block">profesional</span>
                 <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent block">
-                  listo en 4 horas
+                  lista en 24 horas
                 </span>
               </h1>
               
               <p className="text-lg text-slate-300 max-w-lg leading-relaxed">
-                Combino experiencia en marketing digital con inteligencia artificial para crear sitios web que realmente 
-                <span className="text-blue-300 font-medium"> conectan con tus clientes</span> y generan resultados.
+                Soy Esteban Montenegro, mentor en tecnología. Ayudo a coaches, mentores y profesionales a crear páginas web 
+                <span className="text-blue-300 font-medium"> rápidas, simples y profesionales</span> con inteligencia artificial.
               </p>
             </div>
 
@@ -83,7 +83,7 @@ const HeroSection = ({
                     name="marca"
                     value={formData.marca}
                     onChange={(e) => onInputChange('marca', e.target.value)}
-                    placeholder="Tu marca o negocio"
+                    placeholder="Tu negocio o marca personal"
                     className="h-14 text-base bg-white/10 border-white/20 text-white placeholder:text-slate-400 focus:border-blue-400 focus:bg-white/15 transition-all duration-300 backdrop-blur-sm rounded-xl"
                   />
                 </div>
@@ -106,18 +106,18 @@ const HeroSection = ({
                 disabled={!isValid}
               >
                 <Sparkles className="w-5 h-5 mr-2" />
-                Crear mi sitio web ahora
+                Crear mi página web gratis
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               
               <div className="flex items-center space-x-6 text-sm">
                 <div className="flex items-center text-emerald-400">
                   <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2"></div>
-                  Propuesta gratuita
+                  100% gratuito
                 </div>
                 <div className="flex items-center text-blue-400">
                   <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                  Entrega en 4 horas
+                  Entrega en 24 horas
                 </div>
               </div>
             </form>

@@ -8,10 +8,10 @@ const TransparentPricing = () => {
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Precios 100% Transparentes
+            Sistema CrealoconIA: Transparente y Simple
           </h2>
           <p className="text-xl text-muted-foreground">
-            Sin sorpresas, sin letra pequeña. Esto es exactamente lo que pagas:
+            Página web profesional en 24 horas - Precio fijo sin sorpresas:
           </p>
         </div>
 
@@ -24,30 +24,30 @@ const TransparentPricing = () => {
               </span>
             </div>
             <CardHeader className="text-center pt-8">
-              <CardTitle className="text-2xl text-emerald-700">Propuesta Inicial</CardTitle>
+              <CardTitle className="text-2xl text-emerald-700">Propuesta Gratuita</CardTitle>
               <div className="text-4xl font-bold text-emerald-600">$0 CLP</div>
             </CardHeader>
             <CardContent>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-emerald-600" />
-                  <span>Super Prompt IA personalizado</span>
+                  <span>Página web funcional completa</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-emerald-600" />
-                  <span>15 días de contenido para redes</span>
+                  <span>Diseño profesional y responsive</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-emerald-600" />
-                  <span>Textos completos para tu web</span>
+                  <span>Textos creados con IA</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-emerald-600" />
-                  <span>Sitio web funcional de demostración</span>
+                  <span>Estructura optimizada para conversión</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-emerald-600" />
-                  <span>Entrega en máximo 4 horas</span>
+                  <span>Entrega en 24 horas máximo</span>
                 </li>
               </ul>
             </CardContent>
@@ -61,18 +61,23 @@ const TransparentPricing = () => {
               </span>
             </div>
             <CardHeader className="text-center pt-8">
-              <CardTitle className="text-2xl text-primary">Publicación en Tu Dominio</CardTitle>
+              <CardTitle className="text-2xl text-primary">Página Web Publicada</CardTitle>
               <div className="text-4xl font-bold text-primary">$197.000 CLP</div>
+              <div className="text-sm text-muted-foreground mt-2">Funciona por 2 años completos</div>
             </CardHeader>
             <CardContent>
               <ul className="space-y-3 mb-4">
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-blue-600" />
-                  <span>Tu sitio publicado en tu dominio personalizado</span>
+                  <span>Página publicada con tu dominio .com o .cl</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-blue-600" />
-                  <span>Sesión de personalización (1 hora)</span>
+                  <span>Mentoría personalizada 1 a 1 para mejoras</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-5 h-5 text-blue-600" />
+                  <span>Hosting incluido por 2 años</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-blue-600" />
@@ -80,11 +85,7 @@ const TransparentPricing = () => {
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-blue-600" />
-                  <span>30 días de soporte incluido</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-blue-600" />
-                  <span>Garantía de satisfacción 100%</span>
+                  <span>Soporte técnico incluido</span>
                 </li>
               </ul>
               
