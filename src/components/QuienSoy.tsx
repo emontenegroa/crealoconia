@@ -38,25 +38,39 @@ const QuienSoy = () => {
 
             {/* Especialidades */}
             <div className="bg-muted/50 p-6 rounded-xl">
-              <h3 className="font-semibold text-foreground mb-3">¿A quién ayudo específicamente?</h3>
-              <ul className="space-y-2 text-foreground">
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  Coaches y mentores que necesitan posicionarse como autoridad
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  Abogados y consultores que buscan generar más leads
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  Profesionales construyendo su marca personal
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  Emprendedores listos a invertir en su presencia digital
-                </li>
-              </ul>
+              <h3 className="font-semibold text-foreground mb-3">¿Qué tipo de páginas creo?</h3>
+              
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    Páginas de marca personal
+                  </h4>
+                  <p className="text-sm text-muted-foreground ml-4">
+                    Mostrando tu experiencia, quien eres y lo que haces, tus programas, sesiones, cursos, talleres, mentorías, descargas de recursos, muestra de catálogos
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    Páginas de embudo
+                  </h4>
+                  <p className="text-sm text-muted-foreground ml-4">
+                    Landing pages, páginas de aterrizaje, página de agradecimientos (con confeti y todo🎉), página de captura de email (se puede integrar con brevo)
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    Páginas informativas
+                  </h4>
+                  <p className="text-sm text-muted-foreground ml-4">
+                    Mostrando tu empresa, servicios, horarios, agendas. Clínicas, estudios jurídicos, barberías, centros deportivos, transporte, veterinarias, peluquerías, centros de estética, agrícolas y todo lo que te puedas imaginar
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
