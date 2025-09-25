@@ -40,7 +40,7 @@ const TransparentPricing = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-8 justify-center max-w-2xl mx-auto">
+        <div className="flex justify-center mb-8">
           {/* Propuesta Gratuita */}
           <Card className="border-2 border-emerald-500/30 bg-card relative">
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
