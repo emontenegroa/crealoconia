@@ -241,7 +241,7 @@ const HeroSection = ({
                 
                 {/* Título flotante dinámico con animación */}
                 <div className="absolute -bottom-14 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-3 z-50 transition-all duration-300 hover:bg-white/15">
-                  <span className="text-white text-lg font-medium">iPhone 17 Pro • Páginas web profesionales</span>
+                  <span className="text-white text-lg font-medium">crealoconIA.com</span>
                 </div>
               </div>
             </div>
