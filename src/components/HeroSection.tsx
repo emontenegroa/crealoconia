@@ -116,7 +116,7 @@ const HeroSection = ({
                 disabled={!isValid}
               >
                 <Sparkles className="w-5 h-5 mr-2" />
-                Crear mi página web
+                Empezar ahora
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               
