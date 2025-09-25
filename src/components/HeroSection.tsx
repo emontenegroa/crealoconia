@@ -1,4 +1,5 @@
 import React from 'react';
+import Autoplay from 'embla-carousel-autoplay';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -140,6 +141,11 @@ const HeroSection = ({
                 <div className="relative w-[700px] h-[700px]">
                   {/* Carrusel de imágenes que se extienden más allá del celular */}
                   <Carousel
+                    plugins={[
+                      Autoplay({
+                        delay: 2000,
+                      }),
+                    ]}
                     opts={{
                       align: "center",
                       loop: true,
@@ -183,6 +189,11 @@ const HeroSection = ({
                       
                       {/* Carrusel sincronizado dentro del iPhone con transiciones */}
                       <Carousel
+                        plugins={[
+                          Autoplay({
+                            delay: 2000,
+                          }),
+                        ]}
                         opts={{
                           align: "center",
                           loop: true,
