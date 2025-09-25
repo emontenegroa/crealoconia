@@ -70,8 +70,7 @@ const HeroSection = ({
               </h1>
               
               <p className="text-lg text-slate-300 max-w-lg leading-relaxed">
-                Soy Esteban Montenegro, mentor en tecnología. Ayudo a coaches, mentores y profesionales a crear páginas web 
-                <span className="text-blue-300 font-medium"> rápidas, simples y profesionales</span> con inteligencia artificial.
+                Deja de perder tiempo con procesos complicados. Usamos Inteligencia Artificial para crear páginas web de forma rápida, fácil y profesionales que representan tu marca y convierten visitantes en clientes.
               </p>
             </div>
 
