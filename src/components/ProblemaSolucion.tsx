@@ -75,15 +75,15 @@ const ProblemaSolucion = () => {
             
             <div className="space-y-4">
               {problemas.map((problema, index) => (
-                <Card key={index} className="border-red-200 bg-red-50/50">
+                <Card key={index} className="border-red-300/60 bg-red-100/80 shadow-sm hover:shadow-md transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex gap-4">
                       <div className="flex-shrink-0">
                         {problema.icon}
                       </div>
                       <div>
-                        <h4 className="font-semibold text-foreground mb-2">{problema.titulo}</h4>
-                        <p className="text-muted-foreground text-sm">{problema.descripcion}</p>
+                        <h4 className="font-semibold text-red-900 mb-2">{problema.titulo}</h4>
+                        <p className="text-red-700 text-sm leading-relaxed">{problema.descripcion}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -105,15 +105,15 @@ const ProblemaSolucion = () => {
             
             <div className="space-y-4">
               {soluciones.map((solucion, index) => (
-                <Card key={index} className="border-emerald-200 bg-emerald-50/50">
+                <Card key={index} className="border-emerald-300/60 bg-emerald-100/80 shadow-sm hover:shadow-md transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex gap-4">
                       <div className="flex-shrink-0">
                         {solucion.icon}
                       </div>
                       <div>
-                        <h4 className="font-semibold text-foreground mb-2">{solucion.titulo}</h4>
-                        <p className="text-muted-foreground text-sm">{solucion.descripcion}</p>
+                        <h4 className="font-semibold text-emerald-900 mb-2">{solucion.titulo}</h4>
+                        <p className="text-emerald-700 text-sm leading-relaxed">{solucion.descripcion}</p>
                       </div>
                     </div>
                   </CardContent>
