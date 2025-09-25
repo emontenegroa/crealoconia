@@ -4,6 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Users, Mail, ArrowRight, Sparkles, Zap, Trophy } from "lucide-react";
 import { FormData } from '@/hooks/useFormHandler';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 
 interface HeroSectionProps {
   formData: FormData;
@@ -122,53 +127,63 @@ const HeroSection = ({
             </form>
           </div>
 
-          {/* Columna derecha - Portfolio visual (5 columnas) */}
+          {/* Columna derecha - Carrusel mobile (5 columnas) */}
           <div className="lg:col-span-5 relative lg:block hidden">
-            <div className="relative h-full flex items-center">
-              {/* Grid de imágenes más grandes */}
-              <div className="relative w-full max-w-lg mx-auto">
-                <div className="grid grid-cols-2 gap-4 h-96">
-                  {portfolioImages.slice(0, 4).map((image, index) => {
-                    const positions = [
-                      "row-span-1 rotate-2",
-                      "row-span-1 -rotate-1",
-                      "row-span-1 rotate-1",
-                      "row-span-1 -rotate-2"
-                    ];
-                    
-                    return (
-                      <div
-                        key={index}
-                        className={`${positions[index]} animate-fade-in hover-scale`}
-                        style={{ 
-                          animationDelay: image.delay,
-                          animationDuration: '0.6s',
-                          animationFillMode: 'both'
-                        }}
-                      >
-                        <div className="relative group h-full">
-                          <img
-                            src={image.src}
-                            alt={image.title}
-                            className="w-full h-full object-cover rounded-2xl shadow-xl border-2 border-white/10 group-hover:border-white/30 transition-all duration-300"
-                          />
-                          {/* Efecto de brillo sutil */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12 rounded-2xl"></div>
+            <div className="relative h-full flex items-center justify-center">
+              <div className="w-full max-w-xl">
+                <Carousel
+                  opts={{
+                    align: "center",
+                    loop: true,
+                  }}
+                  className="w-full"
+                >
+                  <CarouselContent className="-ml-2 md:-ml-4">
+                    {portfolioImages.map((image, index) => (
+                      <CarouselItem key={index} className="pl-2 md:pl-4 basis-3/5">
+                        <div className="relative mx-auto w-48 h-96 animate-fade-in" 
+                             style={{ 
+                               animationDelay: `${index * 0.2}s`,
+                               animationDuration: '0.6s',
+                               animationFillMode: 'both'
+                             }}>
+                          {/* Marco del teléfono */}
+                          <div className="relative w-full h-full bg-slate-900 rounded-[2.5rem] p-2 shadow-2xl border-4 border-slate-700">
+                            {/* Pantalla del teléfono */}
+                            <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden relative">
+                              {/* Barra superior del teléfono */}
+                              <div className="absolute top-0 left-0 right-0 h-8 bg-white z-10 flex items-center justify-between px-6 text-xs text-black">
+                                <span className="font-medium">9:41</span>
+                                <div className="flex items-center space-x-1">
+                                  <div className="w-4 h-2 border border-black rounded-sm">
+                                    <div className="w-3 h-1 bg-black rounded-sm m-0.5"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              {/* Contenido de la página web */}
+                              <div className="pt-8 h-full">
+                                <img
+                                  src={image.src}
+                                  alt={image.title}
+                                  className="w-full h-full object-cover object-top"
+                                />
+                              </div>
+                              
+                              {/* Indicador home del iPhone */}
+                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-black rounded-full opacity-40"></div>
+                            </div>
+                            
+                            {/* Título flotante */}
+                            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 py-1">
+                              <span className="text-white text-sm font-medium">{image.title}</span>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                  
-                  {/* Imagen central flotante */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-24 rotate-3 animate-fade-in hover-scale z-10"
-                       style={{ animationDelay: '2s' }}>
-                    <img
-                      src={portfolioImages[4].src}
-                      alt={portfolioImages[4].title}
-                      className="w-full h-full object-cover rounded-xl shadow-2xl border-2 border-white/20 hover:border-white/40 transition-all duration-300"
-                    />
-                  </div>
-                </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
               </div>
             </div>
           </div>
