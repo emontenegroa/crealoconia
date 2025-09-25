@@ -6,6 +6,7 @@ export const useStepNavigation = () => {
   const location = useLocation();
   
   // Estados del formulario
+  const [showWelcome, setShowWelcome] = useState(true);
   const [showFullForm, setShowFullForm] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [currentWizardStep, setCurrentWizardStep] = useState(0);
@@ -14,7 +15,7 @@ export const useStepNavigation = () => {
   const getCurrentStep = (): number => {
     const params = new URLSearchParams(location.search);
     const step = params.get('step');
-    return step ? parseInt(step, 10) : 1;
+    return step ? parseInt(step, 10) : 0; // Iniciar en 0 para mostrar bienvenida
   };
   
   // Actualizar la URL con el paso actual (sin scroll automático)
@@ -28,28 +29,39 @@ export const useStepNavigation = () => {
   useEffect(() => {
     const currentStep = getCurrentStep();
     
-    if (currentStep === 1) {
+    if (currentStep === 0) {
+      // Paso 0: Pantalla de bienvenida
+      setShowWelcome(true);
+      setShowFullForm(false);
+      setShowResults(false);
+      setCurrentWizardStep(0);
+    } else if (currentStep === 1) {
       // Paso 1: Formulario inicial
+      setShowWelcome(false);
       setShowFullForm(false);
       setShowResults(false);
       setCurrentWizardStep(0);
     } else if (currentStep === 2) {
       // Paso 2: Formulario completo paso 1
+      setShowWelcome(false);
       setShowFullForm(true);
       setShowResults(false);
       setCurrentWizardStep(0);
     } else if (currentStep === 3) {
       // Paso 3: Formulario completo paso 2
+      setShowWelcome(false);
       setShowFullForm(true);
       setShowResults(false);
       setCurrentWizardStep(1);
     } else if (currentStep === 4) {
       // Paso 4: Formulario completo paso 3
+      setShowWelcome(false);
       setShowFullForm(true);
       setShowResults(false);
       setCurrentWizardStep(2);
     } else if (currentStep >= 5) {
       // Paso 5+: Redirigir a resultados
+      setShowWelcome(false);
       setShowFullForm(false);
       setShowResults(true);
       setCurrentWizardStep(0);
@@ -57,6 +69,10 @@ export const useStepNavigation = () => {
   }, [location.search]);
   
   // Funciones para navegar entre pasos
+  const goToWelcome = () => {
+    updateStepInURL(0);
+  };
+
   const goToInitialForm = () => {
     updateStepInURL(1);
   };
@@ -79,17 +95,20 @@ export const useStepNavigation = () => {
   
   return {
     // Estados
+    showWelcome,
     showFullForm,
     showResults,
     currentWizardStep,
     currentURLStep: getCurrentStep(),
     
     // Setters para casos especiales
+    setShowWelcome,
     setShowFullForm,
     setShowResults,
     setCurrentWizardStep,
     
     // Navegación
+    goToWelcome,
     goToInitialForm,
     goToFullForm,
     goToWizardStep,

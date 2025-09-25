@@ -1,10 +1,14 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Brain, ArrowLeft } from "lucide-react";
+import { Brain, ArrowLeft, ArrowRight, Users, Target, Rocket, MessageSquare, Globe, Instagram, Mail, Phone } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import FormFields from '@/components/FormFields';
+import EnhancedFormWizard from '@/components/EnhancedFormWizard';
+import MotivationalMessage from '@/components/MotivationalMessage';
+import FormField from '@/components/FormField';
 import { FormData } from '@/hooks/useFormHandler';
+import { useStepNavigation } from '@/hooks/useStepNavigation';
 import { AlertTriangle } from "lucide-react";
 interface MainFormProps {
   formData: FormData;
@@ -36,89 +40,326 @@ const MainForm = ({
   onGenerateWebsite,
   onBackToInitial
 }: MainFormProps) => {
+  const { currentWizardStep, goToWizardStep } = useStepNavigation();
+
+  // Definir las preguntas en orden optimizado
+  const stepFields = [
+    ['marca', 'producto'], // Preguntas fáciles primero
+    ['quien_eres', 'estilo'], // Información del negocio
+    ['problemas', 'preguntas_frecuentes'], // Preguntas más largas
+    ['website', 'instagram'], // URLs (opcionales)
+    ['email', 'whatsapp'] // Datos de contacto al final
+  ];
+
+  const stepLabels = [
+    "Información básica de tu negocio",
+    "Cuéntanos sobre ti y tu estilo",
+    "Problemas que resuelves",
+    "Presencia digital actual",
+    "Datos de contacto"
+  ];
+
   const handleConfirmedSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(e);
   };
-  return <Card className="max-w-4xl mx-auto bg-white border-gray-200 shadow-lg">
-      <CardHeader className="text-center pb-6 bg-gray-50 border-b border-gray-200">
-        <div className="flex items-center justify-between mb-4">
-          <Button type="button" variant="outline" onClick={onBackToInitial} className="flex items-center gap-2">
-            <ArrowLeft className="w-4 h-4" />
-            Volver
-          </Button>
-          <div className="flex-1" />
-        </div>
-        
-        
-        
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">✓</div>
-            <span className="font-medium text-green-800">Información inicial completada</span>
+
+  const handleNextStep = () => {
+    if (currentWizardStep < stepFields.length - 1) {
+      goToWizardStep(currentWizardStep + 1);
+    }
+  };
+
+  const handlePrevStep = () => {
+    if (currentWizardStep > 0) {
+      goToWizardStep(currentWizardStep - 1);
+    }
+  };
+
+  const isCurrentStepComplete = () => {
+    const currentFields = stepFields[currentWizardStep];
+    return currentFields.every(field => {
+      if (field === 'website' && noWebsite) return true;
+      if (field === 'instagram' && noInstagram) return true;
+      
+      const fieldValue = formData[field as keyof FormData];
+      if (typeof fieldValue === 'string') {
+        return fieldValue.trim() !== '';
+      }
+      return true;
+    });
+  };
+
+  const getCurrentStepFields = () => {
+    return stepFields[currentWizardStep] || [];
+  };
+
+  const renderCurrentStepFields = () => {
+    const fields = getCurrentStepFields();
+    
+    return fields.map(fieldName => {
+      // Configuración específica para cada campo
+      const fieldConfigs = {
+        marca: {
+          type: 'input' as const,
+          label: '¿Cuál es el nombre de tu negocio o marca personal?',
+          placeholder: 'Ej: Consultoría García, Dr. María López, etc.',
+          icon: Users
+        },
+        producto: {
+          type: 'textarea' as const,
+          label: '¿Qué producto o servicio ofreces?',
+          placeholder: 'Describe brevemente qué haces o vendes...',
+          icon: Target
+        },
+        quien_eres: {
+          type: 'textarea' as const,
+          label: '¿Quién eres y qué te hace especial?',
+          placeholder: 'Cuéntanos sobre tu experiencia, credenciales o lo que te diferencia...',
+          icon: Users
+        },
+        estilo: {
+          type: 'textarea' as const,
+          label: '¿Qué estilo y personalidad quieres para tu sitio?',
+          placeholder: 'Ej: profesional y confiable, moderno y creativo, cálido y cercano...',
+          icon: Rocket
+        },
+        problemas: {
+          type: 'textarea' as const,
+          label: '¿Qué problemas específicos resuelves para tus clientes?',
+          placeholder: 'Describe los principales dolores o necesidades que atiendes...',
+          icon: Target
+        },
+        preguntas_frecuentes: {
+          type: 'textarea' as const,
+          label: '¿Qué preguntas frecuentes te hacen tus clientes?',
+          placeholder: 'Lista las dudas más comunes que recibes...',
+          icon: MessageSquare
+        },
+        website: {
+          type: 'input' as const,
+          label: '¿Tienes sitio web actual? (opcional)',
+          placeholder: 'https://tu-sitio-actual.com',
+          icon: Globe
+        },
+        instagram: {
+          type: 'input' as const,
+          label: '¿Tienes Instagram? (opcional)',
+          placeholder: '@tu_instagram',
+          icon: Instagram
+        },
+        email: {
+          type: 'input' as const,
+          label: '¿Cuál es tu email principal?',
+          placeholder: 'tu@email.com',
+          icon: Mail
+        },
+        whatsapp: {
+          type: 'input' as const,
+          label: '¿Cuál es tu WhatsApp?',
+          placeholder: '+56912345678',
+          icon: Phone
+        }
+      };
+
+      const config = fieldConfigs[fieldName as keyof typeof fieldConfigs];
+      if (!config) return null;
+
+      // Manejo especial para campos opcionales
+      if (fieldName === 'website') {
+        return (
+          <div key={fieldName} className="space-y-3">
+            <FormField
+              type={config.type}
+              name={fieldName}
+              label={config.label}
+              placeholder={config.placeholder}
+              value={formData[fieldName as keyof FormData] as string}
+              onChange={onInputChange}
+              onAIUsageUpdate={onAIUsageUpdate}
+              sessionId={sessionId}
+              icon={config.icon}
+            />
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="no-website"
+                checked={noWebsite}
+                onChange={(e) => setNoWebsite(e.target.checked)}
+                className="rounded border-white/30 bg-white/10 text-blue-500 focus:ring-blue-500"
+              />
+              <label htmlFor="no-website" className="text-sm text-slate-300">
+                No tengo sitio web actual
+              </label>
+            </div>
           </div>
-          <p className="text-blue-700 text-sm">
-            📧 <strong>{formData.email}</strong> está registrado para recibir tu Kit IA
-          </p>
-        </div>
-      </CardHeader>
+        );
+      }
 
-      <CardContent className="p-6 bg-white">
-        <form onSubmit={e => e.preventDefault()} className="space-y-6">
-          <FormFields formData={formData} onInputChange={onInputChange} onAIUsageUpdate={onAIUsageUpdate} sessionId={sessionId} noWebsite={noWebsite} noInstagram={noInstagram} setNoWebsite={setNoWebsite} setNoInstagram={setNoInstagram} setFormData={setFormData} hideBasicFields={true} />
-
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button type="button" className="w-full py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" disabled={!isFormValid}>
-                <Brain className="w-5 h-5 mr-2" />
-                GENERAR MI SITIO WEB
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent className="max-w-md">
-              <AlertDialogHeader>
-                <AlertDialogTitle className="flex items-center gap-2 text-blue-800">
-                  <AlertTriangle className="w-5 h-5" />
-                  ¿Estás seguro de generar tu sitio web?
-                </AlertDialogTitle>
-                <AlertDialogDescription className="text-left space-y-3">
-                  <p className="font-medium text-gray-800">
-                    Vas a generar tu sitio web para <strong>{formData.marca}</strong>
-                  </p>
-                  
-                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm">
-                    <p className="text-amber-800 font-medium mb-2">💡 <strong>Importante:</strong></p>
-                    <p className="text-amber-700">
-                      Entre más detalles entregues en tus respuestas, mejor podemos diseñar tu propuesta de sitio web. 
-                      ¿Quieres revisar y complementar alguna respuesta antes de continuar?
-                    </p>
-                  </div>
-                  
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
-                    <p className="text-blue-800 mb-2">📧 <strong>Recibirás 2 emails en:</strong></p>
-                    <p className="text-blue-700 font-medium">{formData.email}</p>
-                  </div>
-                  <div className="space-y-1 text-sm text-gray-700">
-                    <p>✅ Email #1: Super Prompt (inmediato)</p>
-                    <p>✅ Email #2: Tu sitio web (en minutos)</p>
-                  </div>
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                <AlertDialogAction onClick={handleConfirmedSubmit} className="bg-blue-600 hover:bg-blue-700">
-                  Sí, generar sitio
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-
-          <div className="text-center">
-            <p className="text-gray-600 text-sm">
-              🔐 100% seguro y sin spam
-            </p>
+      if (fieldName === 'instagram') {
+        return (
+          <div key={fieldName} className="space-y-3">
+            <FormField
+              type={config.type}
+              name={fieldName}
+              label={config.label}
+              placeholder={config.placeholder}
+              value={formData[fieldName as keyof FormData] as string}
+              onChange={onInputChange}
+              onAIUsageUpdate={onAIUsageUpdate}
+              sessionId={sessionId}
+              icon={config.icon}
+            />
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="no-instagram"
+                checked={noInstagram}
+                onChange={(e) => setNoInstagram(e.target.checked)}
+                className="rounded border-white/30 bg-white/10 text-blue-500 focus:ring-blue-500"
+              />
+              <label htmlFor="no-instagram" className="text-sm text-slate-300">
+                No tengo Instagram
+              </label>
+            </div>
           </div>
-        </form>
-      </CardContent>
-    </Card>;
+        );
+      }
+
+      return (
+        <FormField
+          key={fieldName}
+          type={config.type}
+          name={fieldName}
+          label={config.label}
+          placeholder={config.placeholder}
+          value={formData[fieldName as keyof FormData] as string}
+          onChange={onInputChange}
+          onAIUsageUpdate={onAIUsageUpdate}
+          sessionId={sessionId}
+          icon={config.icon}
+          showAIEnhance={fieldName === 'quien_eres' || fieldName === 'problemas' || fieldName === 'preguntas_frecuentes'}
+          context={{ marca: formData.marca, estilo: formData.estilo }}
+        />
+      );
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
+      {/* Patrón de fondo */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+          backgroundSize: '24px 24px'
+        }}></div>
+      </div>
+      
+      <div className="relative z-10 container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto">
+          {/* Wizard de progreso */}
+          <EnhancedFormWizard 
+            currentStep={currentWizardStep}
+            totalSteps={stepFields.length}
+            stepLabels={stepLabels}
+          />
+
+          {/* Mensaje motivacional */}
+          <MotivationalMessage step={currentWizardStep + 1} />
+
+          {/* Formulario */}
+          <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+            <CardContent className="p-8">
+              <form onSubmit={e => e.preventDefault()} className="space-y-6">
+                {renderCurrentStepFields()}
+
+                {/* Navegación */}
+                <div className="flex justify-between items-center pt-6">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handlePrevStep}
+                    disabled={currentWizardStep === 0}
+                    className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                  >
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Anterior
+                  </Button>
+
+                  {currentWizardStep < stepFields.length - 1 ? (
+                    <Button
+                      type="button"
+                      onClick={handleNextStep}
+                      disabled={!isCurrentStepComplete()}
+                      className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+                    >
+                      Siguiente
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  ) : (
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button 
+                          type="button" 
+                          className="bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-semibold px-8"
+                          disabled={!isCurrentStepComplete()}
+                        >
+                          <Brain className="w-5 h-5 mr-2" />
+                          Crear mi sitio web
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent className="max-w-md">
+                        <AlertDialogHeader>
+                          <AlertDialogTitle className="flex items-center gap-2 text-blue-800">
+                            <AlertTriangle className="w-5 h-5" />
+                            ¿Listo para crear tu sitio web?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription className="text-left space-y-3">
+                            <p className="font-medium text-gray-800">
+                              Vas a generar tu sitio web para <strong>{formData.marca}</strong>
+                            </p>
+                            
+                            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
+                              <p className="text-blue-800 mb-2">📧 <strong>Recibirás en:</strong></p>
+                              <p className="text-blue-700 font-medium">{formData.email}</p>
+                            </div>
+                            <div className="space-y-1 text-sm text-gray-700">
+                              <p>✅ Super Prompt (inmediato)</p>
+                              <p>✅ Tu sitio web (en minutos)</p>
+                            </div>
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                          <AlertDialogAction onClick={handleConfirmedSubmit} className="bg-blue-600 hover:bg-blue-700">
+                            Sí, crear sitio
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  )}
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+
+          {/* Footer */}
+          <div className="mt-8 text-center">
+            <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-slate-400 text-sm">
+              <a href="mailto:somos@crealoconia.com" className="hover:text-white transition-colors">
+                📧 somos@crealoconia.com
+              </a>
+              <a href="https://instagram.com/crealocon.ia" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                📱 @crealocon.ia
+              </a>
+              <span className="hover:text-white transition-colors cursor-pointer">
+                🔒 Política de privacidad
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 export default MainForm;

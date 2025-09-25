@@ -20,6 +20,8 @@ import Metodologia from '@/components/Metodologia';
 import TestimonialEspecial from '@/components/TestimonialEspecial';
 import { MetaTracker } from '@/components/MetaTracker';
 import StrategicContentDisplay from '@/components/StrategicContentDisplay';
+import WelcomeScreen from '@/components/WelcomeScreen';
+import FinalScreen from '@/components/FinalScreen';
 import { useFormHandler } from '@/hooks/useFormHandler';
 import { useStepNavigation } from '@/hooks/useStepNavigation';
 
@@ -30,7 +32,7 @@ if (import.meta.env.DEV) {
 
 const Index = () => {
   const formRef = useRef<HTMLDivElement>(null);
-  const { showFullForm, showResults, currentURLStep } = useStepNavigation();
+  const { showWelcome, showFullForm, showResults, currentURLStep, goToInitialForm } = useStepNavigation();
   
   // Scroll al formulario para el CTA pegajoso
   const scrollToForm = () => {
@@ -96,7 +98,9 @@ const Index = () => {
         onStartFresh={startFresh}
       />
 
-      {!showFullForm && !showResults && !isGenerating ? (
+      {showWelcome ? (
+        <WelcomeScreen onStart={goToInitialForm} />
+      ) : !showFullForm && !showResults && !isGenerating ? (
         <>
           <HeroSection 
             formData={formData}
@@ -120,12 +124,7 @@ const Index = () => {
           <LoadingSpinner />
         </div>
       ) : showResults ? (
-        <div className="container mx-auto px-4 py-12 max-w-4xl">
-          <StrategicContentDisplay
-            formData={formData}
-            onReset={resetForm}
-          />
-        </div>
+        <FinalScreen formData={formData} />
       ) : showFullForm ? (
         <div ref={formRef} className="container mx-auto px-4 py-12 max-w-4xl">
           <MainForm
@@ -149,7 +148,7 @@ const Index = () => {
       <WhatsAppFloat />
       
       <StickyMobileCTA 
-        isVisible={!showFullForm && !showResults && !isGenerating}
+        isVisible={!showWelcome && !showFullForm && !showResults && !isGenerating}
         onClick={scrollToForm}
       />
     </div>
