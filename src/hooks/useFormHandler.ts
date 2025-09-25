@@ -331,6 +331,9 @@ export const useFormHandler = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    console.log('🚀 Iniciando envío del formulario...');
+    console.log('📋 Datos del formulario:', formData);
+    
     // Check if user is blocked
     if (isBlocked) {
       toast({
@@ -385,6 +388,11 @@ export const useFormHandler = () => {
       };
       
       console.log('📤 Enviando emails de notificación...');
+      console.log('🔍 Datos a enviar en emails:', {
+        email: formDataWithPrompts.email,
+        marca: formDataWithPrompts.marca,
+        hasSuperPrompt: !!formDataWithPrompts.generatedPrompts?.superPrompt
+      });
       
       const [adminResult, confirmationResult] = await Promise.allSettled([
         sendEmailToAdmin(formDataWithPrompts),
@@ -406,6 +414,13 @@ export const useFormHandler = () => {
       
       setFormData(formDataWithPrompts);
       
+      // Guardar datos completos en sessionStorage para la página de resultados
+      try {
+        sessionStorage.setItem('completedFormData', JSON.stringify(formDataWithPrompts));
+      } catch (error) {
+        console.warn('No se pudieron guardar los datos en sessionStorage:', error);
+      }
+      
       await markAsCompleted(formDataWithPrompts);
       await logFormInteraction('form_completed', formData.email, { emailsSent });
       
@@ -425,8 +440,10 @@ export const useFormHandler = () => {
         description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Prompt generado correctamente. Revisa el contenido a continuación.",
       });
       
-      // Redirigir a la página de resultados final
-      goToResults();
+      // Redirigir a la página de resultados final usando navegación de React Router
+      setTimeout(() => {
+        window.location.href = '/resultados';
+      }, 100);
       
     } catch (error) {
       console.error('💥 Error durante la generación del prompt:', error);
@@ -441,7 +458,10 @@ export const useFormHandler = () => {
         description: "El contenido se ha generado correctamente. Puede que algunos emails no se hayan enviado.",
       });
       
-      goToResults();
+      // Redirigir a resultados incluso si hay errores
+      setTimeout(() => {
+        window.location.href = '/resultados';
+      }, 100);
     }
   };
 

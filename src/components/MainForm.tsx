@@ -104,61 +104,80 @@ const MainForm = ({
           type: 'input' as const,
           label: '¿Cuál es el nombre de tu negocio o marca personal?',
           placeholder: 'Ej: Consultoría García, Dr. María López, etc.',
-          icon: Users
+          icon: Users,
+          options: undefined
         },
         producto: {
           type: 'textarea' as const,
           label: '¿Qué producto o servicio ofreces?',
           placeholder: 'Describe brevemente qué haces o vendes...',
-          icon: Target
+          icon: Target,
+          options: undefined
         },
         quien_eres: {
           type: 'textarea' as const,
           label: '¿Quién eres y qué te hace especial?',
           placeholder: 'Cuéntanos sobre tu experiencia, credenciales o lo que te diferencia...',
-          icon: Users
+          icon: Users,
+          options: undefined
         },
         estilo: {
-          type: 'textarea' as const,
+          type: 'select' as const,
           label: '¿Qué estilo y personalidad quieres para tu sitio?',
-          placeholder: 'Ej: profesional y confiable, moderno y creativo, cálido y cercano...',
-          icon: Rocket
+          placeholder: 'Selecciona el estilo que más te represente',
+          icon: Rocket,
+          options: [
+            'Profesional y confiable',
+            'Moderno y creativo', 
+            'Cálido y cercano',
+            'Elegante y sofisticado',
+            'Dinámico y energético',
+            'Minimalista y limpio',
+            'Divertido y colorido',
+            'Serio y corporativo'
+          ]
         },
         problemas: {
           type: 'textarea' as const,
           label: '¿Qué problemas específicos resuelves para tus clientes?',
           placeholder: 'Describe los principales dolores o necesidades que atiendes...',
-          icon: Target
+          icon: Target,
+          options: undefined
         },
         preguntas_frecuentes: {
           type: 'textarea' as const,
           label: '¿Qué preguntas frecuentes te hacen tus clientes?',
           placeholder: 'Lista las dudas más comunes que recibes...',
-          icon: MessageSquare
+          icon: MessageSquare,
+          options: undefined
         },
         website: {
           type: 'input' as const,
           label: '¿Tienes sitio web actual? (opcional)',
           placeholder: 'https://tu-sitio-actual.com',
-          icon: Globe
+          icon: Globe,
+          options: undefined
         },
         instagram: {
           type: 'input' as const,
           label: '¿Tienes Instagram? (opcional)',
           placeholder: '@tu_instagram',
-          icon: Instagram
+          icon: Instagram,
+          options: undefined
         },
         email: {
           type: 'input' as const,
           label: '¿Cuál es tu email principal?',
           placeholder: 'tu@email.com',
-          icon: Mail
+          icon: Mail,
+          options: undefined
         },
         whatsapp: {
           type: 'input' as const,
           label: '¿Cuál es tu WhatsApp?',
           placeholder: '+56912345678',
-          icon: Phone
+          icon: Phone,
+          options: undefined
         }
       };
 
@@ -238,6 +257,7 @@ const MainForm = ({
           onAIUsageUpdate={onAIUsageUpdate}
           sessionId={sessionId}
           icon={config.icon}
+          options={config.options}
           showAIEnhance={fieldName === 'quien_eres' || fieldName === 'problemas' || fieldName === 'preguntas_frecuentes'}
           context={{ marca: formData.marca, estilo: formData.estilo }}
         />

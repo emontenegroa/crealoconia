@@ -83,8 +83,10 @@ export const useStepNavigation = () => {
   };
   
   const goToResults = () => {
-    // Redirigir a la página de resultados en lugar de step=5
-    window.location.href = '/resultados';
+    // Cambiar a la página de resultados usando React Router
+    setShowResults(true);
+    setShowFullForm(false);
+    updateStepInURL(6); // step=6 para resultados
   };
   
   return {
