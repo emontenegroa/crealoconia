@@ -132,23 +132,59 @@ const HeroSection = ({
 
           {/* Columna derecha - Carrusel mobile con celular fijo (5 columnas) */}
           <div className="lg:col-span-5 relative lg:block hidden">
-            <div className="relative h-full flex items-center justify-center">
-              <div className="relative w-48 h-96">
-                {/* Marco del teléfono - FIJO */}
-                <div className="absolute inset-0 bg-slate-900 rounded-[2.5rem] p-2 shadow-2xl border-4 border-slate-700 z-20">
+            <div className="relative h-full flex items-center justify-center overflow-hidden">
+              {/* Contenedor para las imágenes que pasan por detrás */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative w-[600px] h-[500px]">
+                  {/* Carrusel de imágenes que se extienden más allá del celular */}
+                  <Carousel
+                    opts={{
+                      align: "center",
+                      loop: true,
+                    }}
+                    className="w-full h-full"
+                  >
+                    <CarouselContent className="h-full -ml-4">
+                      {portfolioImages.map((image, index) => (
+                        <CarouselItem key={index} className="h-full pl-4 basis-full">
+                          <div className="relative w-full h-full flex items-center justify-center">
+                            {/* Imagen extendida que va por detrás */}
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <img
+                                src={image.src}
+                                alt={image.title}
+                                className="w-[400px] h-[600px] object-cover object-top rounded-3xl shadow-2xl"
+                                style={{
+                                  filter: 'blur(1px) brightness(0.7)',
+                                  transform: 'scale(1.1)'
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                </div>
+              </div>
+
+              {/* Celular fijo por encima */}
+              <div className="relative z-30 w-72 h-[500px]">
+                {/* Marco del teléfono - FIJO y más grande */}
+                <div className="relative w-full h-full bg-slate-900 rounded-[3rem] p-3 shadow-2xl border-4 border-slate-700">
                   {/* Pantalla del teléfono - contenedor */}
-                  <div className="w-full h-full rounded-[2rem] overflow-hidden relative">
+                  <div className="w-full h-full rounded-[2.5rem] overflow-hidden relative bg-white">
                     {/* Barra superior del teléfono - FIJA */}
-                    <div className="absolute top-0 left-0 right-0 h-8 bg-black/80 backdrop-blur-sm z-30 flex items-center justify-between px-6 text-xs text-white">
+                    <div className="absolute top-0 left-0 right-0 h-10 bg-black/90 backdrop-blur-sm z-40 flex items-center justify-between px-8 text-sm text-white">
                       <span className="font-medium">9:41</span>
-                      <div className="flex items-center space-x-1">
-                        <div className="w-4 h-2 border border-white rounded-sm">
-                          <div className="w-3 h-1 bg-white rounded-sm m-0.5"></div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-6 h-3 border border-white rounded-sm">
+                          <div className="w-5 h-2 bg-white rounded-sm m-0.5"></div>
                         </div>
                       </div>
                     </div>
                     
-                    {/* Carrusel de imágenes - solo las imágenes se mueven */}
+                    {/* Carrusel sincronizado dentro del celular */}
                     <Carousel
                       opts={{
                         align: "center",
@@ -159,7 +195,7 @@ const HeroSection = ({
                       <CarouselContent className="h-full">
                         {portfolioImages.map((image, index) => (
                           <CarouselItem key={index} className="h-full">
-                            <div className="h-full pt-8">
+                            <div className="h-full pt-10">
                               <img
                                 src={image.src}
                                 alt={image.title}
@@ -172,13 +208,13 @@ const HeroSection = ({
                     </Carousel>
                     
                     {/* Indicador home del iPhone - FIJO */}
-                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-white/40 rounded-full z-30"></div>
+                    <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-black/40 rounded-full z-40"></div>
                   </div>
                 </div>
                 
                 {/* Título flotante dinámico */}
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 py-1 z-30">
-                  <span className="text-white text-sm font-medium">Páginas web profesionales</span>
+                <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-2 z-40">
+                  <span className="text-white text-base font-medium">Páginas web profesionales</span>
                 </div>
               </div>
             </div>
