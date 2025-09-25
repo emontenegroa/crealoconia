@@ -115,7 +115,7 @@ const TransparentPricing = () => {
                 💡 Paquete de Cambios Adicionales
               </h3>
               <p className="text-accent-foreground mb-4">
-                ¿Necesitas modificaciones después? 3 cambios por solo <span className="font-bold">$20.000 CLP</span>
+                ¿Necesitas modificaciones después? 3 cambios por solo <span className="font-bold">$CLP</span>
               </p>
               <p className="text-sm text-muted-foreground">
                 Incluye: cambios de texto, colores, imágenes, secciones adicionales
