@@ -13,7 +13,7 @@ const TransparentPricing = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
+        <div className="grid md:grid-cols-2 gap-8 mb-8 justify-center max-w-2xl mx-auto">
           {/* Propuesta Gratuita */}
           <Card className="border-2 border-emerald-500/30 bg-card relative">
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
@@ -55,7 +55,7 @@ const TransparentPricing = () => {
           <Card className="border-2 border-primary/30 bg-card relative">
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
               <span className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-bold">
-                OPCIONAL
+                INVERSIÓN
               </span>
             </div>
             <CardHeader className="text-center pt-8">
@@ -123,6 +123,13 @@ const TransparentPricing = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Botón de llamado a la acción */}
+        <div className="mt-8 text-center">
+          <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-lg text-lg font-bold transition-colors">
+            🚀 Crear Mi Página Web Ahora
+          </button>
+        </div>
 
         <div className="mt-8 text-center">
           <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 inline-block">
