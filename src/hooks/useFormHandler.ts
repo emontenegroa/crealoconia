@@ -494,11 +494,10 @@ export const useFormHandler = () => {
         description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Prompt generado correctamente. Revisa el contenido a continuación.",
       });
       
-      console.log('🔄 Redirigiendo a la página de resultados...');
-      // Asegurar que la redirección ocurra
-      setTimeout(() => {
-        window.location.href = '/resultados';
-      }, 1000);
+      
+      console.log('🔄 Redirigiendo inmediatamente a la página de resultados...');
+      // Redirección inmediata sin timeout
+      window.location.href = '/resultados';
       
     } catch (error) {
       console.error('💥 Error durante la generación del prompt:', error);
@@ -513,11 +512,10 @@ export const useFormHandler = () => {
         description: "El contenido se ha generado correctamente. Puede que algunos emails no se hayan enviado.",
       });
       
+      
       console.log('🔄 Redirigiendo a resultados tras error...');
-      // Redirigir a resultados incluso si hay errores
-      setTimeout(() => {
-        window.location.href = '/resultados';
-      }, 1000);
+      // Redirigir a resultados incluso si hay errores (sin timeout)
+      window.location.href = '/resultados';
     }
   };
 
