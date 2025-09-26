@@ -25,7 +25,10 @@ export const useFormPersistence = () => {
   const [aiUsage, setAiUsage] = useState<AIUsage>({});
   const [attemptCount, setAttemptCount] = useState(1);
 
-  console.log('useFormPersistence loaded');
+  // Debug: track session initialization only once
+  useEffect(() => {
+    console.log('🔄 useFormPersistence initialized with sessionId:', sessionId);
+  }, [sessionId]);
 
   // Verificar el uso de IA para un campo específico
   const getAIUsageCount = async (fieldName: string): Promise<number> => {

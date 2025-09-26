@@ -70,6 +70,7 @@ const MainForm = ({
       producto: formData.producto,
       estilo: formData.estilo
     });
+    console.log('🔄 MainForm - Llamando onSubmit...');
     onSubmit(e);
   };
 
