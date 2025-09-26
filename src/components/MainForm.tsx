@@ -42,21 +42,21 @@ const MainForm = ({
 }: MainFormProps) => {
   const { currentWizardStep, goToWizardStep } = useStepNavigation();
 
-  // Definir las preguntas en orden optimizado
+  // Definir las preguntas en orden optimizado - contacto primero para capturar leads
   const stepFields = [
-    ['marca', 'producto'], // Preguntas fáciles primero
-    ['quien_eres', 'estilo'], // Información del negocio
-    ['problemas', 'preguntas_frecuentes'], // Preguntas más largas
-    ['website', 'instagram'], // URLs (opcionales)
-    ['email', 'whatsapp'] // Datos de contacto al final
+    ['email', 'whatsapp'], // Datos de contacto PRIMERO para capturar leads
+    ['marca', 'producto'], // Información básica del negocio
+    ['quien_eres', 'estilo'], // Información personal y estilo
+    ['problemas', 'preguntas_frecuentes'], // Problemas que resuelves (campos más largos)
+    ['website', 'instagram'] // Presencia digital actual (opcional)
   ];
 
   const stepLabels = [
-    "Información básica de tu negocio",
+    "Información de contacto",
+    "Información básica de tu negocio", 
     "Cuéntanos sobre ti y tu estilo",
     "Problemas que resuelves",
-    "Presencia digital actual",
-    "Datos de contacto"
+    "Presencia digital actual"
   ];
 
   const handleConfirmedSubmit = (e: React.FormEvent) => {
