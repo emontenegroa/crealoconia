@@ -44,19 +44,17 @@ const MainForm = ({
 
   // Definir las preguntas en orden optimizado - contacto primero para capturar leads
   const stepFields = [
-    ['email', 'whatsapp'], // Datos de contacto PRIMERO para capturar leads
+    ['email', 'whatsapp', 'website', 'instagram'], // Contacto y presencia digital PRIMERO
     ['marca', 'producto'], // Información básica del negocio
     ['quien_eres', 'estilo'], // Información personal y estilo
-    ['problemas', 'preguntas_frecuentes'], // Problemas que resuelves (campos más largos)
-    ['website', 'instagram'] // Presencia digital actual (opcional)
+    ['problemas', 'preguntas_frecuentes'] // Problemas que resuelves (campos más largos)
   ];
 
   const stepLabels = [
-    "Información de contacto",
+    "Información de contacto y presencia digital",
     "Información básica de tu negocio", 
     "Cuéntanos sobre ti y tu estilo",
-    "Problemas que resuelves",
-    "Presencia digital actual"
+    "Problemas que resuelves"
   ];
 
   const handleConfirmedSubmit = (e: React.FormEvent) => {
@@ -276,7 +274,7 @@ const MainForm = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden pb-20 md:pb-8">
       {/* Patrón de fondo */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -285,7 +283,7 @@ const MainForm = ({
         }}></div>
       </div>
       
-      <div className="relative z-10 container mx-auto px-4 py-8">
+      <div className="relative z-10 container mx-auto px-4 py-4 md:py-8">
         <div className="max-w-2xl mx-auto">
           {/* Wizard de progreso */}
           <EnhancedFormWizard 
@@ -299,18 +297,18 @@ const MainForm = ({
 
           {/* Formulario */}
           <Card className="bg-white/10 backdrop-blur-md border border-white/20">
-            <CardContent className="p-8">
-              <form onSubmit={e => e.preventDefault()} className="space-y-6">
+            <CardContent className="p-4 md:p-8">
+              <form onSubmit={e => e.preventDefault()} className="space-y-4 md:space-y-6">
                 {renderCurrentStepFields()}
 
                 {/* Navegación */}
-                <div className="flex justify-between items-center pt-6">
+                <div className="flex flex-col sm:flex-row justify-between items-center pt-4 md:pt-6 space-y-3 sm:space-y-0">
                   <Button
                     type="button"
                     variant="outline"
                     onClick={handlePrevStep}
                     disabled={currentWizardStep === 0}
-                    className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                    className="bg-white/10 border-white/20 text-white hover:bg-white/20 w-full sm:w-auto"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Anterior
@@ -321,7 +319,7 @@ const MainForm = ({
                       type="button"
                       onClick={handleNextStep}
                       disabled={!isCurrentStepComplete()}
-                      className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+                      className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 w-full sm:w-auto"
                     >
                       Siguiente
                       <ArrowRight className="w-4 h-4 ml-2" />
@@ -331,7 +329,7 @@ const MainForm = ({
                       <AlertDialogTrigger asChild>
                         <Button 
                           type="button" 
-                          className="bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-semibold px-8"
+                          className="bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-semibold px-6 md:px-8 w-full sm:w-auto"
                           disabled={!isCurrentStepComplete()}
                         >
                           <Brain className="w-5 h-5 mr-2" />
@@ -375,6 +373,24 @@ const MainForm = ({
 
           {/* Footer */}
           <div className="mt-8 text-center">
+            {/* CTA WhatsApp para dudas */}
+            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-xl backdrop-blur-sm">
+              <p className="text-white font-medium mb-3">
+                ¿Aún tienes dudas? Hablemos por WhatsApp
+              </p>
+              <a
+                href="https://wa.me/56962791772?text=Hola%20Esteban!%20Tengo%20dudas%20sobre%20crear%20mi%20sitio%20web%20con%20CrealoconIA%20%F0%9F%92%AC"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-xl transition-all duration-300 transform hover:scale-105"
+              >
+                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.785"/>
+                </svg>
+                Escribir a WhatsApp
+              </a>
+            </div>
+
             <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-slate-400 text-sm">
               <a href="mailto:esteban@crealoconia.com" className="hover:text-white transition-colors">
                 📧 esteban@crealoconia.com
@@ -388,7 +404,7 @@ const MainForm = ({
             </div>
             <div className="mt-4">
               <p className="text-slate-500 text-xs">
-                Creado con ❤️ en <a href="https://crealoconia.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">crealoconia.com</a>
+                Este sitio fue creado con <a href="https://crealoconia.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors font-medium">crealoconia.com</a>
               </p>
             </div>
           </div>

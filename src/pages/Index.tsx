@@ -152,10 +152,7 @@ const Index = () => {
       
       <WhatsAppFloat />
       
-      <StickyMobileCTA 
-        isVisible={!showFullForm && !showResults && !isGenerating}
-        onClick={scrollToForm}
-      />
+      {/* Remover StickyMobileCTA para móvil según solicitud del usuario */}
     </div>
   );
 };
