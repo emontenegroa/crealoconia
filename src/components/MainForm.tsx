@@ -61,6 +61,15 @@ const MainForm = ({
 
   const handleConfirmedSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('🚀 MainForm - handleConfirmedSubmit ejecutado');
+    console.log('📋 MainForm - FormData actual:', formData);
+    console.log('🔍 MainForm - Verificando campos específicos:', {
+      marca: formData.marca,
+      email: formData.email,
+      quien_eres: formData.quien_eres,
+      producto: formData.producto,
+      estilo: formData.estilo
+    });
     onSubmit(e);
   };
 
@@ -351,7 +360,7 @@ const MainForm = ({
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                          <AlertDialogAction onClick={handleConfirmedSubmit} className="bg-blue-600 hover:bg-blue-700">
+                           <AlertDialogAction onClick={handleConfirmedSubmit} className="bg-blue-600 hover:bg-blue-700">
                             Sí, crear sitio
                           </AlertDialogAction>
                         </AlertDialogFooter>
