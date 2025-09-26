@@ -53,8 +53,20 @@ export const useStepNavigation = () => {
       setShowFullForm(true);
       setShowResults(false);
       setCurrentWizardStep(2);
-    } else if (currentStep >= 5) {
-      // Paso 5+: Redirigir a resultados
+    } else if (currentStep === 5) {
+      // Paso 5: Formulario completo paso 4 (website/instagram)
+      setShowWelcome(false);
+      setShowFullForm(true);
+      setShowResults(false);
+      setCurrentWizardStep(3);
+    } else if (currentStep === 6) {
+      // Paso 6: Formulario completo paso 5 (email/whatsapp)
+      setShowWelcome(false);
+      setShowFullForm(true);
+      setShowResults(false);
+      setCurrentWizardStep(4);
+    } else if (currentStep >= 7) {
+      // Paso 7+: Redirigir a resultados
       setShowWelcome(false);
       setShowFullForm(false);
       setShowResults(true);
@@ -79,6 +91,8 @@ export const useStepNavigation = () => {
     // step 0 -> URL step 2
     // step 1 -> URL step 3  
     // step 2 -> URL step 4
+    // step 3 -> URL step 5
+    // step 4 -> URL step 6
     updateStepInURL(step + 2);
   };
   
@@ -86,7 +100,7 @@ export const useStepNavigation = () => {
     // Cambiar a la página de resultados usando React Router
     setShowResults(true);
     setShowFullForm(false);
-    updateStepInURL(6); // step=6 para resultados
+    updateStepInURL(7); // step=7 para resultados
   };
   
   return {
