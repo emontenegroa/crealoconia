@@ -332,7 +332,19 @@ export const useFormHandler = () => {
     e.preventDefault();
     
     console.log('🚀 Iniciando envío del formulario...');
-    console.log('📋 Datos del formulario:', formData);
+    console.log('📋 Datos completos del formulario:', formData);
+    console.log('🔍 Verificando campos específicos:', {
+      marca: formData.marca,
+      email: formData.email,
+      quien_eres: formData.quien_eres,
+      problemas: formData.problemas,
+      estilo: formData.estilo,
+      producto: formData.producto,
+      whatsapp: formData.whatsapp,
+      website: formData.website,
+      instagram: formData.instagram,
+      preguntas_frecuentes: formData.preguntas_frecuentes
+    });
     
     // Check if user is blocked
     if (isBlocked) {
@@ -401,10 +413,32 @@ export const useFormHandler = () => {
       };
       
       console.log('📤 Enviando emails de notificación...');
-      console.log('🔍 Datos a enviar en emails:', {
+      console.log('🔍 Datos completos a enviar en emails:', formDataWithPrompts);
+      console.log('📧 Verificando campos de email:', {
         email: formDataWithPrompts.email,
         marca: formDataWithPrompts.marca,
-        hasSuperPrompt: !!formDataWithPrompts.generatedPrompts?.superPrompt
+        quien_eres: formDataWithPrompts.quien_eres,
+        producto: formDataWithPrompts.producto,
+        hasSuperPrompt: !!formDataWithPrompts.generatedPrompts?.superPrompt,
+        hasLovablePrompt: !!formDataWithPrompts.generatedPrompts?.lovablePrompt
+      });
+      
+      // DEBUG: Verificar datos justo antes de enviar emails
+      console.log('🧪 DEBUG - Datos exactos que se enviarán a las funciones de email:', {
+        marca: formDataWithPrompts.marca,
+        email: formDataWithPrompts.email,
+        quien_eres: formDataWithPrompts.quien_eres,
+        problemas: formDataWithPrompts.problemas,
+        producto: formDataWithPrompts.producto,
+        estilo: formDataWithPrompts.estilo,
+        whatsapp: formDataWithPrompts.whatsapp,
+        website: formDataWithPrompts.website,
+        instagram: formDataWithPrompts.instagram,
+        preguntas_frecuentes: formDataWithPrompts.preguntas_frecuentes,
+        generatedPrompts: {
+          superPrompt: formDataWithPrompts.generatedPrompts?.superPrompt ? 'EXISTE' : 'NO EXISTE',
+          lovablePrompt: formDataWithPrompts.generatedPrompts?.lovablePrompt ? 'EXISTE' : 'NO EXISTE'
+        }
       });
       
       const [adminResult, confirmationResult] = await Promise.allSettled([
