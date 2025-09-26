@@ -21,7 +21,7 @@ import TestimonialEspecial from '@/components/TestimonialEspecial';
 import { MetaTracker } from '@/components/MetaTracker';
 import StrategicContentDisplay from '@/components/StrategicContentDisplay';
 import WelcomeScreen from '@/components/WelcomeScreen';
-import FinalScreen from '@/components/FinalScreen';
+
 import { useFormHandler } from '@/hooks/useFormHandler';
 import { useStepNavigation } from '@/hooks/useStepNavigation';
 
@@ -119,8 +119,6 @@ const Index = () => {
         </>
       ) : isGenerating ? (
         <LoadingSpinnerEnhanced marca={formData.marca} />
-      ) : showResults ? (
-        <FinalScreen formData={formData} />
       ) : showFullForm ? (
         <div ref={formRef} className="container mx-auto px-4 py-12 max-w-4xl">
           <MainForm
