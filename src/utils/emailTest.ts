@@ -174,27 +174,36 @@ export const validateEmailConfig = async () => {
   }
 };
 
-// Ejecutar prueba automática en desarrollo
+// Ejecutar prueba automática en desarrollo solo en localhost o si se solicita explícitamente
 if (import.meta.env.DEV) {
-  console.log('🚀 Iniciando validación automática del sistema de email actualizado...');
-  
-  // Validar configuración primero
-  setTimeout(async () => {
-    const validation = await validateEmailConfig();
-    console.log('📋 Resultado de validación:', validation);
-    
-    if (validation.valid) {
-      console.log('🎯 Ejecutando prueba completa del sistema...');
-      const testResult = await testEmailSystem();
-      if (testResult.success) {
-        console.log('🎉 SISTEMA DE EMAIL COMPLETAMENTE FUNCIONAL');
-        console.log('📊 Resultados completos:', testResult);
-        console.log('📧 Revisa tu bandeja de entrada para los emails de prueba');
-      } else {
-        console.warn('⚠️ Problema en la prueba de email:', testResult);
-      }
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const shouldRun = window.location.hostname === 'localhost' || params.has('runEmailTest');
+    if (!shouldRun) {
+      console.log('ℹ️ emailTest: no se ejecuta automáticamente en preview. Usa ?runEmailTest=1 o ejecuta en localhost.');
     } else {
-      console.warn('⚠️ Problema en la configuración:', validation);
+      console.log('🚀 Iniciando validación automática del sistema de email actualizado...');
+      // Validar configuración primero
+      setTimeout(async () => {
+        const validation = await validateEmailConfig();
+        console.log('📋 Resultado de validación:', validation);
+        
+        if (validation.valid) {
+          console.log('🎯 Ejecutando prueba completa del sistema...');
+          const testResult = await testEmailSystem();
+          if (testResult.success) {
+            console.log('🎉 SISTEMA DE EMAIL COMPLETAMENTE FUNCIONAL');
+            console.log('📊 Resultados completos:', testResult);
+            console.log('📧 Revisa tu bandeja de entrada para los emails de prueba');
+          } else {
+            console.warn('⚠️ Problema en la prueba de email:', testResult);
+          }
+        } else {
+          console.warn('⚠️ Problema en la configuración:', validation);
+        }
+      }, 3000);
     }
-  }, 3000);
+  } catch (err) {
+    console.warn('emailTest: no se pudo evaluar entorno de pruebas:', err);
+  }
 }

@@ -27,7 +27,10 @@ import { useStepNavigation } from '@/hooks/useStepNavigation';
 
 // Importar la prueba de email en desarrollo
 if (import.meta.env.DEV) {
-  import('@/utils/emailTest');
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('runEmailTest')) {
+    import('@/utils/emailTest');
+  }
 }
 
 const Index = () => {
