@@ -381,8 +381,20 @@ export const useFormHandler = () => {
       
       // Use sanitized data for generation
       const sanitizedFormData = securityResult.sanitizedData || formData;
+      console.log('📋 Datos sanitizados para generación:', {
+        marca: sanitizedFormData.marca,
+        email: sanitizedFormData.email,
+        estilo: sanitizedFormData.estilo
+      });
       
       const generatedPrompts = await generateSuperPrompt(sanitizedFormData);
+      console.log('✅ Prompts generados:', {
+        hasSuperPrompt: !!generatedPrompts?.superPrompt,
+        hasLovablePrompt: !!generatedPrompts?.lovablePrompt,
+        superPromptLength: generatedPrompts?.superPrompt?.length || 0,
+        lovablePromptLength: generatedPrompts?.lovablePrompt?.length || 0
+      });
+      
       const formDataWithPrompts = {
         ...sanitizedFormData,
         generatedPrompts
@@ -417,9 +429,16 @@ export const useFormHandler = () => {
       
       // Guardar datos completos en sessionStorage para la página de resultados
       try {
+        console.log('💾 Guardando datos en sessionStorage:', {
+          marca: formDataWithPrompts.marca,
+          email: formDataWithPrompts.email,
+          hasSuperPrompt: !!formDataWithPrompts.generatedPrompts?.superPrompt,
+          hasLovablePrompt: !!formDataWithPrompts.generatedPrompts?.lovablePrompt
+        });
         sessionStorage.setItem('completedFormData', JSON.stringify(formDataWithPrompts));
+        console.log('✅ Datos guardados exitosamente en sessionStorage');
       } catch (error) {
-        console.warn('No se pudieron guardar los datos en sessionStorage:', error);
+        console.error('❌ Error al guardar datos en sessionStorage:', error);
       }
       
       await markAsCompleted(formDataWithPrompts);
@@ -441,8 +460,11 @@ export const useFormHandler = () => {
         description: emailsSent > 0 ? `${emailsSent} email(s) enviado(s). Revisa tu bandeja de entrada.` : "Prompt generado correctamente. Revisa el contenido a continuación.",
       });
       
-      // Redirigir a la página de resultados INMEDIATAMENTE
-      window.location.href = '/resultados';
+      console.log('🔄 Redirigiendo a la página de resultados...');
+      // Asegurar que la redirección ocurra
+      setTimeout(() => {
+        window.location.href = '/resultados';
+      }, 1000);
       
     } catch (error) {
       console.error('💥 Error durante la generación del prompt:', error);
@@ -457,8 +479,11 @@ export const useFormHandler = () => {
         description: "El contenido se ha generado correctamente. Puede que algunos emails no se hayan enviado.",
       });
       
-      // Redirigir a resultados incluso si hay errores INMEDIATAMENTE
-      window.location.href = '/resultados';
+      console.log('🔄 Redirigiendo a resultados tras error...');
+      // Redirigir a resultados incluso si hay errores
+      setTimeout(() => {
+        window.location.href = '/resultados';
+      }, 1000);
     }
   };
 

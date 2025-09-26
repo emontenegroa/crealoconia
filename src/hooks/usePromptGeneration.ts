@@ -129,6 +129,15 @@ COPY Y CONTENIDO:
 
 El sitio debe transmitir autoridad, generar confianza y motivar acción inmediata para contactar o contratar los servicios de ${data.marca}.`;
 
+    console.log('🎯 Iniciando generación de prompts para:', data.marca);
+    console.log('📝 Datos del formulario recibidos:', {
+      marca: data.marca,
+      estilo: data.estilo,
+      quien_eres: data.quien_eres ? 'Presente' : 'Ausente',
+      problemas: data.problemas ? 'Presente' : 'Ausente',
+      producto: data.producto ? 'Presente' : 'Ausente'
+    });
+
     try {
       // Intentar mejorar el prompt usando la Edge Function de Supabase
       console.log('🤖 Mejorando Super Prompt con ChatGPT via Supabase...');
@@ -153,6 +162,13 @@ El sitio debe transmitir autoridad, generar confianza y motivar acción inmediat
         console.warn('⚠️ No se pudo mejorar con ChatGPT, usando versión base. Error:', error);
       }
 
+      console.log('📋 Prompts generados exitosamente:', {
+        superPromptLength: enhancedSuperPrompt.length,
+        lovablePromptLength: lovablePrompt.length,
+        hasSuperPrompt: !!enhancedSuperPrompt,
+        hasLovablePrompt: !!lovablePrompt
+      });
+
       return {
         superPrompt: enhancedSuperPrompt,
         lovablePrompt // Siempre devuelve el prompt completo de Lovable
@@ -162,6 +178,12 @@ El sitio debe transmitir autoridad, generar confianza y motivar acción inmediat
       console.error('❌ Error al generar prompts:', error);
       
       // Fallback: devolver prompts base si falla la mejora
+      console.log('🔄 Usando prompts base como fallback');
+      console.log('📋 Prompts base generados:', {
+        superPromptLength: baseSuperPrompt.length,
+        lovablePromptLength: lovablePrompt.length
+      });
+      
       return {
         superPrompt: baseSuperPrompt,
         lovablePrompt // Devuelve el prompt completo, no un mensaje de error
