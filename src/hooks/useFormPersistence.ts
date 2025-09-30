@@ -93,7 +93,7 @@ export const useFormPersistence = () => {
     }
   };
 
-  // Cargar progreso previo por email
+  // Cargar progreso previo por email - solo trae el último INCOMPLETO
   const loadPreviousProgress = async (email: string): Promise<FormData | null> => {
     try {
       // Validate email format before querying
@@ -102,11 +102,13 @@ export const useFormPersistence = () => {
         return null;
       }
 
+      console.log('🔍 Buscando registros incompletos para:', email);
+
       const { data, error } = await supabase
         .from('form_submissions')
         .select('*')
         .eq('email', email)
-        .eq('completed', false)
+        .eq('completed', false) // Solo registros incompletos
         .order('created_at', { ascending: false })
         .limit(1)
         .maybeSingle();
@@ -117,10 +119,12 @@ export const useFormPersistence = () => {
       }
 
       if (data) {
+        console.log('✅ Registro incompleto encontrado, precargando datos...');
         setAttemptCount(data.attempt_number);
         return data.form_data as unknown as FormData;
       }
 
+      console.log('ℹ️ No se encontró ningún registro incompleto. Se creará uno nuevo.');
       return null;
     } catch (error) {
       console.error('Error in loadPreviousProgress:', error);
@@ -198,7 +202,10 @@ export const useFormPersistence = () => {
     try {
       const sanitizedData = sanitizeFormData(formData);
 
+      console.log('📝 Creando nuevo registro completado para:', sanitizedData.email);
+
       // Siempre insertar un nuevo registro para trazabilidad
+      // La fecha created_at se establece automáticamente en la base de datos con now()
       const { error } = await supabase
         .from('form_submissions')
         .insert({
@@ -206,7 +213,8 @@ export const useFormPersistence = () => {
           form_data: sanitizedData as any,
           attempt_number: attemptCount,
           completed: true,
-          created_at: new Date().toISOString()
+          // No especificamos created_at aquí, se usa el default de la DB (now())
+          updated_at: new Date().toISOString()
         });
 
       if (error) {
@@ -214,15 +222,24 @@ export const useFormPersistence = () => {
         throw error;
       }
 
+      console.log('✅ Registro completado creado exitosamente con fecha actual');
+
       // Después de crear el registro completado, eliminar el registro incompleto si existe
-      await supabase
+      const { error: deleteError } = await supabase
         .from('form_submissions')
         .delete()
         .eq('email', sanitizedData.email)
         .eq('completed', false);
 
+      if (deleteError) {
+        console.warn('Error al eliminar registro incompleto:', deleteError);
+      } else {
+        console.log('🗑️ Registro incompleto eliminado');
+      }
+
     } catch (error) {
       console.error('Error in markAsCompleted:', error);
+      throw error;
     }
   };
 

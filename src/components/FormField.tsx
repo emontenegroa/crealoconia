@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { LucideIcon, Maximize2, Minimize2 } from 'lucide-react';
+import { LucideIcon, Maximize2, Minimize2, ArrowLeft } from 'lucide-react';
 import AIEnhanceButton from './AIEnhanceButton';
 import SmartValidation from './SmartValidation';
 
@@ -42,13 +42,26 @@ const FormField = ({
   onAIUsageUpdate = () => {}
 }: FormFieldProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [originalText, setOriginalText] = useState<string>('');
+  const [hasUsedAI, setHasUsedAI] = useState(false);
 
   const handleChange = (newValue: string) => {
     onChange(name, newValue);
   };
 
   const handleAIEnhanced = (enhancedText: string) => {
+    // Guardar el texto original antes de aplicar la mejora
+    setOriginalText(value);
+    setHasUsedAI(true);
     onChange(name, enhancedText);
+  };
+
+  const handleRestoreOriginal = () => {
+    if (originalText) {
+      onChange(name, originalText);
+      setHasUsedAI(false);
+      setOriginalText('');
+    }
   };
 
   const getPlaceholder = () => {
@@ -173,14 +186,30 @@ const FormField = ({
           )}
           
           {showAIEnhance && (type === 'textarea' || type === 'input') && (
-            <AIEnhanceButton
-              currentText={value}
-              fieldType={name}
-              context={context}
-              onEnhanced={handleAIEnhanced}
-              sessionId={sessionId}
-              onUsageUpdate={onAIUsageUpdate}
-            />
+            <>
+              <AIEnhanceButton
+                currentText={value}
+                fieldType={name}
+                context={context}
+                onEnhanced={handleAIEnhanced}
+                sessionId={sessionId}
+                onUsageUpdate={onAIUsageUpdate}
+              />
+              
+              {hasUsedAI && originalText && (
+                <Button
+                  type="button"
+                  onClick={handleRestoreOriginal}
+                  variant="outline"
+                  size="sm"
+                  className="bg-amber-600/20 border-amber-400/40 text-amber-200 hover:text-white hover:bg-amber-600/40 transition-all duration-200"
+                  title="Volver al texto anterior"
+                >
+                  <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden lg:inline ml-1">Volver al anterior</span>
+                </Button>
+              )}
+            </>
           )}
         </div>
       </div>
