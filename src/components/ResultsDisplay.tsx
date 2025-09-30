@@ -131,9 +131,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                   <p className="text-yellow-200 font-semibold text-center mb-2">
                     ⚠️ IMPORTANTE: Revisa tu carpeta de SPAM
                   </p>
-                  <p className="text-yellow-300 text-sm text-center">
-                    Si no ves más correos nuestros en tu bandeja principal, búscalos en spam/correo no deseado y márcanos como "no es spam"
-                  </p>
+                  <p className="text-yellow-300 text-sm text-center">Si no ves más correos nuestros en tu bandeja principal, búscalos en spam/correo no deseado y márcanos como "no es spam" o busca por correo esteban@crealoconia.com</p>
                 </div>
                 
                 <div className="space-y-3 text-slate-300">
@@ -209,19 +207,11 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 </h2>
                 <p className="text-slate-300 mb-4">Estamos disponibles para ti:</p>
                 <div className="flex items-center justify-center gap-4">
-                  <a 
-                    href={`mailto:esteban@crealoconia.com?subject=Consulta sobre mi proyecto ${formData.marca}`} 
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2"
-                  >
+                  <a href={`mailto:esteban@crealoconia.com?subject=Consulta sobre mi proyecto ${formData.marca}`} className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2">
                     <Mail className="w-4 h-4" />
                     📧 Email
                   </a>
-                  <a 
-                    href={`https://wa.me/56962791772?text=Hola%2C%20completé%20el%20formulario%20para%20${encodeURIComponent(formData.marca)}%20y%20tengo%20una%20consulta`} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2"
-                  >
+                  <a href={`https://wa.me/56962791772?text=Hola%2C%20completé%20el%20formulario%20para%20${encodeURIComponent(formData.marca)}%20y%20tengo%20una%20consulta`} target="_blank" rel="noopener noreferrer" className="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2">
                     <Phone className="w-4 h-4" />
                     💬 WhatsApp
                   </a>
