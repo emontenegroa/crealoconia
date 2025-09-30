@@ -51,8 +51,59 @@ const FormField = ({
     onChange(name, enhancedText);
   };
 
+  const getPlaceholder = () => {
+    switch (name) {
+      case 'quien_eres':
+        return "Ej: Soy coach de vida certificada con 8 años ayudando a mujeres emprendedoras de 30-45 años a encontrar balance entre su negocio y vida personal. Mi método 'Renace' combina PNL con meditación...";
+      case 'problemas':
+        return "Ej: Ayudo a emprendedoras que se sienten agotadas, culpables por no tener tiempo para sus familias, y frustradas por no lograr el éxito que imaginaron. Mis clientas pasan de trabajar 12 horas diarias sin resultados a tener negocios rentables trabajando 6 horas...";
+      case 'producto':
+        return "Ej: Mi programa 'Renace', un proceso de coaching de 8 semanas que incluye sesiones individuales, workbook personalizado y comunidad privada. Está diseñado para mujeres que quieren cambios profundos en 90 días...";
+      case 'preguntas_frecuentes':
+        return "Ej: ¿Cuánto tiempo dura el programa? 8 semanas con sesiones semanales. ¿Es online o presencial? 100% online por Zoom. ¿Qué pasa si no veo resultados? Tienes garantía de 30 días...";
+      case 'marca':
+        return "Ej: Renace Coaching, María Transformación, Alma Libre";
+      case 'email':
+        return "tu@email.com";
+      case 'whatsapp':
+        return "+56912345678";
+      case 'website':
+        return "www.tumarca.com";
+      case 'instagram':
+        return "@tumarca";
+      default:
+        return placeholder;
+    }
+  };
+
   const getSuggestions = () => {
     switch (name) {
+      case 'marca':
+        return [
+          "Usa un nombre que refleje tu propósito",
+          "Evita nombres genéricos o difíciles de recordar",
+          "Considera incluir tu nombre si eres marca personal"
+        ];
+      case 'email':
+        return [
+          "Usa un email profesional",
+          "Evita emails con números aleatorios"
+        ];
+      case 'whatsapp':
+        return [
+          "Incluye código de país (ej: +56 para Chile)",
+          "Verifica que sea el número donde atiendes clientes"
+        ];
+      case 'website':
+        return [
+          "Si no tienes web, déjalo vacío por ahora",
+          "Incluye el dominio completo (www.ejemplo.com)"
+        ];
+      case 'instagram':
+        return [
+          "Incluye el @ de tu cuenta",
+          "Si no tienes Instagram, déjalo vacío"
+        ];
       case 'quien_eres':
         return [
           "Menciona años de experiencia específicos",
@@ -73,6 +124,17 @@ const FormField = ({
           "Menciona qué incluye exactamente",
           "Define el resultado específico que obtendrán",
           "Agrega garantías o testimonios"
+        ];
+      case 'preguntas_frecuentes':
+        return [
+          "Responde las 3-5 preguntas más comunes",
+          "Sé específico con tiempos y costos",
+          "Anticipa objeciones comunes"
+        ];
+      case 'estilo':
+        return [
+          "Elige el estilo que mejor represente tu marca",
+          "Piensa en cómo quieres que te perciban tus clientes"
         ];
       default:
         return [];
@@ -127,8 +189,8 @@ const FormField = ({
         <Input
           value={value}
           onChange={(e) => handleChange(e.target.value)}
-          placeholder={placeholder}
-          className="bg-white/10 border-white/20 text-white placeholder:text-white/70 focus:bg-white/20 focus:border-blue-400 transition-all duration-300 py-3 text-base sm:text-lg"
+          placeholder={getPlaceholder()}
+          className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20 focus:border-blue-400 transition-all duration-300 py-3 text-base sm:text-lg"
         />
       )}
       
@@ -136,9 +198,9 @@ const FormField = ({
         <Textarea
           value={value}
           onChange={(e) => handleChange(e.target.value)}
-          placeholder={placeholder}
+          placeholder={getPlaceholder()}
           rows={isExpanded ? 8 : 4}
-          className="bg-white/10 border-white/20 text-white placeholder:text-white/70 focus:bg-white/20 focus:border-blue-400 transition-all duration-300 text-base sm:text-lg resize-none"
+          className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20 focus:border-blue-400 transition-all duration-300 text-base sm:text-lg resize-none"
         />
       )}
       
@@ -161,11 +223,11 @@ const FormField = ({
         </Select>
       )}
       
-      {/* Validación inteligente */}
+      {/* Validación inteligente - mostrar siempre */}
       <SmartValidation 
         value={value} 
         fieldType={name} 
-        suggestions={showAIEnhance ? getSuggestions() : []}
+        suggestions={getSuggestions()}
       />
     </div>
   );

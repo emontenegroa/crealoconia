@@ -329,7 +329,11 @@ const MainForm = ({
                       <AlertDialogTrigger asChild>
                         <Button 
                           type="button" 
-                          className="bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-semibold px-6 md:px-8 w-full sm:w-auto"
+                          className={`bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white font-semibold px-6 md:px-8 w-full sm:w-auto transition-all duration-300 ${
+                            isCurrentStepComplete() 
+                              ? 'animate-pulse shadow-[0_0_20px_rgba(16,185,129,0.5)] hover:shadow-[0_0_30px_rgba(16,185,129,0.7)] scale-105' 
+                              : 'opacity-50 cursor-not-allowed'
+                          }`}
                           disabled={!isCurrentStepComplete()}
                         >
                           <Brain className="w-5 h-5 mr-2" />

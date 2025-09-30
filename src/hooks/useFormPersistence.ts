@@ -191,24 +191,36 @@ export const useFormPersistence = () => {
     }
   };
 
-  // Marcar como completado
+  // Marcar como completado - SIEMPRE crea un nuevo registro
   const markAsCompleted = async (formData: FormData): Promise<void> => {
     if (!formData.email || !isValidEmail(formData.email)) return;
 
     try {
       const sanitizedData = sanitizeFormData(formData);
 
-      // Usar la función upsert para marcar como completado
-      const { error } = await supabase.rpc('upsert_form_submission', {
-        p_email: sanitizedData.email,
-        p_form_data: sanitizedData as any,
-        p_attempt_number: attemptCount,
-        p_completed: true
-      });
+      // Siempre insertar un nuevo registro para trazabilidad
+      const { error } = await supabase
+        .from('form_submissions')
+        .insert({
+          email: sanitizedData.email,
+          form_data: sanitizedData as any,
+          attempt_number: attemptCount,
+          completed: true,
+          created_at: new Date().toISOString()
+        });
 
       if (error) {
         console.error('Error marking as completed:', error);
+        throw error;
       }
+
+      // Después de crear el registro completado, eliminar el registro incompleto si existe
+      await supabase
+        .from('form_submissions')
+        .delete()
+        .eq('email', sanitizedData.email)
+        .eq('completed', false);
+
     } catch (error) {
       console.error('Error in markAsCompleted:', error);
     }
