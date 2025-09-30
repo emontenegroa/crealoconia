@@ -88,9 +88,7 @@ const HeroSection = ({
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
                 <span className="block">Tu página web</span>
                 <span className="block">profesional</span>
-                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent block">
-                  lista en 24 horas
-                </span>
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent block">en 24 horas</span>
               </h1>
               
               <p className="text-lg text-slate-300 max-w-lg leading-relaxed">
