@@ -5,11 +5,11 @@ import { Check, X, Sparkles, ArrowRight } from "lucide-react";
 const TransparentPricing = () => {
   const scrollToForm = () => {
     // Scroll to the top where the form is
-    window.scrollTo({ 
-      top: 0, 
-      behavior: 'smooth' 
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
     });
-    
+
     // After scrolling, highlight the form fields
     setTimeout(() => {
       const inputs = document.querySelectorAll('input[name="marca"], input[name="email"]');
@@ -18,7 +18,7 @@ const TransparentPricing = () => {
           input.style.transform = 'scale(1.05)';
           input.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.5)';
           input.style.transition = 'all 0.3s ease';
-          
+
           // Reset after animation
           setTimeout(() => {
             input.style.transform = 'scale(1)';
@@ -28,7 +28,6 @@ const TransparentPricing = () => {
       });
     }, 800);
   };
-
   return <div className="py-16 bg-muted/30">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
@@ -80,18 +79,13 @@ const TransparentPricing = () => {
               <div className="border-t pt-4">
                 
                 <ul className="space-y-1 text-sm text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <X className="w-4 h-4 text-destructive" />
-                    <span>No incluye Dominio (~$15.000-25.000 CLP/año)</span>
-                  </li>
+                  
                   <li className="flex items-center gap-2">
                     
                     
                   </li>
                 </ul>
-                <p className="text-xs text-muted-foreground mt-2">
-                  Te recomendamos proveedores confiables y económicos
-                </p>
+                
               </div>
             </CardContent>
           </Card>
@@ -116,11 +110,7 @@ const TransparentPricing = () => {
 
         {/* Botón de llamado a la acción */}
         <div className="mt-8 text-center">
-          <Button 
-            onClick={scrollToForm}
-            size="lg"
-            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] px-8 py-4 text-lg font-semibold"
-          >
+          <Button onClick={scrollToForm} size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] px-8 py-4 text-lg font-semibold">
             <Sparkles className="w-5 h-5 mr-2" />
             Empezar ahora
             <ArrowRight className="w-5 h-5 ml-2" />
