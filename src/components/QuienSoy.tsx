@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Users, Zap, Gift } from "lucide-react";
-
 const QuienSoy = () => {
   return <div className="py-16 bg-background">
       <div className="max-w-6xl mx-auto px-4">
@@ -12,9 +11,7 @@ const QuienSoy = () => {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Soy el humano detras de creealoconia. llevo mas de 20 años trabajando con tecnologia y me he especializado en Inteligencia artificial
           </p>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mt-4">
-            Ayudo a las personas a entender y encontrar soluciones con ayuda de herramientas tecnologicas, siendo una de mis pasiones la intelogencia artificial.
-          </p>
+          
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
