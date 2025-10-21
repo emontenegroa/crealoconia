@@ -6,6 +6,11 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Initialize Supabase client with service role
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
 serve(async (req) => {
   console.log('🚀 admin-data function started');
   
@@ -27,39 +32,19 @@ serve(async (req) => {
   }
 
   try {
-    // Create supabase client from request (validates JWT automatically)
-    const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      {
-        global: {
-          headers: { Authorization: req.headers.get('Authorization')! },
-        },
-      }
-    );
-
-    // Get authenticated user
-    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+    console.log('📥 Reading request body...');
+    const body = await req.json();
+    console.log('📋 Request body:', JSON.stringify(body));
     
-    if (authError || !user) {
-      console.log('❌ Unauthorized - Invalid or missing JWT token');
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized - Invalid or missing JWT token' }),
-        { 
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      );
-    }
+    const { email, action, data } = body;
+    console.log('📧 Email:', email, 'Action:', action);
 
-    // Check if user has admin role using database function
-    const { data: isAdmin, error: roleError } = await supabaseClient
-      .rpc('has_role', { _user_id: user.id, _role: 'admin' });
-    
-    if (roleError || !isAdmin) {
-      console.log('❌ Forbidden - Non-admin access attempt:', user.email);
+    // Validate admin email
+    const authorizedEmail = 'esteban@crealoconia.com';
+    if (email?.toLowerCase() !== authorizedEmail.toLowerCase()) {
+      console.log('❌ Email no autorizado:', email);
       return new Response(
-        JSON.stringify({ error: 'Forbidden - Admin role required' }),
+        JSON.stringify({ error: 'Email no autorizado para acceso administrativo' }),
         { 
           status: 403,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -67,31 +52,10 @@ serve(async (req) => {
       );
     }
 
-    console.log('✅ Admin authenticated:', user.email);
-
-    // Create admin client for operations
-    const supabaseAdmin = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false
-        }
-      }
-    );
-
-    console.log('📥 Reading request body...');
-    const body = await req.json();
-    console.log('📋 Request body:', JSON.stringify(body));
-    
-    const { action, data } = body;
-    console.log('Action:', action);
-
     if (action === 'get_submissions') {
       console.log('📊 Obteniendo submissions...');
       
-      const { data: submissions, error } = await supabaseAdmin
+      const { data: submissions, error } = await supabase
         .from('form_submissions')
         .select('*')
         .order('created_at', { ascending: false });
@@ -121,7 +85,7 @@ serve(async (req) => {
       
       const { id, updates } = data;
       
-      const { error } = await supabaseAdmin
+      const { error } = await supabase
         .from('form_submissions')
         .update(updates)
         .eq('id', id);
@@ -151,7 +115,7 @@ serve(async (req) => {
       
       const { id } = data;
       
-      const { error } = await supabaseAdmin
+      const { error } = await supabase
         .from('form_submissions')
         .delete()
         .eq('id', id);
@@ -181,7 +145,7 @@ serve(async (req) => {
       
       const { ids } = data;
       
-      const { error } = await supabaseAdmin
+      const { error } = await supabase
         .from('form_submissions')
         .delete()
         .in('id', ids);

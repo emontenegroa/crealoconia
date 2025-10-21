@@ -83,10 +83,10 @@ export default function Admin({ onLogout }: AdminProps) {
       setLoading(true);
       console.log('Intentando cargar submissions...');
       
-      // Get current session (JWT will be sent automatically)
-      const { data: { session } } = await supabase.auth.getSession();
+      // Get admin session from localStorage
+      const adminSession = localStorage.getItem('admin_session');
       
-      if (!session) {
+      if (!adminSession) {
         toast({
           title: "Sesión expirada",
           description: "Por favor, inicia sesión nuevamente",
@@ -96,9 +96,12 @@ export default function Admin({ onLogout }: AdminProps) {
         return;
       }
 
-      // Use edge function to get data with admin privileges (JWT sent automatically)
+      const sessionData = JSON.parse(adminSession);
+
+      // Use edge function to get data with admin privileges
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
+          email: sessionData.email,
           action: 'get_submissions'
         }
       });
@@ -236,15 +239,17 @@ export default function Admin({ onLogout }: AdminProps) {
 
   const updateSubmission = async (id: string, updates: Partial<FormSubmission>) => {
     try {
-      // Check session
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+      // Get admin session from localStorage
+      const adminSession = localStorage.getItem('admin_session');
+      if (!adminSession) {
         onLogout();
         return;
       }
+      const sessionData = JSON.parse(adminSession);
 
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
+          email: sessionData.email,
           action: 'update_submission',
           data: { id, updates }
         }
@@ -274,15 +279,17 @@ export default function Admin({ onLogout }: AdminProps) {
 
   const deleteSubmission = async (id: string) => {
     try {
-      // Check session
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+      // Get admin session from localStorage
+      const adminSession = localStorage.getItem('admin_session');
+      if (!adminSession) {
         onLogout();
         return;
       }
+      const sessionData = JSON.parse(adminSession);
 
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
+          email: sessionData.email,
           action: 'delete_submission',
           data: { id }
         }
@@ -320,15 +327,17 @@ export default function Admin({ onLogout }: AdminProps) {
         return;
       }
 
-      // Check session
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+      // Get admin session from localStorage
+      const adminSession = localStorage.getItem('admin_session');
+      if (!adminSession) {
         onLogout();
         return;
       }
+      const sessionData = JSON.parse(adminSession);
 
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
+          email: sessionData.email,
           action: 'delete_multiple_submissions',
           data: { ids: selectedIds }
         }
