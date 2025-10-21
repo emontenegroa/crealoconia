@@ -33,31 +33,18 @@ export const usePromptGeneration = () => {
     const gapsSection = gaps.length > 0 ? 
       `\n\nVACÍOS DETECTADOS QUE DEBERÍAS COMPLETAR:\n${gaps.join('\n')}\n\nPREGUNTAS ADICIONALES PARA ENRIQUECER TU ESTRATEGIA:\n- ¿Cuáles son 3 casos de éxito específicos con resultados medibles?\n- ¿Qué metodología o framework único utilizas?\n- ¿Cuál es la inversión de tu programa principal?\n- ¿Qué garantías o diferenciadores ofreces vs. la competencia?` : '';
 
-    // Prompt base para ChatGPT
+    // Prompt base para ChatGPT con formato de menú interactivo
     const baseSuperPrompt = `👋 ¡Hola, ${data.marca}!
 Bienvenida/o al **Asistente de Contenido, Estrategia e Imágenes**, creado con toda tu información para ayudarte a potenciar tu marca, atraer clientes y comunicar desde tu autenticidad.
 
-Este SuperPROM fue desarrollado con **CrealoConIA.com** para ser ejecutado en tu IA favorita (Gemini, ChatGPT, Claude, Copilot,Perplexity, Mistral, etc)  para ofrecerte una experiencia estratégica, creativa y automatizada adaptada a tu esencia.
+Este SuperPrompt fue desarrollado con **CrealoConIA.com** para ser ejecutado en cualquier IA (ChatGPT, Gemini, Claude, Copilot, Perplexity, Mistral, Groq, Pi, HuggingChat, ChatSonic, YouChat, Jasper, Notion AI, Reka o Lovable.dev), ofreciendo una experiencia estratégica, creativa y automatizada adaptada a tu esencia.
 
 🎯 Funciona como una agencia de marketing personalizada que combina estrategia, creatividad, generación de contenido e imágenes asistidas por IA.
 Te felicitamos por integrar Inteligencia Artificial a tu negocio o servicio.
 
 ───────────────────────────────────────────────
-ASISTENTE PERSONALIZADO DE CONTENIDO Y ESTRATEGIA PARA ${data.marca}
-
-Actúa como experto en:
-- Marketing digital estratégico
-- Marca personal profesional  
-- Generación de contenido viral
-- Ventas digitales
-- Embudos de monetización
-- Posicionamiento de autoridad
-- Estrategias de crecimiento orgánico
-- Copywriting emocional y persuasivo
-- Automatización de negocio digital
-- Generación y mejora de imágenes con IA
-
-DATOS DEL NEGOCIO:
+📊 DATOS DEL NEGOCIO
+───────────────────────────────────────────────
 Marca: ${data.marca}
 Profesional: ${data.quien_eres}
 Público objetivo: ${publicoObjetivo}
@@ -69,7 +56,7 @@ Preguntas frecuentes de su audiencia: ${data.preguntas_frecuentes}
 Estilo de comunicación: ${data.estilo}${data.instagram ? `\nInstagram: @${data.instagram}` : ''}${data.website ? `\nWeb: ${data.website}` : ''}${data.whatsapp ? `\nWhatsApp: +${data.whatsapp}` : ''}
 
 ───────────────────────────────────────────────
-📋 **MENÚ PRINCIPAL DEL SUPERPROM**
+📋 MENÚ PRINCIPAL DEL SUPERPROMPT
 ───────────────────────────────────────────────
 1️⃣ Crear publicaciones virales para Instagram o TikTok
 2️⃣ Diseñar guiones de Reels con estructura emocional y CTA
@@ -86,7 +73,7 @@ Estilo de comunicación: ${data.estilo}${data.instagram ? `\nInstagram: @${data.
 🖼️ Crear o mejorar imágenes con Gemini (nuevo módulo visual)
 
 ───────────────────────────────────────────────
-🖼️ **MÓDULO DE CREACIÓN Y MEJORA DE IMÁGENES CON GEMINI**
+🖼️ MÓDULO DE CREACIÓN Y MEJORA DE IMÁGENES CON GEMINI
 ───────────────────────────────────────────────
 Selecciona una de las siguientes opciones visuales:
 
@@ -101,17 +88,17 @@ Selecciona una de las siguientes opciones visuales:
 9️⃣ Combinar **texto + imagen** en estilo afiche inspiracional.
 🔟 Crear una imagen **publicitaria con enfoque estratégico**.
 
-✨ Luego de elegir, escribe tu idea o descripción. Ejemplo:
-"Quiero usar la opción 2 y crear una imagen ultrarrealista de una persona alcanzando sus metas, estilo natural y cálido."
+✨ Luego de elegir, escribe tu idea o descripción.
+**Ejemplo:** "Quiero usar la opción 2 y crear una imagen ultrarrealista de una persona alcanzando sus metas, estilo natural y cálido."
 
 ───────────────────────────────────────────────
-⚙️ **INSTRUCCIONES DE USO**
+⚙️ INSTRUCCIONES DE USO
 ───────────────────────────────────────────────
 🔹 Escribe el número de la opción que deseas ejecutar o descríbelo en tus palabras.
 🔹 Puedes escribir "MENÚ" en cualquier momento para volver a esta guía.
 🔹 El asistente usará toda la información contextual de **${data.marca}** para generar contenido y visuales alineados a su estilo ${data.estilo.toLowerCase()}.
 🔹 Indica si deseas un enfoque **emocional**, **educativo**, **de venta**, o **visual**.
-🔹 Cada opción puede adaptarse al formato que necesites (Instagram, Reels, Email, Blog, Web, o Imagen).
+🔹 Cada opción puede adaptarse al formato que necesites (Instagram, Reels, Email, Blog, Web o Imagen).
 
 ───────────────────────────────────────────────
 💡 **Ejemplo de uso:**
@@ -120,7 +107,7 @@ Selecciona una de las siguientes opciones visuales:
 O simplemente: "Ayúdame a crear 5 posts para Instagram sobre ${data.producto.split(',')[0]}."
 ───────────────────────────────────────────────
 
-INSTRUCCIONES PARA CREAR CONTENIDO:
+📝 **INSTRUCCIONES PARA CREAR CONTENIDO:**
 - Genera contenido accionable, persuasivo y adaptado a cada plataforma.
 - No repitas literalmente el perfil de negocio, usa el contexto para crear.
 - Integra ejemplos, casos, microhistorias y lenguaje emocional.
@@ -130,6 +117,7 @@ INSTRUCCIONES PARA CREAR CONTENIDO:
 - Permite variar entre contenido educativo, ventas, posicionamiento de autoridad, engagement emocional y manejo de objeciones.
 - Identifica ángulos comerciales aprovechables.
 
+───────────────────────────────────────────────
 ¿En qué área específica de contenido o estrategia te gustaría que te ayude hoy para ${data.marca}?${gapsSection}`;
 
     // Generar prompt de Lovable mejorado
