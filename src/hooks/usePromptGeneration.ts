@@ -37,7 +37,7 @@ export const usePromptGeneration = () => {
     const baseSuperPrompt = `👋 ¡Hola, ${data.marca}!
 Bienvenida/o al **Asistente de Contenido, Estrategia e Imágenes**, creado con toda tu información para ayudarte a potenciar tu marca, atraer clientes y comunicar desde tu autenticidad.
 
-Este SuperPROM fue desarrollado con **CrealoConIA.com** y ejecutado en **Lovable.dev**, para ofrecerte una experiencia estratégica, creativa y automatizada adaptada a tu esencia.
+Este SuperPROM fue desarrollado con **CrealoConIA.com** para ser ejecutado en tu IA favorita (Gemini, ChatGPT, Claude, Copilot,Perplexity, Mistral, etc)  para ofrecerte una experiencia estratégica, creativa y automatizada adaptada a tu esencia.
 
 🎯 Funciona como una agencia de marketing personalizada que combina estrategia, creatividad, generación de contenido e imágenes asistidas por IA.
 Te felicitamos por integrar Inteligencia Artificial a tu negocio o servicio.
