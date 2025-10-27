@@ -211,8 +211,84 @@ const HeroSection = ({
           </div>
         </div>
 
-        {/* Indicador de scroll personalizado */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-slate-400 text-sm flex flex-col items-center space-y-3">
+      </div>
+
+      {/* Nueva sección de métricas */}
+      <div className="relative z-10 container mx-auto px-4 py-16 mt-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Título y subtítulo */}
+          <div className="text-center mb-12 space-y-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+              Lo que antes tomaba semanas, <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">ahora toma horas.</span>
+            </h2>
+            <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+              Crealoconia transforma tu proceso digital en resultados reales y medibles.
+              Ahorra tiempo, simplifica tu camino y aprende a usar la IA como aliada.
+            </p>
+          </div>
+
+          {/* Grid de métricas */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {/* Métrica 1 */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl">
+              <div className="text-4xl mb-3">🕓</div>
+              <div className="text-2xl font-bold text-white mb-2">48 horas</div>
+              <div className="text-sm text-blue-400 font-semibold mb-3">−96% de tiempo</div>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Antes un sitio tomaba 3–4 semanas. Con Crealoconia, lo tienes en 2 horas.
+              </p>
+            </div>
+
+            {/* Métrica 2 */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{animationDelay: '0.1s'}}>
+              <div className="text-4xl mb-3">⚙️</div>
+              <div className="text-2xl font-bold text-white mb-2">20 tareas</div>
+              <div className="text-sm text-purple-400 font-semibold mb-3">+90% eficiencia</div>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Desde textos y reels hasta correos y páginas, todo listo desde tu asistente IA.
+              </p>
+            </div>
+
+            {/* Métrica 3 */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{animationDelay: '0.2s'}}>
+              <div className="text-4xl mb-3">💡</div>
+              <div className="text-2xl font-bold text-white mb-2">4.8 / 5</div>
+              <div className="text-sm text-emerald-400 font-semibold mb-3">Aprendizaje acelerado</div>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                En una sola mentoría comprendes lo que antes tardaba un mes en entender.
+              </p>
+            </div>
+
+            {/* Métrica 4 */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{animationDelay: '0.3s'}}>
+              <div className="text-4xl mb-3">🌐</div>
+              <div className="text-2xl font-bold text-white mb-2">24 horas</div>
+              <div className="text-sm text-blue-400 font-semibold mb-3">Tu web profesional</div>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                100% personalizada a tu estilo, colores y propuesta de valor.
+              </p>
+            </div>
+          </div>
+
+          {/* Texto complementario */}
+          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8 text-center backdrop-blur-sm">
+            <p className="text-lg text-slate-200 leading-relaxed max-w-4xl mx-auto mb-6">
+              "Con el Sistema Crealoconia integras Inteligencia Artificial, estrategia y acompañamiento humano.
+              En solo un día obtienes tu web, tu asistente personalizado y la claridad digital que antes tardabas semanas en alcanzar."
+            </p>
+            <Button className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
+              <Sparkles className="w-5 h-5 mr-2" />
+              Activar mi sistema ahora
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+            <p className="text-sm text-slate-400 mt-3">Tu web y asistente listos en 24h</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Indicador de scroll personalizado */}
+      <div className="relative z-10 pb-8">
+        <div className="flex justify-center text-slate-400 text-sm flex-col items-center space-y-3">
           <span className="font-medium">Descubre más</span>
           <div className="w-6 h-10 border-2 border-slate-500 rounded-full flex justify-center relative">
             <div className="w-1 h-3 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full mt-2 animate-bounce"></div>
