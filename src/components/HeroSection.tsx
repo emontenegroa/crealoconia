@@ -86,13 +86,11 @@ const HeroSection = ({
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
-                <span className="block">Tu página web</span>
-                <span className="block">profesional</span>
-                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent block">en 24 horas</span>
+                Integra <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">Inteligencia Artificial</span> a tu negocio para multiplicar tu tiempo, tus resultados y mejorar tus ventas.
               </h1>
               
               <p className="text-lg text-slate-300 max-w-lg leading-relaxed">
-                Deja de perder tiempo con procesos complicados. Usamos Inteligencia Artificial para crear páginas web de forma rápida, fácil y profesionales que representan tu marca y convierten visitantes en clientes.
+                El Sistema Crealoconia reúne todo lo que necesitas para crear, relanzar o mejorar tu presencia online: una web profesional generada con IA, un asistente personalizado de contenido y estrategia, y una mentoría 1:1 para ajustar tu marca y optimizar tu proceso digital.
               </p>
             </div>
 
