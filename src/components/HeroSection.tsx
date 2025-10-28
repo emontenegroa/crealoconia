@@ -281,7 +281,7 @@ Utilizamos la IA con tu propia información estratégica para crear de forma cla
               Activar mi sistema ahora
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <p className="text-sm text-slate-400 mt-3">Tu web y asistente listos en 24h</p>
+            
           </div>
         </div>
       </div>
