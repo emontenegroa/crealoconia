@@ -281,7 +281,10 @@ La IA con tu propia información estratégica para crear de forma clara  y alin
               "Con el Sistema Crealoconia integras Inteligencia Artificial, estrategia y acompañamiento humano.
               En solo un día obtienes tu web, tu asistente personalizado y la claridad digital que antes tardabas semanas en alcanzar."
             </p>
-            <Button className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
+            <Button 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+            >
               <Sparkles className="w-5 h-5 mr-2" />
               Activar mi sistema ahora
               <ArrowRight className="w-5 h-5 ml-2" />
