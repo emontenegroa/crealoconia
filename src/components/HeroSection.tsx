@@ -254,7 +254,7 @@ La IA con tu propia información estratégica para crear de forma clara  y alin
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{
             animationDelay: '0.2s'
           }}>
-              <div className="text-4xl mb-3">💡</div>
+              
               <div className="text-2xl font-bold text-white mb-2">4.8 / 5</div>
               <div className="text-sm text-emerald-400 font-semibold mb-3">Aprendizaje acelerado</div>
               <p className="text-sm text-slate-400 leading-relaxed">
@@ -268,7 +268,7 @@ La IA con tu propia información estratégica para crear de forma clara  y alin
           }}>
               <div className="text-4xl mb-3">🌐</div>
               <div className="text-2xl font-bold text-white mb-2">24 horas</div>
-              <div className="text-sm text-blue-400 font-semibold mb-3">Tu web profesional</div>
+              
               <p className="text-sm text-slate-400 leading-relaxed">
                 100% personalizada a tu estilo, colores y propuesta de valor.
               </p>
