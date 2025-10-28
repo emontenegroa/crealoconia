@@ -67,12 +67,7 @@ const HeroSection = ({
       <div className="relative z-10 container mx-auto px-4 py-6">
         {/* Header minimalista */}
         <div className="flex items-center mb-12">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-              <Sparkles className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-white font-bold text-xl tracking-tight">Crealoconia</span>
-          </div>
+          
         </div>
 
         {/* Contenido principal */}
