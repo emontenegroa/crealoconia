@@ -89,9 +89,8 @@ const HeroSection = ({
                 Integra <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">Inteligencia Artificial</span> a tu negocio para multiplicar tu tiempo, tus resultados y mejorar tus ventas.
               </h1>
               
-              <p className="text-lg text-slate-300 max-w-lg leading-relaxed">
-                El Sistema Crealoconia reúne todo lo que necesitas para crear, relanzar o mejorar tu presencia online: una web profesional generada con IA, un asistente personalizado de contenido y estrategia, y una mentoría 1:1 para ajustar tu marca y optimizar tu proceso digital.
-              </p>
+              <p className="text-lg text-slate-300 max-w-lg leading-relaxed">El Sistema CrealoconIA reúne todo lo que necesitas para crear, relanzar o mejorar tu presencia online: una web profesional generada con IA, un asistente personalizado de contenido y estrategia, y una mentoría 1:1 para ajustar tu marca y optimizar tu proceso digital.
+La IA con tu propia información estratégica para crear de forma clara  y alineadas a tu negocio.</p>
             </div>
 
             {/* Formulario profesional */}
@@ -240,7 +239,9 @@ const HeroSection = ({
             </div>
 
             {/* Métrica 2 */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{animationDelay: '0.1s'}}>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{
+            animationDelay: '0.1s'
+          }}>
               <div className="text-4xl mb-3">⚙️</div>
               <div className="text-2xl font-bold text-white mb-2">20 tareas</div>
               <div className="text-sm text-purple-400 font-semibold mb-3">+90% eficiencia</div>
@@ -250,7 +251,9 @@ const HeroSection = ({
             </div>
 
             {/* Métrica 3 */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{animationDelay: '0.2s'}}>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{
+            animationDelay: '0.2s'
+          }}>
               <div className="text-4xl mb-3">💡</div>
               <div className="text-2xl font-bold text-white mb-2">4.8 / 5</div>
               <div className="text-sm text-emerald-400 font-semibold mb-3">Aprendizaje acelerado</div>
@@ -260,7 +263,9 @@ const HeroSection = ({
             </div>
 
             {/* Métrica 4 */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{animationDelay: '0.3s'}}>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{
+            animationDelay: '0.3s'
+          }}>
               <div className="text-4xl mb-3">🌐</div>
               <div className="text-2xl font-bold text-white mb-2">24 horas</div>
               <div className="text-sm text-blue-400 font-semibold mb-3">Tu web profesional</div>
