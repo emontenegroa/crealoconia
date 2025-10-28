@@ -222,53 +222,7 @@ Utilizamos la IA con tu propia información estratégica para crear de forma cla
           </div>
 
           {/* Grid de métricas */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {/* Métrica 1 */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl">
-              <div className="text-4xl mb-3">🕓</div>
-              <div className="text-2xl font-bold text-white mb-2">48 horas</div>
-              <div className="text-sm text-blue-400 font-semibold mb-3">−96% de tiempo</div>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Antes un sitio tomaba 3–4 semanas. Con Crealoconia, lo tienes en 2 horas.
-              </p>
-            </div>
-
-            {/* Métrica 2 */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{
-            animationDelay: '0.1s'
-          }}>
-              <div className="text-4xl mb-3">⚙️</div>
-              <div className="text-2xl font-bold text-white mb-2">20 tareas</div>
-              <div className="text-sm text-purple-400 font-semibold mb-3">+90% eficiencia</div>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Desde textos y reels hasta correos y páginas, todo listo desde tu asistente IA.
-              </p>
-            </div>
-
-            {/* Métrica 3 */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{
-            animationDelay: '0.2s'
-          }}>
-              
-              <div className="text-2xl font-bold text-white mb-2">4.8 / 5</div>
-              <div className="text-sm text-emerald-400 font-semibold mb-3">Aprendizaje acelerado</div>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                En una sola mentoría comprendes lo que antes tardaba un mes en entender.
-              </p>
-            </div>
-
-            {/* Métrica 4 */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 animate-fade-in hover:scale-105 hover:shadow-xl" style={{
-            animationDelay: '0.3s'
-          }}>
-              <div className="text-4xl mb-3">🌐</div>
-              <div className="text-2xl font-bold text-white mb-2">24 horas</div>
-              
-              <p className="text-sm text-slate-400 leading-relaxed">
-                100% personalizada a tu estilo, colores y propuesta de valor.
-              </p>
-            </div>
-          </div>
+          
 
           {/* Texto complementario */}
           <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8 text-center backdrop-blur-sm">
