@@ -97,12 +97,20 @@ export default function Admin({ onLogout }: AdminProps) {
       }
 
       const sessionData = JSON.parse(adminSession);
+      const token = sessionData.token;
 
-      // Use edge function to get data with admin privileges
+      if (!token) {
+        onLogout();
+        return;
+      }
+
+      // Use edge function to get data with JWT authentication
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
-          email: sessionData.email,
           action: 'get_submissions'
+        },
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
       });
 
@@ -117,9 +125,9 @@ export default function Admin({ onLogout }: AdminProps) {
         throw new Error(data.error);
       }
       
-      console.log(`Cargados ${data?.submissions?.length || 0} registros`);
-      setSubmissions(data?.submissions || []);
-    } catch (error) {
+      console.log(`Cargados ${data?.data?.length || 0} registros`);
+      setSubmissions(data?.data || []);
+    } catch (error: any) {
       console.error('Error loading submissions:', error);
       toast({
         title: "Error",
@@ -246,12 +254,21 @@ export default function Admin({ onLogout }: AdminProps) {
         return;
       }
       const sessionData = JSON.parse(adminSession);
+      const token = sessionData.token;
+
+      if (!token) {
+        onLogout();
+        return;
+      }
 
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
-          email: sessionData.email,
           action: 'update_submission',
-          data: { id, updates }
+          id,
+          updates
+        },
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
       });
 
@@ -286,12 +303,20 @@ export default function Admin({ onLogout }: AdminProps) {
         return;
       }
       const sessionData = JSON.parse(adminSession);
+      const token = sessionData.token;
+
+      if (!token) {
+        onLogout();
+        return;
+      }
 
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
-          email: sessionData.email,
           action: 'delete_submission',
-          data: { id }
+          id
+        },
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
       });
 
@@ -334,12 +359,20 @@ export default function Admin({ onLogout }: AdminProps) {
         return;
       }
       const sessionData = JSON.parse(adminSession);
+      const token = sessionData.token;
+
+      if (!token) {
+        onLogout();
+        return;
+      }
 
       const { data, error } = await supabase.functions.invoke('admin-data', {
-        body: { 
-          email: sessionData.email,
+        body: {
           action: 'delete_multiple_submissions',
-          data: { ids: selectedIds }
+          ids: selectedIds
+        },
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
       });
 

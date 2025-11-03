@@ -8,8 +8,7 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
 import Admin from './Admin';
 
 interface AdminSession {
-  email: string;
-  authenticatedAt: number;
+  token: string;
   expiresAt: number;
 }
 
@@ -31,9 +30,8 @@ export default function AdminRoute() {
           const session: AdminSession = JSON.parse(sessionData);
           const now = Date.now();
           
-          if (now < session.expiresAt) {
+          if (now < session.expiresAt && session.token) {
             setIsAuthenticated(true);
-            setEmail(session.email);
             return;
           } else {
             // Sesión expirada
@@ -111,34 +109,28 @@ export default function AdminRoute() {
 
       if (error) throw error;
 
-      // Crear sesión persistente (24 horas)
-      const now = Date.now();
-      const session: AdminSession = {
-        email,
-        authenticatedAt: now,
-        expiresAt: now + (24 * 60 * 60 * 1000) // 24 horas
-      };
-      
-      localStorage.setItem('admin_session', JSON.stringify(session));
-      setIsAuthenticated(true);
+      if (data.success && data.token) {
+        // Crear sesión con JWT token
+        const session: AdminSession = {
+          token: data.token,
+          expiresAt: Date.now() + (data.expiresIn * 1000) // Convert seconds to milliseconds
+        };
+        
+        localStorage.setItem('admin_session', JSON.stringify(session));
+        setIsAuthenticated(true);
 
-      // Log de seguridad
-      await supabase.functions.invoke('send-email', {
-        body: {
-          type: 'admin',
-          to: email,
-          subject: 'Acceso al panel administrativo',
-          data: {
-            timestamp: new Date().toLocaleString('es-ES'),
-            ip: 'N/A' // Sería necesario obtener la IP real
-          }
-        }
-      });
+        toast({
+          title: "Acceso concedido",
+          description: "Bienvenido al panel de administración"
+        });
+      } else {
+        throw new Error(data.error || 'Código inválido');
+      }
 
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Código inválido",
-        description: "Verifica el código o solicita uno nuevo",
+        description: error.message || "Verifica el código o solicita uno nuevo",
         variant: "destructive"
       });
       setTempKey('');

@@ -6,9 +6,15 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const FACEBOOK_PIXEL_ID = '1681063145914408';
-const FACEBOOK_ACCESS_TOKEN = 'EAAdKvg3zpGwBPeKEx2EKGaMymQ8hzC2W3fZArZA5WS3EOGlHF0bOXcrZCXZBod1o9tK8eeYbhVKOniHQ0tSowm3UIaTBuXlOUUSlT9u5meA7DZCOZCaZBHgU5s2dPaQSuF0p97vuZBIugKeliphU0WHEjdC4BrmwOPGEDdlQgrjmq9bEUyJLxO5241Vk0mnwOV4uQQZDZD';
-const TEST_EVENT_CODE = 'TEST12345'; // Updated with new credentials
+// Load credentials from environment variables (Supabase secrets)
+const FACEBOOK_PIXEL_ID = Deno.env.get('FACEBOOK_PIXEL_ID');
+const FACEBOOK_ACCESS_TOKEN = Deno.env.get('FACEBOOK_ACCESS_TOKEN');
+const TEST_EVENT_CODE = Deno.env.get('TEST_EVENT_CODE');
+
+// Validate required environment variables
+if (!FACEBOOK_PIXEL_ID || !FACEBOOK_ACCESS_TOKEN) {
+  console.error('Missing required Facebook credentials in environment variables');
+}
 
 console.log('Meta Conversions Function loaded with Pixel ID:', FACEBOOK_PIXEL_ID);
 
@@ -58,6 +64,23 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Check if Facebook credentials are configured
+    if (!FACEBOOK_PIXEL_ID || !FACEBOOK_ACCESS_TOKEN) {
+      console.error('Facebook credentials not configured');
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: 'Facebook integration not configured'
+        }),
+        {
+          status: 500,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          },
+        }
+      );
+    }
     const requestData: ConversionRequest = await req.json();
     
     console.log('Processing Facebook Conversion Event:', {
@@ -119,11 +142,15 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Prepare the payload for Facebook Conversions API
-    const payload = {
+    const payload: any = {
       data: [facebookEvent],
-      test_event_code: TEST_EVENT_CODE, // Remove this line when going to production
       access_token: FACEBOOK_ACCESS_TOKEN
     };
+    
+    // Add test event code if configured (for testing only)
+    if (TEST_EVENT_CODE) {
+      payload.test_event_code = TEST_EVENT_CODE;
+    }
 
     console.log('Sending to Facebook Conversions API:', {
       url: `https://graph.facebook.com/v18.0/${FACEBOOK_PIXEL_ID}/events`,

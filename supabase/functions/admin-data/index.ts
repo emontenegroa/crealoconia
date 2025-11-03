@@ -1,197 +1,239 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.8';
+import { verify } from 'https://deno.land/x/djwt@v3.0.2/mod.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// Initialize Supabase client with service role
-const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+const ADMIN_JWT_SECRET = Deno.env.get('ADMIN_JWT_SECRET');
+const AUTHORIZED_EMAIL = 'esteban@crealoconia.com';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
+// Generate crypto key for JWT verification
+async function getJWTKey() {
+  if (!ADMIN_JWT_SECRET) {
+    throw new Error('ADMIN_JWT_SECRET not configured');
+  }
+  return await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(ADMIN_JWT_SECRET),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['verify']
+  );
+}
+
+// Verify JWT token from Authorization header
+async function verifyAdminToken(req: Request): Promise<{ valid: boolean; email?: string }> {
+  const authHeader = req.headers.get('Authorization');
+  
+  if (!authHeader?.startsWith('Bearer ')) {
+    return { valid: false };
+  }
+
+  const token = authHeader.substring(7);
+  
+  try {
+    const key = await getJWTKey();
+    const payload = await verify(token, key);
+    
+    if (payload.role !== 'admin' || payload.email !== AUTHORIZED_EMAIL) {
+      return { valid: false };
+    }
+    
+    return { valid: true, email: payload.email as string };
+  } catch (error) {
+    console.error('Token verification failed');
+    return { valid: false };
+  }
+}
 
 serve(async (req) => {
-  console.log('🚀 admin-data function started');
-  
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    console.log('✅ CORS preflight handled');
     return new Response(null, { headers: corsHeaders });
   }
 
   if (req.method !== 'POST') {
-    console.log('❌ Method not allowed:', req.method);
     return new Response(
       JSON.stringify({ error: 'Method not allowed' }),
-      { 
+      {
         status: 405,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
       }
     );
   }
 
   try {
-    console.log('📥 Reading request body...');
-    const body = await req.json();
-    console.log('📋 Request body:', JSON.stringify(body));
+    // Verify JWT token
+    const { valid, email } = await verifyAdminToken(req);
     
-    const { email, action, data } = body;
-    console.log('📧 Email:', email, 'Action:', action);
-
-    // Validate admin email
-    const authorizedEmail = 'esteban@crealoconia.com';
-    if (email?.toLowerCase() !== authorizedEmail.toLowerCase()) {
-      console.log('❌ Email no autorizado:', email);
+    if (!valid) {
       return new Response(
-        JSON.stringify({ error: 'Email no autorizado para acceso administrativo' }),
-        { 
-          status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        JSON.stringify({ error: 'Unauthorized' }),
+        {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders },
         }
       );
     }
 
+    const { action, id, updates, ids } = await req.json();
+
     if (action === 'get_submissions') {
-      console.log('📊 Obteniendo submissions...');
-      
-      const { data: submissions, error } = await supabase
+      const { data, error } = await supabase
         .from('form_submissions')
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) {
-        console.error('❌ Error getting submissions:', error);
+        console.error('Database error');
         return new Response(
-          JSON.stringify({ error: 'Error obteniendo datos' }),
-          { 
+          JSON.stringify({ error: 'Database error' }),
+          {
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', ...corsHeaders },
           }
         );
       }
 
-      console.log(`✅ Enviados ${submissions?.length || 0} registros`);
       return new Response(
-        JSON.stringify({ submissions }),
-        { 
+        JSON.stringify({ success: true, data }),
+        {
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders },
         }
       );
+    }
 
-    } else if (action === 'update_submission') {
-      console.log('✏️ Actualizando submission...');
-      
-      const { id, updates } = data;
-      
-      const { error } = await supabase
+    if (action === 'update_submission') {
+      if (!id || !updates) {
+        return new Response(
+          JSON.stringify({ error: 'Missing id or updates' }),
+          {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...corsHeaders },
+          }
+        );
+      }
+
+      const { data, error } = await supabase
         .from('form_submissions')
         .update(updates)
-        .eq('id', id);
+        .eq('id', id)
+        .select();
 
       if (error) {
-        console.error('❌ Error updating submission:', error);
+        console.error('Database error');
         return new Response(
-          JSON.stringify({ error: 'Error actualizando registro' }),
-          { 
+          JSON.stringify({ error: 'Database error' }),
+          {
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', ...corsHeaders },
           }
         );
       }
 
-      console.log('✅ Submission actualizado exitosamente');
       return new Response(
-        JSON.stringify({ message: 'Actualizado exitosamente' }),
-        { 
+        JSON.stringify({ success: true, data }),
+        {
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders },
         }
       );
+    }
 
-    } else if (action === 'delete_submission') {
-      console.log('🗑️ Eliminando submission...');
-      
-      const { id } = data;
-      
+    if (action === 'delete_submission') {
+      if (!id) {
+        return new Response(
+          JSON.stringify({ error: 'Missing id' }),
+          {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...corsHeaders },
+          }
+        );
+      }
+
       const { error } = await supabase
         .from('form_submissions')
         .delete()
         .eq('id', id);
 
       if (error) {
-        console.error('❌ Error deleting submission:', error);
+        console.error('Database error');
         return new Response(
-          JSON.stringify({ error: 'Error eliminando registro' }),
-          { 
+          JSON.stringify({ error: 'Database error' }),
+          {
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', ...corsHeaders },
           }
         );
       }
 
-      console.log('✅ Submission eliminado exitosamente');
       return new Response(
-        JSON.stringify({ message: 'Eliminado exitosamente' }),
-        { 
+        JSON.stringify({ success: true }),
+        {
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders },
         }
       );
+    }
 
-    } else if (action === 'delete_multiple_submissions') {
-      console.log('🗑️ Eliminando múltiples submissions...');
-      
-      const { ids } = data;
-      
+    if (action === 'delete_multiple_submissions') {
+      if (!ids || !Array.isArray(ids) || ids.length === 0) {
+        return new Response(
+          JSON.stringify({ error: 'Missing or invalid ids array' }),
+          {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...corsHeaders },
+          }
+        );
+      }
+
       const { error } = await supabase
         .from('form_submissions')
         .delete()
         .in('id', ids);
 
       if (error) {
-        console.error('❌ Error deleting multiple submissions:', error);
+        console.error('Database error');
         return new Response(
-          JSON.stringify({ error: 'Error eliminando registros' }),
-          { 
+          JSON.stringify({ error: 'Database error' }),
+          {
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', ...corsHeaders },
           }
         );
       }
 
-      console.log(`✅ ${ids.length} submissions eliminados exitosamente`);
       return new Response(
-        JSON.stringify({ message: `${ids.length} registros eliminados exitosamente` }),
-        { 
+        JSON.stringify({ success: true, deleted_count: ids.length }),
+        {
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders },
         }
       );
     }
 
-    console.log('❌ Acción no válida:', action);
     return new Response(
-      JSON.stringify({ error: 'Acción no válida' }),
-      { 
+      JSON.stringify({ error: 'Invalid action' }),
+      {
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
       }
     );
 
-  } catch (error) {
-    console.error('💥 Error crítico general:', error);
-    console.error('📋 Stack trace:', error.stack);
-    console.error('📋 Error message:', error.message);
+  } catch (error: any) {
+    console.error('Admin data error');
     return new Response(
-      JSON.stringify({ 
-        error: 'Error interno del servidor',
-        details: error.message || 'Error desconocido'
-      }),
-      { 
+      JSON.stringify({ error: 'Internal server error' }),
+      {
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
       }
     );
   }
