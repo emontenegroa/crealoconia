@@ -66,14 +66,15 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     // Check if Facebook credentials are configured
     if (!FACEBOOK_PIXEL_ID || !FACEBOOK_ACCESS_TOKEN) {
-      console.error('Facebook credentials not configured');
+      console.log('Facebook integration not configured - skipping tracking');
       return new Response(
         JSON.stringify({
-          success: false,
-          error: 'Facebook integration not configured'
+          success: true,
+          skipped: true,
+          reason: 'Facebook integration not configured'
         }),
         {
-          status: 500,
+          status: 200,
           headers: {
             'Content-Type': 'application/json',
             ...corsHeaders,
