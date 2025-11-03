@@ -105,22 +105,26 @@ export default function Admin({ onLogout }: AdminProps) {
       }
 
       // Use edge function to get data with JWT authentication
-      const { data, error } = await supabase.functions.invoke('admin-data', {
-        body: { 
-          action: 'get_submissions'
-        },
-        headers: {
-          'Authorization': `Bearer ${token}`
+      const response = await fetch(
+        'https://yxagfbefgqlsjrxjtgjr.supabase.co/functions/v1/admin-data',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4YWdmYmVmZ3Fsc2pyeGp0Z2pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMTk3MDksImV4cCI6MjA2Mzg5NTcwOX0.lARyIy_arVLqJguAT_gpjWe5CXUDhdBHvpEuJP0Kvvs'
+          },
+          body: JSON.stringify({ action: 'get_submissions' })
         }
-      });
+      );
 
-      console.log('Respuesta de admin-data:', { data, error });
-      
-      if (error) {
-        console.error('Error de admin-data:', error);
-        throw new Error(error.message || 'Error de función admin');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP ${response.status}`);
       }
 
+      const data = await response.json();
+      
       if (data?.error) {
         throw new Error(data.error);
       }
@@ -261,19 +265,32 @@ export default function Admin({ onLogout }: AdminProps) {
         return;
       }
 
-      const { data, error } = await supabase.functions.invoke('admin-data', {
-        body: { 
-          action: 'update_submission',
-          id,
-          updates
-        },
-        headers: {
-          'Authorization': `Bearer ${token}`
+      const response = await fetch(
+        'https://yxagfbefgqlsjrxjtgjr.supabase.co/functions/v1/admin-data',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4YWdmYmVmZ3Fsc2pyeGp0Z2pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMTk3MDksImV4cCI6MjA2Mzg5NTcwOX0.lARyIy_arVLqJguAT_gpjWe5CXUDhdBHvpEuJP0Kvvs'
+          },
+          body: JSON.stringify({ 
+            action: 'update_submission',
+            id,
+            updates
+          })
         }
-      });
+      );
 
-      if (error || data?.error) {
-        throw new Error(data?.error || error?.message || 'Error updating submission');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data?.error) {
+        throw new Error(data.error);
       }
 
       await loadSubmissions();
@@ -310,18 +327,31 @@ export default function Admin({ onLogout }: AdminProps) {
         return;
       }
 
-      const { data, error } = await supabase.functions.invoke('admin-data', {
-        body: { 
-          action: 'delete_submission',
-          id
-        },
-        headers: {
-          'Authorization': `Bearer ${token}`
+      const response = await fetch(
+        'https://yxagfbefgqlsjrxjtgjr.supabase.co/functions/v1/admin-data',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4YWdmYmVmZ3Fsc2pyeGp0Z2pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMTk3MDksImV4cCI6MjA2Mzg5NTcwOX0.lARyIy_arVLqJguAT_gpjWe5CXUDhdBHvpEuJP0Kvvs'
+          },
+          body: JSON.stringify({ 
+            action: 'delete_submission',
+            id
+          })
         }
-      });
+      );
 
-      if (error || data?.error) {
-        throw new Error(data?.error || error?.message || 'Error deleting submission');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data?.error) {
+        throw new Error(data.error);
       }
 
       await loadSubmissions();
@@ -366,20 +396,33 @@ export default function Admin({ onLogout }: AdminProps) {
         return;
       }
 
-      const { data, error } = await supabase.functions.invoke('admin-data', {
-        body: {
-          action: 'delete_multiple_submissions',
-          ids: selectedIds
-        },
-        headers: {
-          'Authorization': `Bearer ${token}`
+      const response = await fetch(
+        'https://yxagfbefgqlsjrxjtgjr.supabase.co/functions/v1/admin-data',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4YWdmYmVmZ3Fsc2pyeGp0Z2pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMTk3MDksImV4cCI6MjA2Mzg5NTcwOX0.lARyIy_arVLqJguAT_gpjWe5CXUDhdBHvpEuJP0Kvvs'
+          },
+          body: JSON.stringify({
+            action: 'delete_multiple_submissions',
+            ids: selectedIds
+          })
         }
-      });
+      );
 
-      console.log('Resultado de eliminación:', { data, error });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP ${response.status}`);
+      }
 
-      if (error || data?.error) {
-        throw new Error(data?.error || error?.message || 'Error deleting submissions');
+      const data = await response.json();
+
+      console.log('Resultado de eliminación:', { data });
+
+      if (data?.error) {
+        throw new Error(data.error);
       }
 
       await loadSubmissions();
