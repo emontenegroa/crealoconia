@@ -6,15 +6,9 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// Load credentials from environment variables (Supabase secrets)
-const FACEBOOK_PIXEL_ID = Deno.env.get('FACEBOOK_PIXEL_ID');
-const FACEBOOK_ACCESS_TOKEN = Deno.env.get('FACEBOOK_ACCESS_TOKEN');
-const TEST_EVENT_CODE = Deno.env.get('TEST_EVENT_CODE');
-
-// Validate required environment variables
-if (!FACEBOOK_PIXEL_ID || !FACEBOOK_ACCESS_TOKEN) {
-  console.error('Missing required Facebook credentials in environment variables');
-}
+const FACEBOOK_PIXEL_ID = '1681063145914408';
+const FACEBOOK_ACCESS_TOKEN = 'EAAdKvg3zpGwBPeKEx2EKGaMymQ8hzC2W3fZArZA5WS3EOGlHF0bOXcrZCXZBod1o9tK8eeYbhVKOniHQ0tSowm3UIaTBuXlOUUSlT9u5meA7DZCOZCaZBHgU5s2dPaQSuF0p97vuZBIugKeliphU0WHEjdC4BrmwOPGEDdlQgrjmq9bEUyJLxO5241Vk0mnwOV4uQQZDZD';
+const TEST_EVENT_CODE = 'TEST12345'; // Updated with new credentials
 
 console.log('Meta Conversions Function loaded with Pixel ID:', FACEBOOK_PIXEL_ID);
 
@@ -64,24 +58,6 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    // Check if Facebook credentials are configured
-    if (!FACEBOOK_PIXEL_ID || !FACEBOOK_ACCESS_TOKEN) {
-      console.log('Facebook integration not configured - skipping tracking');
-      return new Response(
-        JSON.stringify({
-          success: true,
-          skipped: true,
-          reason: 'Facebook integration not configured'
-        }),
-        {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders,
-          },
-        }
-      );
-    }
     const requestData: ConversionRequest = await req.json();
     
     console.log('Processing Facebook Conversion Event:', {
@@ -90,34 +66,13 @@ const handler = async (req: Request): Promise<Response> => {
       hasEmail: !!requestData.email
     });
 
-    // Skip PageView events without email - Facebook requires customer information
-    // These events are less critical and can be tracked client-side only
-    if (requestData.eventType === 'PageView' && !requestData.email) {
-      console.log('Skipping PageView event without email - insufficient customer data for Facebook API');
-      return new Response(
-        JSON.stringify({
-          success: true,
-          skipped: true,
-          reason: 'PageView without email - tracked client-side only',
-          event_id: requestData.eventId
-        }),
-        {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders,
-          },
-        }
-      );
-    }
-
     // Prepare user data with hashing
     const userData: any = {
       client_ip_address: requestData.clientIpAddress,
       client_user_agent: requestData.userAgent
     };
 
-    // Hash email if provided (required for Lead and CompleteRegistration)
+    // Hash email if provided
     if (requestData.email) {
       userData.em = await sha256(normalizeData(requestData.email));
     }
@@ -143,15 +98,11 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Prepare the payload for Facebook Conversions API
-    const payload: any = {
+    const payload = {
       data: [facebookEvent],
+      test_event_code: TEST_EVENT_CODE, // Remove this line when going to production
       access_token: FACEBOOK_ACCESS_TOKEN
     };
-    
-    // Add test event code if configured (for testing only)
-    if (TEST_EVENT_CODE) {
-      payload.test_event_code = TEST_EVENT_CODE;
-    }
 
     console.log('Sending to Facebook Conversions API:', {
       url: `https://graph.facebook.com/v18.0/${FACEBOOK_PIXEL_ID}/events`,
