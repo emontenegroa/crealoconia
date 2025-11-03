@@ -42,7 +42,18 @@ export const validateText = (
   
   if (!text) return { isValid: true };
   
-  const securityValidation = validateTextContentSecurity(text, fieldName, maxLength);
+  // Sanitizar primero para remover espacios extras que podrían causar exceso de longitud
+  const sanitizedText = sanitizeInput(text);
+  
+  // Verificar longitud después de sanitizar
+  if (sanitizedText.length > maxLength) {
+    return { 
+      isValid: false, 
+      error: `${fieldName} debe tener máximo ${maxLength} caracteres. Actualmente tiene ${sanitizedText.length}.`
+    };
+  }
+  
+  const securityValidation = validateTextContentSecurity(sanitizedText, fieldName, maxLength);
   
   if (!securityValidation.isValid) {
     return { 

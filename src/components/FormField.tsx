@@ -27,6 +27,30 @@ interface FormFieldProps {
   onAIUsageUpdate?: (fieldName: string, count: number) => void;
 }
 
+// Límites de caracteres por tipo de campo
+const getFieldMaxLength = (fieldName: string): number => {
+  switch (fieldName) {
+    case 'marca':
+      return 100;
+    case 'email':
+      return 254;
+    case 'whatsapp':
+      return 20;
+    case 'website':
+    case 'instagram':
+      return 100;
+    case 'quien_eres':
+    case 'problemas':
+    case 'preguntas_frecuentes':
+    case 'producto':
+      return 2000;
+    case 'estilo':
+      return 50;
+    default:
+      return 500;
+  }
+};
+
 const FormField = ({ 
   type, 
   label, 
@@ -219,6 +243,7 @@ const FormField = ({
           value={value}
           onChange={(e) => handleChange(e.target.value)}
           placeholder={getPlaceholder()}
+          maxLength={getFieldMaxLength(name)}
           className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20 focus:border-blue-400 transition-all duration-300 py-3 text-base sm:text-lg"
         />
       )}
@@ -229,6 +254,8 @@ const FormField = ({
           onChange={(e) => handleChange(e.target.value)}
           placeholder={getPlaceholder()}
           rows={isExpanded ? 8 : 4}
+          maxLength={getFieldMaxLength(name)}
+          showCounter={true}
           className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20 focus:border-blue-400 transition-all duration-300 text-base sm:text-lg resize-none"
         />
       )}

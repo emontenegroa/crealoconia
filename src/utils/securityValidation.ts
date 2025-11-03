@@ -141,8 +141,8 @@ export interface RateLimitConfig {
 }
 
 const RATE_LIMITS = {
-  email_submission: { maxAttempts: 3, windowMinutes: 10, blockDurationMinutes: 30 },
-  form_completion: { maxAttempts: 5, windowMinutes: 60, blockDurationMinutes: 60 },
+  email_submission: { maxAttempts: 5, windowMinutes: 10, blockDurationMinutes: 15 },
+  form_completion: { maxAttempts: 8, windowMinutes: 60, blockDurationMinutes: 30 },
   ai_enhancement: { maxAttempts: 10, windowMinutes: 60, blockDurationMinutes: 30 }
 };
 
