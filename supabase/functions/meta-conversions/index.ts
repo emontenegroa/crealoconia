@@ -66,13 +66,34 @@ const handler = async (req: Request): Promise<Response> => {
       hasEmail: !!requestData.email
     });
 
+    // Skip PageView events without email - Facebook requires customer information
+    // These events are less critical and can be tracked client-side only
+    if (requestData.eventType === 'PageView' && !requestData.email) {
+      console.log('Skipping PageView event without email - insufficient customer data for Facebook API');
+      return new Response(
+        JSON.stringify({
+          success: true,
+          skipped: true,
+          reason: 'PageView without email - tracked client-side only',
+          event_id: requestData.eventId
+        }),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          },
+        }
+      );
+    }
+
     // Prepare user data with hashing
     const userData: any = {
       client_ip_address: requestData.clientIpAddress,
       client_user_agent: requestData.userAgent
     };
 
-    // Hash email if provided
+    // Hash email if provided (required for Lead and CompleteRegistration)
     if (requestData.email) {
       userData.em = await sha256(normalizeData(requestData.email));
     }

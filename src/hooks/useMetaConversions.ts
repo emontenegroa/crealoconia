@@ -42,8 +42,19 @@ export const useMetaConversions = () => {
       });
       
       if (error) {
+        // Only log as error if it's not a skipped PageView
+        if (eventData.eventType === 'PageView' && !eventData.email) {
+          console.log('PageView without email - tracking client-side only');
+          return { success: true, skipped: true };
+        }
         console.error('Meta Conversion tracking error:', error);
         return { success: false, error };
+      }
+      
+      // Check if event was skipped
+      if (data?.skipped) {
+        console.log('Meta Conversion skipped:', data.reason);
+        return { success: true, skipped: true, data };
       }
       
       console.log('Meta Conversion tracked successfully:', data);
