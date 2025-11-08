@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import FormWizard from "@/components/FormWizard";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Landing2 = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const email = searchParams.get('email');
+  
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     servicios: '',
@@ -17,6 +22,17 @@ const Landing2 = () => {
     resultados: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!email) {
+      toast({
+        title: "Error",
+        description: "No se encontró tu email. Por favor completa el formulario inicial.",
+        variant: "destructive"
+      });
+      navigate('/landing1');
+    }
+  }, [email, navigate, toast]);
 
   const stepLabels = [
     'Servicios',
@@ -88,12 +104,14 @@ const Landing2 = () => {
       return;
     }
 
+    if (!email) return;
+
     setIsSubmitting(true);
     try {
+      // Update existing form submission with the 5 questions
       const { error } = await supabase
         .from('form_submissions')
-        .insert([{
-          email: 'pending@email.com',
+        .update({
           form_data: {
             servicios: formData.servicios,
             clientePerfil: formData.clientePerfil,
@@ -101,8 +119,11 @@ const Landing2 = () => {
             propuestaMetodo: formData.propuestaMetodo,
             resultados: formData.resultados,
             landing_type: 'landing2_5questions'
-          }
-        }]);
+          },
+          completed: true
+        })
+        .eq('email', email)
+        .eq('completed', false);
 
       if (error) throw error;
 
@@ -112,7 +133,7 @@ const Landing2 = () => {
       });
 
       // Redirect to landing 3
-      window.location.href = '/landing3';
+      navigate('/landing3');
     } catch (error) {
       console.error('Error:', error);
       toast({

@@ -35,21 +35,24 @@ const Landing1 = () => {
       const { error } = await supabase
         .from('form_submissions')
         .insert([{
-          marca: formData.nombre,
           email: formData.email,
-          whatsapp: formData.telefono,
-          landing_type: 'landing1_basic'
+          form_data: {
+            nombre: formData.nombre,
+            telefono: formData.telefono,
+            landing_type: 'landing1_initial'
+          },
+          completed: false
         }]);
 
       if (error) throw error;
 
       toast({
         title: "¡Perfecto!",
-        description: "Revisa tu correo para comenzar",
+        description: "Continuemos con las siguientes preguntas",
       });
 
-      // Redirect to landing 2
-      window.location.href = '/landing2';
+      // Redirect to landing 2 with email
+      window.location.href = `/landing2?email=${encodeURIComponent(formData.email)}`;
     } catch (error) {
       console.error('Error:', error);
       toast({
