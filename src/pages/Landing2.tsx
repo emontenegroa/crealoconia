@@ -111,24 +111,76 @@ const Landing2 = () => {
 
     setIsSubmitting(true);
     try {
-      // Update existing form submission with the 5 questions
-      const { error } = await supabase
-        .from('form_submissions')
-        .update({
-          form_data: {
-            servicios: formData.servicios,
-            clientePerfil: formData.clientePerfil,
-            problemaPrincipal: formData.problemaPrincipal,
-            propuestaMetodo: formData.propuestaMetodo,
-            resultados: formData.resultados,
-            landing_type: 'landing2_5questions'
-          },
-          completed: true
-        })
-        .eq('email', email)
-        .eq('completed', false);
+      console.log('🚀 Intentando guardar formulario para:', email);
+      console.log('📝 Datos del formulario:', formData);
 
-      if (error) throw error;
+      // Primero buscar si existe un registro incompleto
+      const { data: existingSubmission, error: fetchError } = await supabase
+        .from('form_submissions')
+        .select('*')
+        .eq('email', email)
+        .eq('completed', false)
+        .maybeSingle();
+
+      if (fetchError) {
+        console.error('❌ Error buscando registro:', fetchError);
+        throw fetchError;
+      }
+
+      console.log('🔍 Registro encontrado:', existingSubmission);
+
+      if (existingSubmission) {
+        // Actualizar registro existente
+        const { data: updateData, error: updateError } = await supabase
+          .from('form_submissions')
+          .update({
+            form_data: {
+              ...(existingSubmission.form_data as Record<string, any> || {}),
+              servicios: formData.servicios,
+              clientePerfil: formData.clientePerfil,
+              problemaPrincipal: formData.problemaPrincipal,
+              propuestaMetodo: formData.propuestaMetodo,
+              resultados: formData.resultados,
+              landing_type: 'landing2_5questions'
+            },
+            completed: true,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', existingSubmission.id)
+          .select();
+
+        if (updateError) {
+          console.error('❌ Error actualizando:', updateError);
+          throw updateError;
+        }
+
+        console.log('✅ Registro actualizado exitosamente:', updateData);
+      } else {
+        // Si no existe registro incompleto, crear uno nuevo
+        console.log('⚠️ No se encontró registro incompleto, creando uno nuevo');
+        const { data: insertData, error: insertError } = await supabase
+          .from('form_submissions')
+          .insert({
+            email: email,
+            form_data: {
+              servicios: formData.servicios,
+              clientePerfil: formData.clientePerfil,
+              problemaPrincipal: formData.problemaPrincipal,
+              propuestaMetodo: formData.propuestaMetodo,
+              resultados: formData.resultados,
+              landing_type: 'landing2_5questions'
+            },
+            completed: true
+          })
+          .select();
+
+        if (insertError) {
+          console.error('❌ Error insertando:', insertError);
+          throw insertError;
+        }
+
+        console.log('✅ Registro creado exitosamente:', insertData);
+      }
 
       toast({
         title: "¡Excelente!",
@@ -138,7 +190,7 @@ const Landing2 = () => {
       // Redirect to landing 3
       navigate('/landing3');
     } catch (error) {
-      console.error('Error:', error);
+      console.error('❌ Error general:', error);
       toast({
         title: "Error",
         description: "Hubo un problema. Intenta nuevamente.",
