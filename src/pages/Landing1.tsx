@@ -30,9 +30,29 @@ const Landing1 = () => {
       return;
     }
 
+    // Validate email format
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Email inválido",
+        description: "Por favor ingresa un email válido",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      const { error } = await supabase
+      console.log('Intentando insertar en form_submissions:', {
+        email: formData.email,
+        form_data: {
+          nombre: formData.nombre,
+          telefono: formData.telefono,
+          landing_type: 'landing1_initial'
+        }
+      });
+
+      const { data, error } = await supabase
         .from('form_submissions')
         .insert([{
           email: formData.email,
@@ -42,9 +62,15 @@ const Landing1 = () => {
             landing_type: 'landing1_initial'
           },
           completed: false
-        }]);
+        }])
+        .select();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error de Supabase:', error);
+        throw error;
+      }
+
+      console.log('Inserción exitosa:', data);
 
       toast({
         title: "¡Perfecto!",
