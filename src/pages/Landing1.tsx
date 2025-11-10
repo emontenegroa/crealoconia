@@ -43,34 +43,22 @@ const Landing1 = () => {
 
     setIsSubmitting(true);
     try {
-      console.log('Intentando insertar en form_submissions:', {
-        email: formData.email,
-        form_data: {
+      // Use the upsert function to handle existing incomplete submissions
+      const { data, error } = await supabase.rpc('upsert_form_submission', {
+        p_email: formData.email,
+        p_form_data: {
           nombre: formData.nombre,
           telefono: formData.telefono,
           landing_type: 'landing1_initial'
-        }
+        },
+        p_attempt_number: 1,
+        p_completed: false
       });
-
-      const { data, error } = await supabase
-        .from('form_submissions')
-        .insert([{
-          email: formData.email,
-          form_data: {
-            nombre: formData.nombre,
-            telefono: formData.telefono,
-            landing_type: 'landing1_initial'
-          },
-          completed: false
-        }])
-        .select();
 
       if (error) {
         console.error('Error de Supabase:', error);
         throw error;
       }
-
-      console.log('Inserción exitosa:', data);
 
       toast({
         title: "¡Perfecto!",
