@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import AIEnhanceButton from "@/components/AIEnhanceButton";
 
 const Landing2 = () => {
   const { toast } = useToast();
@@ -22,6 +23,8 @@ const Landing2 = () => {
     resultados: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const [aiUsageTracking, setAiUsageTracking] = useState<Record<string, number>>({});
 
   useEffect(() => {
     if (!email) {
@@ -146,6 +149,15 @@ const Landing2 = () => {
     }
   };
 
+
+  const handleAIEnhanced = (fieldName: string, enhancedText: string) => {
+    setFormData(prev => ({ ...prev, [fieldName]: enhancedText }));
+  };
+
+  const handleAIUsageUpdate = (fieldName: string, count: number) => {
+    setAiUsageTracking(prev => ({ ...prev, [fieldName]: count }));
+  };
+
   const currentQuestion = questions[currentStep];
 
   return (
@@ -207,7 +219,20 @@ const Landing2 = () => {
         <Card className="p-8 bg-card/90 backdrop-blur">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-base font-medium text-foreground">{currentQuestion.label}</label>
+              <div className="flex items-start justify-between gap-4">
+                <label className="text-base font-medium text-foreground flex-1">{currentQuestion.label}</label>
+                <AIEnhanceButton
+                  currentText={formData[currentQuestion.name as keyof typeof formData]}
+                  fieldType={currentQuestion.name}
+                  context={{
+                    marca: email || '',
+                    estilo: 'profesional'
+                  }}
+                  onEnhanced={(enhancedText) => handleAIEnhanced(currentQuestion.name, enhancedText)}
+                  sessionId={sessionId}
+                  onUsageUpdate={handleAIUsageUpdate}
+                />
+              </div>
               <textarea
                 value={formData[currentQuestion.name as keyof typeof formData]}
                 onChange={(e) => handleInputChange(currentQuestion.name, e.target.value)}
