@@ -25,6 +25,7 @@ const Landing2 = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [aiUsageTracking, setAiUsageTracking] = useState<Record<string, number>>({});
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   useEffect(() => {
     if (!email) {
@@ -102,6 +103,15 @@ const Landing2 = () => {
       toast({
         title: "Campo requerido",
         description: "Por favor completa la pregunta actual",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!acceptedTerms) {
+      toast({
+        title: "Términos y condiciones",
+        description: "Debes aceptar los términos y condiciones para continuar",
         variant: "destructive"
       });
       return;
@@ -293,6 +303,33 @@ const Landing2 = () => {
                 required
               />
             </div>
+
+            {/* Términos y condiciones - solo en el último paso */}
+            {currentStep === questions.length - 1 && (
+              <div className="space-y-4 pt-4 border-t border-border">
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    checked={acceptedTerms}
+                    onChange={(e) => setAcceptedTerms(e.target.checked)}
+                    className="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-primary"
+                  />
+                  <label htmlFor="terms" className="text-sm text-foreground/80">
+                    Acepto los{' '}
+                    <a
+                      href="/Terminos_y_Condiciones_CrealoconIA.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline font-medium"
+                    >
+                      términos y condiciones
+                    </a>{' '}
+                    del servicio de CrealoconIA.com
+                  </label>
+                </div>
+              </div>
+            )}
 
             <div className="flex justify-between items-center pt-4">
               <Button
