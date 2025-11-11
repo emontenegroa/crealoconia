@@ -85,92 +85,58 @@ const Landing1 = () => {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Haz Crecer tu Negocio con una Web Profesional en Minutos
+            Crea tu Web Profesional con IA en Minutos
           </h1>
-          <p className="text-xl text-muted-foreground mb-4">
-            (Impulsada por tu propio asistente de IA)
-          </p>
           <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-            Si eres coach, terapeuta o profesional, tu web es tu carta de presentación. 
-            Consíguela lista sin complicaciones técnicas y enfocada en conseguir clientes.
+            Si eres coach, terapeuta o profesional independiente, tu web es tu carta de presentación. 
+            Consíguela lista, sin complicaciones técnicas y enfocada en atraer clientes.
           </p>
         </div>
 
-        {/* Por qué esto importa */}
-        <Card className="mb-12 p-8 bg-card/80 backdrop-blur">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Por qué esto importa</h2>
-          <p className="text-foreground/80">
-            Tus potenciales clientes buscan una web clara, profesional y que comunique tu valor para ellos, 
-            si no, simplemente pasan al siguiente.
-          </p>
-        </Card>
-
-        {/* Cómo Funciona */}
-        <Card className="mb-12 p-8 bg-card/80 backdrop-blur">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Cómo Funciona (3 Servicios en 1)</h2>
+        {/* Qué Incluye */}
+        <Card className="mb-8 p-6 bg-card/80 backdrop-blur">
+          <h2 className="text-xl font-bold text-foreground mb-4">Qué Incluye</h2>
           
-          <div className="space-y-6">
-            <div className="border-l-4 border-primary pl-6">
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                1) Prompt Estratégico Personalizado (Gratis)
-              </h3>
-              <p className="text-foreground/80">
-                Completa un breve formulario y la IA creará un asistente exclusivo para tu marca, 
-                que te ayudará a generar contenido, guiones de video, mensajes para redes y diseñar tu web.
-              </p>
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <span className="text-primary text-xl font-bold">1.</span>
+              <div>
+                <h3 className="font-semibold text-foreground mb-1">Asistente de IA Personalizado (Gratis)</h3>
+                <p className="text-foreground/80 text-sm">
+                  Genera contenido, guiones y mensajes para atraer clientes
+                </p>
+              </div>
             </div>
 
-            <div className="border-l-4 border-primary pl-6">
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                2) Mentoría 1 a 1 con Esteban Montenegro
-              </h3>
-              <p className="text-foreground/80">
-                Revisamos tu propuesta de valor, optimizamos tu comunicación y ajustamos tu mensaje 
-                para atraer a los clientes correctos.
-              </p>
+            <div className="flex items-start gap-3">
+              <span className="text-primary text-xl font-bold">2.</span>
+              <div>
+                <h3 className="font-semibold text-foreground mb-1">Mentoría 1 a 1</h3>
+                <p className="text-foreground/80 text-sm">
+                  Definimos tu propuesta de valor y mensaje para atraer a tus clientes ideales
+                </p>
+              </div>
             </div>
 
-            <div className="border-l-4 border-primary pl-6">
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                3) Sitio Web Profesional + Dominio (2 años incluidos)
-              </h3>
-              <p className="text-foreground/80 mb-3">
-                Tu web diseñada para convertir, con tu propuesta clara y enfocada a conseguir nuevos clientes.
-              </p>
-              <p className="text-xl font-bold text-primary">
-                Precio: $197.000 CLP (pago único, hosting incluido por 24 meses)
-              </p>
+            <div className="flex items-start gap-3">
+              <span className="text-primary text-xl font-bold">3.</span>
+              <div>
+                <h3 className="font-semibold text-foreground mb-1">Tu Web + Dominio (2 años)</h3>
+                <p className="text-foreground/80 text-sm mb-2">
+                  Sitio profesional diseñado para convertir visitantes en clientes
+                </p>
+                <p className="text-lg font-bold text-primary">
+                  $197.000 CLP (pago único, incluye hosting por 24 meses)
+                </p>
+              </div>
             </div>
           </div>
         </Card>
 
-        {/* Beneficios Clave */}
-        <Card className="mb-12 p-8 bg-card/80 backdrop-blur">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Beneficios Clave</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start">
-              <span className="text-primary mr-3 text-xl">✓</span>
-              <span className="text-foreground/80">Posicionamiento profesional inmediato</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-3 text-xl">✓</span>
-              <span className="text-foreground/80">Mensaje claro y persuasivo para atraer clientes</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-3 text-xl">✓</span>
-              <span className="text-foreground/80">Acompañamiento experto, no estás solo</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-3 text-xl">✓</span>
-              <span className="text-foreground/80">Sin necesidad de saber diseño o tecnología</span>
-            </li>
-          </ul>
-        </Card>
-
         {/* Formulario */}
         <Card className="p-8 bg-card/90 backdrop-blur">
-          <h2 className="text-2xl font-bold text-center text-foreground mb-6">
-            Comienza ahora gratis → Recibe tu Prompt Personalizado
+          <h2 className="text-xl font-bold text-center text-foreground mb-6">
+            Paso 1: Recibe tu Asistente de IA (Gratis)
           </h2>
           
           <form onSubmit={handleSubmit} className="space-y-6">

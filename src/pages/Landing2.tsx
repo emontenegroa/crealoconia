@@ -226,47 +226,12 @@ const Landing2 = () => {
     <div className="min-h-screen bg-gradient-to-br from-primary via-primary-dark to-background">
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Tu Asistente de Contenido Está a 5 Minutos de Distancia
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            5 Preguntas para Crear tu Asistente de IA
           </h1>
-          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-            Completa estas 5 preguntas para que la IA entienda tu negocio y diseñe tu mensaje de marca 
-            listo para atraer clientes.
-          </p>
-        </div>
-
-        {/* Por qué es importante */}
-        <Card className="mb-8 p-6 bg-card/80 backdrop-blur">
-          <h2 className="text-xl font-bold text-foreground mb-3">Por qué es importante</h2>
-          <p className="text-foreground/80 mb-4">
-            Mientras más claras sean tus respuestas, más preciso será el asistente que recibirás. 
-            Este asistente te ayudará a:
-          </p>
-          <ul className="space-y-2 text-foreground/80">
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              Crear publicaciones para redes sociales
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              Escribir guiones para videos
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              Diseñar mensajes persuasivos para atraer clientes
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              Construir una comunicación clara y profesional
-            </li>
-          </ul>
-        </Card>
-
-        {/* Indicación previa */}
-        <div className="text-center mb-8 p-4 bg-primary/10 rounded-lg border border-primary/20">
-          <p className="text-foreground font-medium">
-            Tómate un momento y respóndelas con calma. Este paso es clave para crear tu identidad y mensaje.
+          <p className="text-foreground/80 max-w-2xl mx-auto">
+            Mientras más claras sean tus respuestas, mejor será tu asistente para crear contenido que atraiga clientes.
           </p>
         </div>
 

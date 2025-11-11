@@ -16,90 +16,64 @@ const Landing3 = () => {
           <div className="inline-block mb-6">
             <CheckCircle className="w-20 h-20 text-green-500 mx-auto animate-bounce" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            ¡Listo! Tu Asistente de Contenido con IA está en camino a tu correo
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            ¡Felicitaciones! Tu Asistente de IA está Listo
           </h1>
-          <div className="flex items-center justify-center gap-3 text-lg text-foreground/80">
-            <Mail className="w-6 h-6 text-primary" />
-            <p>
-              Revisa tu bandeja de entrada en los próximos minutos. Ahí recibirás el prompt personalizado 
-              que te ayudará a crear publicaciones, guiones y mensajes efectivos para atraer nuevos clientes.
+          <div className="flex items-center justify-center gap-2 text-foreground/80 mb-6">
+            <Mail className="w-5 h-5 text-primary" />
+            <p className="text-lg">
+              Revisa tu correo en los próximos minutos
             </p>
           </div>
+          <p className="text-foreground/70 max-w-xl mx-auto">
+            Ahí encontrarás tu asistente personalizado listo para ayudarte a crear contenido 
+            y mensajes que atraigan clientes.
+          </p>
         </div>
 
-        {/* ¿Qué sigue ahora? */}
-        <Card className="mb-8 p-8 bg-card/80 backdrop-blur">
-          <h2 className="text-2xl font-bold text-foreground mb-4">¿Qué sigue ahora?</h2>
-          <p className="text-foreground/80 mb-6">
-            Tu asistente es poderoso, pero su verdadero potencial se activa cuando lo conectamos 
-            con tu propuesta y tu web.
+        {/* Siguiente Paso */}
+        <Card className="mb-8 p-6 bg-card/80 backdrop-blur">
+          <h2 className="text-xl font-bold text-foreground mb-4">¿Quieres dar el siguiente paso?</h2>
+          <p className="text-foreground/80 mb-4">
+            En una mentoría 1 a 1 creamos tu web profesional en vivo:
           </p>
           
-          <h3 className="text-xl font-semibold text-foreground mb-4">
-            En la mentoría 1 a 1 con Esteban Montenegro:
-          </h3>
-          <ul className="space-y-3 mb-6">
-            <li className="flex items-start">
-              <span className="text-primary mr-3 text-xl">✓</span>
-              <span className="text-foreground/80">Revisamos tu propuesta de valor</span>
+          <ul className="space-y-2 mb-6">
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span className="text-foreground/80">Definimos tu mensaje y propuesta de valor</span>
             </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-3 text-xl">✓</span>
-              <span className="text-foreground/80">Ajustamos tu mensaje para que sea claro y persuasivo</span>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span className="text-foreground/80">Creamos tu web durante la sesión</span>
             </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-3 text-xl">✓</span>
-              <span className="text-foreground/80">
-                Creamos y lanzamos tu página web profesional durante la reunión (sí, en vivo)
-              </span>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">✓</span>
+              <span className="text-foreground/80">Publicamos con tu dominio propio</span>
             </li>
           </ul>
 
-          <div className="bg-primary/10 p-6 rounded-lg border border-primary/20">
-            <h3 className="text-xl font-semibold text-foreground mb-4">Al finalizar tendrás:</h3>
-            <ul className="space-y-2 text-foreground/80">
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Tu identidad de marca clara
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Tu asistente de contenido listo para usar
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Tu página web publicada con tu dominio propio
-              </li>
-            </ul>
+          <div className="bg-primary/10 p-4 rounded-lg border border-primary/20 mb-6">
+            <p className="text-center text-lg mb-2">
+              <span className="text-2xl font-bold text-primary">$197.000 CLP</span>
+            </p>
+            <p className="text-sm text-center text-foreground/70">
+              Incluye: Web + Dominio + Hosting (2 años) + Mentoría
+            </p>
           </div>
-        </Card>
-
-        {/* Inversión */}
-        <Card className="mb-8 p-8 bg-card/90 backdrop-blur border-2 border-primary">
-          <h2 className="text-2xl font-bold text-foreground mb-4 text-center">Inversión</h2>
-          <p className="text-center text-foreground/80 mb-4">
-            La mentoría para crear y lanzar tu web es sin costo al agendar.
-          </p>
-          <p className="text-center text-lg mb-6">
-            El pago de{' '}
-            <span className="text-2xl font-bold text-primary">$197.000 CLP</span>
-            {' '}(web + dominio + hosting 2 años + mentoría personalizada) se realiza durante la sesión, 
-            mediante un enlace de pago seguro.
-          </p>
           
           <Button
             onClick={handleSchedule}
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6"
           >
             <Calendar className="w-5 h-5 mr-2" />
-            Agendar mi Mentoría Gratis
+            Agendar Mentoría Gratis
           </Button>
         </Card>
 
-        {/* Información adicional */}
-        <div className="text-center text-foreground/70 text-sm space-y-2">
-          <p>¿Tienes dudas? Escríbeme directamente:</p>
+        {/* Contacto */}
+        <div className="text-center">
+          <p className="text-foreground/70 text-sm mb-3">¿Dudas? Escríbeme:</p>
           <Button
             variant="outline"
             onClick={() => window.open('https://wa.me/56961249991', '_blank')}
