@@ -20,7 +20,7 @@ export type Database = {
           email: string
           expires_at: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           location_info: Json | null
           temp_key: string
           used: boolean
@@ -31,7 +31,7 @@ export type Database = {
           email: string
           expires_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           location_info?: Json | null
           temp_key: string
           used?: boolean
@@ -42,7 +42,7 @@ export type Database = {
           email?: string
           expires_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           location_info?: Json | null
           temp_key?: string
           used?: boolean
@@ -147,7 +147,7 @@ export type Database = {
           event_data: Json | null
           event_type: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           user_agent: string | null
           user_id: string | null
         }
@@ -157,7 +157,7 @@ export type Database = {
           event_data?: Json | null
           event_type: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           user_agent?: string | null
           user_id?: string | null
         }
@@ -167,7 +167,7 @@ export type Database = {
           event_data?: Json | null
           event_type?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           user_agent?: string | null
           user_id?: string | null
         }
@@ -197,19 +197,41 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      assign_admin_role_by_email: {
+        Args: { admin_email: string }
+        Returns: undefined
+      }
       check_admin_rate_limit: {
         Args: { check_email: string }
         Returns: boolean
       }
-      cleanup_expired_temp_keys: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      cleanup_expired_temp_keys: { Args: never; Returns: undefined }
       detect_suspicious_activity: {
         Args: { check_email: string; time_window_minutes?: number }
         Returns: boolean
@@ -228,14 +250,15 @@ export type Database = {
           updated_at: string
         }[]
       }
-      is_admin_authenticated: {
-        Args: Record<PropertyKey, never>
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
         Returns: boolean
       }
-      log_admin_access: {
-        Args: { admin_email: string }
-        Returns: undefined
-      }
+      is_admin_authenticated: { Args: never; Returns: boolean }
+      log_admin_access: { Args: { admin_email: string }; Returns: undefined }
       log_security_event: {
         Args: {
           email?: string
@@ -271,7 +294,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -398,6 +421,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const

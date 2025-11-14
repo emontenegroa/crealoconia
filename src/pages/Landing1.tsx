@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useMetaConversions } from "@/hooks/useMetaConversions";
 import PortfolioSection from "@/components/PortfolioSection";
 
 const Landing1 = () => {
   const { toast } = useToast();
+  const { trackLead } = useMetaConversions();
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -59,6 +61,13 @@ const Landing1 = () => {
         console.error('Error de Supabase:', error);
         throw error;
       }
+
+      // Track Lead event with Facebook
+      await trackLead(formData.email, {
+        nombre: formData.nombre,
+        telefono: formData.telefono,
+        source: 'landing1_form'
+      });
 
       toast({
         title: "¡Perfecto!",

@@ -1,8 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, Calendar, CheckCircle } from "lucide-react";
+import { useEffect } from "react";
+import { useMetaConversions } from "@/hooks/useMetaConversions";
+import { useSearchParams } from "react-router-dom";
 
 const Landing3 = () => {
+  const { trackPurchase } = useMetaConversions();
+  const [searchParams] = useSearchParams();
+  const email = searchParams.get('email');
+
+  useEffect(() => {
+    // Track successful completion (Purchase event for high-value conversion)
+    if (email) {
+      trackPurchase(email, {
+        value: 197000,
+        currency: 'CLP',
+        source: 'landing3_success'
+      });
+    }
+  }, [email, trackPurchase]);
+
   const handleSchedule = () => {
     // Link to scheduling tool (Calendly, Cal.com, etc.)
     window.open('https://wa.me/56961249991?text=Hola%20Esteban,%20quiero%20agendar%20mi%20mentoría%20para%20crear%20mi%20web', '_blank');
