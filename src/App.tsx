@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { MetaTracker } from "@/components/MetaTracker";
 import Index from "./pages/Index";
 import ResultadosPrueba from "./pages/ResultadosPrueba";
 import Landing1 from "./pages/Landing1";
@@ -21,6 +22,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <MetaTracker />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/resultados" element={<ResultadosPrueba />} />

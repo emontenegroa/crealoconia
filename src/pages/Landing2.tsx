@@ -4,12 +4,14 @@ import { Card } from "@/components/ui/card";
 import FormWizard from "@/components/FormWizard";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useMetaConversions } from "@/hooks/useMetaConversions";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AIEnhanceButton from "@/components/AIEnhanceButton";
 
 const Landing2 = () => {
   const { toast } = useToast();
+  const { trackLead, trackCompleteRegistration } = useMetaConversions();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const email = searchParams.get('email');
@@ -87,6 +89,14 @@ const Landing2 = () => {
   const handleNext = () => {
     if (currentStep < questions.length - 1) {
       setCurrentStep(prev => prev + 1);
+      
+      // Track progress through steps with Facebook
+      const currentQuestion = questions[currentStep];
+      trackLead(email || undefined, {
+        step: currentStep + 1,
+        question: currentQuestion.name,
+        source: 'landing2_progress'
+      });
     }
   };
 
@@ -195,6 +205,14 @@ const Landing2 = () => {
       toast({
         title: "¡Excelente!",
         description: "Tu asistente está siendo generado",
+      });
+
+      // Track CompleteRegistration event with Facebook
+      await trackCompleteRegistration(email, {
+        servicios: formData.servicios,
+        clientePerfil: formData.clientePerfil,
+        problemaPrincipal: formData.problemaPrincipal,
+        source: 'landing2_completed'
       });
 
       // Redirect to landing 3
