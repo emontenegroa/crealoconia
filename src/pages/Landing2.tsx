@@ -215,8 +215,8 @@ const Landing2 = () => {
         source: 'landing2_completed'
       });
 
-      // Redirect to landing 3
-      navigate('/landing3');
+      // Redirect to landing 3 with email
+      navigate(`/landing3?email=${encodeURIComponent(email)}`);
     } catch (error) {
       console.error('❌ Error general:', error);
       toast({

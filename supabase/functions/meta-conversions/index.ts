@@ -7,8 +7,14 @@ const corsHeaders = {
 };
 
 const FACEBOOK_PIXEL_ID = '1681063145914408';
-const FACEBOOK_ACCESS_TOKEN = 'EAAdKvg3zpGwBPeKEx2EKGaMymQ8hzC2W3fZArZA5WS3EOGlHF0bOXcrZCXZBod1o9tK8eeYbhVKOniHQ0tSowm3UIaTBuXlOUUSlT9u5meA7DZCOZCaZBHgU5s2dPaQSuF0p97vuZBIugKeliphU0WHEjdC4BrmwOPGEDdlQgrjmq9bEUyJLxO5241Vk0mnwOV4uQQZDZD';
-const TEST_EVENT_CODE = 'TEST12345'; // Updated with new credentials
+
+// Get secrets from environment
+const FACEBOOK_ACCESS_TOKEN = Deno.env.get('FACEBOOK_ACCESS_TOKEN');
+const TEST_EVENT_CODE = Deno.env.get('FACEBOOK_TEST_EVENT_CODE');
+
+if (!FACEBOOK_ACCESS_TOKEN) {
+  console.error('FACEBOOK_ACCESS_TOKEN not configured in secrets');
+}
 
 console.log('Meta Conversions Function loaded with Pixel ID:', FACEBOOK_PIXEL_ID);
 
@@ -60,15 +66,21 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const requestData: ConversionRequest = await req.json();
     
+    // Get client IP from Cloudflare headers or X-Forwarded-For
+    const clientIp = req.headers.get('cf-connecting-ip') || 
+                      req.headers.get('x-forwarded-for')?.split(',')[0] || 
+                      req.headers.get('x-real-ip');
+    
     console.log('Processing Facebook Conversion Event:', {
       eventType: requestData.eventType,
       eventId: requestData.eventId,
-      hasEmail: !!requestData.email
+      hasEmail: !!requestData.email,
+      clientIp: clientIp || 'not available'
     });
 
     // Prepare user data with hashing
     const userData: any = {
-      client_ip_address: requestData.clientIpAddress,
+      client_ip_address: clientIp || requestData.clientIpAddress,
       client_user_agent: requestData.userAgent
     };
 
@@ -100,14 +112,16 @@ const handler = async (req: Request): Promise<Response> => {
     // Prepare the payload for Facebook Conversions API
     const payload = {
       data: [facebookEvent],
-      test_event_code: TEST_EVENT_CODE, // Remove this line when going to production
+      ...(TEST_EVENT_CODE && { test_event_code: TEST_EVENT_CODE }), // Only add if set
       access_token: FACEBOOK_ACCESS_TOKEN
     };
 
     console.log('Sending to Facebook Conversions API:', {
       url: `https://graph.facebook.com/v18.0/${FACEBOOK_PIXEL_ID}/events`,
       eventName: facebookEvent.event_name,
-      eventId: facebookEvent.event_id
+      eventId: facebookEvent.event_id,
+      hasEmail: !!requestData.email,
+      isTestMode: !!TEST_EVENT_CODE
     });
 
     // Send to Facebook Conversions API
