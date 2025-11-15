@@ -399,12 +399,26 @@ export const useFormHandler = () => {
         estilo: sanitizedFormData.estilo
       });
       
+      // Mostrar indicador de carga mientras GPT-5 mejora los prompts
+      toast({
+        title: "🧠 Optimizando con IA",
+        description: "GPT-5 está mejorando tus prompts personalizados. Esto tomará 10-30 segundos...",
+        duration: 30000, // Se mostrará hasta que termine o por 30 segundos
+      });
+      
       const generatedPrompts = await generateSuperPrompt(sanitizedFormData);
       console.log('✅ Prompts generados:', {
         hasSuperPrompt: !!generatedPrompts?.superPrompt,
         hasLovablePrompt: !!generatedPrompts?.lovablePrompt,
         superPromptLength: generatedPrompts?.superPrompt?.length || 0,
         lovablePromptLength: generatedPrompts?.lovablePrompt?.length || 0
+      });
+      
+      // Mostrar éxito cuando los prompts estén listos
+      toast({
+        title: "✅ Prompts Optimizados",
+        description: "Tus prompts han sido mejorados con GPT-5 y están listos para usar.",
+        duration: 4000,
       });
       
       const formDataWithPrompts = {

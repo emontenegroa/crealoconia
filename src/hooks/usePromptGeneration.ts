@@ -225,7 +225,8 @@ El sitio debe transmitir autoridad, generar confianza y motivar acción inmediat
 
     try {
       // Mejorar ambos prompts en paralelo usando ChatGPT GPT-5
-      console.log('🤖 Mejorando Super Prompt y Lovable Prompt con GPT-5 via Supabase...');
+      console.log('🤖 Iniciando mejora de prompts con GPT-5...');
+      console.log('⏳ Esto puede tomar 10-30 segundos. Por favor espera...');
       
       const [superPromptResult, lovablePromptResult] = await Promise.all([
         supabase.functions.invoke('enhance-with-ai', {

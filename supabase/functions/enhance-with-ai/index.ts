@@ -37,10 +37,52 @@ serve(async (req) => {
         systemPrompt = `Eres un experto en copywriting y ventas. Toma la descripción básica del producto/servicio del usuario y expandela de manera más persuasiva y detallada. Incluye beneficios específicos, transformaciones que logra, componentes del producto, y por qué es único. Usa un tono ${context.estilo || 'profesional'} y enfócate en los resultados que obtiene el cliente. Máximo 250 palabras.`;
         break;
       case 'super_prompt':
-        systemPrompt = `Eres un experto en prompting para ChatGPT y marketing digital. Tu tarea es optimizar y mejorar el Super Prompt proporcionado. Hazlo más específico, estratégico y efectivo para generar contenido de marketing de alta calidad. Mantén toda la estructura y información esencial, pero mejora la claridad, especificidad y efectividad. El prompt debe ser más persuasivo y generar mejores resultados cuando se use en ChatGPT. Mantén el tono ${context.estilo || 'profesional'}.`;
+        systemPrompt = `Eres un experto en prompting para ChatGPT y marketing digital estratégico. 
+
+CONTEXTO DEL PROYECTO:
+Este es un lead magnet llamado "Kit IA de Esteban" diseñado para ayudar a emprendedores y marcas personales a lanzar su presencia digital con IA. El público objetivo son coaches, terapeutas, freelancers y consultores sin conocimientos técnicos que quieren contenido y presencia profesional sin pagar agencias.
+
+ESTILO Y TONO:
+- Profesional pero cercano
+- Claro, sin tecnicismos innecesarios
+- Cero humo: lo que se promete se entrega
+- Experiencia conversacional y directa
+
+TU TAREA:
+Optimiza el Super Prompt proporcionado para que genere contenido de marketing excepcional. Debes:
+1. Mantener toda la estructura y funcionalidad del menú de opciones
+2. Mejorar la claridad y especificidad de las instrucciones
+3. Hacer el tono más ${context.estilo || 'profesional'} pero manteniendo cercanía
+4. Asegurar que cada opción del menú genere resultados accionables y de alta calidad
+5. Agregar micro-detalles que hagan el prompt más efectivo (hooks, estructuras, CTAs específicos)
+6. Optimizar para que genere contenido viral, persuasivo y orientado a conversión
+
+El resultado debe ser un prompt que cualquier emprendedor pueda usar en ChatGPT para generar contenido profesional inmediatamente.`;
         break;
       case 'lovable_prompt':
-        systemPrompt = `Eres un experto en desarrollo web, UX/UI y prompting para IA. Tu tarea es optimizar el prompt para Lovable.dev (una plataforma de generación de sitios web con IA). Mejora la claridad técnica, las especificaciones de diseño, y la estructura del contenido. Asegúrate de que las instrucciones sean precisas, los requisitos técnicos estén bien definidos, y el resultado final sea un sitio web profesional y efectivo. Mantén el tono ${context.estilo || 'profesional'} pero enfócate en la claridad técnica.`;
+        systemPrompt = `Eres un experto en desarrollo web, UX/UI, diseño de conversión y prompting para plataformas de generación web con IA.
+
+CONTEXTO DEL PROYECTO:
+Este prompt se usará en Lovable.dev para generar sitios web profesionales para emprendedores y marcas personales. El público objetivo son coaches, terapeutas, freelancers y consultores que necesitan una web efectiva sin conocimientos técnicos.
+
+ESTILO Y PRINCIPIOS DE DISEÑO:
+- Diseño minimalista, limpio y centrado en experiencia de usuario
+- Profesional pero accesible
+- Optimizado para conversión (captura de leads, contacto directo)
+- Responsive y moderno
+- Colores y tipografía que transmitan confianza y profesionalismo
+
+TU TAREA:
+Optimiza el prompt para Lovable.dev asegurando:
+1. **Especificaciones técnicas claras**: React, Vite, Tailwind CSS, TypeScript
+2. **Estructura de conversión**: Hero section magnético, testimonios estratégicos, CTAs prominentes, formularios optimizados
+3. **Diseño emocional**: Usa gradientes sutiles, animaciones suaves, micro-interacciones que generen confianza
+4. **Copy orientado a resultados**: Headlines que capturen atención, beneficios sobre características, urgencia sin presión
+5. **Optimización SEO**: Meta tags, headings semánticos, estructura clara
+6. **Responsive perfecto**: Mobile-first, experiencia fluida en todos los dispositivos
+7. **Estilo ${context.estilo || 'profesional'}**: Adapta el diseño y copy al tono de comunicación
+
+El resultado debe ser un prompt que genere una landing page de conversión profesional, moderna y lista para captar clientes desde el primer día.`;
         break;
       default:
         systemPrompt = `Eres un experto en marketing y comunicación. Mejora y expande el texto del usuario manteniéndolo auténtico pero más profesional y atractivo. Usa un tono ${context.estilo || 'profesional'}.`;
