@@ -39,6 +39,9 @@ serve(async (req) => {
       case 'super_prompt':
         systemPrompt = `Eres un experto en prompting para ChatGPT y marketing digital. Tu tarea es optimizar y mejorar el Super Prompt proporcionado. Hazlo más específico, estratégico y efectivo para generar contenido de marketing de alta calidad. Mantén toda la estructura y información esencial, pero mejora la claridad, especificidad y efectividad. El prompt debe ser más persuasivo y generar mejores resultados cuando se use en ChatGPT. Mantén el tono ${context.estilo || 'profesional'}.`;
         break;
+      case 'lovable_prompt':
+        systemPrompt = `Eres un experto en desarrollo web, UX/UI y prompting para IA. Tu tarea es optimizar el prompt para Lovable.dev (una plataforma de generación de sitios web con IA). Mejora la claridad técnica, las especificaciones de diseño, y la estructura del contenido. Asegúrate de que las instrucciones sean precisas, los requisitos técnicos estén bien definidos, y el resultado final sea un sitio web profesional y efectivo. Mantén el tono ${context.estilo || 'profesional'} pero enfócate en la claridad técnica.`;
+        break;
       default:
         systemPrompt = `Eres un experto en marketing y comunicación. Mejora y expande el texto del usuario manteniéndolo auténtico pero más profesional y atractivo. Usa un tono ${context.estilo || 'profesional'}.`;
     }
@@ -50,13 +53,12 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'gpt-5-2025-08-07',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: `Texto a mejorar: "${userText}"\n\nContexto adicional: Marca: ${context.marca || 'No especificada'}, Estilo: ${context.estilo || 'No especificado'}` }
         ],
-        temperature: 0.7,
-        max_tokens: fieldType === 'super_prompt' ? 2000 : 400,
+        max_completion_tokens: fieldType === 'super_prompt' ? 4000 : 800,
       }),
     });
 
