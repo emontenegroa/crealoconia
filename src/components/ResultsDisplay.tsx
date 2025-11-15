@@ -100,7 +100,8 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
             </p>
             
             <p>
-              Nuestra IA ya está trabajando en tu sitio.<br />
+              Nuestra IA ya está trabajando en tu sitio.
+En pocos minutos recibirás un correo con el Asistente para contenido y publicación y para mostrarte la pagina web nos pondremos en CONTACTO contigo.<br />
               En pocos minutos recibirás un diseño moderno, funcional y listo para mostrar quién eres.
             </p>
             
