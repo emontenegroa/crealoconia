@@ -224,39 +224,59 @@ El sitio debe transmitir autoridad, generar confianza y motivar acción inmediat
     });
 
     try {
-      // Intentar mejorar el prompt usando la Edge Function de Supabase
-      console.log('🤖 Mejorando Super Prompt con ChatGPT via Supabase...');
+      // Mejorar ambos prompts en paralelo usando ChatGPT GPT-5
+      console.log('🤖 Mejorando Super Prompt y Lovable Prompt con GPT-5 via Supabase...');
       
-      const { data: enhanceResult, error } = await supabase.functions.invoke('enhance-with-ai', {
-        body: {
-          userText: baseSuperPrompt,
-          fieldType: 'super_prompt',
-          context: {
-            marca: data.marca,
-            estilo: data.estilo
+      const [superPromptResult, lovablePromptResult] = await Promise.all([
+        supabase.functions.invoke('enhance-with-ai', {
+          body: {
+            userText: baseSuperPrompt,
+            fieldType: 'super_prompt',
+            context: {
+              marca: data.marca,
+              estilo: data.estilo
+            }
           }
-        }
-      });
+        }),
+        supabase.functions.invoke('enhance-with-ai', {
+          body: {
+            userText: lovablePrompt,
+            fieldType: 'lovable_prompt',
+            context: {
+              marca: data.marca,
+              estilo: data.estilo
+            }
+          }
+        })
+      ]);
 
       let enhancedSuperPrompt = baseSuperPrompt;
+      let enhancedLovablePrompt = lovablePrompt;
       
-      if (!error && enhanceResult?.enhancedText) {
-        enhancedSuperPrompt = enhanceResult.enhancedText;
-        console.log('✅ Super Prompt mejorado con ChatGPT via Supabase');
+      if (!superPromptResult.error && superPromptResult.data?.enhancedText) {
+        enhancedSuperPrompt = superPromptResult.data.enhancedText;
+        console.log('✅ Super Prompt mejorado con GPT-5');
       } else {
-        console.warn('⚠️ No se pudo mejorar con ChatGPT, usando versión base. Error:', error);
+        console.warn('⚠️ No se pudo mejorar Super Prompt, usando versión base. Error:', superPromptResult.error);
+      }
+
+      if (!lovablePromptResult.error && lovablePromptResult.data?.enhancedText) {
+        enhancedLovablePrompt = lovablePromptResult.data.enhancedText;
+        console.log('✅ Lovable Prompt mejorado con GPT-5');
+      } else {
+        console.warn('⚠️ No se pudo mejorar Lovable Prompt, usando versión base. Error:', lovablePromptResult.error);
       }
 
       console.log('📋 Prompts generados exitosamente:', {
         superPromptLength: enhancedSuperPrompt.length,
-        lovablePromptLength: lovablePrompt.length,
+        lovablePromptLength: enhancedLovablePrompt.length,
         hasSuperPrompt: !!enhancedSuperPrompt,
-        hasLovablePrompt: !!lovablePrompt
+        hasLovablePrompt: !!enhancedLovablePrompt
       });
 
       return {
         superPrompt: enhancedSuperPrompt,
-        lovablePrompt // Siempre devuelve el prompt completo de Lovable
+        lovablePrompt: enhancedLovablePrompt
       };
       
     } catch (error) {
@@ -271,7 +291,7 @@ El sitio debe transmitir autoridad, generar confianza y motivar acción inmediat
       
       return {
         superPrompt: baseSuperPrompt,
-        lovablePrompt // Devuelve el prompt completo, no un mensaje de error
+        lovablePrompt
       };
     }
   };
