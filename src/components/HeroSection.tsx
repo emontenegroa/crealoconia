@@ -18,6 +18,20 @@ const HeroSection = ({
   onSubmit,
   isValid
 }: HeroSectionProps) => {
+  const scrollToForm = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    setTimeout(() => {
+      const inputs = document.querySelectorAll('input[name="marca"], input[name="email"]');
+      inputs.forEach(input => {
+        input.classList.add('ring-4', 'ring-blue-400', 'ring-offset-2');
+        setTimeout(() => {
+          input.classList.remove('ring-4', 'ring-blue-400', 'ring-offset-2');
+        }, 2000);
+      });
+    }, 500);
+  };
+
   const portfolioImages = [{
     src: "/ejemplos/totalsport-mobile.png",
     title: "Total Sport",
@@ -280,7 +294,10 @@ Tus potenciales clientes buscan una web clara, profesional y que comunique tu va
                 (pago único — incluye sitio web, mentoría y hosting por 24 meses)
               </div>
             </div>
-            <Button className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
+            <Button 
+              onClick={scrollToForm}
+              className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+            >
               <Sparkles className="w-5 h-5 mr-2" />
               Empezar ahora
               <ArrowRight className="w-5 h-5 ml-2" />
