@@ -292,9 +292,8 @@ const HeroSection = ({
             <div className="mb-6">
               <div className="text-lg text-slate-300 mb-2">Inversión total:</div>
               <div className="text-5xl md:text-6xl font-bold text-white mb-2">$197.000 CLP</div>
-              <div className="text-slate-400 text-sm">
-                (pago único — incluye sitio web, mentoría y hosting por 24 meses)
-              </div>
+              <div className="text-slate-400 text-sm">(pago único — incluye sitio web, mentoría y hosting por 24 meses)
+*No Aplica para E-commerce   </div>
             </div>
             <Button onClick={scrollToForm} className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
               <Sparkles className="w-5 h-5 mr-2" />
