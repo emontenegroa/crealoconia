@@ -207,35 +207,84 @@ Tus potenciales clientes buscan una web clara, profesional y que comunique tu va
 
       </div>
 
-      {/* Nueva sección de métricas */}
+      {/* Sección de inversión */}
       <div className="relative z-10 container mx-auto px-4 py-16 mt-8">
         <div className="max-w-6xl mx-auto">
-          {/* Título y subtítulo */}
-          <div className="text-center mb-12 space-y-4">
+          {/* Título */}
+          <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-              Lo que antes tomaba semanas, <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">ahora toma horas.</span>
+              Lo que incluye tu <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">inversión</span>
             </h2>
-            <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Crealoconia transforma tu proceso digital en resultados reales y medibles.
-              Ahorra tiempo, simplifica tu camino y aprende a usar la IA como aliada.
-            </p>
           </div>
 
-          {/* Grid de métricas */}
-          
+          {/* Items de la inversión */}
+          <div className="space-y-8 mb-12">
+            {/* Item 1 */}
+            <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8 backdrop-blur-sm">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                  1
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    Asistente IA Personalizado para tu Marca <span className="text-emerald-400">(incluido sin costo)</span>
+                  </h3>
+                  <p className="text-lg text-slate-300 leading-relaxed">
+                    Completa un breve formulario y recibirás un asistente hecho a tu medida: creará contenido, guiones de video, textos para redes, ideas de storytelling y la base estratégica para tu sitio web.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-          {/* Texto complementario */}
+            {/* Item 2 */}
+            <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8 backdrop-blur-sm">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                  2
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    Sitio Web Profesional + Hosting por 2 años
+                  </h3>
+                  <p className="text-lg text-slate-300 leading-relaxed">
+                    Una web clara, estratégica y diseñada para convertir: tu propuesta de valor ordenada, tu mensaje alineado y una experiencia que genere confianza inmediata.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Item 3 */}
+            <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8 backdrop-blur-sm">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                  3
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    Mentoría 1 a 1 con Esteban Montenegro
+                  </h3>
+                  <p className="text-lg text-slate-300 leading-relaxed">
+                    Trabajamos juntos tu propuesta de valor, revisamos tu comunicación, ajustamos textos, fotos y estructura. Así tu web no solo se ve profesional, sino que atrae a los clientes correctos.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Precio y CTA */}
           <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8 text-center backdrop-blur-sm">
-            <p className="text-lg text-slate-200 leading-relaxed max-w-4xl mx-auto mb-6">
-              "Con el Sistema Crealoconia integras Inteligencia Artificial, estrategia y acompañamiento humano.
-              En solo un día obtienes tu web, tu asistente personalizado y la claridad digital que antes tardabas semanas en alcanzar."
-            </p>
+            <div className="mb-6">
+              <div className="text-lg text-slate-300 mb-2">Inversión total:</div>
+              <div className="text-5xl md:text-6xl font-bold text-white mb-2">$197.000 CLP</div>
+              <div className="text-slate-400 text-sm">
+                (pago único — incluye sitio web, mentoría y hosting por 24 meses)
+              </div>
+            </div>
             <Button className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
               <Sparkles className="w-5 h-5 mr-2" />
-              Activar mi sistema ahora
+              Empezar ahora
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            
           </div>
         </div>
       </div>
