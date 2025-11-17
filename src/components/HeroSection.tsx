@@ -19,8 +19,10 @@ const HeroSection = ({
   isValid
 }: HeroSectionProps) => {
   const scrollToForm = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     setTimeout(() => {
       const inputs = document.querySelectorAll('input[name="marca"], input[name="email"]');
       inputs.forEach(input => {
@@ -31,7 +33,6 @@ const HeroSection = ({
       });
     }, 500);
   };
-
   const portfolioImages = [{
     src: "/ejemplos/totalsport-mobile.png",
     title: "Total Sport",
@@ -98,8 +99,9 @@ const HeroSection = ({
                 Integra <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">Inteligencia Artificial</span> a tu negocio para multiplicar tu tiempo, tus resultados y mejorar tus ventas.
               </h1>
               
-              <p className="text-lg text-slate-300 max-w-lg leading-relaxed">Si eres coach, terapeuta o profesional, tu web es tu carta de presentación. Consíguela lista sin complicaciones técnicas y enfocada en conseguir clientes.
-Tus potenciales clientes buscan una web clara, profesional y que comunique tu valor para ellos, si no, simplemente pasan al siguiente.                     </p>
+              <p className="text-lg text-slate-300 max-w-lg leading-relaxed">Si eres coach, terapeuta o profesional, tu web es tu carta de presentación. Consíguela lista sin complicaciones técnicas y enfocada en conseguir clientes. Tus potenciales clientes buscan una web clara, profesional y que comunique tu valor para ellos, si no, simplemente pasan al siguiente.         
+                     
+                                 </p>
             </div>
 
             {/* Formulario profesional */}
@@ -294,10 +296,7 @@ Tus potenciales clientes buscan una web clara, profesional y que comunique tu va
                 (pago único — incluye sitio web, mentoría y hosting por 24 meses)
               </div>
             </div>
-            <Button 
-              onClick={scrollToForm}
-              className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
-            >
+            <Button onClick={scrollToForm} className="h-14 px-8 text-base font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
               <Sparkles className="w-5 h-5 mr-2" />
               Empezar ahora
               <ArrowRight className="w-5 h-5 ml-2" />
