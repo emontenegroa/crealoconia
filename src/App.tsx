@@ -24,11 +24,11 @@ const App = () => (
       <BrowserRouter>
         <MetaTracker />
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Landing1 />} />
+          <Route path="/quiz" element={<Landing2 />} />
+          <Route path="/gracias" element={<Landing3 />} />
+          <Route path="/index" element={<Index />} />
           <Route path="/resultados" element={<ResultadosPrueba />} />
-          <Route path="/landing1" element={<Landing1 />} />
-          <Route path="/landing2" element={<Landing2 />} />
-          <Route path="/landing3" element={<Landing3 />} />
           <Route path="/admin" element={<AdminRoute />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
