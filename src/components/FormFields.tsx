@@ -54,10 +54,6 @@ const FormFields = ({
         value={formData.marca}
         onChange={onInputChange}
         icon={Users}
-        showAIEnhance={true}
-        context={{ marca: formData.marca, estilo: formData.estilo }}
-        sessionId={sessionId}
-        onAIUsageUpdate={onAIUsageUpdate}
       />
 
           <FormField
@@ -197,13 +193,6 @@ const FormFields = ({
         onChange={onInputChange}
         options={["Cercano", "Profesional", "Inspirador", "Con humor", "Técnico"]}
         icon={MessageSquare}
-        showAIEnhance={true}
-        context={{
-          marca: formData.marca,
-          estilo: formData.estilo
-        }}
-        sessionId={sessionId}
-        onAIUsageUpdate={onAIUsageUpdate}
       />
 
       <FormField
