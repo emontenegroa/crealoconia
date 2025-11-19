@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Brain, User, Code, CheckCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import PortfolioSection from "@/components/PortfolioSection";
 const Landing1 = () => {
   const {
     toast
@@ -89,8 +90,10 @@ const Landing1 = () => {
             </span>
           </h1>
           <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Si eres coach, terapeuta o profesional, tu web es tu carta de presentación. 
-            Consíguela lista sin complicaciones técnicas y enfocada en conseguir clientes.
+            Ideal para <span className="text-white font-semibold">Coaches, Terapeutas, Psicólogos, Consultores, Nutricionistas, Abogados, Arquitectos, Contadores, Diseñadores, Asesores Financieros y Creadores de Contenido</span>.
+          </p>
+          <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed mt-4">
+            Tu web es tu carta de presentación. Consíguela lista sin complicaciones técnicas y enfocada en conseguir clientes.
           </p>
         </div>
 
@@ -156,14 +159,9 @@ const Landing1 = () => {
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-3">
                   <Code className="w-6 h-6 text-white" />
                 </div>
-                <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg md:text-xl font-bold text-white">
-                    Sitio Web Profesional + Dominio
-                  </h3>
-                  <span className="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full border border-blue-500/30">
-                    2 años incluidos
-                  </span>
-                </div>
+                <h3 className="text-lg md:text-xl font-bold text-white mb-2">
+                  Sitio Web Profesional
+                </h3>
               </div>
               <p className="text-slate-300 text-sm md:text-base mb-3">
                 Tu web diseñada para convertir, con tu propuesta clara y enfocada a conseguir nuevos clientes.
@@ -172,7 +170,7 @@ const Landing1 = () => {
                 Precio: $197.000 CLP
               </p>
               <p className="text-xs text-slate-400">
-                (pago único, hosting incluido por 24 meses)
+                (pago único, incluye mentoría personalizada)
               </p>
               <p className="text-xs text-slate-400 mt-2">
                 *No aplica para E-commerce
@@ -252,6 +250,8 @@ const Landing1 = () => {
             </form>
           </Card>
         </div>
+
+        <PortfolioSection />
 
         <div className="mb-12 text-center">
           <p className="text-slate-300 text-sm md:text-base mb-4">
