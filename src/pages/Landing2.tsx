@@ -264,6 +264,14 @@ const Landing2 = () => {
               </div>
             ))}
 
+            {!isFormComplete() && (
+              <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 mb-6">
+                <p className="text-amber-200 text-sm text-center">
+                  💡 Completa todas las preguntas con al menos 10 caracteres cada una para continuar
+                </p>
+              </div>
+            )}
+
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
               <Button
                 type="button"
@@ -278,7 +286,7 @@ const Landing2 = () => {
               
               <Button
                 type="submit"
-                className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isSubmitting || !isFormComplete()}
               >
                 {isSubmitting ? (
