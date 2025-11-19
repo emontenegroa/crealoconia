@@ -25,16 +25,25 @@ serve(async (req) => {
     
     switch (fieldType) {
       case 'quien_eres':
+      case 'clientePerfil':
         systemPrompt = `Eres un experto en marketing personal y branding. Tu tarea es tomar el texto básico que escribió el usuario sobre quién es y expandirlo de manera profesional y atractiva. Mantén su esencia personal pero hazlo más rico, específico y magnético. Usa un tono ${context.estilo || 'profesional'} y asegúrate de que suene auténtico. Máximo 200 palabras.`;
         break;
       case 'problemas':
+      case 'problemaPrincipal':
         systemPrompt = `Eres un experto en identificación de problemas y soluciones de negocio. Toma la descripción básica del usuario sobre los problemas que resuelve y expandela de manera más detallada y convincente. Incluye el dolor específico del cliente, las consecuencias de no resolverlo, y cómo la solución transforma sus vidas. Usa un tono ${context.estilo || 'profesional'} y sé específico. Máximo 250 palabras.`;
         break;
       case 'preguntas_frecuentes':
         systemPrompt = `Eres un experto en comunicación y FAQ. Toma las preguntas frecuentes que mencionó el usuario y expandelas de manera más completa y estratégica. Incluye más preguntas relacionadas que realmente hacen los clientes y explica por qué es importante responder estas dudas. Usa un tono ${context.estilo || 'profesional'} y mantén el foco en generar confianza. Máximo 200 palabras.`;
         break;
       case 'producto':
+      case 'servicios':
         systemPrompt = `Eres un experto en copywriting y ventas. Toma la descripción básica del producto/servicio del usuario y expandela de manera más persuasiva y detallada. Incluye beneficios específicos, transformaciones que logra, componentes del producto, y por qué es único. Usa un tono ${context.estilo || 'profesional'} y enfócate en los resultados que obtiene el cliente. Máximo 250 palabras.`;
+        break;
+      case 'propuestaMetodo':
+        systemPrompt = `Eres un experto en metodologías y procesos. Toma la propuesta de método del usuario y expandela de manera clara y estructurada. Incluye pasos específicos, beneficios de cada etapa, y cómo se diferencia de otras metodologías. Usa un tono ${context.estilo || 'profesional'} y enfócate en la claridad y la practicidad. Máximo 250 palabras.`;
+        break;
+      case 'resultados':
+        systemPrompt = `Eres un experto en comunicación de resultados y transformaciones. Toma los resultados mencionados por el usuario y expandelos de manera convincente y específica. Incluye métricas tangibles, testimonios implícitos, y el impacto real que se logra. Usa un tono ${context.estilo || 'profesional'} y enfócate en resultados medibles. Máximo 250 palabras.`;
         break;
       case 'super_prompt':
         systemPrompt = `Eres un experto en prompting para ChatGPT y marketing digital estratégico. 
@@ -100,16 +109,23 @@ El resultado debe ser un prompt que genere una landing page de conversión profe
           { role: 'system', content: systemPrompt },
           { role: 'user', content: `Texto a mejorar: "${userText}"\n\nContexto adicional: Marca: ${context.marca || 'No especificada'}, Estilo: ${context.estilo || 'No especificado'}` }
         ],
-        max_completion_tokens: fieldType === 'super_prompt' ? 4000 : 800,
+        max_completion_tokens: fieldType === 'super_prompt' || fieldType === 'lovable_prompt' ? 4000 : 800,
       }),
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`OpenAI API error: ${response.status} - ${response.statusText}`, errorText);
       throw new Error(`OpenAI API error: ${response.status} - ${response.statusText}`);
     }
 
     const data = await response.json();
-    const enhancedText = data.choices[0].message.content;
+    const enhancedText = data.choices?.[0]?.message?.content;
+
+    if (!enhancedText) {
+      console.error('No enhanced text in response:', JSON.stringify(data));
+      throw new Error('No se recibió texto mejorado de la IA');
+    }
 
     console.log(`Enhanced text generated successfully for ${fieldType}`);
 
