@@ -51,8 +51,8 @@ const AIEnhanceButton: React.FC<AIEnhanceButtonProps> = ({
     fetchUsageCount();
   }, [sessionId, fieldType]);
 
-  const canUseAI = usageCount < 5;
-  const remainingUses = 5 - usageCount;
+  const canUseAI = usageCount < 2;
+  const remainingUses = 2 - usageCount;
 
   const getEnhancementPrompt = () => {
     const baseContext = `
