@@ -6,9 +6,10 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Brain, User, Code, CheckCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
 const Landing1 = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nombre: '',
@@ -17,30 +18,23 @@ const Landing1 = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
     if (!formData.nombre || formData.nombre.trim().length < 3) {
       newErrors.nombre = 'El nombre debe tener al menos 3 caracteres';
     }
-    
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     if (!formData.email || !emailRegex.test(formData.email)) {
       newErrors.email = 'Por favor ingresa un email válido';
     }
-    
     if (!formData.telefono || formData.telefono.replace(/\D/g, '').length < 9) {
       newErrors.telefono = 'El teléfono debe tener al menos 9 dígitos';
     }
-    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!validateForm()) {
       toast({
         title: "Completa los campos correctamente",
@@ -49,18 +43,14 @@ const Landing1 = () => {
       });
       return;
     }
-
     setIsSubmitting(true);
-    
     try {
       localStorage.setItem('userData', JSON.stringify(formData));
       await new Promise(resolve => setTimeout(resolve, 500));
-      
       toast({
         title: "¡Perfecto!",
-        description: "Continuemos con las siguientes preguntas",
+        description: "Continuemos con las siguientes preguntas"
       });
-      
       navigate(`/quiz?email=${encodeURIComponent(formData.email)}&nombre=${encodeURIComponent(formData.nombre)}`);
     } catch (error) {
       console.error('Error:', error);
@@ -73,20 +63,22 @@ const Landing1 = () => {
       setIsSubmitting(false);
     }
   };
-
   const handleInputChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
     if (errors[name]) {
       setErrors(prev => {
-        const newErrors = { ...prev };
+        const newErrors = {
+          ...prev
+        };
         delete newErrors[name];
         return newErrors;
       });
     }
   };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
+  return <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
         
         <div className="text-center mb-12 md:mb-16">
@@ -140,7 +132,9 @@ const Landing1 = () => {
               </p>
             </Card>
 
-            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 hover:bg-slate-800/70 transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 hover:bg-slate-800/70 transition-all duration-300 animate-fade-in" style={{
+            animationDelay: '0.1s'
+          }}>
               <div className="mb-4">
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center mb-3">
                   <User className="w-6 h-6 text-white" />
@@ -155,7 +149,9 @@ const Landing1 = () => {
               </p>
             </Card>
 
-            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 hover:bg-slate-800/70 transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 hover:bg-slate-800/70 transition-all duration-300 animate-fade-in" style={{
+            animationDelay: '0.2s'
+          }}>
               <div className="mb-4">
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-3">
                   <Code className="w-6 h-6 text-white" />
@@ -222,7 +218,7 @@ const Landing1 = () => {
         <div className="mb-12 md:mb-16">
           <Card className="bg-slate-800/80 border-slate-700 backdrop-blur p-6 md:p-8 max-w-xl mx-auto">
             <h2 className="text-xl md:text-2xl font-bold text-white mb-6 text-center">
-              Empieza Ahora - Es Gratis
+              ¡Empieza Ahora!   
             </h2>
             
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -230,61 +226,27 @@ const Landing1 = () => {
                 <Label htmlFor="nombre" className="text-white mb-2 block">
                   Nombre o nombre de tu negocio
                 </Label>
-                <Input
-                  id="nombre"
-                  type="text"
-                  placeholder="Tu nombre o nombre de tu negocio"
-                  value={formData.nombre}
-                  onChange={(e) => handleInputChange('nombre', e.target.value)}
-                  className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400"
-                  disabled={isSubmitting}
-                />
-                {errors.nombre && (
-                  <p className="text-red-400 text-sm mt-1">{errors.nombre}</p>
-                )}
+                <Input id="nombre" type="text" placeholder="Tu nombre o nombre de tu negocio" value={formData.nombre} onChange={e => handleInputChange('nombre', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
+                {errors.nombre && <p className="text-red-400 text-sm mt-1">{errors.nombre}</p>}
               </div>
 
               <div>
                 <Label htmlFor="email" className="text-white mb-2 block">
                   Correo electrónico
                 </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="tu@email.com"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400"
-                  disabled={isSubmitting}
-                />
-                {errors.email && (
-                  <p className="text-red-400 text-sm mt-1">{errors.email}</p>
-                )}
+                <Input id="email" type="email" placeholder="tu@email.com" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
+                {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
               </div>
 
               <div>
                 <Label htmlFor="telefono" className="text-white mb-2 block">
                   Teléfono
                 </Label>
-                <Input
-                  id="telefono"
-                  type="tel"
-                  placeholder="+56 9 XXXX XXXX"
-                  value={formData.telefono}
-                  onChange={(e) => handleInputChange('telefono', e.target.value)}
-                  className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400"
-                  disabled={isSubmitting}
-                />
-                {errors.telefono && (
-                  <p className="text-red-400 text-sm mt-1">{errors.telefono}</p>
-                )}
+                <Input id="telefono" type="tel" placeholder="+56 9 XXXX XXXX" value={formData.telefono} onChange={e => handleInputChange('telefono', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
+                {errors.telefono && <p className="text-red-400 text-sm mt-1">{errors.telefono}</p>}
               </div>
 
-              <Button
-                type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-                disabled={isSubmitting}
-              >
+              <Button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-xl" disabled={isSubmitting}>
                 {isSubmitting ? "Procesando..." : "Crear mi Web con IA"}
               </Button>
             </form>
@@ -296,14 +258,9 @@ const Landing1 = () => {
             Más de 150 emprendedores ya están usando CrealoConIA
           </p>
           <div className="flex justify-center items-center gap-2">
-            {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm"
-              >
+            {[1, 2, 3, 4].map(i => <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
                 {String.fromCharCode(64 + i)}
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -318,8 +275,6 @@ const Landing1 = () => {
           <p>contacto@crealoconia.com</p>
         </footer>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Landing1;
