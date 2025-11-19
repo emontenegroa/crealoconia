@@ -72,6 +72,15 @@ const Landing3 = () => {
               Es completamente gratuito y sin compromiso.
             </p>
 
+            {/* BOTÓN CTA PRINCIPAL */}
+            <Button
+              onClick={handleSchedule}
+              className="w-full mb-8 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-6 md:py-8 rounded-full text-base md:text-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
+            >
+              <Calendar className="w-6 h-6 mr-2" />
+              Quiero ver mi sitio ahora
+            </Button>
+
             {/* MENTORÍA 1 A 1 */}
             <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 rounded-lg p-6 mb-6">
               <h3 className="text-xl md:text-2xl font-bold text-white mb-4 flex items-center gap-2">
@@ -94,15 +103,6 @@ const Landing3 = () => {
               </ul>
             </div>
           </Card>
-          
-          {/* BOTÓN CTA PRINCIPAL */}
-          <Button
-            onClick={handleSchedule}
-            className="w-full mt-8 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-6 md:py-8 rounded-full text-base md:text-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
-          >
-            <Calendar className="w-6 h-6 mr-2" />
-            Quiero ver mi sitio ahora
-          </Button>
         </div>
 
         {/* AL FINALIZAR TENDRÁS */}
