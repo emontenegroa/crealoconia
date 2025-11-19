@@ -9,10 +9,10 @@ const PortfolioSection = () => {
     },
     {
       id: 2,
-      titulo: "Doralisa",
-      descripcion: "Empresa de transporte de carga pesada",
-      categoria: "Transporte",
-      imagen: "/ejemplos/doralisa.png"
+      titulo: "Despliega",
+      descripcion: "Consultoría en liderazgo organizacional",
+      categoria: "Consultoría",
+      imagen: "/ejemplos/despliega.png"
     },
     {
       id: 3,
@@ -23,10 +23,10 @@ const PortfolioSection = () => {
     },
     {
       id: 4,
-      titulo: "Arte Transfer",
-      descripcion: "Personalización corporativa y uniformes",
-      categoria: "E-commerce",
-      imagen: "/ejemplos/artescreen.png"
+      titulo: "Doralisa",
+      descripcion: "Empresa de transporte de carga pesada",
+      categoria: "Transporte",
+      imagen: "/ejemplos/doralisa.png"
     },
     {
       id: 5,
