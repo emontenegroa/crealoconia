@@ -41,6 +41,27 @@ const PortfolioSection = () => {
       descripcion: "Servicios de barbería profesional",
       categoria: "Servicios",
       imagen: "/ejemplos/gatitos-2.png"
+    },
+    {
+      id: 7,
+      titulo: "BriUL",
+      descripcion: "Marca personal con IA integrada",
+      categoria: "Alianza",
+      imagen: "/ejemplos/briul.png"
+    },
+    {
+      id: 8,
+      titulo: "Escala Humana",
+      descripcion: "Terapia y acompañamiento personal",
+      categoria: "Marca Personal",
+      imagen: "/ejemplos/escala-humana.png"
+    },
+    {
+      id: 9,
+      titulo: "RVA",
+      descripcion: "Servicio técnico certificado",
+      categoria: "Servicio Técnico",
+      imagen: "/ejemplos/rva.png"
     }
   ];
 
