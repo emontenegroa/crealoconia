@@ -104,12 +104,12 @@ El resultado debe ser un prompt que genere una landing page de conversión profe
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-5-2025-08-07',
+        model: 'gpt-5-mini-2025-08-07',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: `Texto a mejorar: "${userText}"\n\nContexto adicional: Marca: ${context.marca || 'No especificada'}, Estilo: ${context.estilo || 'No especificado'}` }
         ],
-        max_completion_tokens: fieldType === 'super_prompt' || fieldType === 'lovable_prompt' ? 4000 : 800,
+        max_completion_tokens: fieldType === 'super_prompt' || fieldType === 'lovable_prompt' ? 6000 : 1500,
       }),
     });
 
