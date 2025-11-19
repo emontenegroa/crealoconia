@@ -9,10 +9,10 @@ const PortfolioSection = () => {
     },
     {
       id: 2,
-      titulo: "Despliega",
-      descripcion: "Consultoría en liderazgo organizacional",
-      categoria: "Consultoría",
-      imagen: "/ejemplos/despliega.png"
+      titulo: "Doralisa",
+      descripcion: "Empresa de transporte de carga pesada",
+      categoria: "Transporte",
+      imagen: "/ejemplos/doralisa.png"
     },
     {
       id: 3,
