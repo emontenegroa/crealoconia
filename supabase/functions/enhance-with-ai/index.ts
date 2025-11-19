@@ -18,8 +18,36 @@ serve(async (req) => {
   try {
     const { userText, fieldType, context } = await req.json();
 
+    // Validación de entrada
+    if (!userText || typeof userText !== 'string') {
+      return new Response(JSON.stringify({ error: 'userText es requerido y debe ser texto' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    if (userText.length < 10 || userText.length > 3000) {
+      return new Response(JSON.stringify({ error: 'userText debe tener entre 10 y 3000 caracteres' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    if (!fieldType || typeof fieldType !== 'string') {
+      return new Response(JSON.stringify({ error: 'fieldType es requerido' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Sanitizar input para prevenir inyección
+    const sanitizedText = userText
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      .replace(/javascript:/gi, '')
+      .trim();
+
     console.log(`Enhancing text for field: ${fieldType}`);
-    console.log(`User text length: ${userText?.length || 0} characters`);
+    console.log(`User text length: ${sanitizedText?.length || 0} characters`);
 
     let systemPrompt = '';
     
@@ -107,7 +135,7 @@ El resultado debe ser un prompt que genere una landing page de conversión profe
         model: 'gpt-5-mini-2025-08-07',
         messages: [
           { role: 'system', content: systemPrompt },
-          { role: 'user', content: `Texto a mejorar: "${userText}"\n\nContexto adicional: Marca: ${context.marca || 'No especificada'}, Estilo: ${context.estilo || 'No especificado'}` }
+          { role: 'user', content: `Texto a mejorar: "${sanitizedText}"\n\nContexto adicional: Marca: ${context.marca || 'No especificada'}, Estilo: ${context.estilo || 'No especificado'}` }
         ],
         max_completion_tokens: fieldType === 'super_prompt' || fieldType === 'lovable_prompt' ? 6000 : 1500,
       }),

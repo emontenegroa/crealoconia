@@ -7,6 +7,7 @@ import { useSecurityEnforcement } from '@/hooks/useSecurityEnforcement';
 import { useMetaConversions } from '@/hooks/useMetaConversions';
 import { useStepNavigation } from '@/hooks/useStepNavigation';
 import { validateEmail, validateText, validateWhatsApp, validateUrl } from '@/utils/inputValidation';
+import { sanitizeText } from '@/utils/formValidation';
 
 export interface FormData {
   marca: string;
