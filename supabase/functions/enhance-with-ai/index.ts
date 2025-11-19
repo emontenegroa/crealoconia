@@ -120,11 +120,15 @@ El resultado debe ser un prompt que genere una landing page de conversión profe
     }
 
     const data = await response.json();
-    const enhancedText = data.choices?.[0]?.message?.content;
+    let enhancedText = data.choices?.[0]?.message?.content;
 
-    if (!enhancedText) {
-      console.error('No enhanced text in response:', JSON.stringify(data));
-      throw new Error('No se recibió texto mejorado de la IA');
+    if (!enhancedText || !String(enhancedText).trim()) {
+      console.warn('Empty enhanced text in response, falling back to userText:', JSON.stringify({
+        model: data.model,
+        finish_reason: data.choices?.[0]?.finish_reason,
+        usage: data.usage,
+      }));
+      enhancedText = userText;
     }
 
     console.log(`Enhanced text generated successfully for ${fieldType}`);
