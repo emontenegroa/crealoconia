@@ -72,6 +72,18 @@ const Landing3 = () => {
               Es completamente gratuito y sin compromiso.
             </p>
 
+            {/* EXPLICACIÓN ANTES DEL BOTÓN */}
+            <div className="bg-blue-500/10 border-l-4 border-blue-500 p-4 md:p-6 rounded-r-lg mb-6">
+              <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                <Info className="w-5 h-5 text-blue-400" />
+                ¿Por qué funciona así?
+              </h3>
+              <p className="text-slate-300 text-sm md:text-base">
+                Porque creemos en mostrar primero, cobrar después. Verás tu web en vivo, optimizada y lista para convertir. 
+                Si te encanta, finalizas la compra en ese momento.
+              </p>
+            </div>
+
             {/* BOTÓN CTA PRINCIPAL */}
             <Button
               onClick={handleSchedule}
@@ -159,16 +171,6 @@ const Landing3 = () => {
             </p>
           </div>
 
-          <div className="bg-blue-500/10 border-l-4 border-blue-500 p-4 md:p-6 rounded-r-lg">
-            <h3 className="text-white font-bold mb-2 flex items-center gap-2">
-              <Info className="w-5 h-5 text-blue-400" />
-              ¿Por qué funciona así?
-            </h3>
-            <p className="text-slate-300 text-sm md:text-base">
-              Porque creemos en mostrar primero, cobrar después. Verás tu web en vivo, optimizada y lista para convertir. 
-              Si te encanta, finalizas la compra en ese momento.
-            </p>
-          </div>
         </Card>
 
         {/* NOTA IMPORTANTE */}
