@@ -94,6 +94,15 @@ const Landing3 = () => {
               </ul>
             </div>
           </Card>
+          
+          {/* BOTÓN CTA PRINCIPAL */}
+          <Button
+            onClick={handleSchedule}
+            className="w-full mt-8 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-6 md:py-8 rounded-full text-base md:text-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
+          >
+            <Calendar className="w-6 h-6 mr-2" />
+            Quiero ver mi sitio ahora
+          </Button>
         </div>
 
         {/* AL FINALIZAR TENDRÁS */}
@@ -150,7 +159,7 @@ const Landing3 = () => {
             </p>
           </div>
 
-          <div className="bg-blue-500/10 border-l-4 border-blue-500 p-4 md:p-6 rounded-r-lg mb-8">
+          <div className="bg-blue-500/10 border-l-4 border-blue-500 p-4 md:p-6 rounded-r-lg">
             <h3 className="text-white font-bold mb-2 flex items-center gap-2">
               <Info className="w-5 h-5 text-blue-400" />
               ¿Por qué funciona así?
@@ -160,14 +169,6 @@ const Landing3 = () => {
               Si te encanta, finalizas la compra en ese momento.
             </p>
           </div>
-          
-          <Button
-            onClick={handleSchedule}
-            className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-6 md:py-8 rounded-full text-base md:text-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
-          >
-            <Calendar className="w-6 h-6 mr-2" />
-            Quiero ver mi sitio ahora
-          </Button>
         </Card>
 
         {/* NOTA IMPORTANTE */}
