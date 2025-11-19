@@ -89,9 +89,7 @@ const Landing3 = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-slate-300">
-                    Creamos y lanzamos tu página web profesional durante la reunión (sí, en vivo)
-                  </span>
+                  <span className="text-slate-300">Agendamos sesión de mentoría para publicar el sitio</span>
                 </li>
               </ul>
             </div>
@@ -101,7 +99,7 @@ const Landing3 = () => {
         {/* AL FINALIZAR TENDRÁS */}
         <div className="mb-12 md:mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-8">
-            Al finalizar tendrás:
+            Al finalizar la mentoría tendrás:
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 text-center">
