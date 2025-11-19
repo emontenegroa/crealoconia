@@ -15,7 +15,7 @@ const Landing3 = () => {
   }, []);
 
   const handleSchedule = () => {
-    window.open('https://wa.me/56961249991?text=Hola%20Esteban,%20quiero%20agendar%20mi%20mentoría%20para%20crear%20mi%20web', '_blank');
+    window.open('https://wa.me/56961249991?text=Quiero%20ver%20mi%20sitio%20web!', '_blank');
   };
 
   return (
@@ -41,29 +41,35 @@ const Landing3 = () => {
             <CheckCircle className="w-12 h-12 text-green-400 animate-bounce" />
           </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-            ¡Listo! Tu Asistente de Contenido con IA está en camino a tu correo
+            ¡Tu página web ya está lista!
           </h1>
           <div className="flex items-center justify-center gap-3 text-slate-300 mb-4">
-            <Mail className="w-6 h-6 text-blue-400" />
+            <Globe className="w-6 h-6 text-green-400" />
             <p className="text-base md:text-lg">
-              Revisa tu bandeja de entrada en los próximos minutos
+              Nos contactaremos contigo para mostrártela
             </p>
           </div>
-          <p className="text-slate-300 max-w-2xl mx-auto">
-            Ahí recibirás el prompt personalizado que te ayudará a crear publicaciones, guiones 
-            y mensajes efectivos para atraer nuevos clientes.
+          <p className="text-slate-300 max-w-2xl mx-auto mb-6">
+            Tu sitio web profesional ha sido creado y está esperando por ti. 
+            Además, recibirás en tu correo el asistente de contenido con IA para crear publicaciones efectivas.
           </p>
+          <div className="bg-blue-500/20 border border-blue-500/40 rounded-lg p-4 max-w-xl mx-auto">
+            <p className="text-blue-200 text-sm md:text-base flex items-center gap-2 justify-center">
+              <Info className="w-5 h-5" />
+              <strong>Primera sesión gratuita de 15 minutos</strong> para mostrarte tu sitio web
+            </p>
+          </div>
         </div>
 
         {/* ¿QUÉ SIGUE AHORA? */}
         <div className="mb-12 md:mb-16">
           <Card className="bg-slate-800/80 border-slate-700 backdrop-blur p-6 md:p-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center">
-              ¿Qué sigue ahora?
+              ¿Qué incluye tu primera sesión?
             </h2>
             <p className="text-slate-300 text-center mb-8">
-              Tu asistente es poderoso, pero su verdadero potencial se activa cuando lo conectamos 
-              con tu propuesta y tu web.
+              En 15 minutos te mostramos tu sitio web ya creado y listo para publicar. 
+              Es completamente gratuito y sin compromiso.
             </p>
 
             {/* MENTORÍA 1 A 1 */}
@@ -162,7 +168,7 @@ const Landing3 = () => {
             className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-6 md:py-8 rounded-full text-base md:text-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
           >
             <Calendar className="w-6 h-6 mr-2" />
-            Agendar mi Mentoría y Crear mi Web Ahora
+            Agenda mi mentoría
           </Button>
         </Card>
 
