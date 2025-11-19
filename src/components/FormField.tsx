@@ -244,6 +244,7 @@ const FormField = ({
           onChange={(e) => handleChange(e.target.value)}
           placeholder={getPlaceholder()}
           maxLength={getFieldMaxLength(name)}
+          showCounter={true}
           className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20 focus:border-blue-400 transition-all duration-300 py-3 text-base sm:text-lg"
         />
       )}
