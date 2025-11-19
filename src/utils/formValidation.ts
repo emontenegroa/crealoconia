@@ -104,12 +104,18 @@ export const sanitizeText = (text: string): string => {
   if (!text) return '';
   
   return text
-    .trim()
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Eliminar scripts
     .replace(/javascript:/gi, '') // Eliminar javascript:
     .replace(/onerror=/gi, '') // Eliminar onerror
     .replace(/onclick=/gi, '') // Eliminar onclick
     .replace(/<iframe/gi, ''); // Eliminar iframes
+};
+
+// Función para sanitizar al enviar (con trim)
+export const sanitizeTextForSubmit = (text: string): string => {
+  if (!text) return '';
+  
+  return sanitizeText(text).trim();
 };
 
 // Tipos para TypeScript

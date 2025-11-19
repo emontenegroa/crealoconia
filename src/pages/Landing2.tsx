@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AIEnhanceButton from '@/components/AIEnhanceButton';
-import { quizFormSchema, sanitizeText } from '@/utils/formValidation';
+import { quizFormSchema, sanitizeText, sanitizeTextForSubmit } from '@/utils/formValidation';
 
 const Landing2 = () => {
   const { toast } = useToast();
@@ -75,8 +75,17 @@ const Landing2 = () => {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
+    // Sanitizar datos antes de validar
+    const sanitizedData = {
+      servicios: sanitizeTextForSubmit(formData.servicios),
+      clientePerfil: sanitizeTextForSubmit(formData.clientePerfil),
+      problemaPrincipal: sanitizeTextForSubmit(formData.problemaPrincipal),
+      propuestaMetodo: sanitizeTextForSubmit(formData.propuestaMetodo),
+      resultados: sanitizeTextForSubmit(formData.resultados)
+    };
+    
     // Validar con zod schema
-    const result = quizFormSchema.safeParse(formData);
+    const result = quizFormSchema.safeParse(sanitizedData);
     
     if (!result.success) {
       result.error.errors.forEach(error => {
@@ -90,7 +99,7 @@ const Landing2 = () => {
   };
 
   const handleInputChange = (name: string, value: string) => {
-    // Sanitizar el input antes de guardarlo
+    // Sanitizar solo caracteres peligrosos, sin trim
     const sanitizedValue = sanitizeText(value);
     setFormData(prev => ({ ...prev, [name]: sanitizedValue }));
     if (errors[name]) {
