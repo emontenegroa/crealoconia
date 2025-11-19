@@ -46,15 +46,19 @@ const FormFields = ({
     <div className="space-y-8">
       {!hideBasicFields && (
         <>
-          <FormField
-            type="input"
-            label="1. ¿Cómo se llama tu emprendimiento o marca personal?"
-            placeholder="Ej: Luz Interior Coaching, Panadería Las 3 Hermanas, Soy Nombre Apellido"
-            name="marca"
-            value={formData.marca}
-            onChange={onInputChange}
-            icon={Users}
-          />
+      <FormField
+        type="input"
+        label="1. ¿Cómo se llama tu emprendimiento o marca personal?"
+        placeholder="Ej: Luz Interior Coaching, Panadería Las 3 Hermanas, Soy Nombre Apellido"
+        name="marca"
+        value={formData.marca}
+        onChange={onInputChange}
+        icon={Users}
+        showAIEnhance={true}
+        context={{ marca: formData.marca, estilo: formData.estilo }}
+        sessionId={sessionId}
+        onAIUsageUpdate={onAIUsageUpdate}
+      />
 
           <FormField
             type="input"
@@ -193,6 +197,13 @@ const FormFields = ({
         onChange={onInputChange}
         options={["Cercano", "Profesional", "Inspirador", "Con humor", "Técnico"]}
         icon={MessageSquare}
+        showAIEnhance={true}
+        context={{
+          marca: formData.marca,
+          estilo: formData.estilo
+        }}
+        sessionId={sessionId}
+        onAIUsageUpdate={onAIUsageUpdate}
       />
 
       <FormField
