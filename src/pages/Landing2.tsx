@@ -115,11 +115,14 @@ const Landing2 = () => {
   };
 
   const calculateProgress = () => {
-    // Paso 2 de 3: empieza en 60% (paso 1 completado) y termina en 95%
-    // Esto genera urgencia de completar el último paso
+    // Paso 2 de 3: empieza en 60% (paso 1 completado) y termina en 100%
     const completed = Object.values(formData).filter(value => value.trim().length >= 10).length;
-    const quizProgress = (completed / questions.length) * 35; // 35% del rango total
-    return 60 + quizProgress; // Base de 60% + hasta 35% = máximo 95%
+    const quizProgress = (completed / questions.length) * 40; // 40% del rango total
+    return 60 + quizProgress; // Base de 60% + hasta 40% = máximo 100%
+  };
+
+  const isFormComplete = () => {
+    return Object.values(formData).every(value => value.trim().length >= 10);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -276,7 +279,7 @@ const Landing2 = () => {
               <Button
                 type="submit"
                 className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-                disabled={isSubmitting || progress < 100}
+                disabled={isSubmitting || !isFormComplete()}
               >
                 {isSubmitting ? (
                   <>
