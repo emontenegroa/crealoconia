@@ -1,105 +1,203 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mail, Calendar, CheckCircle } from "lucide-react";
+import { Mail, Calendar, CheckCircle, Info, Sparkles, Target, Globe } from "lucide-react";
 import { useEffect } from "react";
-import { useMetaConversions } from "@/hooks/useMetaConversions";
 import { useSearchParams } from "react-router-dom";
+import { Progress } from "@/components/ui/progress";
 
 const Landing3 = () => {
-  const { trackPurchase } = useMetaConversions();
   const [searchParams] = useSearchParams();
   const email = searchParams.get('email');
 
   useEffect(() => {
-    // Track successful completion (Purchase event for high-value conversion)
-    if (email) {
-      trackPurchase(email, {
-        value: 197000,
-        currency: 'CLP',
-        source: 'landing3_success'
-      });
-    }
-  }, [email, trackPurchase]);
+    // Scroll to top on mount
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSchedule = () => {
-    // Link to scheduling tool (Calendly, Cal.com, etc.)
     window.open('https://wa.me/56961249991?text=Hola%20Esteban,%20quiero%20agendar%20mi%20mentoría%20para%20crear%20mi%20web', '_blank');
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-primary-dark to-background">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <div className="inline-block mb-6">
-            <CheckCircle className="w-20 h-20 text-green-500 mx-auto animate-bounce" />
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            ¡Felicitaciones! Tu Asistente de IA está Listo
-          </h1>
-          <div className="flex items-center justify-center gap-2 text-foreground/80 mb-6">
-            <Mail className="w-5 h-5 text-primary" />
-            <p className="text-lg">
-              Revisa tu correo en los próximos minutos
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
+      <div className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
+        
+        {/* HEADER CONFIRMATION */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-slate-300 text-sm md:text-base">
+              Paso 3 de 3 ✓ Completado
+            </p>
+            <p className="text-green-400 text-sm md:text-base font-semibold">
+              100%
             </p>
           </div>
-          <p className="text-foreground/70 max-w-xl mx-auto">
-            Ahí encontrarás tu asistente personalizado listo para ayudarte a crear contenido 
-            y mensajes que atraigan clientes.
+          <Progress value={100} className="h-2" />
+        </div>
+
+        {/* HERO SECTION - CONFIRMACIÓN */}
+        <div className="text-center mb-12 md:mb-16">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-500/20 mb-6 animate-scale-in">
+            <CheckCircle className="w-12 h-12 text-green-400 animate-bounce" />
+          </div>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            ¡Listo! Tu Asistente de Contenido con IA está en camino a tu correo
+          </h1>
+          <div className="flex items-center justify-center gap-3 text-slate-300 mb-4">
+            <Mail className="w-6 h-6 text-blue-400" />
+            <p className="text-base md:text-lg">
+              Revisa tu bandeja de entrada en los próximos minutos
+            </p>
+          </div>
+          <p className="text-slate-300 max-w-2xl mx-auto">
+            Ahí recibirás el prompt personalizado que te ayudará a crear publicaciones, guiones 
+            y mensajes efectivos para atraer nuevos clientes.
           </p>
         </div>
 
-        {/* Siguiente Paso */}
-        <Card className="mb-8 p-6 bg-card/80 backdrop-blur">
-          <h2 className="text-xl font-bold text-foreground mb-4">¿Quieres dar el siguiente paso?</h2>
-          <p className="text-foreground/80 mb-4">
-            En una mentoría 1 a 1 creamos tu web profesional en vivo:
-          </p>
-          
-          <ul className="space-y-2 mb-6">
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              <span className="text-foreground/80">Definimos tu mensaje y propuesta de valor</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              <span className="text-foreground/80">Creamos tu web durante la sesión</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              <span className="text-foreground/80">Publicamos con tu dominio propio</span>
-            </li>
-          </ul>
-
-          <div className="bg-primary/10 p-4 rounded-lg border border-primary/20 mb-6">
-            <p className="text-center text-lg mb-2">
-              <span className="text-2xl font-bold text-primary">$197.000 CLP</span>
+        {/* ¿QUÉ SIGUE AHORA? */}
+        <div className="mb-12 md:mb-16">
+          <Card className="bg-slate-800/80 border-slate-700 backdrop-blur p-6 md:p-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center">
+              ¿Qué sigue ahora?
+            </h2>
+            <p className="text-slate-300 text-center mb-8">
+              Tu asistente es poderoso, pero su verdadero potencial se activa cuando lo conectamos 
+              con tu propuesta y tu web.
             </p>
-            <p className="text-sm text-center text-foreground/70">
-              Incluye: Web + Dominio + Hosting (2 años) + Mentoría
+
+            {/* MENTORÍA 1 A 1 */}
+            <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 rounded-lg p-6 mb-6">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                <Sparkles className="w-6 h-6 text-purple-400" />
+                En la mentoría 1 a 1 con Esteban Montenegro:
+              </h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                  <span className="text-slate-300">Revisamos tu propuesta de valor</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                  <span className="text-slate-300">Ajustamos tu mensaje para que sea claro y persuasivo</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                  <span className="text-slate-300">
+                    Creamos y lanzamos tu página web profesional durante la reunión (sí, en vivo)
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </Card>
+        </div>
+
+        {/* AL FINALIZAR TENDRÁS */}
+        <div className="mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-8">
+            Al finalizar tendrás:
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 text-center">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center mx-auto mb-4">
+                <Target className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">
+                Tu identidad de marca clara
+              </h3>
+            </Card>
+
+            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 text-center">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center mx-auto mb-4">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">
+                Tu asistente de contenido listo para usar
+              </h3>
+            </Card>
+
+            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 text-center">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mx-auto mb-4">
+                <Globe className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">
+                Tu página web publicada con tu dominio propio
+              </h3>
+            </Card>
+          </div>
+        </div>
+
+        {/* INVERSIÓN */}
+        <Card className="mb-8 md:mb-12 p-6 md:p-8 bg-slate-800/80 border-slate-700 backdrop-blur">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
+            Inversión en tu presencia profesional
+          </h2>
+          
+          <div className="mb-6">
+            <p className="text-slate-300 mb-4 text-base md:text-lg">
+              La mentoría para crear y lanzar tu web es <strong className="text-white">sin costo al agendar</strong>.
+            </p>
+            <p className="text-slate-300 mb-4 text-base md:text-lg">
+              El pago de <strong className="text-white text-xl">$197.000 CLP</strong> (web + dominio + hosting 2 años + mentoría personalizada) 
+              se realiza <strong className="text-white">durante la sesión</strong>, mediante un enlace de pago seguro.
+            </p>
+            <p className="text-slate-300 text-base md:text-lg">
+              Esto permite que primero veas tu página web creada y optimizada en vivo, y solo después decidas avanzar.
+            </p>
+          </div>
+
+          <div className="bg-blue-500/10 border-l-4 border-blue-500 p-4 md:p-6 rounded-r-lg mb-8">
+            <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+              <Info className="w-5 h-5 text-blue-400" />
+              ¿Por qué funciona así?
+            </h3>
+            <p className="text-slate-300 text-sm md:text-base">
+              Porque creemos en mostrar primero, cobrar después. Verás tu web en vivo, optimizada y lista para convertir. 
+              Si te encanta, finalizas la compra en ese momento.
             </p>
           </div>
           
           <Button
             onClick={handleSchedule}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6"
+            className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-6 md:py-8 rounded-full text-base md:text-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
           >
-            <Calendar className="w-5 h-5 mr-2" />
-            Agendar Mentoría Gratis
+            <Calendar className="w-6 h-6 mr-2" />
+            Agendar mi Mentoría y Crear mi Web Ahora
           </Button>
         </Card>
 
-        {/* Contacto */}
-        <div className="text-center">
-          <p className="text-foreground/70 text-sm mb-3">¿Dudas? Escríbeme:</p>
+        {/* NOTA IMPORTANTE */}
+        <Card className="mb-12 p-6 bg-blue-500/10 border-blue-500/30 backdrop-blur">
+          <div className="flex items-start gap-3">
+            <Info className="w-6 h-6 text-blue-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-white font-bold mb-2">Nota importante</h3>
+              <p className="text-slate-300 text-sm md:text-base">
+                Si no ves el correo en 5 minutos, revisa las carpetas <strong>Promociones</strong> o <strong>Spam</strong>. 
+                A veces los sistemas de email los envían ahí por error.
+              </p>
+            </div>
+          </div>
+        </Card>
+
+        {/* PIE DE PÁGINA */}
+        <footer className="text-center text-slate-400 text-sm space-y-2 pt-8 border-t border-slate-700">
+          <div className="flex justify-center gap-4 mb-2">
+            <a href="#" className="hover:text-white transition-colors">Privacidad</a>
+            <span>|</span>
+            <a href="#" className="hover:text-white transition-colors">Términos</a>
+            <span>|</span>
+            <a href="#" className="hover:text-white transition-colors">Contacto</a>
+          </div>
+          <p>contacto@crealoconia.com</p>
           <Button
             variant="outline"
             onClick={() => window.open('https://wa.me/56961249991', '_blank')}
-            className="bg-card border-border text-foreground hover:bg-card/80"
+            className="mt-4 border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white"
           >
             WhatsApp: +56 9 6124 9991
           </Button>
-        </div>
+        </footer>
       </div>
     </div>
   );
