@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import AIEnhanceButton from '@/components/AIEnhanceButton';
 
 const Landing2 = () => {
   const { toast } = useToast();
@@ -24,6 +25,12 @@ const Landing2 = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const [aiUsage, setAiUsage] = useState<Record<string, number>>({});
+
+  const handleAIUsageUpdate = (fieldName: string, count: number) => {
+    setAiUsage(prev => ({ ...prev, [fieldName]: count }));
+  };
 
   useEffect(() => {
     if (!email || !nombre) {
@@ -201,9 +208,22 @@ const Landing2 = () => {
           <form onSubmit={handleSubmit} className="space-y-8">
             {questions.map((question, index) => (
               <div key={question.name} className="space-y-3">
-                <Label htmlFor={question.name} className="text-white text-base md:text-lg font-bold block">
-                  {index + 1}. {question.label}
-                </Label>
+                <div className="flex items-center justify-between gap-4">
+                  <Label htmlFor={question.name} className="text-white text-base md:text-lg font-bold block">
+                    {index + 1}. {question.label}
+                  </Label>
+                  <AIEnhanceButton
+                    currentText={formData[question.name as keyof typeof formData]}
+                    fieldType={question.name}
+                    context={{
+                      marca: nombre || '',
+                      estilo: 'Profesional'
+                    }}
+                    onEnhanced={(enhancedText) => handleInputChange(question.name, enhancedText)}
+                    sessionId={sessionId}
+                    onUsageUpdate={handleAIUsageUpdate}
+                  />
+                </div>
                 <Textarea
                   id={question.name}
                   placeholder={question.placeholder}
@@ -211,6 +231,8 @@ const Landing2 = () => {
                   onChange={(e) => handleInputChange(question.name, e.target.value)}
                   className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400 min-h-[120px] text-base"
                   disabled={isSubmitting}
+                  maxLength={2000}
+                  showCounter={true}
                 />
                 {errors[question.name] && (
                   <p className="text-red-400 text-sm">{errors[question.name]}</p>
