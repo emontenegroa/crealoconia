@@ -189,7 +189,7 @@ const Landing2 = () => {
             <Sparkles className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-            Tu Asistente de Contenido Está a 5 Minutos de Distancia
+            Tu asistente de contenido está a 5 minutos de distancia
           </h1>
           <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto">
             Completa estas 5 preguntas para que la IA entienda tu negocio y diseñe tu mensaje de marca listo para atraer clientes.
