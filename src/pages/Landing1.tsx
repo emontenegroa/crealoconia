@@ -130,8 +130,7 @@ const Landing1 = () => {
                 </div>
               </div>
               <p className="text-slate-300 text-sm md:text-base">
-                Completa un breve formulario y la IA creará un asistente exclusivo para tu marca, 
-                que te ayudará a generar contenido, guiones de video, mensajes para redes y diseñar tu web.
+                Completa un breve formulario y la IA creará un asistente exclusivo para tu marca, que te ayudará a generar contenido, guiones de video, mensajes para redes y texto para tu web.
               </p>
             </Card>
 
