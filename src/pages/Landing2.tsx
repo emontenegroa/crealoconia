@@ -34,6 +34,9 @@ const Landing2 = () => {
   };
 
   useEffect(() => {
+    // Scroll al inicio cuando se carga la página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     if (!email || !nombre) {
       toast({
         title: "Error",
@@ -112,8 +115,11 @@ const Landing2 = () => {
   };
 
   const calculateProgress = () => {
+    // Paso 2 de 3: empieza en 60% (paso 1 completado) y termina en 95%
+    // Esto genera urgencia de completar el último paso
     const completed = Object.values(formData).filter(value => value.trim().length >= 10).length;
-    return (completed / questions.length) * 100;
+    const quizProgress = (completed / questions.length) * 35; // 35% del rango total
+    return 60 + quizProgress; // Base de 60% + hasta 35% = máximo 95%
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
