@@ -9,27 +9,34 @@ const PortfolioSection = () => {
     },
     {
       id: 2,
+      titulo: "Despliega",
+      descripcion: "Consultoría en liderazgo organizacional",
+      categoria: "Consultoría",
+      imagen: "/ejemplos/despliega.png"
+    },
+    {
+      id: 3,
       titulo: "Total Sport",
       descripcion: "Empresa de eventos deportivos y wellness",
       categoria: "Empresa",
       imagen: "/ejemplos/totalsport.png"
     },
     {
-      id: 3,
+      id: 4,
       titulo: "Arte Transfer",
       descripcion: "Personalización corporativa y uniformes",
       categoria: "E-commerce",
       imagen: "/ejemplos/artescreen.png"
     },
     {
-      id: 4,
+      id: 5,
       titulo: "Mamás Mentoras",
       descripcion: "Centro de recursos para mentoría",
       categoria: "Comunidad",
       imagen: "/ejemplos/mamasmentorasscren.png"
     },
     {
-      id: 5,
+      id: 6,
       titulo: "Gatitos Barbería",
       descripcion: "Servicios de barbería profesional",
       categoria: "Servicios",
