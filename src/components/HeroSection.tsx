@@ -99,9 +99,10 @@ const HeroSection = ({
                 Integra <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">Inteligencia Artificial</span> a tu negocio para multiplicar tu tiempo, tus resultados y mejorar tus ventas.
               </h1>
               
-              <p className="text-lg text-slate-300 max-w-lg leading-relaxed">Si eres coach, terapeuta o profesional, tu web es tu carta de presentación. Consíguela lista sin complicaciones técnicas y enfocada en conseguir clientes. Tus potenciales clientes buscan una web clara, profesional y que comunique tu valor para ellos, si no, simplemente pasan al siguiente.         
-                     
-                                 </p>
+              <p className="text-lg text-slate-300 max-w-lg leading-relaxed">
+                Si eres coach, terapeuta o profesional, tu web es tu carta de presentación. Consíguela lista sin complicaciones técnicas y enfocada en conseguir clientes. Tus potenciales clientes buscan una web clara, profesional y que comunique tu valor para ellos, si no, simplemente pasan al siguiente.
+                <span className="block mt-2 text-sm text-slate-400">*No aplica para E-commerce</span>
+              </p>
             </div>
 
             {/* Formulario profesional */}
