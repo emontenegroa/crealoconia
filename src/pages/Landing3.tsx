@@ -79,8 +79,7 @@ const Landing3 = () => {
                 ¿Por qué funciona así?
               </h3>
               <p className="text-slate-300 text-sm md:text-base">
-                Porque creemos en mostrar primero, cobrar después. Verás tu web en vivo, optimizada y lista para convertir. 
-                Si te encanta, finalizas la compra en ese momento.
+                y agendas la mentoría
               </p>
             </div>
 
