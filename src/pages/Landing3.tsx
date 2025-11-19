@@ -166,7 +166,7 @@ const Landing3 = () => {
             className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-6 md:py-8 rounded-full text-base md:text-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
           >
             <Calendar className="w-6 h-6 mr-2" />
-            Agenda mi mentoría
+            Quiero ver mi sitio ahora
           </Button>
         </Card>
 
