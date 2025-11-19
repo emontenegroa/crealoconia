@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AIEnhanceButton from '@/components/AIEnhanceButton';
+import { quizFormSchema, sanitizeText } from '@/utils/formValidation';
 
 const Landing2 = () => {
   const { toast } = useToast();
@@ -74,19 +75,24 @@ const Landing2 = () => {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
-    questions.forEach(question => {
-      const value = formData[question.name as keyof typeof formData];
-      if (!value || value.trim().length < 10) {
-        newErrors[question.name] = 'Por favor escribe al menos 10 caracteres';
-      }
-    });
+    // Validar con zod schema
+    const result = quizFormSchema.safeParse(formData);
+    
+    if (!result.success) {
+      result.error.errors.forEach(error => {
+        const fieldName = error.path[0] as string;
+        newErrors[fieldName] = error.message;
+      });
+    }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
+    // Sanitizar el input antes de guardarlo
+    const sanitizedValue = sanitizeText(value);
+    setFormData(prev => ({ ...prev, [name]: sanitizedValue }));
     if (errors[name]) {
       setErrors(prev => {
         const newErrors = { ...prev };
