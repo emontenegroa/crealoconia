@@ -965,7 +965,7 @@ Fundador de CrealoconIA
                               <td className="p-2">
                                 <div className="flex gap-1 flex-wrap">
                                   <Dialog>
-                                    <DialogTrigger>
+                                    <DialogTrigger asChild>
                                       <Button 
                                         size="sm" 
                                         variant="ghost"
@@ -979,7 +979,16 @@ Fundador de CrealoconIA
                                      <DialogHeader>
                                        <DialogTitle>Detalles del Envío</DialogTitle>
                                      </DialogHeader>
-                                     <SubmissionDetails submission={submission} />
+                                     <SubmissionDetails 
+                                       submission={submission}
+                                       onSubmissionUpdate={(updatedSubmission) => {
+                                         setSubmissions(prevSubmissions => 
+                                           prevSubmissions.map(s => 
+                                             s.id === updatedSubmission.id ? updatedSubmission : s
+                                           )
+                                         );
+                                       }}
+                                     />
                                    </DialogContent>
                                  </Dialog>
                                  
@@ -1306,8 +1315,36 @@ Fundador de CrealoconIA
 }
 
 // Componente para mostrar detalles
-const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submission }) => {
+const SubmissionDetails: React.FC<{ 
+  submission: FormSubmission;
+  onSubmissionUpdate?: (updatedSubmission: FormSubmission) => void;
+}> = ({ submission, onSubmissionUpdate }) => {
+  const [localSubmission, setLocalSubmission] = useState<FormSubmission>(submission);
   const { toast } = useToast();
+
+  // Actualizar el estado local cuando cambia la prop
+  useEffect(() => {
+    setLocalSubmission(submission);
+  }, [submission]);
+
+  const handlePromptGenerated = (lovablePrompt: string) => {
+    const updatedSubmission = {
+      ...localSubmission,
+      form_data: {
+        ...localSubmission.form_data,
+        generatedPrompts: {
+          ...localSubmission.form_data?.generatedPrompts,
+          lovablePrompt
+        }
+      }
+    };
+    
+    setLocalSubmission(updatedSubmission);
+    
+    if (onSubmissionUpdate) {
+      onSubmissionUpdate(updatedSubmission);
+    }
+  };
 
   const copyToClipboard = async (text: string, label: string) => {
     try {
@@ -1381,21 +1418,21 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
       
       <TabsContent value="prompts">
         <div className="space-y-6">
-          {submission.form_data?.generatedPrompts?.superPrompt && (
+          {localSubmission.form_data?.generatedPrompts?.superPrompt && (
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label>Super Prompt</Label>
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => copyToClipboard(submission.form_data.generatedPrompts.superPrompt, "Super Prompt")}
+                  onClick={() => copyToClipboard(localSubmission.form_data.generatedPrompts.superPrompt, "Super Prompt")}
                 >
                   <Copy className="w-4 h-4 mr-2" />
                   Copiar
                 </Button>
               </div>
               <Textarea 
-                value={submission.form_data.generatedPrompts.superPrompt} 
+                value={localSubmission.form_data.generatedPrompts.superPrompt} 
                 readOnly 
                 className="min-h-[200px]"
               />
@@ -1406,25 +1443,26 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
             <div className="flex items-center justify-between">
               <Label>Prompt para Lovable</Label>
               <div className="flex gap-2">
-                {submission.form_data?.generatedPrompts?.lovablePrompt && (
+                {localSubmission.form_data?.generatedPrompts?.lovablePrompt && (
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => copyToClipboard(submission.form_data.generatedPrompts.lovablePrompt, "Prompt para Lovable")}
+                    onClick={() => copyToClipboard(localSubmission.form_data.generatedPrompts.lovablePrompt, "Prompt para Lovable")}
                   >
                     <Copy className="w-4 h-4 mr-2" />
                     Copiar
                   </Button>
                 )}
                 <GenerateLovablePromptButton 
-                  submissionId={submission.id} 
-                  hasExistingPrompt={!!submission.form_data?.generatedPrompts?.lovablePrompt}
+                  submissionId={localSubmission.id} 
+                  hasExistingPrompt={!!localSubmission.form_data?.generatedPrompts?.lovablePrompt}
+                  onPromptGenerated={handlePromptGenerated}
                 />
               </div>
             </div>
-            {submission.form_data?.generatedPrompts?.lovablePrompt ? (
+            {localSubmission.form_data?.generatedPrompts?.lovablePrompt ? (
               <Textarea 
-                value={submission.form_data.generatedPrompts.lovablePrompt} 
+                value={localSubmission.form_data.generatedPrompts.lovablePrompt} 
                 readOnly 
                 className="min-h-[200px]"
               />
@@ -1436,7 +1474,7 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
             )}
           </div>
           
-          {!submission.form_data?.generatedPrompts?.superPrompt && !submission.form_data?.generatedPrompts?.lovablePrompt && (
+          {!localSubmission.form_data?.generatedPrompts?.superPrompt && !localSubmission.form_data?.generatedPrompts?.lovablePrompt && (
             <p className="text-muted-foreground text-center py-8">No hay prompts generados para este envío</p>
           )}
         </div>
@@ -1538,7 +1576,11 @@ const TagDisplayList: React.FC<{ tags: string[] }> = ({ tags }) => {
 };
 
 // Component for generating Lovable prompt
-const GenerateLovablePromptButton: React.FC<{ submissionId: string; hasExistingPrompt?: boolean }> = ({ submissionId, hasExistingPrompt = false }) => {
+const GenerateLovablePromptButton: React.FC<{ 
+  submissionId: string; 
+  hasExistingPrompt?: boolean;
+  onPromptGenerated?: (lovablePrompt: string) => void;
+}> = ({ submissionId, hasExistingPrompt = false, onPromptGenerated }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
 
@@ -1559,8 +1601,10 @@ const GenerateLovablePromptButton: React.FC<{ submissionId: string; hasExistingP
           : "El prompt para Lovable se ha generado exitosamente"
       });
 
-      // Reload page to show updated data
-      window.location.reload();
+      // Actualizar solo el prompt en el estado local
+      if (data?.lovablePrompt && onPromptGenerated) {
+        onPromptGenerated(data.lovablePrompt);
+      }
     } catch (error) {
       console.error('Error generating prompt:', error);
       toast({
