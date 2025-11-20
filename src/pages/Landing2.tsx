@@ -19,7 +19,7 @@ const Landing2 = () => {
   const nombre = searchParams.get('nombre');
   
   // Integrar persistencia de formulario
-  const { saveProgress, loadPreviousProgress } = useFormPersistence();
+  const { saveProgress, loadPreviousProgress, markAsCompleted } = useFormPersistence();
   
   const [formData, setFormData] = useState({
     servicios: '',
@@ -235,8 +235,8 @@ const Landing2 = () => {
         ...formData
       };
       
-      await saveProgress(completeFormData as any);
-      console.log('✅ Datos del quiz guardados en backend');
+      await markAsCompleted(completeFormData as any);
+      console.log('✅ Datos del quiz marcados como completados en backend');
       
       // También guardar en localStorage para la página de gracias
       const userData = JSON.parse(localStorage.getItem('userData') || '{}');
