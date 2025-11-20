@@ -494,12 +494,6 @@ El resultado debe hacer que Lovable genere una landing:
 ✓ Lista para captar clientes desde el primer scroll
 
 Transforma el prompt base en una OBRA MAESTRA de contenido, estrategia y diseño.`;
-- Devuelve UN ÚNICO BLOQUE de texto: el "Prompt optimizado para Lovable".
-- Escribe en español.
-- Estructúralo con títulos/secciones claros (por ejemplo: Resumen, Objetivo, Estructura de la página, Diseño visual, Copy y tono, FAQ, Testimonios, CTA, etc.).
-- Nunca expliques qué estás haciendo; simplemente devuelve el prompt ya listo para usar.
-
-Tu salida es el prompt final que le voy a enviar directamente a Lovable.`;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
