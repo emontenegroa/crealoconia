@@ -268,7 +268,10 @@ const Landing2 = () => {
     setIsSubmitting(true);
     
     try {
-      // Construir datos completos
+      // Recuperar datos iniciales de Landing1
+      const initialData = JSON.parse(localStorage.getItem('userData') || '{}');
+      
+      // Construir datos completos incluyendo el WhatsApp de Landing1
       const completeFormData = {
         marca: nombre || '',
         email: email || '',
@@ -277,20 +280,20 @@ const Landing2 = () => {
         preguntas_frecuentes: formData.clientePerfil || '',
         estilo: 'Profesional',
         producto: formData.propuestaMetodo || '',
-        whatsapp: '',
-        website: '',
-        instagram: '',
-        // Datos del quiz
-        servicios: formData.servicios,
-        clientePerfil: formData.clientePerfil,
-        problemaPrincipal: formData.problemaPrincipal,
-        propuestaMetodo: formData.propuestaMetodo,
-        resultados: formData.resultados
+        whatsapp: initialData.telefono || '', // 🔥 CRÍTICO: WhatsApp viene de Landing1
+        website: formData.website || '',
+        instagram: formData.instagram || ''
       };
       
       // Generar prompts
       console.log('🤖 Generando prompts...');
       const prompts = await generateSuperPrompt(completeFormData as any);
+      console.log('✅ Prompts generados:', {
+        hasSuperPrompt: !!prompts?.superPrompt,
+        hasLovablePrompt: !!prompts?.lovablePrompt,
+        superPromptLength: prompts?.superPrompt?.length || 0,
+        lovablePromptLength: prompts?.lovablePrompt?.length || 0
+      });
       
       // Agregar prompts a los datos completos
       const dataWithPrompts = {
@@ -298,27 +301,46 @@ const Landing2 = () => {
         generatedPrompts: prompts
       };
       
-      // Marcar como completado en backend
+      console.log('💾 Guardando en backend con prompts incluidos...');
+      console.log('📊 Datos a guardar:', {
+        email: dataWithPrompts.email,
+        marca: dataWithPrompts.marca,
+        whatsapp: dataWithPrompts.whatsapp,
+        website: dataWithPrompts.website,
+        instagram: dataWithPrompts.instagram,
+        hasSuperPrompt: !!dataWithPrompts.generatedPrompts?.superPrompt,
+        hasLovablePrompt: !!dataWithPrompts.generatedPrompts?.lovablePrompt
+      });
+      
+      // Marcar como completado en backend (incluye AMBOS prompts)
       await markAsCompleted(dataWithPrompts as any);
-      console.log('✅ Datos del quiz marcados como completados en backend');
+      console.log('✅ Registro completado guardado en backend con AMBOS prompts');
       
       // Guardar en localStorage para Landing3
       const userData = JSON.parse(localStorage.getItem('userData') || '{}');
       const completeData = {
         ...userData,
         ...formData,
+        whatsapp: initialData.telefono || '',
         generatedPrompts: prompts,
         completedAt: new Date().toISOString()
       };
       localStorage.setItem('userData', JSON.stringify(completeData));
       
-      // Enviar emails
+      // Enviar emails (incluye Super Prompt en email de confirmación)
       console.log('📧 Enviando emails...');
+      console.log('📧 Email admin con datos:', {
+        email: dataWithPrompts.email,
+        marca: dataWithPrompts.marca,
+        whatsapp: dataWithPrompts.whatsapp
+      });
+      console.log('📧 Email confirmación incluye Super Prompt:', !!dataWithPrompts.generatedPrompts?.superPrompt);
+      
       await Promise.all([
         sendEmailToAdmin(dataWithPrompts as any),
         sendConfirmationEmail(dataWithPrompts as any)
       ]);
-      console.log('✅ Emails enviados');
+      console.log('✅ Emails enviados exitosamente');
       
       toast({
         title: "¡Perfecto!",

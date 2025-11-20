@@ -211,6 +211,16 @@ export const useFormPersistence = () => {
       const sanitizedData = sanitizeFormData(formData);
 
       console.log('📝 Creando nuevo registro completado para:', sanitizedData.email);
+      console.log('📊 Datos a insertar en DB:', {
+        email: sanitizedData.email,
+        marca: sanitizedData.marca,
+        whatsapp: sanitizedData.whatsapp,
+        website: sanitizedData.website,
+        instagram: sanitizedData.instagram,
+        hasSuperPrompt: !!(sanitizedData as any).generatedPrompts?.superPrompt,
+        hasLovablePrompt: !!(sanitizedData as any).generatedPrompts?.lovablePrompt,
+        completed: true
+      });
 
       // Siempre insertar un nuevo registro para trazabilidad
       // La fecha created_at se establece automáticamente en la base de datos con now()
