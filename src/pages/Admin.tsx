@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { createClient } from '@supabase/supabase-js';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
-import { usePromptGeneration } from '@/hooks/usePromptGeneration';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Download, Edit, Trash2, Eye, Filter, RefreshCw, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle, Copy, MessageCircle, Send, Wand2 } from 'lucide-react';
+import { Download, Edit, Trash2, Eye, Filter, RefreshCw, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle, Copy, MessageCircle, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
 import ThemeToggle from '@/components/ui/ThemeToggle';
@@ -68,16 +67,8 @@ export default function Admin({ onLogout }: AdminProps) {
     hasLovablePrompt: null,
     tag: ''
   });
-  const [useGPT5Enhancement, setUseGPT5Enhancement] = useState<boolean>(() => {
-    const saved = localStorage.getItem('admin_use_gpt5_enhancement');
-    return saved !== null ? JSON.parse(saved) : true;
-  });
   const { toast } = useToast();
   const { sendTestEmail } = useEmailHandling();
-
-  useEffect(() => {
-    localStorage.setItem('admin_use_gpt5_enhancement', JSON.stringify(useGPT5Enhancement));
-  }, [useGPT5Enhancement]);
 
   useEffect(() => {
     loadSubmissions();
@@ -773,46 +764,6 @@ Fundador de CrealoconIA
               </div>
             </div>
 
-            {/* Configuración GPT-5 */}
-            <Card className="mb-4 border-2 border-primary/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Wand2 className="w-5 h-5 text-primary" />
-                  Configuración de Generación de Prompts
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Label htmlFor="gpt5-toggle" className="text-base font-medium cursor-pointer">
-                        Mejora con GPT-5
-                      </Label>
-                      <Badge variant={useGPT5Enhancement ? "default" : "secondary"}>
-                        {useGPT5Enhancement ? "Activado" : "Desactivado"}
-                      </Badge>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      {useGPT5Enhancement 
-                        ? "El prompt base se mejora con GPT-5 antes de enviarlo a Lovable. Esto puede normalizar los prompts y hacerlos más similares entre sí."
-                        : "El prompt base se envía directamente a Lovable sin pasar por GPT-5. Esto mantiene máxima unicidad y especificidad por cliente."}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3 ml-4">
-                    <Checkbox
-                      id="gpt5-toggle"
-                      checked={useGPT5Enhancement}
-                      onCheckedChange={(checked) => setUseGPT5Enhancement(checked as boolean)}
-                    />
-                  </div>
-                </div>
-                <div className="mt-3 text-xs text-muted-foreground space-y-1">
-                  <p>💡 <strong>Con GPT-5:</strong> Más pulido pero menos único. Útil si el cliente llenó campos muy breves.</p>
-                  <p>💡 <strong>Sin GPT-5:</strong> Máxima diferenciación. Cada sitio mantiene su identidad única según la info exacta del cliente.</p>
-                </div>
-              </CardContent>
-            </Card>
-
             {/* Filtros */}
             <Card>
               <CardHeader>
@@ -1014,7 +965,7 @@ Fundador de CrealoconIA
                               <td className="p-2">
                                 <div className="flex gap-1 flex-wrap">
                                   <Dialog>
-                                    <DialogTrigger asChild>
+                                    <DialogTrigger>
                                       <Button 
                                         size="sm" 
                                         variant="ghost"
@@ -1028,16 +979,7 @@ Fundador de CrealoconIA
                                      <DialogHeader>
                                        <DialogTitle>Detalles del Envío</DialogTitle>
                                      </DialogHeader>
-                                     <SubmissionDetails 
-                                       submission={submission}
-                                       onSubmissionUpdate={(updatedSubmission) => {
-                                         setSubmissions(prevSubmissions => 
-                                           prevSubmissions.map(s => 
-                                             s.id === updatedSubmission.id ? updatedSubmission : s
-                                           )
-                                         );
-                                       }}
-                                     />
+                                     <SubmissionDetails submission={submission} />
                                    </DialogContent>
                                  </Dialog>
                                  
@@ -1364,40 +1306,8 @@ Fundador de CrealoconIA
 }
 
 // Componente para mostrar detalles
-const SubmissionDetails: React.FC<{ 
-  submission: FormSubmission;
-  onSubmissionUpdate?: (updatedSubmission: FormSubmission) => void;
-}> = ({ submission, onSubmissionUpdate }) => {
-  const [localSubmission, setLocalSubmission] = useState<FormSubmission>(submission);
-  const [promptWithGPT5, setPromptWithGPT5] = useState<string>('');
-  const [promptWithoutGPT5, setPromptWithoutGPT5] = useState<string>('');
-  const [generatingPrompts, setGeneratingPrompts] = useState(false);
+const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submission }) => {
   const { toast } = useToast();
-  const { generateSuperPrompt } = usePromptGeneration();
-
-  // Actualizar el estado local cuando cambia la prop
-  useEffect(() => {
-    setLocalSubmission(submission);
-  }, [submission]);
-
-  const handlePromptGenerated = (lovablePrompt: string) => {
-    const updatedSubmission = {
-      ...localSubmission,
-      form_data: {
-        ...localSubmission.form_data,
-        generatedPrompts: {
-          ...localSubmission.form_data?.generatedPrompts,
-          lovablePrompt
-        }
-      }
-    };
-    
-    setLocalSubmission(updatedSubmission);
-    
-    if (onSubmissionUpdate) {
-      onSubmissionUpdate(updatedSubmission);
-    }
-  };
 
   const copyToClipboard = async (text: string, label: string) => {
     try {
@@ -1412,43 +1322,6 @@ const SubmissionDetails: React.FC<{
         description: "No se pudo copiar al portapapeles",
         variant: "destructive"
       });
-    }
-  };
-
-  const generateBothPrompts = async () => {
-    try {
-      setGeneratingPrompts(true);
-      toast({
-        title: "Generando prompts...",
-        description: "Generando ambas versiones del prompt base",
-      });
-
-      // Generar ambas versiones del prompt base directamente
-      // NO usar GPT-5 enhancement aquí porque el lovablePrompt es demasiado largo (>3000 chars)
-      // y la función enhance-with-ai tiene un límite de 3000 caracteres
-      const [promptsVersion1, promptsVersion2] = await Promise.all([
-        generateSuperPrompt(localSubmission.form_data, false), // Sin GPT-5
-        generateSuperPrompt(localSubmission.form_data, false)  // Sin GPT-5 (mismo resultado)
-      ]);
-
-      // Ambas versiones serán idénticas porque estamos usando el mismo método
-      // La diferencia real sería si usáramos GPT-5, pero el prompt es demasiado largo
-      setPromptWithGPT5(promptsVersion1.lovablePrompt);
-      setPromptWithoutGPT5(promptsVersion2.lovablePrompt);
-
-      toast({
-        title: "Prompts generados",
-        description: "Prompt base generado (El prompt es demasiado extenso para mejorarlo con GPT-5)",
-      });
-    } catch (error) {
-      console.error('Error generating prompts:', error);
-      toast({
-        title: "Error",
-        description: "No se pudieron generar los prompts",
-        variant: "destructive"
-      });
-    } finally {
-      setGeneratingPrompts(false);
     }
   };
 
@@ -1508,150 +1381,47 @@ const SubmissionDetails: React.FC<{
       
       <TabsContent value="prompts">
         <div className="space-y-6">
-          {localSubmission.form_data?.generatedPrompts?.superPrompt && (
+          {submission.form_data?.generatedPrompts?.superPrompt && (
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label>Super Prompt</Label>
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => copyToClipboard(localSubmission.form_data.generatedPrompts.superPrompt, "Super Prompt")}
+                  onClick={() => copyToClipboard(submission.form_data.generatedPrompts.superPrompt, "Super Prompt")}
                 >
                   <Copy className="w-4 h-4 mr-2" />
                   Copiar
                 </Button>
               </div>
               <Textarea 
-                value={localSubmission.form_data.generatedPrompts.superPrompt} 
+                value={submission.form_data.generatedPrompts.superPrompt} 
                 readOnly 
                 className="min-h-[200px]"
               />
             </div>
           )}
-          
-          {/* Sección de comparación de prompts */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between border-b pb-2">
-              <h3 className="text-lg font-semibold">Comparación de Prompts para Lovable</h3>
-              <Button
-                onClick={generateBothPrompts}
-                disabled={generatingPrompts}
-                variant="default"
-              >
-                {generatingPrompts ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Generando...
-                  </>
-                ) : (
-                  <>
-                    <Wand2 className="w-4 h-4 mr-2" />
-                    Generar Comparación
-                  </>
-                )}
-              </Button>
+          {submission.form_data?.generatedPrompts?.lovablePrompt && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label>Prompt para Lovable</Label>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => copyToClipboard(submission.form_data.generatedPrompts.lovablePrompt, "Prompt para Lovable")}
+                >
+                  <Copy className="w-4 h-4 mr-2" />
+                  Copiar
+                </Button>
+              </div>
+              <Textarea 
+                value={submission.form_data.generatedPrompts.lovablePrompt} 
+                readOnly 
+                className="min-h-[200px]"
+              />
             </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              {/* Prompt CON GPT-5 */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Label className="text-base font-semibold">Prompt Base</Label>
-                <Badge variant="default" className="text-xs">Lovable</Badge>
-              </div>
-                  {promptWithGPT5 && (
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => copyToClipboard(promptWithGPT5, "Prompt base")}
-                    >
-                      <Copy className="w-4 h-4 mr-2" />
-                      Copiar
-                    </Button>
-                  )}
-                </div>
-                {promptWithGPT5 ? (
-                  <Textarea 
-                    value={promptWithGPT5} 
-                    readOnly 
-                    className="min-h-[400px] font-mono text-xs"
-                  />
-                ) : (
-                  <div className="border border-dashed rounded-md p-8 text-center text-muted-foreground min-h-[400px] flex flex-col items-center justify-center">
-                    <p className="font-medium">Prompt optimizado para Lovable</p>
-                    <p className="text-sm mt-2">Este es el prompt completo que Lovable usa para generar el sitio</p>
-                  </div>
-                )}
-                {promptWithGPT5 && (
-                  <p className="text-xs text-muted-foreground">
-                    Longitud: {promptWithGPT5.length.toLocaleString()} caracteres
-                  </p>
-                )}
-              </div>
-
-              {/* Prompt SIN GPT-5 */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Label className="text-base font-semibold">Visualización</Label>
-                    <Badge variant="secondary" className="text-xs">Mismo contenido</Badge>
-                  </div>
-                  {promptWithoutGPT5 && (
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => copyToClipboard(promptWithoutGPT5, "Prompt visualización")}
-                    >
-                      <Copy className="w-4 h-4 mr-2" />
-                      Copiar
-                    </Button>
-                  )}
-                </div>
-                {promptWithoutGPT5 ? (
-                  <Textarea 
-                    value={promptWithoutGPT5} 
-                    readOnly 
-                    className="min-h-[400px] font-mono text-xs"
-                  />
-                ) : (
-                  <div className="border border-dashed rounded-md p-8 text-center text-muted-foreground min-h-[400px] flex flex-col items-center justify-center">
-                    <p className="font-medium">Prompt base optimizado</p>
-                    <p className="text-sm mt-2">Versión duplicada para referencia visual</p>
-                  </div>
-                )}
-                {promptWithoutGPT5 && (
-                  <p className="text-xs text-muted-foreground">
-                    Longitud: {promptWithoutGPT5.length.toLocaleString()} caracteres
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {promptWithGPT5 && promptWithoutGPT5 && (
-              <div className="bg-muted/30 p-4 rounded-lg">
-                <h4 className="text-sm font-semibold mb-2">Información del prompt</h4>
-                <div className="grid grid-cols-1 gap-4 text-xs">
-                  <div>
-                    <p className="text-muted-foreground">Longitud total del prompt:</p>
-                    <p className="font-mono text-lg font-bold">
-                      {promptWithGPT5.length.toLocaleString()} caracteres
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-muted-foreground">Nota:</p>
-                    <p className="font-medium">
-                      El prompt es demasiado extenso (+{(promptWithGPT5.length / 1000).toFixed(1)}k caracteres) para ser mejorado con GPT-5. 
-                      El límite de la función enhance-with-ai es 3,000 caracteres.
-                      Este prompt ya contiene todas las instrucciones optimizadas y está listo para usar en Lovable.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-          
-          {!localSubmission.form_data?.generatedPrompts?.superPrompt && (
+          )}
+          {!submission.form_data?.generatedPrompts?.superPrompt && !submission.form_data?.generatedPrompts?.lovablePrompt && (
             <p className="text-muted-foreground text-center py-8">No hay prompts generados para este envío</p>
           )}
         </div>
@@ -1749,70 +1519,6 @@ const TagDisplayList: React.FC<{ tags: string[] }> = ({ tags }) => {
         </Badge>
       ))}
     </>
-  );
-};
-
-// Component for generating Lovable prompt
-const GenerateLovablePromptButton: React.FC<{ 
-  submissionId: string; 
-  hasExistingPrompt?: boolean;
-  onPromptGenerated?: (lovablePrompt: string) => void;
-}> = ({ submissionId, hasExistingPrompt = false, onPromptGenerated }) => {
-  const [isGenerating, setIsGenerating] = useState(false);
-  const { toast } = useToast();
-
-  const handleGenerate = async () => {
-    try {
-      setIsGenerating(true);
-      
-      const { data, error } = await supabase.functions.invoke('generate-lovable-prompt', {
-        body: { submissionId }
-      });
-
-      if (error) throw error;
-
-      toast({
-        title: "✅ Prompt generado",
-        description: hasExistingPrompt 
-          ? "El prompt para Lovable se ha regenerado exitosamente"
-          : "El prompt para Lovable se ha generado exitosamente"
-      });
-
-      // Actualizar solo el prompt en el estado local
-      if (data?.lovablePrompt && onPromptGenerated) {
-        onPromptGenerated(data.lovablePrompt);
-      }
-    } catch (error) {
-      console.error('Error generating prompt:', error);
-      toast({
-        title: "❌ Error",
-        description: "No se pudo generar el prompt para Lovable",
-        variant: "destructive"
-      });
-    } finally {
-      setIsGenerating(false);
-    }
-  };
-
-  return (
-    <Button
-      size="sm"
-      onClick={handleGenerate}
-      disabled={isGenerating}
-      variant={hasExistingPrompt ? "outline" : "default"}
-    >
-      {isGenerating ? (
-        <>
-          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-          {hasExistingPrompt ? "Regenerando..." : "Generando..."}
-        </>
-      ) : (
-        <>
-          <Wand2 className="w-4 h-4 mr-2" />
-          {hasExistingPrompt ? "Regenerar Prompt" : "Generar Prompt Lovable"}
-        </>
-      )}
-    </Button>
   );
 };
 

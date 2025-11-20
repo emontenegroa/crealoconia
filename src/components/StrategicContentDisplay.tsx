@@ -18,7 +18,6 @@ interface FormData {
   instagram: string;
   generatedPrompts?: {
     superPrompt: string;
-    lovablePrompt: string;
   };
 }
 
@@ -86,18 +85,15 @@ const StrategicContentDisplay = ({ formData, onReset }: StrategicContentDisplayP
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
             🚀 Tu Super Prompt está listo, {formData.marca}
           </h1>
-          <p className="text-gray-600 text-lg mb-2">
+          <p className="text-gray-600 text-lg">
             Aquí tienes tu asistente personalizado de marketing y contenido para ChatGPT
-          </p>
-          <p className="text-gray-500 text-sm">
-            ✅ Tu sitio web profesional se generará automáticamente en el siguiente paso
           </p>
         </div>
 
         <div className="space-y-6">
-          {/* Super Prompt para ChatGPT */}
+          {/* Super Prompt */}
           <Card className="border-purple-200 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50">
+            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50">
               <CardTitle className="text-purple-800 flex items-center gap-3">
                 <Sparkles className="w-6 h-6" />
                 Tu Super Prompt para ChatGPT
@@ -115,7 +111,7 @@ const StrategicContentDisplay = ({ formData, onReset }: StrategicContentDisplayP
               <div className="flex gap-3">
                 <Button 
                   onClick={() => copyToClipboard(prompts.superPrompt, "Super Prompt")}
-                  className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                  className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
                 >
                   <Copy className="w-4 h-4 mr-2" />
                   Copiar Super Prompt
@@ -155,7 +151,7 @@ const StrategicContentDisplay = ({ formData, onReset }: StrategicContentDisplayP
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">4. Mejora continuamente:</h3>
-                  <p className="text-gray-600">Si detectas vacíos de información en el prompt, completa esos datos para obtener mejores resultados.</p>
+                  <p className="text-gray-600">Si detectaste vacíos de información en el prompt, completa esos datos para obtener mejores resultados.</p>
                 </div>
               </div>
             </CardContent>
@@ -165,7 +161,7 @@ const StrategicContentDisplay = ({ formData, onReset }: StrategicContentDisplayP
           <Card className="border-blue-200 shadow-lg">
             <CardHeader className="bg-blue-50">
               <CardTitle className="text-blue-800">
-                💎 Lo que incluye tu Kit IA
+                💎 Lo que incluye tu Super Prompt
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6">
@@ -188,11 +184,6 @@ const StrategicContentDisplay = ({ formData, onReset }: StrategicContentDisplayP
                     <li>• Manejo de objeciones</li>
                   </ul>
                 </div>
-              </div>
-              <div className="mt-6 pt-6 border-t border-blue-200 bg-blue-50/50 rounded-lg p-4">
-                <p className="text-center text-blue-800 font-medium">
-                  🌐 Además, tu sitio web profesional se generará automáticamente en el siguiente paso
-                </p>
               </div>
             </CardContent>
           </Card>

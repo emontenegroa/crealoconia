@@ -27,6 +27,3 @@ verify_jwt = false
 
 [functions.admin-tags]
 verify_jwt = false
-
-[functions.generate-lovable-prompt]
-verify_jwt = false
