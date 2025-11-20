@@ -9,6 +9,7 @@ import { ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AIEnhanceButton from '@/components/AIEnhanceButton';
 import { quizFormSchema, sanitizeText, sanitizeTextForSubmit } from '@/utils/formValidation';
+import { useFormPersistence } from '@/hooks/useFormPersistence';
 
 const Landing2 = () => {
   const { toast } = useToast();
@@ -16,6 +17,9 @@ const Landing2 = () => {
   const [searchParams] = useSearchParams();
   const email = searchParams.get('email');
   const nombre = searchParams.get('nombre');
+  
+  // Integrar persistencia de formulario
+  const { saveProgress } = useFormPersistence();
   
   const [formData, setFormData] = useState({
     servicios: '',
@@ -46,6 +50,35 @@ const Landing2 = () => {
       navigate('/');
     }
   }, [email, nombre, navigate, toast]);
+
+  // Auto-guardar progreso cada 30 segundos en el backend
+  useEffect(() => {
+    if (!email) return;
+    
+    const interval = setInterval(() => {
+      const hasData = Object.values(formData).some(value => value.trim() !== '');
+      if (hasData) {
+        const completeFormData = {
+          marca: nombre || '',
+          email: email,
+          quien_eres: '',
+          problemas: '',
+          preguntas_frecuentes: '',
+          estilo: '',
+          producto: '',
+          whatsapp: '',
+          website: '',
+          instagram: '',
+          // Datos del quiz
+          ...formData
+        };
+        saveProgress(completeFormData as any);
+        console.log('💾 Progreso guardado automáticamente en backend');
+      }
+    }, 30000); // 30 segundos
+
+    return () => clearInterval(interval);
+  }, [formData, email, nombre, saveProgress]);
 
   const questions = [
     {
@@ -140,6 +173,26 @@ const Landing2 = () => {
     setIsSubmitting(true);
     
     try {
+      // Guardar en backend antes de continuar
+      const completeFormData = {
+        marca: nombre || '',
+        email: email || '',
+        quien_eres: '',
+        problemas: '',
+        preguntas_frecuentes: '',
+        estilo: '',
+        producto: '',
+        whatsapp: '',
+        website: '',
+        instagram: '',
+        // Datos del quiz
+        ...formData
+      };
+      
+      await saveProgress(completeFormData as any);
+      console.log('✅ Datos del quiz guardados en backend');
+      
+      // También guardar en localStorage para la página de gracias
       const userData = JSON.parse(localStorage.getItem('userData') || '{}');
       const completeData = {
         ...userData,
