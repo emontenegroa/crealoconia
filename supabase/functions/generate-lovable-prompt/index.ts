@@ -355,11 +355,32 @@ Un sitio web completo que:
 
 ═══════════════════════════════════════════════
 
-**INSTRUCCIONES FINALES PARA LOVABLE:**
+═══════════════════════════════════════════════
+🧩 INSTRUCCIONES FINALES PARA LOVABLE (OBLIGATORIAS)
+═══════════════════════════════════════════════
 
-Genera el sitio completo con todas las secciones mencionadas, copy profesional y persuasivo, diseño premium diferenciado, y optimización total para conversión. El sitio debe transmitir autoridad absoluta, generar confianza inmediata y motivar acción desde el primer segundo.
+Con toda la información anterior:
 
-Usa React, TailwindCSS, componentes modernos, animaciones suaves, formularios funcionales, y toda la tecnología necesaria para crear una experiencia web de nivel profesional para ${formData.marca}.
+1. Genera en UN SOLO PASO el sitio completo para ${formData.marca} dentro de Lovable, sin hacer preguntas adicionales ni pedir más contexto. No dividas la salida en partes ni propongas alternativas; entrega un único resultado final.
+
+2. Construye directamente:
+   - La arquitectura final del sitio (secciones y orden).
+   - El copy completo y definitivo para cada sección (sin placeholders ni textos tipo "ejemplo aquí").
+   - Titulares, subtítulos, bullets de beneficios, CTAs, testimonios ficticios creíbles y FAQs completas basadas en ${formData.preguntas_frecuentes}.
+   - Recomendaciones visuales coherentes (paleta, tipografías, estilo general, uso de imágenes y micro-interacciones).
+
+3. Optimiza TODO para:
+   - Conversión (captar leads y contactos desde el primer scroll).
+   - Diferenciación (que el sitio no parezca plantilla genérica).
+   - Coherencia con el estilo de comunicación: ${formData.estilo}.
+   - Experiencia emocional alineada con el público objetivo: ${publicoObjetivo}.
+
+4. Aplica las especificaciones ya indicadas de diseño, estructura y copywriting y crea un resultado:
+   - Premium, moderno y memorable.
+   - Profundamente alineado con el negocio descrito.
+   - Listo para ser publicado sin necesidad de ajustes conceptuales mayores.
+
+No expliques tu proceso ni des instrucciones técnicas; responde solo con el contenido final optimizado que Lovable debe usar para construir el sitio.
 
 ═══════════════════════════════════════════════`;
 
