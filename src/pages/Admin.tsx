@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Download, Edit, Trash2, Eye, Filter, RefreshCw, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle, Copy, MessageCircle, Send } from 'lucide-react';
+import { Download, Edit, Trash2, Eye, Filter, RefreshCw, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle, Copy, MessageCircle, Send, Wand2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
 import ThemeToggle from '@/components/ui/ThemeToggle';
@@ -1401,26 +1401,38 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
               />
             </div>
           )}
-          {submission.form_data?.generatedPrompts?.lovablePrompt && (
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label>Prompt para Lovable</Label>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => copyToClipboard(submission.form_data.generatedPrompts.lovablePrompt, "Prompt para Lovable")}
-                >
-                  <Copy className="w-4 h-4 mr-2" />
-                  Copiar
-                </Button>
+          
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label>Prompt para Lovable</Label>
+              <div className="flex gap-2">
+                {submission.form_data?.generatedPrompts?.lovablePrompt && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => copyToClipboard(submission.form_data.generatedPrompts.lovablePrompt, "Prompt para Lovable")}
+                  >
+                    <Copy className="w-4 h-4 mr-2" />
+                    Copiar
+                  </Button>
+                )}
+                <GenerateLovablePromptButton submissionId={submission.id} />
               </div>
+            </div>
+            {submission.form_data?.generatedPrompts?.lovablePrompt ? (
               <Textarea 
                 value={submission.form_data.generatedPrompts.lovablePrompt} 
                 readOnly 
                 className="min-h-[200px]"
               />
-            </div>
-          )}
+            ) : (
+              <div className="border border-dashed rounded-md p-8 text-center text-muted-foreground">
+                <p>No se ha generado el prompt para Lovable</p>
+                <p className="text-sm mt-2">Usa el botón "Generar Prompt Lovable" para crearlo</p>
+              </div>
+            )}
+          </div>
+          
           {!submission.form_data?.generatedPrompts?.superPrompt && !submission.form_data?.generatedPrompts?.lovablePrompt && (
             <p className="text-muted-foreground text-center py-8">No hay prompts generados para este envío</p>
           )}
@@ -1519,6 +1531,61 @@ const TagDisplayList: React.FC<{ tags: string[] }> = ({ tags }) => {
         </Badge>
       ))}
     </>
+  );
+};
+
+// Component for generating Lovable prompt
+const GenerateLovablePromptButton: React.FC<{ submissionId: string }> = ({ submissionId }) => {
+  const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
+
+  const handleGenerate = async () => {
+    try {
+      setIsGenerating(true);
+      
+      const { data, error } = await supabase.functions.invoke('generate-lovable-prompt', {
+        body: { submissionId }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "✅ Prompt generado",
+        description: "El prompt para Lovable se ha generado exitosamente"
+      });
+
+      // Reload page to show updated data
+      window.location.reload();
+    } catch (error) {
+      console.error('Error generating prompt:', error);
+      toast({
+        title: "❌ Error",
+        description: "No se pudo generar el prompt para Lovable",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  return (
+    <Button
+      size="sm"
+      onClick={handleGenerate}
+      disabled={isGenerating}
+    >
+      {isGenerating ? (
+        <>
+          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+          Generando...
+        </>
+      ) : (
+        <>
+          <Wand2 className="w-4 h-4 mr-2" />
+          Generar Prompt Lovable
+        </>
+      )}
+    </Button>
   );
 };
 
