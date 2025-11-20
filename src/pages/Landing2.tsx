@@ -19,7 +19,7 @@ const Landing2 = () => {
   const nombre = searchParams.get('nombre');
   
   // Integrar persistencia de formulario
-  const { saveProgress } = useFormPersistence();
+  const { saveProgress, loadPreviousProgress } = useFormPersistence();
   
   const [formData, setFormData] = useState({
     servicios: '',
@@ -32,6 +32,7 @@ const Landing2 = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [aiUsage, setAiUsage] = useState<Record<string, number>>({});
+  const [progressRestored, setProgressRestored] = useState(false);
 
   const handleAIUsageUpdate = (fieldName: string, count: number) => {
     setAiUsage(prev => ({ ...prev, [fieldName]: count }));
@@ -50,6 +51,50 @@ const Landing2 = () => {
       navigate('/');
     }
   }, [email, nombre, navigate, toast]);
+
+  // Cargar progreso previo del quiz si existe
+  useEffect(() => {
+    const restoreProgress = async () => {
+      if (!email || progressRestored) return;
+      
+      try {
+        console.log('🔍 Buscando progreso previo del quiz para:', email);
+        const previousData = await loadPreviousProgress(email);
+        
+        if (previousData) {
+          // Verificar si hay datos del quiz guardados
+          const hasQuizData = 
+            previousData.servicios || 
+            previousData.clientePerfil || 
+            previousData.problemaPrincipal || 
+            previousData.propuestaMetodo || 
+            previousData.resultados;
+          
+          if (hasQuizData) {
+            console.log('✅ Progreso del quiz encontrado, restaurando...');
+            setFormData({
+              servicios: previousData.servicios || '',
+              clientePerfil: previousData.clientePerfil || '',
+              problemaPrincipal: previousData.problemaPrincipal || '',
+              propuestaMetodo: previousData.propuestaMetodo || '',
+              resultados: previousData.resultados || ''
+            });
+            setProgressRestored(true);
+            
+            toast({
+              title: "Progreso restaurado",
+              description: "Hemos recuperado tus respuestas anteriores del quiz.",
+              duration: 5000,
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error al cargar progreso previo:', error);
+      }
+    };
+    
+    restoreProgress();
+  }, [email, progressRestored, loadPreviousProgress, toast]);
 
   // Auto-guardar progreso cada 30 segundos en el backend
   useEffect(() => {
