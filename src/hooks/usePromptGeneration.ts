@@ -3,7 +3,7 @@ import { FormData } from './useFormHandler';
 import { supabase } from '@/integrations/supabase/client';
 
 export const usePromptGeneration = () => {
-  const generateSuperPrompt = async (data: FormData) => {
+  const generateSuperPrompt = async (data: FormData, useGPT5Enhancement: boolean = true) => {
     // Generar público objetivo basado en el problema y quien eres
     const publicoObjetivo = data.quien_eres.includes('atletas') ? 
       'Atletas, deportistas de alto rendimiento y emprendedores ambiciosos' :
@@ -473,29 +473,30 @@ Usa React, TailwindCSS, componentes modernos, animaciones suaves, formularios fu
     });
 
     try {
-      // Mejorar SOLO el Super Prompt con GPT-5 (ahorro de tokens)
-      // El prompt de Lovable se genera manualmente desde admin cuando el cliente realmente quiere el sitio
-      console.log('🤖 Iniciando mejora del Super Prompt con GPT-5...');
-      console.log('⏳ Esto puede tomar 10-30 segundos. Por favor espera...');
-      
-      const superPromptResult = await supabase.functions.invoke('enhance-with-ai', {
-        body: {
-          userText: baseSuperPrompt,
-          fieldType: 'super_prompt',
-          context: {
-            marca: data.marca,
-            estilo: data.estilo
-          }
-        }
-      });
-
+      // Solo mejorar el super prompt con GPT-5 si está habilitado
       let enhancedSuperPrompt = baseSuperPrompt;
       
-      if (!superPromptResult.error && superPromptResult.data?.enhancedText) {
-        enhancedSuperPrompt = superPromptResult.data.enhancedText;
-        console.log('✅ Super Prompt mejorado con GPT-5');
+      if (useGPT5Enhancement) {
+        console.log('🤖 Mejorando Super Prompt con GPT-5...');
+        const { data: superPromptResult, error: superPromptError } = await supabase.functions.invoke('enhance-with-ai', {
+          body: {
+            userText: baseSuperPrompt,
+            fieldType: 'super_prompt',
+            context: {
+              marca: data.marca,
+              estilo: data.estilo
+            }
+          }
+        });
+
+        if (!superPromptError && superPromptResult?.enhancedText) {
+          enhancedSuperPrompt = superPromptResult.enhancedText;
+          console.log('✅ Super Prompt mejorado con GPT-5');
+        } else {
+          console.warn('⚠️ No se pudo mejorar Super Prompt, usando versión base. Error:', superPromptError);
+        }
       } else {
-        console.warn('⚠️ No se pudo mejorar Super Prompt, usando versión base. Error:', superPromptResult.error);
+        console.log('⚡ Saltando mejora con GPT-5 - usando prompt base directo para máxima unicidad');
       }
 
       console.log('📋 Prompts generados exitosamente:', {
@@ -503,12 +504,13 @@ Usa React, TailwindCSS, componentes modernos, animaciones suaves, formularios fu
         lovablePromptLength: lovablePrompt.length,
         hasSuperPrompt: !!enhancedSuperPrompt,
         hasLovablePrompt: !!lovablePrompt,
-        lovablePromptStatus: 'Base sin mejorar (se mejorará manualmente desde admin si el cliente convierte)'
+        gpt5Used: useGPT5Enhancement,
+        lovablePromptStatus: 'Prompt base optimizado - listo para generar sitio único'
       });
 
       return {
         superPrompt: enhancedSuperPrompt,
-        lovablePrompt: lovablePrompt // Prompt base sin mejorar, se mejorará manualmente desde admin
+        lovablePrompt: lovablePrompt
       };
       
     } catch (error) {
