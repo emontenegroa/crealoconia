@@ -403,19 +403,26 @@ export const useFormHandler = () => {
         estilo: sanitizedFormData.estilo
       });
       
-      // Mostrar indicador de carga mientras GPT-5 mejora los prompts
-      toast({
-        title: "🧠 Optimizando con IA",
-        description: "GPT-5 está mejorando tus prompts personalizados. Esto tomará 10-30 segundos...",
-        duration: 30000, // Se mostrará hasta que termine o por 30 segundos
-      });
+      // Obtener configuración de GPT-5 desde localStorage
+      const useGPT5Enhancement = localStorage.getItem('admin_use_gpt5_enhancement');
+      const shouldUseGPT5 = useGPT5Enhancement !== null ? JSON.parse(useGPT5Enhancement) : true;
       
-      const generatedPrompts = await generateSuperPrompt(sanitizedFormData);
+      // Mostrar indicador de carga solo si GPT-5 está activo
+      if (shouldUseGPT5) {
+        toast({
+          title: "🧠 Optimizando con IA",
+          description: "GPT-5 está mejorando tus prompts personalizados. Esto tomará 10-30 segundos...",
+          duration: 30000,
+        });
+      }
+      
+      const generatedPrompts = await generateSuperPrompt(sanitizedFormData, shouldUseGPT5);
       console.log('✅ Prompts generados:', {
         hasSuperPrompt: !!generatedPrompts?.superPrompt,
         hasLovablePrompt: !!generatedPrompts?.lovablePrompt,
         superPromptLength: generatedPrompts?.superPrompt?.length || 0,
-        lovablePromptLength: generatedPrompts?.lovablePrompt?.length || 0
+        lovablePromptLength: generatedPrompts?.lovablePrompt?.length || 0,
+        gpt5Used: shouldUseGPT5
       });
       
       // Mostrar éxito cuando los prompts estén listos

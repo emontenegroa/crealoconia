@@ -67,8 +67,16 @@ export default function Admin({ onLogout }: AdminProps) {
     hasLovablePrompt: null,
     tag: ''
   });
+  const [useGPT5Enhancement, setUseGPT5Enhancement] = useState<boolean>(() => {
+    const saved = localStorage.getItem('admin_use_gpt5_enhancement');
+    return saved !== null ? JSON.parse(saved) : true;
+  });
   const { toast } = useToast();
   const { sendTestEmail } = useEmailHandling();
+
+  useEffect(() => {
+    localStorage.setItem('admin_use_gpt5_enhancement', JSON.stringify(useGPT5Enhancement));
+  }, [useGPT5Enhancement]);
 
   useEffect(() => {
     loadSubmissions();
@@ -763,6 +771,46 @@ Fundador de CrealoconIA
                 </Button>
               </div>
             </div>
+
+            {/* Configuración GPT-5 */}
+            <Card className="mb-4 border-2 border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Wand2 className="w-5 h-5 text-primary" />
+                  Configuración de Generación de Prompts
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Label htmlFor="gpt5-toggle" className="text-base font-medium cursor-pointer">
+                        Mejora con GPT-5
+                      </Label>
+                      <Badge variant={useGPT5Enhancement ? "default" : "secondary"}>
+                        {useGPT5Enhancement ? "Activado" : "Desactivado"}
+                      </Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {useGPT5Enhancement 
+                        ? "El prompt base se mejora con GPT-5 antes de enviarlo a Lovable. Esto puede normalizar los prompts y hacerlos más similares entre sí."
+                        : "El prompt base se envía directamente a Lovable sin pasar por GPT-5. Esto mantiene máxima unicidad y especificidad por cliente."}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 ml-4">
+                    <Checkbox
+                      id="gpt5-toggle"
+                      checked={useGPT5Enhancement}
+                      onCheckedChange={(checked) => setUseGPT5Enhancement(checked as boolean)}
+                    />
+                  </div>
+                </div>
+                <div className="mt-3 text-xs text-muted-foreground space-y-1">
+                  <p>💡 <strong>Con GPT-5:</strong> Más pulido pero menos único. Útil si el cliente llenó campos muy breves.</p>
+                  <p>💡 <strong>Sin GPT-5:</strong> Máxima diferenciación. Cada sitio mantiene su identidad única según la info exacta del cliente.</p>
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Filtros */}
             <Card>
