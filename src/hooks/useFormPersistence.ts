@@ -20,6 +20,8 @@ interface FormData {
   problemaPrincipal?: string;
   propuestaMetodo?: string;
   resultados?: string;
+  tieneInstagram?: boolean;
+  tieneWebsite?: boolean;
 }
 
 interface AIUsage {
@@ -270,17 +272,17 @@ const isValidEmail = (email: string): boolean => {
 
 // Helper function to sanitize form data
 const sanitizeFormData = (formData: FormData): FormData => {
-  const sanitized = { ...formData };
+  const sanitized: Partial<FormData> = { ...formData };
   
-  // Trim whitespace and limit lengths
-  Object.keys(sanitized).forEach(key => {
-    if (typeof sanitized[key as keyof FormData] === 'string') {
-      const value = sanitized[key as keyof FormData] as string;
-      sanitized[key as keyof FormData] = value.trim().substring(0, getMaxLength(key)) as any;
+  // Trim whitespace and limit lengths for string fields only
+  (Object.keys(sanitized) as (keyof FormData)[]).forEach(key => {
+    const value = sanitized[key];
+    if (typeof value === 'string') {
+      (sanitized[key] as any) = value.trim().substring(0, getMaxLength(key as string));
     }
   });
 
-  return sanitized;
+  return sanitized as FormData;
 };
 
 // Define maximum lengths for different fields
