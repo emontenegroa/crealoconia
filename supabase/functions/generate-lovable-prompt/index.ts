@@ -1,17 +1,17 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
 
-const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
+const openAIApiKey = Deno.env.get("OPENAI_API_KEY");
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
   // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
@@ -19,9 +19,9 @@ serve(async (req) => {
     const { submissionId } = await req.json();
 
     if (!submissionId) {
-      return new Response(JSON.stringify({ error: 'submissionId es requerido' }), {
+      return new Response(JSON.stringify({ error: "submissionId es requerido" }), {
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
@@ -29,42 +29,42 @@ serve(async (req) => {
 
     // Crear cliente de Supabase
     const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
     );
 
     // Obtener los datos del formulario del usuario
     const { data: submission, error: fetchError } = await supabaseClient
-      .from('form_submissions')
-      .select('*')
-      .eq('id', submissionId)
+      .from("form_submissions")
+      .select("*")
+      .eq("id", submissionId)
       .single();
 
     if (fetchError || !submission) {
-      console.error('Error al obtener submission:', fetchError);
-      return new Response(JSON.stringify({ error: 'No se encontró el formulario del usuario' }), {
+      console.error("Error al obtener submission:", fetchError);
+      return new Response(JSON.stringify({ error: "No se encontró el formulario del usuario" }), {
         status: 404,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
     const formData = submission.form_data as any;
 
-    const publicoObjetivo = formData.quien_eres?.includes('atletas') ? 
-      'Atletas, deportistas de alto rendimiento y emprendedores ambiciosos' :
-      formData.quien_eres?.includes('productividad') ?
-      'Ejecutivos, emprendedores y freelancers que buscan optimizar su tiempo' :
-      `Personas que ${formData.problemas?.toLowerCase().split('.')[0] || 'buscan soluciones'}`;
-    
-    const mensajeCentral = formData.producto 
-      ? `Transformamos ${formData.problemas?.toLowerCase().split('.')[0] || 'tu situación actual'} en ${formData.producto.toLowerCase().split('.')[0]}`
-      : `Acompañamiento profesional para superar ${formData.problemas?.toLowerCase().split('.')[0] || 'tus desafíos'}`;
+    const publicoObjetivo = formData.quien_eres?.includes("atletas")
+      ? "Atletas, deportistas de alto rendimiento y emprendedores ambiciosos"
+      : formData.quien_eres?.includes("productividad")
+        ? "Ejecutivos, emprendedores y freelancers que buscan optimizar su tiempo"
+        : `Personas que ${formData.problemas?.toLowerCase().split(".")[0] || "buscan soluciones"}`;
+
+    const mensajeCentral = formData.producto
+      ? `Transformamos ${formData.problemas?.toLowerCase().split(".")[0] || "tu situación actual"} en ${formData.producto.toLowerCase().split(".")[0]}`
+      : `Acompañamiento profesional para superar ${formData.problemas?.toLowerCase().split(".")[0] || "tus desafíos"}`;
 
     const beneficios = `✅ Transformación comprobada con metodología específica
 ✅ Eliminación de bloqueos limitantes en tiempo récord
 ✅ Desarrollo de confianza y resultados sostenibles
 ✅ Estrategias probadas por profesionales de alto rendimiento
-✅ Acompañamiento ${formData.estilo?.toLowerCase() || 'profesional'} durante todo el proceso`;
+✅ Acompañamiento ${formData.estilo?.toLowerCase() || "profesional"} durante todo el proceso`;
 
     // Generar prompt base de Lovable
     const baseLovablePrompt = `═══════════════════════════════════════════════
@@ -86,9 +86,9 @@ Crea un sitio web moderno, premium y altamente efectivo para ${formData.marca}.
 **Preguntas frecuentes:** ${formData.preguntas_frecuentes}
 
 **Contacto:**
-- Instagram: ${formData.instagram || 'No proporcionado'}
+- Instagram: ${formData.instagram || "No proporcionado"}
 - WhatsApp: ${formData.whatsapp}
-- Website actual: ${formData.website || 'Primer sitio web'}
+- Website actual: ${formData.website || "Primer sitio web"}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎯 OBJETIVO DEL SITIO
@@ -113,7 +113,7 @@ Crear un sitio web que:
 
 **2. HERO SECTION IMPACTANTE**
 Crear una sección hero cinematográfica con:
-- Headline magnético que capture el dolor principal: "${formData.problemas?.split('.')[0] || 'Transforma tu vida'}"
+- Headline magnético que capture el dolor principal: "${formData.problemas?.split(".")[0] || "Transforma tu vida"}"
 - Subheadline que presente la solución transformadora
 - CTA prominente y persuasivo
 - Imagen/ilustración premium relacionada al nicho
@@ -199,7 +199,7 @@ Sección de conversión potente:
 **12. FOOTER COMPLETO**
 - Logo de ${formData.marca}
 - Links de navegación
-- Redes sociales (especialmente Instagram: ${formData.instagram || 'agregar placeholder'})
+- Redes sociales (especialmente Instagram: ${formData.instagram || "agregar placeholder"})
 - WhatsApp de contacto: ${formData.whatsapp}
 - Email de contacto
 - Aviso legal y términos (links básicos)
@@ -384,255 +384,133 @@ No expliques tu proceso ni des instrucciones técnicas; responde solo con el con
 
 ═══════════════════════════════════════════════`;
 
-    console.log('🤖 Mejorando prompt de Lovable con GPT-5...');
+    console.log("🤖 Mejorando prompt de Lovable con GPT-5...");
 
     // Mejorar el prompt con GPT-5
-    const systemPrompt = `Eres especialista élite en UX/UI, diseño web de alta conversión, copywriting estratégico y creación de PROMPTS para Lovable.dev.
+    const systemPrompt = `Eres un especialista élite en diseño UX/UI premium, copywriting estratégico, diseño emocional, arquitectura web de alta conversión y creación de PROMPTS avanzados para Lovable.dev.
 
-CONTEXTO:
-Nuestro sistema genera un "prompt base" con información del negocio. Tu misión es transformarlo en un prompt EXCEPCIONAL que Lovable pueda usar para crear sitios únicos, memorables y altamente conversores.
+TU MISIÓN PRINCIPAL:
+Transformar el “prompt base” que recibes en un **PROMPT MAESTRO optimizado para Lovable**, capaz de generar un sitio web completamente único, emocionalmente poderoso, visualmente premium y alejado por completo del estilo de plantilla genérica que produce por defecto.
 
-TU TRABAJO ES TRIPLE:
-1) MEJORAR Y REESCRIBIR TODO el prompt que recibes
-2) ELEVAR la calidad estratégica, emocional y comercial
-3) CREAR contenido completo y listo para implementar
+DEBES REESCRIBIR, MEJORAR Y ELEVAR EL PROMPT COMPLETO aplicando las siguientes reglas:
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📋 MEJORAS OBLIGATORIAS QUE DEBES APLICAR:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. PROFUNDIDAD Y TRANSFORMACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Identifica el corazón emocional del negocio.
+- Clarifica la transformación que el cliente ofrece.
+- Refina la propuesta de valor hasta su versión más clara, humana y diferenciada.
 
-1. MEJORA Y REESCRIBE EL PROMPT COMPLETO
-   - Revisa todo el contenido
-   - Reescríbelo con mayor claridad, estrategia y orientación a conversión
-   - Mantén la esencia pero optimiza tono, orden, claridad y fuerza emocional
-   - Haz que cada palabra cuente
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. DIFERENCIACIÓN VISUAL Y ANTI-PLANTILLA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+El nuevo prompt debe ordenar a Lovable a:
+- NO usar las interfaces genéricas típicas.
+- Crear diseños únicos basados en la esencia del negocio.
+- Elegir paletas en función del nicho, personalidad y público objetivo.
+- Variar tipografías (serif premium, sans modernas, estilos editoriales).
+- Usar composiciones personalizadas (split-screen, collages, textura papel, bordes orgánicos, layouts asimétricos).
+- Usar micro-interacciones suaves y cinematográficas.
+- Crear secciones con *detalles únicos* en cada proyecto.
 
-2. ASEGURA COHERENCIA VISUAL COMPLETA
-   - Ajusta paleta, tipografías, estilos, fotografías para que todo sea coherente con la marca
-   - Evita clichés visuales o elementos genéricos
-   - Crea una identidad visual propia y distintiva
-   - Define mood/atmósfera específica para esta marca
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. COPYWRITING EMOCIONAL + DE ALTA CONVERSIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+El prompt optimizado debe:
+- Pedir titulares únicos y transformadores.
+- Evitar frases genéricas o de plantilla.
+- Usar storytelling breve y anclado en la historia real del cliente.
+- Incluir CTAs potentes, cálidos y variados.
+- Crear un viaje emocional seccional: dolor → claridad → camino → solución → autoridad → invitación.
 
-3. ELEVA LA PROPUESTA DE VALOR Y POSICIONAMIENTO
-   - Identifica la VERDADERA transformación que ofrece el cliente
-   - Refuerza promesa, diferenciadores, beneficios y autoridad
-   - Reescribe titulares y subtítulos para maximizar impacto emocional y profesional
-   - Haz que suene único, no como otros del mismo rubro
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. ARQUITECTURA DE PÁGINA PERFECTA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Debes entregar a Lovable instrucciones claras para:
+- Hero memorable (composición única + mensaje transformador)
+- Sección de conexión humana (Quién Soy profunda y diferenciadora)
+- Problema → Solución (contrastada)
+- Metodología (3–5 pasos con beneficios)
+- Servicios (claros y con resultados)
+- Testimonios emocionales y creíbles
+- FAQs que eliminen objeciones
+- CTA final fuerte y humano
+- Footer completo
 
-4. OPTIMIZA EL COPY PARA CONVERSIÓN
-   - Reestructura oraciones para hacerlas claras, breves, directas y emocionalmente potentes
-   - Añade CTAs relevantes en TODAS las secciones clave
-   - Ajusta lenguaje para reducir fricción y aumentar deseo y confianza
-   - Usa fórmulas probadas de copywriting (PAS, AIDA, etc.)
+Todo DEBE ser solicitado como **copy final, sin placeholders ni ejemplos genéricos.**
 
-5. MANTÉN EL TONO PERFECTO SEGÚN LA MARCA
-   - Detecta el tono ideal basado en el negocio y público
-   - Mantén coherencia tonal en TODO el sitio
-   - No exageres, no infantilices, no generalices
-   - Usa mensajes que inviten, sostengan y acompañen
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. IDENTIDAD VISUAL TOTALMENTE PERSONALIZADA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+El prompt mejorado debe ordenar:
 
-6. EVITA EL "SITIO PLANTILLA"
-   - Reescribe estructuras para que NO parezcan genéricas
-   - Añade detalles originales y distintivos
-   - Recomienda composiciones, detalles visuales y micro-narrativas ÚNICAS
-   - Propón elementos sorpresa que diferencien
+- 1 paleta primaria y 2 secundarias basadas en el negocio.
+- Proponer estilos visuales (editorial, cinematográfico, minimalista cálido, etc.).
+- Micro-animaciones premium.
+- Layouts no estándar.
+- Uso de imágenes coherentes con tono y mensaje.
 
-7. HAZ QUE LA LANDING TENGA NARRATIVA
-   - Crea un hilo emocional coherente: dolor → reconocimiento → camino → metodología → resultados → acción
-   - Asegura que cada sección conversa con la siguiente
-   - El usuario debe sentir un viaje, no una lista de secciones
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. GENERA DOS PROPUESTAS ESTILÍSTICAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+El prompt debe siempre incluir:
+- Versión A: Editorial Premium
+- Versión B: Cinematográfica Moderna
 
-8. CREA TODOS LOS TEXTOS COMPLETOS
-   Debes entregar TODO el copy escrito y listo:
-   - Titulares potentes y únicos
-   - Subtitulares que amplifiquen el mensaje
-   - Párrafos completos (no "ejemplo de texto aquí")
-   - Bullets específicos y orientados a beneficios
-   - CTAs variados y contextuales
-   - Testimonios creíbles y específicos (4-5 completos)
-   - FAQs completas con respuestas persuasivas (8 mínimo)
-   - Microcopys (formulario, botones, mensajes de éxito/error)
-   - Meta title y description optimizados
+Y explicar cómo Lovable debe elegir según el nicho.
 
-9. ELEVA LA EXPERIENCIA DE USUARIO
-   - Propón micro-interacciones conceptuales (NO código)
-   - Indica cómo debe SENTIRSE la navegación (fluida, suave, cálida, etc.)
-   - Sugiere estructuras visuales innovadoras para hero, testimonios, metodología, CTA
-   - Piensa en el journey emocional del visitante
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. OPTIMIZACIÓN PARA CONVERSIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+El prompt debe instruir a Lovable a:
+- Generar múltiples CTAs estratégicos.
+- Diseñar para conversión desde el hero.
+- Construir recorrido emocional y funcional.
 
-10. HAZ QUE SEA LO MEJOR POSIBLE
-    - Mejora cosas que no se pidieron explícitamente
-    - Anticipa necesidades y objeciones
-    - Añade toques de excelencia sin que te lo pidan
-    - Piensa como un estratega digital senior
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. ENTREGA SIEMPRE TODO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+El resultado final debe ser:
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✨ MEJORAS ADICIONALES ESPECÍFICAS (APLICAR TODAS):
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Prompt totalmente reorganizado y reescrito.
+- Con copy para cada sección.
+- Con instrucciones visuales.
+- Con variantes estilísticas.
+- Con tono coherente al estilo del cliente.
+- NO mencionas tu proceso; solo el prompt final.
 
-11. REFUERZA LA NARRATIVA EMOCIONAL Y TRANSFORMACIÓN
-    - Agrega frases-puente emocionales entre secciones
-    - Crea hilo narrativo: dolor → sanación → transformación → acción
-    - Usa ritmo narrativo con respiración emocional (párrafos breves, pausas, frases cortas potentes)
-    - Debe sentirse como historia guiada, no página fragmentada
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. PROHIBIDO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+No generar código.
+No dar instrucciones técnicas.
+No explicar lo que haces.
+No dar recomendaciones meta.
+Solo devolver el “Prompt optimizado para Lovable”.
 
-12. MEJORA TITULARES Y SUBTÍTULOS AUTOMÁTICAMENTE
-    - Todos los titulares deben tener promesa emocional clara
-    - Hazlos memorables, específicos y únicos
-    - Evita generalidades típicas del rubro
-    - Incluye contraste emocional (dolor → resultado)
-    - Ejemplo: NO "Sana tu niña interior" → SÍ "Vuelve a ti: sana la herida que te impide sentirte segura"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RESPUESTA FINAL
+Siempre responde SOLO con:
 
-13. REESCRIBE COPY CON MÁXIMA CLARIDAD, CALIDEZ Y PRECISIÓN
-    - Elimina redundancias
-    - Vuelve cada frase más humana, íntima y visual
-    - Agrega microdetalles sensoriales cuando aporten (voz, pausa, respiración, alivio, luz, abrazo)
-    - Balance perfecto: emoción + claridad + beneficio concreto
+PROMPT OPTIMIZADO PARA LOVABLE:
+[ aquí tu prompt final completamente reescrito y listo para usar ]
 
-14. HAZ CADA SECCIÓN VISUALMENTE ÚNICA
-    - En cada bloque, agrega 1 detalle visual distintivo:
-      * Fragmento manuscrito
-      * Textura tipo papel suave
-      * Nota emocional en cursiva
-      * Borde orgánico
-      * Recorte asimétrico
-      * Círculo imperfecto
-    - Debe sentirse hecho a mano, no plantilla
+Sin nada más.`;
 
-15. ELEVA LA DIFERENCIACIÓN DEL CLIENTE
-    - Incluye de manera orgánica (sin escribir "diferenciador"):
-      * Voz única y estilo personal
-      * Especialización real
-      * Capacidad de sostener emocionalmente
-      * Postura clara como guía/experto
-    - Cada sección refuerza autoridad suave
-
-16. OPTIMIZA CONVERSIONES EN LUGARES ESTRATÉGICOS
-    - CTAs adicionales sin saturar:
-      * Micro CTA en Quién Soy
-      * CTA lateral/flotante en móvil
-      * CTA suave al final de Problema→Solución
-      * CTA antes del Footer
-    - Todos cálidos, nada agresivos
-
-17. PROFUNDIZA BENEFICIOS DE FORMA CONCRETA
-    - Cambia generalidades por sensaciones reales
-    - Conecta con cambios visibles en vida cotidiana
-    - Muestra antes/después sin exageración
-    - Ejemplo: NO "Mejorar autoestima" → SÍ "Sentirte suficiente, sin tener que demostrar nada"
-
-18. AFINA MICRO-INTERACCIONES CONCEPTUALES
-    - Todas las animaciones transmiten calma:
-      * Movimientos lentos (250–450ms)
-      * Solo 1–2 propiedades por animación
-      * Profundidad suave (blur 4–8)
-      * Escala mínima (1.01–1.03)
-    - Evitar animaciones agresivas o rápidas
-
-19. REFUERZA SEO EMOCIONAL + TÉCNICO LIGERO
-    - Frase emocional corta en meta descripción
-    - Keywords long-tail ligeras pero coherentes
-    - Alt texts que describan emociones + contexto
-    - Ejemplo: "Una mujer recostando su mano en el corazón mientras respira en calma"
-
-20. OPTIMIZA TESTIMONIOS PARA QUE PAREZCAN REALES
-    - Indica "antes" con patrón claro de herida
-    - Indica "después" con cambio práctico y emocional
-    - Añade microdetalle humano ("me atreví a decir no", "pude llorar sin culpa")
-    - Evita testimonios genéricos
-
-21. HAZ EL FORMULARIO MÁS CÁLIDO Y SEGURO
-    - Texto de bienvenida que dé contención ("Este es un espacio seguro")
-    - Microcopy bajo cada input (claridad y tranquilidad)
-    - Mensaje final personal ("Te respondo personalmente en 48h. Estoy contigo en este proceso")
-
-22. AGREGA MICRO-SECCIÓN DE AUTORIDAD INVISIBLE
-    - Justo antes del CTA final
-    - Título sugerido: "El lugar seguro" (o similar)
-    - 2–3 frases cálidas explicando cómo se siente trabajar con este profesional
-    - Actúa como validación emocional previa a la acción
-
-23. GENERA DOS ESTILOS VISUALES TOTALMENTE DISTINTOS
-    - VERSIÓN A - EDITORIAL PREMIUM:
-      * Estilo revista de lujo
-      * Mucho espacio en blanco
-      * Colores suaves, acentos dorados o negros
-      * Tipografía serif dominante
-      * Fotos grandes elegantes
-      * Minimalista premium
-    
-    - VERSIÓN B - MODERNA CINEMATOGRÁFICA:
-      * Colores profundos, contrastados
-      * Hero dramático
-      * Tipografía bold moderna
-      * Imágenes cinematográficas
-      * Animaciones más expresivas
-      * Energía visual vibrante
-    
-    - Indica claramente cuándo conviene cada una según el negocio
-
-24. ENTREGA TODO EL COPY FINAL LIMPIO
-    - Cuando termines TODAS las optimizaciones
-    - Entrega: titulares, subtítulos, párrafos, bullets, CTAs, testimonios, FAQs, formularios, microcopy, alt texts, meta tags
-    - Sin mencionar instrucciones, procesos o razonamientos
-    - Solo contenido final pulido, listo para Lovable
-
-25. REGLA FINAL ABSOLUTA
-    - NUNCA generes código
-    - NUNCA describas configuración técnica
-    - Tu entrega SIEMPRE es: textual, emocional, visual y de conversión
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🚫 RESTRICCIONES ABSOLUTAS (NO NEGOCIABLES):
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-NUNCA menciones:
-- Stack técnico (React, Vite, TypeScript, Tailwind, Supabase, etc.)
-- Estructura de carpetas (src/components, pages, etc.)
-- Entregables técnicos (código, README, tests, Lighthouse, Figma)
-- Implementación técnica (APIs, webhooks, configuraciones)
-- Comandos o código de ningún tipo
-
-TODO debe ser:
-- Contenido (copy completo)
-- Estructura (arquitectura de información)
-- Guía visual (paleta, tipografía, estilo, mood)
-- Experiencia de usuario (journey, emociones, micro-interacciones conceptuales)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📦 FORMATO DE ENTREGA:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Devuelve UN ÚNICO BLOQUE de texto: el "Prompt optimizado para Lovable"
-- En español
-- Estructurado con secciones claras
-- Copy completo (no placeholders)
-- Guía visual detallada
-- Sin explicaciones sobre lo que hiciste
-- Directo y listo para usar
-
-El resultado debe hacer que Lovable genere una landing:
-✓ Visualmente impresionante y coherente
-✓ Estratégicamente orientada a conversión
-✓ Emocionalmente conectada con el público
-✓ Única y memorable (no plantilla)
-✓ Con copy completo y profesional
-✓ Con narrativa fluida de principio a fin
-✓ Lista para captar clientes desde el primer scroll
-
-Transforma el prompt base en una OBRA MAESTRA de contenido, estrategia y diseño.`;
-
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${openAIApiKey}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${openAIApiKey}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: 'gpt-5-mini-2025-08-07',
+        model: "gpt-5-mini-2025-08-07",
         messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: `Texto a mejorar: "${baseLovablePrompt}"\n\nContexto adicional: Marca: ${formData.marca || 'No especificada'}, Estilo: ${formData.estilo || 'No especificado'}` }
+          { role: "system", content: systemPrompt },
+          {
+            role: "user",
+            content: `Texto a mejorar: "${baseLovablePrompt}"\n\nContexto adicional: Marca: ${formData.marca || "No especificada"}, Estilo: ${formData.estilo || "No especificado"}`,
+          },
         ],
         max_completion_tokens: 6000,
       }),
@@ -641,53 +519,58 @@ Transforma el prompt base en una OBRA MAESTRA de contenido, estrategia y diseño
     if (!response.ok) {
       const errorText = await response.text();
       console.error(`OpenAI API error: ${response.status} - ${response.statusText}`, errorText);
-      
+
       // Si falla la mejora con IA, devolver el prompt base
-      return new Response(JSON.stringify({ 
-        lovablePrompt: baseLovablePrompt,
-        improved: false,
-        message: 'Prompt base generado (no se pudo mejorar con IA)'
-      }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return new Response(
+        JSON.stringify({
+          lovablePrompt: baseLovablePrompt,
+          improved: false,
+          message: "Prompt base generado (no se pudo mejorar con IA)",
+        }),
+        {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
     }
 
     const data = await response.json();
     const enhancedPrompt = data.choices[0].message.content;
 
-    console.log('✅ Prompt de Lovable mejorado exitosamente');
+    console.log("✅ Prompt de Lovable mejorado exitosamente");
 
     // Actualizar el form_data con el prompt mejorado
     const { error: updateError } = await supabaseClient
-      .from('form_submissions')
+      .from("form_submissions")
       .update({
         form_data: {
           ...formData,
           generatedPrompts: {
             ...formData.generatedPrompts,
-            lovablePrompt: enhancedPrompt
-          }
-        }
+            lovablePrompt: enhancedPrompt,
+          },
+        },
       })
-      .eq('id', submissionId);
+      .eq("id", submissionId);
 
     if (updateError) {
-      console.error('Error al actualizar el prompt:', updateError);
+      console.error("Error al actualizar el prompt:", updateError);
     }
 
-    return new Response(JSON.stringify({ 
-      lovablePrompt: enhancedPrompt,
-      improved: true,
-      message: 'Prompt de Lovable mejorado y guardado exitosamente'
-    }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
-
+    return new Response(
+      JSON.stringify({
+        lovablePrompt: enhancedPrompt,
+        improved: true,
+        message: "Prompt de Lovable mejorado y guardado exitosamente",
+      }),
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
   } catch (error) {
-    console.error('Error en generate-lovable-prompt:', error);
-    return new Response(JSON.stringify({ error: error instanceof Error ? error.message : 'Error desconocido' }), {
+    console.error("Error en generate-lovable-prompt:", error);
+    return new Response(JSON.stringify({ error: error instanceof Error ? error.message : "Error desconocido" }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
 });
