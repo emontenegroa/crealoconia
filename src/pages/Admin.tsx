@@ -1416,7 +1416,10 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
                     Copiar
                   </Button>
                 )}
-                <GenerateLovablePromptButton submissionId={submission.id} />
+                <GenerateLovablePromptButton 
+                  submissionId={submission.id} 
+                  hasExistingPrompt={!!submission.form_data?.generatedPrompts?.lovablePrompt}
+                />
               </div>
             </div>
             {submission.form_data?.generatedPrompts?.lovablePrompt ? (
@@ -1535,7 +1538,7 @@ const TagDisplayList: React.FC<{ tags: string[] }> = ({ tags }) => {
 };
 
 // Component for generating Lovable prompt
-const GenerateLovablePromptButton: React.FC<{ submissionId: string }> = ({ submissionId }) => {
+const GenerateLovablePromptButton: React.FC<{ submissionId: string; hasExistingPrompt?: boolean }> = ({ submissionId, hasExistingPrompt = false }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
 
@@ -1551,7 +1554,9 @@ const GenerateLovablePromptButton: React.FC<{ submissionId: string }> = ({ submi
 
       toast({
         title: "✅ Prompt generado",
-        description: "El prompt para Lovable se ha generado exitosamente"
+        description: hasExistingPrompt 
+          ? "El prompt para Lovable se ha regenerado exitosamente"
+          : "El prompt para Lovable se ha generado exitosamente"
       });
 
       // Reload page to show updated data
@@ -1573,16 +1578,17 @@ const GenerateLovablePromptButton: React.FC<{ submissionId: string }> = ({ submi
       size="sm"
       onClick={handleGenerate}
       disabled={isGenerating}
+      variant={hasExistingPrompt ? "outline" : "default"}
     >
       {isGenerating ? (
         <>
           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-          Generando...
+          {hasExistingPrompt ? "Regenerando..." : "Generando..."}
         </>
       ) : (
         <>
           <Wand2 className="w-4 h-4 mr-2" />
-          Generar Prompt Lovable
+          {hasExistingPrompt ? "Regenerar Prompt" : "Generar Prompt Lovable"}
         </>
       )}
     </Button>

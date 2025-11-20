@@ -16,16 +16,16 @@ serve(async (req) => {
   }
 
   try {
-    const { email } = await req.json();
+    const { submissionId } = await req.json();
 
-    if (!email) {
-      return new Response(JSON.stringify({ error: 'Email es requerido' }), {
+    if (!submissionId) {
+      return new Response(JSON.stringify({ error: 'submissionId es requerido' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
 
-    console.log(`📧 Generando prompt de Lovable optimizado para: ${email}`);
+    console.log(`📧 Generando prompt de Lovable optimizado para submission: ${submissionId}`);
 
     // Crear cliente de Supabase
     const supabaseClient = createClient(
@@ -37,7 +37,7 @@ serve(async (req) => {
     const { data: submission, error: fetchError } = await supabaseClient
       .from('form_submissions')
       .select('*')
-      .eq('email', email)
+      .eq('id', submissionId)
       .single();
 
     if (fetchError || !submission) {
@@ -434,7 +434,7 @@ El resultado debe ser un prompt que genere una landing page de conversión profe
           }
         }
       })
-      .eq('email', email);
+      .eq('id', submissionId);
 
     if (updateError) {
       console.error('Error al actualizar el prompt:', updateError);
