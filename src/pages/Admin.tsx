@@ -1420,21 +1420,25 @@ const SubmissionDetails: React.FC<{
       setGeneratingPrompts(true);
       toast({
         title: "Generando prompts...",
-        description: "Generando versiones con y sin GPT-5",
+        description: "Generando ambas versiones del prompt base",
       });
 
-      // Generar ambas versiones en paralelo
-      const [promptsWithGPT5, promptsWithoutGPT5] = await Promise.all([
-        generateSuperPrompt(localSubmission.form_data, true),
-        generateSuperPrompt(localSubmission.form_data, false)
+      // Generar ambas versiones del prompt base directamente
+      // NO usar GPT-5 enhancement aquí porque el lovablePrompt es demasiado largo (>3000 chars)
+      // y la función enhance-with-ai tiene un límite de 3000 caracteres
+      const [promptsVersion1, promptsVersion2] = await Promise.all([
+        generateSuperPrompt(localSubmission.form_data, false), // Sin GPT-5
+        generateSuperPrompt(localSubmission.form_data, false)  // Sin GPT-5 (mismo resultado)
       ]);
 
-      setPromptWithGPT5(promptsWithGPT5.lovablePrompt);
-      setPromptWithoutGPT5(promptsWithoutGPT5.lovablePrompt);
+      // Ambas versiones serán idénticas porque estamos usando el mismo método
+      // La diferencia real sería si usáramos GPT-5, pero el prompt es demasiado largo
+      setPromptWithGPT5(promptsVersion1.lovablePrompt);
+      setPromptWithoutGPT5(promptsVersion2.lovablePrompt);
 
       toast({
         title: "Prompts generados",
-        description: "Ambas versiones han sido generadas exitosamente",
+        description: "Prompt base generado (El prompt es demasiado extenso para mejorarlo con GPT-5)",
       });
     } catch (error) {
       console.error('Error generating prompts:', error);
@@ -1552,15 +1556,15 @@ const SubmissionDetails: React.FC<{
               {/* Prompt CON GPT-5 */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Label className="text-base font-semibold">Con GPT-5</Label>
-                    <Badge variant="default" className="text-xs">Mejorado</Badge>
-                  </div>
+              <div className="flex items-center gap-2">
+                <Label className="text-base font-semibold">Prompt Base</Label>
+                <Badge variant="default" className="text-xs">Lovable</Badge>
+              </div>
                   {promptWithGPT5 && (
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => copyToClipboard(promptWithGPT5, "Prompt con GPT-5")}
+                      onClick={() => copyToClipboard(promptWithGPT5, "Prompt base")}
                     >
                       <Copy className="w-4 h-4 mr-2" />
                       Copiar
@@ -1575,8 +1579,8 @@ const SubmissionDetails: React.FC<{
                   />
                 ) : (
                   <div className="border border-dashed rounded-md p-8 text-center text-muted-foreground min-h-[400px] flex flex-col items-center justify-center">
-                    <p className="font-medium">Prompt mejorado con GPT-5</p>
-                    <p className="text-sm mt-2">Más pulido pero puede perder unicidad</p>
+                    <p className="font-medium">Prompt optimizado para Lovable</p>
+                    <p className="text-sm mt-2">Este es el prompt completo que Lovable usa para generar el sitio</p>
                   </div>
                 )}
                 {promptWithGPT5 && (
@@ -1590,14 +1594,14 @@ const SubmissionDetails: React.FC<{
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Label className="text-base font-semibold">Sin GPT-5</Label>
-                    <Badge variant="secondary" className="text-xs">Base único</Badge>
+                    <Label className="text-base font-semibold">Visualización</Label>
+                    <Badge variant="secondary" className="text-xs">Mismo contenido</Badge>
                   </div>
                   {promptWithoutGPT5 && (
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => copyToClipboard(promptWithoutGPT5, "Prompt sin GPT-5")}
+                      onClick={() => copyToClipboard(promptWithoutGPT5, "Prompt visualización")}
                     >
                       <Copy className="w-4 h-4 mr-2" />
                       Copiar
@@ -1612,8 +1616,8 @@ const SubmissionDetails: React.FC<{
                   />
                 ) : (
                   <div className="border border-dashed rounded-md p-8 text-center text-muted-foreground min-h-[400px] flex flex-col items-center justify-center">
-                    <p className="font-medium">Prompt base de Lovable</p>
-                    <p className="text-sm mt-2">Máxima unicidad según datos del cliente</p>
+                    <p className="font-medium">Prompt base optimizado</p>
+                    <p className="text-sm mt-2">Versión duplicada para referencia visual</p>
                   </div>
                 )}
                 {promptWithoutGPT5 && (
@@ -1626,22 +1630,20 @@ const SubmissionDetails: React.FC<{
 
             {promptWithGPT5 && promptWithoutGPT5 && (
               <div className="bg-muted/30 p-4 rounded-lg">
-                <h4 className="text-sm font-semibold mb-2">Análisis comparativo</h4>
-                <div className="grid grid-cols-2 gap-4 text-xs">
+                <h4 className="text-sm font-semibold mb-2">Información del prompt</h4>
+                <div className="grid grid-cols-1 gap-4 text-xs">
                   <div>
-                    <p className="text-muted-foreground">Diferencia de longitud:</p>
-                    <p className="font-mono">
-                      {Math.abs(promptWithGPT5.length - promptWithoutGPT5.length).toLocaleString()} caracteres
-                      ({promptWithGPT5.length > promptWithoutGPT5.length ? '+' : '-'}
-                      {(((promptWithGPT5.length - promptWithoutGPT5.length) / promptWithoutGPT5.length) * 100).toFixed(1)}%)
+                    <p className="text-muted-foreground">Longitud total del prompt:</p>
+                    <p className="font-mono text-lg font-bold">
+                      {promptWithGPT5.length.toLocaleString()} caracteres
                     </p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Recomendación:</p>
+                    <p className="text-muted-foreground">Nota:</p>
                     <p className="font-medium">
-                      {promptWithGPT5.length > promptWithoutGPT5.length * 1.2 
-                        ? "GPT-5 expandió significativamente el contenido" 
-                        : "Ambos prompts tienen longitud similar"}
+                      El prompt es demasiado extenso (+{(promptWithGPT5.length / 1000).toFixed(1)}k caracteres) para ser mejorado con GPT-5. 
+                      El límite de la función enhance-with-ai es 3,000 caracteres.
+                      Este prompt ya contiene todas las instrucciones optimizadas y está listo para usar en Lovable.
                     </p>
                   </div>
                 </div>
