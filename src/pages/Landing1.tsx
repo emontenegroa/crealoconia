@@ -7,11 +7,13 @@ import { useToast } from "@/hooks/use-toast";
 import { Brain, User, Code, CheckCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PortfolioSection from "@/components/PortfolioSection";
+import { useFormPersistence } from "@/hooks/useFormPersistence";
 const Landing1 = () => {
   const {
     toast
   } = useToast();
   const navigate = useNavigate();
+  const { saveProgress } = useFormPersistence();
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -46,7 +48,25 @@ const Landing1 = () => {
     }
     setIsSubmitting(true);
     try {
+      // Guardar en localStorage para mantener compatibilidad
       localStorage.setItem('userData', JSON.stringify(formData));
+      
+      // Guardar en el backend
+      const backendData = {
+        marca: formData.nombre,
+        email: formData.email,
+        whatsapp: formData.telefono,
+        quien_eres: '',
+        problemas: '',
+        preguntas_frecuentes: '',
+        estilo: '',
+        producto: '',
+        website: '',
+        instagram: ''
+      };
+      await saveProgress(backendData as any);
+      console.log('✅ Datos iniciales guardados en backend');
+      
       await new Promise(resolve => setTimeout(resolve, 500));
       toast({
         title: "¡Perfecto!",

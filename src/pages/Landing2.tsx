@@ -10,6 +10,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import AIEnhanceButton from '@/components/AIEnhanceButton';
 import { quizFormSchema, sanitizeText, sanitizeTextForSubmit } from '@/utils/formValidation';
 import { useFormPersistence } from '@/hooks/useFormPersistence';
+import { usePromptGeneration } from '@/hooks/usePromptGeneration';
+import { useEmailHandling } from '@/hooks/useEmailHandling';
 
 const Landing2 = () => {
   const { toast } = useToast();
@@ -20,6 +22,8 @@ const Landing2 = () => {
   
   // Integrar persistencia de formulario
   const { saveProgress, loadPreviousProgress, markAsCompleted } = useFormPersistence();
+  const { generateSuperPrompt } = usePromptGeneration();
+  const { sendEmailToAdmin, sendConfirmationEmail } = useEmailHandling();
   
   const [formData, setFormData] = useState({
     servicios: '',
@@ -219,39 +223,61 @@ const Landing2 = () => {
     setIsSubmitting(true);
     
     try {
-      // Guardar en backend antes de continuar
+      // Construir datos completos
       const completeFormData = {
         marca: nombre || '',
         email: email || '',
-        quien_eres: '',
-        problemas: '',
-        preguntas_frecuentes: '',
-        estilo: '',
-        producto: '',
+        quien_eres: formData.servicios || '',
+        problemas: formData.problemaPrincipal || '',
+        preguntas_frecuentes: formData.clientePerfil || '',
+        estilo: 'Profesional',
+        producto: formData.propuestaMetodo || '',
         whatsapp: '',
         website: '',
         instagram: '',
         // Datos del quiz
-        ...formData
+        servicios: formData.servicios,
+        clientePerfil: formData.clientePerfil,
+        problemaPrincipal: formData.problemaPrincipal,
+        propuestaMetodo: formData.propuestaMetodo,
+        resultados: formData.resultados
       };
       
-      await markAsCompleted(completeFormData as any);
+      // Generar prompts
+      console.log('🤖 Generando prompts...');
+      const prompts = await generateSuperPrompt(completeFormData as any);
+      
+      // Agregar prompts a los datos completos
+      const dataWithPrompts = {
+        ...completeFormData,
+        generatedPrompts: prompts
+      };
+      
+      // Marcar como completado en backend
+      await markAsCompleted(dataWithPrompts as any);
       console.log('✅ Datos del quiz marcados como completados en backend');
       
-      // También guardar en localStorage para la página de gracias
+      // Guardar en localStorage para Landing3
       const userData = JSON.parse(localStorage.getItem('userData') || '{}');
       const completeData = {
         ...userData,
         ...formData,
+        generatedPrompts: prompts,
         completedAt: new Date().toISOString()
       };
       localStorage.setItem('userData', JSON.stringify(completeData));
       
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Enviar emails
+      console.log('📧 Enviando emails...');
+      await Promise.all([
+        sendEmailToAdmin(dataWithPrompts as any),
+        sendConfirmationEmail(dataWithPrompts as any)
+      ]);
+      console.log('✅ Emails enviados');
       
       toast({
         title: "¡Perfecto!",
-        description: "Tu asistente está siendo generado...",
+        description: "Revisa tu correo para ver tus prompts personalizados",
       });
       
       navigate(`/gracias?email=${encodeURIComponent(email || '')}`);

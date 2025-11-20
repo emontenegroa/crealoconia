@@ -240,26 +240,24 @@ export const useFormHandler = () => {
       }));
     }
 
-    // Save progress
+    // Save progress (solo email y nombre)
     await saveProgress(formData);
     await logFormInteraction('first_step_completed', formData.email);
     
-    // Navigate to step 2 for better tracking
-    goToFullForm();
-    
-    // Track Lead event with Meta Conversions API with specific URL
+    // Track Lead event with Meta Conversions API
     await trackLead(formData.email, {
       marca: formData.marca,
       step: 'first_step_completed',
       step_url: window.location.href
     });
     
-    setShowFullForm(true);
-    
     toast({
       title: "¡Perfecto!",
-      description: "Ahora completa el resto de la información para generar tu Kit IA.",
+      description: "Continuemos con unas preguntas rápidas...",
     });
+
+    // Redirigir a Landing2 (quiz) con email y nombre
+    window.location.href = `/landing2?email=${encodeURIComponent(formData.email)}&nombre=${encodeURIComponent(formData.marca)}`;
   };
 
   const loadPreviousData = () => {
