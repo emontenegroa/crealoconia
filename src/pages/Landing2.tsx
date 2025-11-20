@@ -26,6 +26,10 @@ const Landing2 = () => {
   const { sendEmailToAdmin, sendConfirmationEmail } = useEmailHandling();
   
   const [formData, setFormData] = useState({
+    instagram: '',
+    tieneInstagram: false,
+    website: '',
+    tieneWebsite: false,
     servicios: '',
     clientePerfil: '',
     problemaPrincipal: '',
@@ -73,11 +77,17 @@ const Landing2 = () => {
             previousData.clientePerfil || 
             previousData.problemaPrincipal || 
             previousData.propuestaMetodo || 
-            previousData.resultados;
+            previousData.resultados ||
+            previousData.instagram ||
+            previousData.website;
           
           if (hasQuizData) {
             console.log('✅ Progreso del quiz encontrado, restaurando...');
             setFormData({
+              instagram: previousData.instagram || '',
+              tieneInstagram: !!previousData.instagram,
+              website: previousData.website || '',
+              tieneWebsite: !!previousData.website,
               servicios: previousData.servicios || '',
               clientePerfil: previousData.clientePerfil || '',
               problemaPrincipal: previousData.problemaPrincipal || '',
@@ -106,21 +116,26 @@ const Landing2 = () => {
     if (!email) return;
     
     const interval = setInterval(() => {
-      const hasData = Object.values(formData).some(value => value.trim() !== '');
-      if (hasData) {
+      const textFields = [
+        formData.servicios,
+        formData.clientePerfil,
+        formData.problemaPrincipal,
+        formData.propuestaMetodo,
+        formData.resultados
+      ];
+      const hasData = textFields.some(value => value.trim() !== '');
+      if (hasData || formData.instagram || formData.website) {
         const completeFormData = {
           marca: nombre || '',
           email: email,
-          quien_eres: '',
-          problemas: '',
-          preguntas_frecuentes: '',
-          estilo: '',
-          producto: '',
+          quien_eres: formData.servicios || '',
+          problemas: formData.problemaPrincipal || '',
+          preguntas_frecuentes: formData.clientePerfil || '',
+          estilo: 'Profesional',
+          producto: formData.propuestaMetodo || '',
           whatsapp: '',
-          website: '',
-          instagram: '',
-          // Datos del quiz
-          ...formData
+          website: formData.website || '',
+          instagram: formData.instagram || ''
         };
         saveProgress(completeFormData as any);
         console.log('💾 Progreso guardado automáticamente en backend');
@@ -199,13 +214,43 @@ const Landing2 = () => {
 
   const calculateProgress = () => {
     // Paso 2 de 3: empieza en 60% (paso 1 completado) y termina en 100%
-    const completed = Object.values(formData).filter(value => value.trim().length >= 10).length;
-    const quizProgress = (completed / questions.length) * 40; // 40% del rango total
+    const textFields = [
+      formData.servicios,
+      formData.clientePerfil,
+      formData.problemaPrincipal,
+      formData.propuestaMetodo,
+      formData.resultados
+    ];
+    
+    // Campos opcionales: solo cuentan si tieneInstagram o tieneWebsite está marcado
+    if (formData.tieneInstagram) textFields.push(formData.instagram);
+    if (formData.tieneWebsite) textFields.push(formData.website);
+    
+    const totalRequired = 5 + (formData.tieneInstagram ? 1 : 0) + (formData.tieneWebsite ? 1 : 0);
+    const completed = textFields.filter(value => typeof value === 'string' && value.trim().length >= 10).length;
+    const quizProgress = (completed / totalRequired) * 40; // 40% del rango total
     return 60 + quizProgress; // Base de 60% + hasta 40% = máximo 100%
   };
 
   const isFormComplete = () => {
-    return Object.values(formData).every(value => value.trim().length >= 10);
+    // Validar campos obligatorios
+    const requiredFields = [
+      formData.servicios,
+      formData.clientePerfil,
+      formData.problemaPrincipal,
+      formData.propuestaMetodo,
+      formData.resultados
+    ];
+    
+    const requiredComplete = requiredFields.every(value => 
+      typeof value === 'string' && value.trim().length >= 10
+    );
+    
+    // Validar campos condicionales
+    if (formData.tieneInstagram && formData.instagram.trim().length < 3) return false;
+    if (formData.tieneWebsite && formData.website.trim().length < 10) return false;
+    
+    return requiredComplete;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -355,55 +400,138 @@ const Landing2 = () => {
 
         <Card className="bg-slate-800/80 border-slate-700 backdrop-blur p-6 md:p-8 mb-8">
           <form onSubmit={handleSubmit} className="space-y-8">
-            {questions.map((question, index) => (
-              <div key={question.name} className="space-y-3">
-                <div className="flex items-center justify-between gap-4">
-                  <Label htmlFor={question.name} className="text-white text-base md:text-lg font-bold block">
-                    {index + 1}. {question.label}
+            {/* CAMPOS DE INSTAGRAM Y WEBSITE AL INICIO */}
+            <div className="space-y-6 pb-6 border-b border-slate-600">
+              <h3 className="text-white text-lg font-bold">Información de contacto y redes</h3>
+              
+              {/* Instagram */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    id="tieneInstagram"
+                    checked={formData.tieneInstagram}
+                    onChange={(e) => setFormData(prev => ({ 
+                      ...prev, 
+                      tieneInstagram: e.target.checked,
+                      instagram: e.target.checked ? prev.instagram : ''
+                    }))}
+                    className="w-4 h-4 accent-purple-600"
+                  />
+                  <Label htmlFor="tieneInstagram" className="text-white text-base cursor-pointer">
+                    Tengo Instagram
                   </Label>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setExpandedFields(prev => ({ ...prev, [question.name]: !prev[question.name] }))}
-                      className="text-slate-400 hover:text-white transition-colors p-1"
-                      title={expandedFields[question.name] ? "Contraer" : "Expandir"}
-                    >
-                      {expandedFields[question.name] ? (
-                        <Minimize2 className="w-4 h-4" />
-                      ) : (
-                        <Maximize2 className="w-4 h-4" />
-                      )}
-                    </button>
-                    <AIEnhanceButton
-                      currentText={formData[question.name as keyof typeof formData]}
-                      fieldType={question.name}
-                      context={{
-                        marca: nombre || '',
-                        estilo: 'Profesional'
-                      }}
-                      onEnhanced={(enhancedText) => handleInputChange(question.name, enhancedText)}
-                      sessionId={sessionId}
-                      onUsageUpdate={handleAIUsageUpdate}
+                </div>
+                {formData.tieneInstagram && (
+                  <div>
+                    <Label htmlFor="instagram" className="text-slate-300 text-sm mb-2 block">
+                      Usuario de Instagram (sin @)
+                    </Label>
+                    <input
+                      type="text"
+                      id="instagram"
+                      placeholder="tuusuario"
+                      value={formData.instagram}
+                      onChange={(e) => handleInputChange('instagram', e.target.value)}
+                      className="w-full bg-slate-900/50 border border-slate-600 text-white placeholder:text-slate-400 px-4 py-2 rounded-md"
+                      disabled={isSubmitting}
                     />
                   </div>
-                </div>
-                <Textarea
-                  id={question.name}
-                  placeholder={question.placeholder}
-                  value={formData[question.name as keyof typeof formData]}
-                  onChange={(e) => handleInputChange(question.name, e.target.value)}
-                  className={`bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400 text-base transition-all duration-300 ${
-                    expandedFields[question.name] ? 'min-h-[300px]' : 'min-h-[120px]'
-                  }`}
-                  disabled={isSubmitting}
-                  maxLength={2000}
-                  showCounter={true}
-                />
-                {errors[question.name] && (
-                  <p className="text-red-400 text-sm">{errors[question.name]}</p>
                 )}
               </div>
-            ))}
+
+              {/* Website */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    id="tieneWebsite"
+                    checked={formData.tieneWebsite}
+                    onChange={(e) => setFormData(prev => ({ 
+                      ...prev, 
+                      tieneWebsite: e.target.checked,
+                      website: e.target.checked ? prev.website : ''
+                    }))}
+                    className="w-4 h-4 accent-purple-600"
+                  />
+                  <Label htmlFor="tieneWebsite" className="text-white text-base cursor-pointer">
+                    Tengo sitio web
+                  </Label>
+                </div>
+                {formData.tieneWebsite && (
+                  <div>
+                    <Label htmlFor="website" className="text-slate-300 text-sm mb-2 block">
+                      URL de tu sitio web
+                    </Label>
+                    <input
+                      type="url"
+                      id="website"
+                      placeholder="https://tusitio.com"
+                      value={formData.website}
+                      onChange={(e) => handleInputChange('website', e.target.value)}
+                      className="w-full bg-slate-900/50 border border-slate-600 text-white placeholder:text-slate-400 px-4 py-2 rounded-md"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* PREGUNTAS DEL QUIZ */}
+            {questions.map((question, index) => {
+              const fieldValue = formData[question.name as keyof typeof formData];
+              const stringValue = typeof fieldValue === 'string' ? fieldValue : '';
+              
+              return (
+                <div key={question.name} className="space-y-3">
+                  <div className="flex items-center justify-between gap-4">
+                    <Label htmlFor={question.name} className="text-white text-base md:text-lg font-bold block">
+                      {index + 1}. {question.label}
+                    </Label>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setExpandedFields(prev => ({ ...prev, [question.name]: !prev[question.name] }))}
+                        className="text-slate-400 hover:text-white transition-colors p-1"
+                        title={expandedFields[question.name] ? "Contraer" : "Expandir"}
+                      >
+                        {expandedFields[question.name] ? (
+                          <Minimize2 className="w-4 h-4" />
+                        ) : (
+                          <Maximize2 className="w-4 h-4" />
+                        )}
+                      </button>
+                      <AIEnhanceButton
+                        currentText={stringValue}
+                        fieldType={question.name}
+                        context={{
+                          marca: nombre || '',
+                          estilo: 'Profesional'
+                        }}
+                        onEnhanced={(enhancedText) => handleInputChange(question.name, enhancedText)}
+                        sessionId={sessionId}
+                        onUsageUpdate={handleAIUsageUpdate}
+                      />
+                    </div>
+                  </div>
+                  <Textarea
+                    id={question.name}
+                    placeholder={question.placeholder}
+                    value={stringValue}
+                    onChange={(e) => handleInputChange(question.name, e.target.value)}
+                    className={`bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400 text-base transition-all duration-300 ${
+                      expandedFields[question.name] ? 'min-h-[300px]' : 'min-h-[120px]'
+                    }`}
+                    disabled={isSubmitting}
+                    maxLength={2000}
+                    showCounter={true}
+                  />
+                  {errors[question.name] && (
+                    <p className="text-red-400 text-sm">{errors[question.name]}</p>
+                  )}
+                </div>
+              );
+            })}
 
             {!isFormComplete() && (
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 mb-6">
