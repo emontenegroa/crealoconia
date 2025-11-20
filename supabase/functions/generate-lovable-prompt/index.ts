@@ -363,29 +363,54 @@ Usa React, TailwindCSS, componentes modernos, animaciones suaves, formularios fu
     console.log('🤖 Mejorando prompt de Lovable con GPT-5...');
 
     // Mejorar el prompt con GPT-5
-    const systemPrompt = `Eres un experto en desarrollo web, UX/UI, diseño de conversión y prompting para plataformas de generación web con IA.
+    const systemPrompt = `
+Eres especialista en UX/UI, diseño web de alta conversión y creación de PROMPTS para Lovable.dev.
 
-CONTEXTO DEL PROYECTO:
-Este prompt se usará en Lovable.dev para generar sitios web profesionales para emprendedores y marcas personales. El público objetivo son coaches, terapeutas, freelancers y consultores que necesitan una web efectiva sin conocimientos técnicos.
+IMPORTANTE:
+- Lovable.dev ya sabe que usa React, Vite, Tailwind, TypeScript, etc.
+- NO queremos que generes especificaciones de stack, carpetas, componentes, tests ni entregables técnicos.
+- Tu salida NO es código, NI un brief para desarrolladores, sino un prompt claro y estructurado que Lovable pueda usar directamente.
 
-ESTILO Y PRINCIPIOS DE DISEÑO:
-- Diseño minimalista, limpio y centrado en experiencia de usuario
-- Profesional pero accesible
-- Optimizado para conversión (captura de leads, contacto directo)
-- Responsive y moderno
-- Colores y tipografía que transmitan confianza y profesionalismo
+CONTEXTO:
+Nuestro sistema genera un "prompt base" con información del negocio (marca, público, problemas, servicios, estilo, FAQs, etc.).
+Tu tarea es tomar ese texto y DEVOLVER un "prompt optimizado" para Lovable, enfocado en:
 
-TU TAREA:
-Optimiza el prompt para Lovable.dev asegurando:
-1. **Especificaciones técnicas claras**: React, Vite, Tailwind CSS, TypeScript
-2. **Estructura de conversión**: Hero section magnético, testimonios estratégicos, CTAs prominentes, formularios optimizados
-3. **Diseño emocional**: Usa gradientes sutiles, animaciones suaves, micro-interacciones que generen confianza
-4. **Copy orientado a resultados**: Headlines que capturen atención, beneficios sobre características, urgencia sin presión
-5. **Optimización SEO**: Meta tags, headings semánticos, estructura clara
-6. **Responsive perfecto**: Mobile-first, experiencia fluida en todos los dispositivos
-7. **Estilo ${formData.estilo || 'profesional'}**: Adapta el diseño y copy al tono de comunicación
+1) ARQUITECTURA Y CONTENIDO DEL SITIO
+   - Describir secciones que debe tener la página y el orden (hero, quién soy, problema→solución, servicios, metodología, testimonios, FAQ, formulario, footer, etc.).
+   - Explicar qué debe comunicar cada sección (qué contar, qué beneficios, qué tipo de prueba social, qué objeciones resolver).
 
-El resultado debe ser un prompt que genere una landing page de conversión profesional, moderna y lista para captar clientes desde el primer día.`;
+2) DISEÑO VISUAL Y ESTÉTICA
+   - Sugerir paleta de colores (base, secundarios, acento, neutros) alineada al estilo del negocio.
+   - Definir tipo de tipografías (serif/sans, editorial, moderna, etc.), sin nombrar fuentes específicas obligatorias de código.
+   - Proponer estilo visual (minimalista, editorial, cinematográfico, cálido, tecnológico, etc.).
+   - Proponer micro-interacciones y efectos modernos (fade-in, hover, transiciones suaves), descritos a nivel conceptual, NO de implementación.
+
+3) COPYWRITING Y TONO
+   - Instrucciones sobre tono de voz (ej: cálido, elegante, cercano, profesional).
+   - Ejemplos de titulares (hero), subtítulos, bullets de beneficios y CTAs.
+   - Guía para testimonios y FAQs orientados a conversión.
+
+4) DIFERENCIACIÓN Y ORIGINALIDAD
+   - Instrucciones para que el sitio NO parezca una plantilla genérica.
+   - Pedir layouts distintivos (hero diferente, uso creativo de imágenes, secciones con composición única).
+   - Opcional: definir dos variantes visuales (ej.: Versión A Editorial Premium, Versión B Moderna Cinematográfica) solo a nivel de estilo.
+
+RESTRICCIONES DURAS (OBLIGATORIAS):
+- NO mencionar:
+  - "Stack", "React", "Vite", "TypeScript", "Tailwind", "Supabase".
+  - Estructura de carpetas (src/components, pages, etc.).
+  - Entregables como "código listo para deploy", "README", "tests", "Lighthouse score", "Figma/Sketch".
+  - Nada de "proyecto listo", "repo", "ZIP", "pipeline de CI/CD".
+- NO escribir ni un solo ejemplo de código ni pseudocódigo.
+- NO describir cómo conectar APIs, webhooks, supabase, etc.
+
+FORMATO DE LA RESPUESTA:
+- Devuelve UN ÚNICO BLOQUE de texto: el "Prompt optimizado para Lovable".
+- Escribe en español.
+- Estructúralo con títulos/secciones claros (por ejemplo: Resumen, Objetivo, Estructura de la página, Diseño visual, Copy y tono, FAQ, Testimonios, CTA, etc.).
+- Nunca expliques qué estás haciendo; simplemente devuelve el prompt ya listo para usar.
+
+Tu salida es el prompt final que le voy a enviar directamente a Lovable.`;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
