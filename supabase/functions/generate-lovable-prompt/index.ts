@@ -60,6 +60,12 @@ serve(async (req) => {
       ? `Transformamos ${formData.problemas?.toLowerCase().split('.')[0] || 'tu situación actual'} en ${formData.producto.toLowerCase().split('.')[0]}`
       : `Acompañamiento profesional para superar ${formData.problemas?.toLowerCase().split('.')[0] || 'tus desafíos'}`;
 
+    const beneficios = `✅ Transformación comprobada con metodología específica
+✅ Eliminación de bloqueos limitantes en tiempo récord
+✅ Desarrollo de confianza y resultados sostenibles
+✅ Estrategias probadas por profesionales de alto rendimiento
+✅ Acompañamiento ${formData.estilo?.toLowerCase() || 'profesional'} durante todo el proceso`;
+
     // Generar prompt base de Lovable
     const baseLovablePrompt = `═══════════════════════════════════════════════
 🎨 PROMPT PROFESIONAL PARA LOVABLE
