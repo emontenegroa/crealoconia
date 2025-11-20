@@ -1,18 +1,56 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mail, Calendar, CheckCircle, Info, Sparkles, Target, Globe } from "lucide-react";
-import { useEffect } from "react";
+import { Mail, Calendar, CheckCircle, Info, Sparkles, Target, Globe, Copy, Download } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/hooks/use-toast";
 
 const Landing3 = () => {
   const [searchParams] = useSearchParams();
   const email = searchParams.get('email');
+  const { toast } = useToast();
+  const [userData, setUserData] = useState<any>(null);
 
   useEffect(() => {
     // Scroll to top on mount
     window.scrollTo(0, 0);
+    
+    // Load user data from localStorage
+    const storedData = localStorage.getItem('userData');
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        setUserData(parsedData);
+      } catch (error) {
+        console.error('Error parsing userData:', error);
+      }
+    }
   }, []);
+
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "¡Copiado!",
+      description: `${label} copiado al portapapeles`,
+    });
+  };
+
+  const downloadAsText = (content: string, filename: string) => {
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    toast({
+      title: "¡Descargado!",
+      description: `${filename} descargado correctamente`,
+    });
+  };
 
   const handleSchedule = () => {
     window.open('https://wa.me/56961249991?text=Quiero%20ver%20mi%20sitio%20web!', '_blank');
@@ -60,6 +98,91 @@ const Landing3 = () => {
             </p>
           </div>
         </div>
+
+        {/* TUS PROMPTS GENERADOS */}
+        {userData?.generatedPrompts && (
+          <div className="mb-12 md:mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-8">
+              🎁 Tus Prompts Personalizados
+            </h2>
+            
+            {/* SUPER PROMPT */}
+            {userData.generatedPrompts.superPrompt && (
+              <Card className="bg-slate-800/80 border-slate-700 backdrop-blur p-6 md:p-8 mb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+                    <Sparkles className="w-6 h-6 text-purple-400" />
+                    Super Prompt para ChatGPT
+                  </h3>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => copyToClipboard(userData.generatedPrompts.superPrompt, "Super Prompt")}
+                      className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                    >
+                      <Copy className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => downloadAsText(userData.generatedPrompts.superPrompt, "super-prompt.txt")}
+                      className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                    >
+                      <Download className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="bg-slate-900/50 rounded-lg p-4 max-h-96 overflow-y-auto">
+                  <pre className="text-slate-300 text-sm whitespace-pre-wrap font-mono">
+                    {userData.generatedPrompts.superPrompt}
+                  </pre>
+                </div>
+                <p className="text-slate-400 text-sm mt-4">
+                  💡 Copia este prompt y pégalo en ChatGPT para generar contenido profesional para tu marca.
+                </p>
+              </Card>
+            )}
+
+            {/* PROMPT DE LOVABLE */}
+            {userData.generatedPrompts.lovablePrompt && (
+              <Card className="bg-slate-800/80 border-slate-700 backdrop-blur p-6 md:p-8 mb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+                    <Globe className="w-6 h-6 text-blue-400" />
+                    Prompt para Lovable (tu web)
+                  </h3>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => copyToClipboard(userData.generatedPrompts.lovablePrompt, "Prompt de Lovable")}
+                      className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                    >
+                      <Copy className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => downloadAsText(userData.generatedPrompts.lovablePrompt, "lovable-prompt.txt")}
+                      className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                    >
+                      <Download className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="bg-slate-900/50 rounded-lg p-4 max-h-96 overflow-y-auto">
+                  <pre className="text-slate-300 text-sm whitespace-pre-wrap font-mono">
+                    {userData.generatedPrompts.lovablePrompt}
+                  </pre>
+                </div>
+                <p className="text-slate-400 text-sm mt-4">
+                  💡 Este prompt fue usado para crear tu página web. También lo recibirás por correo.
+                </p>
+              </Card>
+            )}
+          </div>
+        )}
 
         {/* ¿QUÉ SIGUE AHORA? */}
         <div className="mb-12 md:mb-16">
