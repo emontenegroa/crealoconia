@@ -166,53 +166,302 @@ Cuando generes contenido para ${data.marca}, debes:
 
 Escribe el número de la opción del menú o describe lo que necesitas.${gapsSection}`;
 
-    // Generar prompt de Lovable mejorado
-    const lovablePrompt = `Crea un sitio web profesional y altamente efectivo para ${data.marca}.
+    // Generar prompt profesional de Lovable con todas las especificaciones
+    const lovablePrompt = `═══════════════════════════════════════════════
+🎨 PROMPT PROFESIONAL PARA LOVABLE
+═══════════════════════════════════════════════
 
-INFORMACIÓN DEL NEGOCIO:
-- Marca: ${data.marca}
-- Especialista: ${data.quien_eres}
-- Problema que resuelve: ${data.problemas}
-- Producto principal: ${data.producto}
-- Estilo de comunicación: ${data.estilo}
+Crea un sitio web moderno, premium y altamente efectivo para ${data.marca}.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 INFORMACIÓN DEL NEGOCIO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Marca:** ${data.marca}
+**Especialista:** ${data.quien_eres}
+**Problema que resuelve:** ${data.problemas}
+**Producto/Servicio principal:** ${data.producto}
+**Estilo de comunicación:** ${data.estilo}
+**Público objetivo:** ${publicoObjetivo}
+**Preguntas frecuentes:** ${data.preguntas_frecuentes}
+
+**Contacto:**
 - Instagram: ${data.instagram || 'No proporcionado'}
-- Website actual: ${data.website || 'No tiene'}
 - WhatsApp: ${data.whatsapp}
+- Website actual: ${data.website || 'Primer sitio web'}
 
-OBJETIVO DEL SITIO:
-Crear una landing page que posicione a ${data.marca} como la autoridad definitiva en su nicho y convierta visitantes en clientes potenciales cualificados.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 OBJETIVO DEL SITIO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-ESTRUCTURA REQUERIDA:
-1. **Header navegable** con logo, menú y CTA principal
-2. **Hero section impactante** con propuesta de valor clara y CTA prominente
-3. **Sección "Quién soy"** que genere credibilidad y conexión emocional
-4. **Problema-Solución** mostrando pain points específicos y cómo los resuelve
-5. **Metodología/Proceso** explicando su sistema único de trabajo
-6. **Testimonios sociales** (crear 3-4 testimonios realistas y específicos)
-7. **Producto/Servicio principal** con beneficios claros y urgencia
-8. **FAQ estratégicas** respondiendo: ${data.preguntas_frecuentes}
-9. **Formulario de contacto/captación** optimizado para conversión
-10. **Footer completo** con redes sociales y información de contacto
+Crear un sitio web que:
+✓ Posicione a ${data.marca} como autoridad indiscutible en su nicho
+✓ Genere conexión emocional profunda con el público objetivo
+✓ Convierta visitantes en leads cualificados
+✓ Transmita profesionalismo y diferenciación única
+✓ Sea memorable, impactante y orientado a resultados
 
-ESPECIFICACIONES TÉCNICAS:
-- Diseño moderno, limpio y 100% responsive
-- Optimizado para conversión con múltiples CTAs estratégicos
-- Paleta de colores profesional y coherente con el nicho
-- Tipografía legible y jerarquía visual clara
-- Animaciones sutiles y micro-interacciones
-- Imágenes placeholder apropiadas para el sector
-- Formularios funcionales con validación
-- Optimización SEO básica
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📐 ESTRUCTURA COMPLETA DEL SITIO (EN ORDEN)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-COPY Y CONTENIDO:
-- Headlines magnéticos que capturen atención inmediata
-- Copy emocional que conecte con dolores específicos del público
-- Prueba social estratégicamente distribuida
-- CTAs irresistibles con urgencia y claridad
-- Beneficios orientados a resultados, no características
-- Lenguaje ${data.estilo.toLowerCase()} pero persuasivo
+**1. HEADER PROFESIONAL**
+- Logo de ${data.marca} (texto elegante o placeholder)
+- Menú de navegación suave (Inicio, Quién Soy, Servicios, Testimonios, Contacto)
+- CTA principal destacado en el header ("Agenda tu Llamada", "Comenzar Ahora", etc.)
+- Diseño sticky/fijo al hacer scroll
 
-El sitio debe transmitir autoridad, generar confianza y motivar acción inmediata para contactar o contratar los servicios de ${data.marca}.`;
+**2. HERO SECTION IMPACTANTE**
+Crear una sección hero cinematográfica con:
+- Headline magnético que capture el dolor principal: "${data.problemas.split('.')[0]}"
+- Subheadline que presente la solución transformadora
+- CTA prominente y persuasivo
+- Imagen/ilustración premium relacionada al nicho
+- Elementos visuales que generen credibilidad (años de experiencia, clientes, resultados)
+- Diseño full-screen o split-screen moderno
+
+**3. QUIÉN SOY / QUIÉNES SOMOS**
+Sección de conexión emocional y credibilidad:
+- Foto profesional placeholder (persona o equipo)
+- Historia breve pero impactante sobre ${data.quien_eres}
+- Credenciales, experiencia y autoridad
+- Por qué es diferente de otros en el mercado
+- Conexión emocional con el público objetivo
+- Diseño: imagen + texto en layout atractivo
+
+**4. PROBLEMA - SOLUCIÓN**
+Mostrar empatía y presentar la transformación:
+- 3-4 problemas específicos del público (basados en: ${data.problemas})
+- Cómo ${data.marca} resuelve cada uno
+- Contraste antes/después
+- Copy emocional y persuasivo
+- Diseño: tarjetas, íconos o ilustraciones
+
+**5. METODOLOGÍA / PROCESO**
+Explicar el sistema único de ${data.marca}:
+- 3-5 pasos claros del proceso de trabajo
+- Cada paso con título, descripción y beneficio
+- Visual: línea de tiempo, pasos numerados o diagrama
+- Transmitir profesionalismo y estructura
+- Mostrar que hay un sistema probado
+
+**6. SERVICIOS / PRODUCTOS**
+Presentación del ${data.producto}:
+- Descripción clara del servicio/producto principal
+- Beneficios específicos (no características)
+- ${beneficios}
+- Qué incluye
+- Resultados esperados
+- CTA de conversión fuerte
+- Diseño premium con tarjetas o secciones destacadas
+
+**7. TESTIMONIOS SOCIALES**
+Crear 4-5 testimonios realistas y específicos:
+- Nombre, profesión/contexto del cliente
+- Problema que tenía antes
+- Resultado específico logrado con ${data.marca}
+- Cita textual emocional y creíble
+- Foto placeholder profesional
+- Estrellas o elementos de validación
+- Diseño: carrusel, grid o tarjetas destacadas
+
+**8. PORTAFOLIO (si aplica al rubro)**
+- Mostrar trabajos, casos de éxito o resultados previos
+- Imágenes placeholder profesionales
+- Breve descripción de cada caso
+- Métricas o resultados cuando sea posible
+
+**9. FAQ ESTRATÉGICAS**
+Responder objeciones y preguntas frecuentes (mínimo 8):
+- Basadas en: ${data.preguntas_frecuentes}
+- Adicionales: precio, tiempo, garantías, proceso, diferenciadores
+- Respuestas persuasivas y completas
+- Diseño accordion/desplegable elegante
+- Copy que elimine fricción y genere confianza
+
+**10. CTA ESTRATÉGICA FINAL**
+Sección de conversión potente:
+- Headline urgente y motivacional
+- Resumen de beneficios clave
+- CTA irresistible y claro
+- Elemento de urgencia o escasez sutil
+- Fondo contrastante o degradado premium
+
+**11. FORMULARIO DE CONTACTO OPTIMIZADO**
+- Campos mínimos necesarios (nombre, email, WhatsApp, mensaje)
+- Copy persuasivo arriba del formulario
+- Validación en tiempo real
+- Botón de envío destacado
+- Mensaje de confirmación amigable
+- Integración con WhatsApp: ${data.whatsapp}
+- Diseño limpio y profesional
+
+**12. FOOTER COMPLETO**
+- Logo de ${data.marca}
+- Links de navegación
+- Redes sociales (especialmente Instagram: ${data.instagram || 'agregar placeholder'})
+- WhatsApp de contacto: ${data.whatsapp}
+- Email de contacto
+- Aviso legal y términos (links básicos)
+- Copyright con año actual
+- Diseño organizado y legible
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎨 ESTÉTICA Y DISEÑO VISUAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**PALETA DE COLORES INTELIGENTE:**
+- Detectar el rubro de ${data.marca} y elegir colores coherentes
+- 1 color primario/base profesional
+- 2 colores secundarios complementarios
+- 1 acento premium para CTAs y destacados
+- 1-2 tonos neutros (gris claro/oscuro según modo)
+- Asegurar contraste y legibilidad
+- Degradados sutiles donde sea apropiado
+
+**TIPOGRAFÍA PREMIUM:**
+- Titulares: fuente moderna serif elegante o sans editorial
+- Párrafos: sans moderna y legible (Inter, Manrope, Plus Jakarta, similar)
+- Jerarquía clara: H1 (hero), H2 (secciones), H3 (subsecciones), párrafos, botones
+- Tamaños responsivos y optimizados
+- Peso de fuentes variado para énfasis
+
+**MICRO-INTERACCIONES Y ANIMACIONES:**
+- Fade-in suave al hacer scroll en cada sección
+- Hover effects en botones (escala, color, sombra)
+- Tarjetas con efecto de elevación al hover
+- Transiciones suaves entre estados
+- Animaciones sutiles pero notables
+- Performance optimizado (sin saturar)
+
+**DISEÑO VISUAL AVANZADO:**
+- Split screen en secciones clave
+- Tarjetas con sombras premium y bordes suaves
+- Textos con degradé sutil en headlines
+- Espaciado generoso y respiración visual
+- Secciones alternas (fondo claro/oscuro)
+- Imágenes con border-radius y tratamiento profesional
+- Íconos modernos y coherentes
+- Elementos decorativos sutiles (líneas, formas geométricas)
+
+**PLACEHOLDERS E IMÁGENES:**
+- Imágenes placeholder coherentes con el rubro de ${data.marca}
+- Estilo consistente (fotografía profesional, ilustraciones modernas, etc.)
+- Alt text descriptivo para SEO
+- Lazy loading implementado
+- Aspect ratios apropiados
+
+**ELEMENTOS DECORATIVOS:**
+- Texturas sutiles de fondo si mejoran la estética
+- Formas geométricas o patrones relacionados al rubro
+- Símbolos o íconos representativos del nicho
+- Backgrounds con degradados suaves
+- No saturar: mantener elegancia y minimalismo premium
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✍️ COPYWRITING DE ALTO IMPACTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**TONO Y ESTILO:**
+- ${data.estilo} pero siempre persuasivo
+- Emocional y conectado con los dolores reales
+- Profesional sin ser corporativo aburrido
+- Claro, directo y orientado a beneficios
+- Evitar jerga innecesaria
+- Usar storytelling donde sea apropiado
+
+**CTAs (Llamadas a Acción):**
+- Primario: "Agenda tu Llamada Estratégica Gratuita"
+- Secundario: "Descubre Cómo Funciona"
+- Terciario: "Comienza tu Transformación Hoy"
+- Urgencia: "Cupos Limitados este Mes"
+- Curiosidad: "Ver Casos de Éxito"
+(Adaptar según el producto/servicio de ${data.marca})
+
+**HEADLINES MAGNÉTICOS:**
+- Hero: Enfocado en el dolor principal y la transformación
+- Secciones: Generar curiosidad y continuidad
+- Usar números, preguntas, promesas específicas
+- Ejemplo para ${data.marca}: "Transforma [DOLOR] en [RESULTADO] en [TIEMPO]"
+
+**PRUEBA SOCIAL:**
+- Testimonios distribuidos estratégicamente
+- Números impactantes (clientes, años, resultados)
+- Logos de medios/certificaciones si aplica
+- Badges de confianza sutiles
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 DIFERENCIACIÓN OBLIGATORIA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Este sitio NO debe parecer genérico. Debe:**
+- Detectar lo único de ${data.marca} y destacarlo
+- Proponer composición visual propia y memorable
+- Incorporar detalles personalizados basados en la información
+- Evitar templates repetitivos
+- Tener personalidad clara y diferenciada
+- Reflejar la esencia del ${data.estilo} del negocio
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📱 ESPECIFICACIONES TÉCNICAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+- **Responsive**: 100% mobile-first, tablet y desktop perfecto
+- **Performance**: Optimizado, rápido, sin elementos innecesarios
+- **SEO**: Meta tags, headings semánticos, alt texts, URLs limpias
+- **Accesibilidad**: Contraste apropiado, navegación por teclado, ARIA labels
+- **Formularios**: Validación en tiempo real, mensajes de error claros
+- **CTAs**: Múltiples puntos de conversión estratégicos
+- **WhatsApp**: Botón flotante de WhatsApp con el número ${data.whatsapp}
+- **Navegación**: Suave scroll a secciones, UX intuitiva
+- **Modo oscuro/claro**: Si el diseño lo permite, soporte para ambos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎭 VERSIONES DE DISEÑO (Elige una según el rubro)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**VERSIÓN A - PREMIUM EDITORIAL:**
+- Estilo revista de lujo
+- Elegante y sofisticado
+- Tipografía serif para títulos
+- Colores suaves con 1 acento premium
+- Mucho espacio en blanco
+- Fotografías grandes y elegantes
+- Ideal para: coaches, consultores, servicios profesionales premium
+
+**VERSIÓN B - MODERNA CINEMATOGRÁFICA:**
+- Estilo oscuro o alto contraste
+- Tipografía sans moderna y bold
+- Hero dramático con imagen impactante
+- Animaciones más marcadas
+- Degradados vibrantes
+- Ideal para: creativos, tech, innovación, marcas disruptivas
+
+**Seleccionar la versión que mejor se alinee con ${data.marca} y ${data.estilo}**
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ RESULTADO FINAL ESPERADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Un sitio web completo que:
+✓ Se vea profesional, moderno y premium
+✓ Cuente la historia de ${data.marca} de forma persuasiva
+✓ Conecte emocionalmente con ${publicoObjetivo}
+✓ Posicione como autoridad indiscutible
+✓ Convierta visitantes en clientes potenciales
+✓ Sea memorable y único
+✓ Funcione perfectamente en todos los dispositivos
+✓ Esté listo para publicarse y generar resultados
+
+═══════════════════════════════════════════════
+
+**INSTRUCCIONES FINALES PARA LOVABLE:**
+
+Genera el sitio completo con todas las secciones mencionadas, copy profesional y persuasivo, diseño premium diferenciado, y optimización total para conversión. El sitio debe transmitir autoridad absoluta, generar confianza inmediata y motivar acción desde el primer segundo.
+
+Usa React, TailwindCSS, componentes modernos, animaciones suaves, formularios funcionales, y toda la tecnología necesaria para crear una experiencia web de nivel profesional para ${data.marca}.
+
+═══════════════════════════════════════════════`;
 
     console.log('🎯 Iniciando generación de prompts para:', data.marca);
     console.log('📝 Datos del formulario recibidos:', {
