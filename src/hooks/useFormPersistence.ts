@@ -14,6 +14,12 @@ interface FormData {
   whatsapp: string;
   website: string;
   instagram: string;
+  // Campos adicionales del quiz (Landing2)
+  servicios?: string;
+  clientePerfil?: string;
+  problemaPrincipal?: string;
+  propuestaMetodo?: string;
+  resultados?: string;
 }
 
 interface AIUsage {
