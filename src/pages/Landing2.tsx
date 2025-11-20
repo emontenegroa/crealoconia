@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Sparkles, CheckCircle2, Maximize2, Minimize2 } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AIEnhanceButton from '@/components/AIEnhanceButton';
 import { quizFormSchema, sanitizeText, sanitizeTextForSubmit } from '@/utils/formValidation';
@@ -33,6 +33,7 @@ const Landing2 = () => {
   const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [aiUsage, setAiUsage] = useState<Record<string, number>>({});
   const [progressRestored, setProgressRestored] = useState(false);
+  const [expandedFields, setExpandedFields] = useState<Record<string, boolean>>({});
 
   const handleAIUsageUpdate = (fieldName: string, count: number) => {
     setAiUsage(prev => ({ ...prev, [fieldName]: count }));
@@ -334,24 +335,40 @@ const Landing2 = () => {
                   <Label htmlFor={question.name} className="text-white text-base md:text-lg font-bold block">
                     {index + 1}. {question.label}
                   </Label>
-                  <AIEnhanceButton
-                    currentText={formData[question.name as keyof typeof formData]}
-                    fieldType={question.name}
-                    context={{
-                      marca: nombre || '',
-                      estilo: 'Profesional'
-                    }}
-                    onEnhanced={(enhancedText) => handleInputChange(question.name, enhancedText)}
-                    sessionId={sessionId}
-                    onUsageUpdate={handleAIUsageUpdate}
-                  />
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setExpandedFields(prev => ({ ...prev, [question.name]: !prev[question.name] }))}
+                      className="text-slate-400 hover:text-white transition-colors p-1"
+                      title={expandedFields[question.name] ? "Contraer" : "Expandir"}
+                    >
+                      {expandedFields[question.name] ? (
+                        <Minimize2 className="w-4 h-4" />
+                      ) : (
+                        <Maximize2 className="w-4 h-4" />
+                      )}
+                    </button>
+                    <AIEnhanceButton
+                      currentText={formData[question.name as keyof typeof formData]}
+                      fieldType={question.name}
+                      context={{
+                        marca: nombre || '',
+                        estilo: 'Profesional'
+                      }}
+                      onEnhanced={(enhancedText) => handleInputChange(question.name, enhancedText)}
+                      sessionId={sessionId}
+                      onUsageUpdate={handleAIUsageUpdate}
+                    />
+                  </div>
                 </div>
                 <Textarea
                   id={question.name}
                   placeholder={question.placeholder}
                   value={formData[question.name as keyof typeof formData]}
                   onChange={(e) => handleInputChange(question.name, e.target.value)}
-                  className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400 min-h-[120px] text-base"
+                  className={`bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400 text-base transition-all duration-300 ${
+                    expandedFields[question.name] ? 'min-h-[300px]' : 'min-h-[120px]'
+                  }`}
                   disabled={isSubmitting}
                   maxLength={2000}
                   showCounter={true}
