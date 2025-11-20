@@ -473,35 +473,23 @@ Usa React, TailwindCSS, componentes modernos, animaciones suaves, formularios fu
     });
 
     try {
-      // Mejorar ambos prompts en paralelo usando ChatGPT GPT-5
-      console.log('🤖 Iniciando mejora de prompts con GPT-5...');
+      // Mejorar SOLO el Super Prompt con GPT-5 (ahorro de tokens)
+      // El prompt de Lovable se genera manualmente desde admin cuando el cliente realmente quiere el sitio
+      console.log('🤖 Iniciando mejora del Super Prompt con GPT-5...');
       console.log('⏳ Esto puede tomar 10-30 segundos. Por favor espera...');
       
-      const [superPromptResult, lovablePromptResult] = await Promise.all([
-        supabase.functions.invoke('enhance-with-ai', {
-          body: {
-            userText: baseSuperPrompt,
-            fieldType: 'super_prompt',
-            context: {
-              marca: data.marca,
-              estilo: data.estilo
-            }
+      const superPromptResult = await supabase.functions.invoke('enhance-with-ai', {
+        body: {
+          userText: baseSuperPrompt,
+          fieldType: 'super_prompt',
+          context: {
+            marca: data.marca,
+            estilo: data.estilo
           }
-        }),
-        supabase.functions.invoke('enhance-with-ai', {
-          body: {
-            userText: lovablePrompt,
-            fieldType: 'lovable_prompt',
-            context: {
-              marca: data.marca,
-              estilo: data.estilo
-            }
-          }
-        })
-      ]);
+        }
+      });
 
       let enhancedSuperPrompt = baseSuperPrompt;
-      let enhancedLovablePrompt = lovablePrompt;
       
       if (!superPromptResult.error && superPromptResult.data?.enhancedText) {
         enhancedSuperPrompt = superPromptResult.data.enhancedText;
@@ -510,23 +498,17 @@ Usa React, TailwindCSS, componentes modernos, animaciones suaves, formularios fu
         console.warn('⚠️ No se pudo mejorar Super Prompt, usando versión base. Error:', superPromptResult.error);
       }
 
-      if (!lovablePromptResult.error && lovablePromptResult.data?.enhancedText) {
-        enhancedLovablePrompt = lovablePromptResult.data.enhancedText;
-        console.log('✅ Lovable Prompt mejorado con GPT-5');
-      } else {
-        console.warn('⚠️ No se pudo mejorar Lovable Prompt, usando versión base. Error:', lovablePromptResult.error);
-      }
-
       console.log('📋 Prompts generados exitosamente:', {
         superPromptLength: enhancedSuperPrompt.length,
-        lovablePromptLength: enhancedLovablePrompt.length,
+        lovablePromptLength: lovablePrompt.length,
         hasSuperPrompt: !!enhancedSuperPrompt,
-        hasLovablePrompt: !!enhancedLovablePrompt
+        hasLovablePrompt: !!lovablePrompt,
+        lovablePromptStatus: 'Base sin mejorar (se mejorará manualmente desde admin si el cliente convierte)'
       });
 
       return {
         superPrompt: enhancedSuperPrompt,
-        lovablePrompt: enhancedLovablePrompt
+        lovablePrompt: lovablePrompt // Prompt base sin mejorar, se mejorará manualmente desde admin
       };
       
     } catch (error) {
