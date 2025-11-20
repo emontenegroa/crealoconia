@@ -50,13 +50,26 @@ serve(async (req) => {
 
     const formData = submission.form_data as any;
 
-    // Generar público objetivo basado en el problema y quien eres
     const publicoObjetivo = formData.quien_eres?.includes('atletas') ? 
       'Atletas, deportistas de alto rendimiento y emprendedores ambiciosos' :
       formData.quien_eres?.includes('productividad') ?
       'Ejecutivos, emprendedores y freelancers que buscan optimizar su tiempo' :
       `Personas que ${formData.problemas?.toLowerCase().split('.')[0] || 'buscan soluciones'}`;
     
+    const mensajeCentral = formData.producto 
+      ? `Transformamos ${formData.problemas?.toLowerCase().split('.')[0] || 'tu situación actual'} en ${formData.producto.toLowerCase().split('.')[0]}`
+      : `Acompañamiento profesional para superar ${formData.problemas?.toLowerCase().split('.')[0] || 'tus desafíos'}`;
+
+    const baseLovablePrompt = `Resumen: Crea sitio web moderno, premium y conversor para "${formData.marca}" (${formData.quien_eres || 'especialista'}). Objetivo: posicionar como autoridad, conectar emocionalmente, convertir visitantes en leads.
+
+PÚBLICO: ${publicoObjetivo} | MENSAJE: "${mensajeCentral}" | PROBLEMA: ${formData.problemas || 'Desafíos'}
+
+ESTRUCTURA: 1)Header sticky 2)Hero impactante 3)Quién soy 4)Problema→Solución 5)Metodología 6)Servicios(${formData.producto}) 7)Testimonios(4-5) 8)Casos 9)FAQ(${formData.preguntas_frecuentes}+8min) 10)CTA final 11)Formulario 12)Footer
+
+DISEÑO: Paleta ${formData.estilo}, tipografía personalidad, efectos suaves. COPY: Tono ${formData.estilo}, beneficios>características. CONTACTO: WhatsApp ${formData.whatsapp}, Instagram ${formData.instagram || 'N/A'}
+
+ENTREGAR: Copy completo, testimonios mockup, FAQs, meta tags. NO código/técnico. Enfoque: contenido, UX, conversión.`;
+
     const beneficios = `✅ Transformación comprobada con metodología específica
 ✅ Eliminación de bloqueos limitantes en tiempo récord
 ✅ Desarrollo de confianza y resultados sostenibles
