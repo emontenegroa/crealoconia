@@ -40,6 +40,7 @@ const Landing2 = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [focusedField, setFocusedField] = useState<string | null>(null);
   const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [aiUsage, setAiUsage] = useState<Record<string, number>>({});
   const [progressRestored, setProgressRestored] = useState(false);
@@ -150,23 +151,27 @@ const Landing2 = () => {
   const questions = [
     {
       name: 'servicios',
-      label: '¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas? (Sé específico)',
-      placeholder: 'Ej: Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras de 30-45 años que buscan reconectar con su propósito...'
+      label: '¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas?',
+      placeholder: 'Ej: Soy coach de vida y me apasiona ayudar a personas que se sienten estancadas...',
+      helper: 'Describe tu rol, tu pasión y el tipo de personas que transformas. Piensa en qué te hace diferente y por qué amas lo que haces.'
     },
     {
       name: 'clientePerfil',
-      label: '¿Qué problema específico vives día a día con tus clientes y cómo los ayudas a solucionarlo?',
-      placeholder: 'Ej: Mis clientas llegan sintiéndose bloqueadas emocionalmente, con miedo al fracaso y síndrome del impostor. Yo las ayudo con un proceso de autoconocimiento profundo usando técnicas de PNL...'
+      label: '¿Qué problema específico vives día a día con tus clientes?',
+      placeholder: 'Ej: Mis clientes llegan sin claridad sobre sus metas y les cuesta dar el primer paso...',
+      helper: 'Explica el desafío principal que tus clientes enfrentan antes de trabajar contigo. Sé específico y emocional.'
     },
     {
       name: 'problemaPrincipal',
-      label: '¿Qué te preguntan siempre tus clientes o qué disfrutas explicar una y otra vez?',
-      placeholder: 'Ej: Me preguntan constantemente si es posible cambiar de vida después de los 40 años cuando ya tienes responsabilidades. Me encanta mostrarles que siempre es posible...'
+      label: '¿Qué te preguntan siempre tus clientes?',
+      placeholder: 'Ej: "¿Cómo puedo encontrar mi propósito?" o "¿Por dónde empiezo?"...',
+      helper: 'Comparte las 2-3 preguntas más frecuentes que recibes. Estas revelan las inquietudes reales de tu audiencia.'
     },
     {
       name: 'propuestaMetodo',
-      label: '¿Cuál es tu producto o servicio principal que quieres vender más? (Describe beneficios específicos)',
-      placeholder: 'Ej: Mi programa "Renace", un proceso de coaching de 8 semanas que incluye sesiones individuales, workbook personalizado y comunidad privada. Está diseñado para mujeres que quieren cambios profundos en 90 días...'
+      label: '¿Cuál es tu producto o servicio principal?',
+      placeholder: 'Ej: Ofrezco sesiones de coaching 1:1 personalizadas y un programa grupal de 8 semanas...',
+      helper: 'Describe tu oferta principal: qué incluye, cómo funciona y qué resultados promete. Sé claro y conciso.'
     }
   ];
 
@@ -542,6 +547,8 @@ const Landing2 = () => {
                     placeholder={question.placeholder}
                     value={stringValue}
                     onChange={(e) => handleInputChange(question.name, e.target.value)}
+                    onFocus={() => setFocusedField(question.name)}
+                    onBlur={() => setFocusedField(null)}
                     className={`bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400 text-base transition-all duration-300 ${
                       expandedFields[question.name] ? 'min-h-[300px]' : 'min-h-[120px]'
                     }`}
@@ -549,6 +556,12 @@ const Landing2 = () => {
                     maxLength={2000}
                     showCounter={true}
                   />
+                  {focusedField === question.name && (
+                    <p className="text-sm text-blue-300/90 mt-2 animate-in fade-in slide-in-from-top-1 duration-200 flex items-start gap-2">
+                      <span className="text-base">💡</span>
+                      <span>{question.helper}</span>
+                    </p>
+                  )}
                   {errors[question.name] && (
                     <p className="text-red-400 text-sm">{errors[question.name]}</p>
                   )}
@@ -564,6 +577,7 @@ const Landing2 = () => {
               <Select 
                 value={formData.estiloComunicacion || ''} 
                 onValueChange={(value) => setFormData(prev => ({ ...prev, estiloComunicacion: value }))}
+                onOpenChange={(open) => setFocusedField(open ? 'estiloComunicacion' : null)}
               >
                 <SelectTrigger className="bg-slate-900/50 border-slate-600 text-white">
                   <SelectValue placeholder="Selecciona tu estilo" />
@@ -577,6 +591,12 @@ const Landing2 = () => {
                   <SelectItem value="creativo">Creativo y original</SelectItem>
                 </SelectContent>
               </Select>
+              {focusedField === 'estiloComunicacion' && (
+                <p className="text-sm text-blue-300/90 mt-2 animate-in fade-in slide-in-from-top-1 duration-200 flex items-start gap-2">
+                  <span className="text-base">💡</span>
+                  <span>Elige el tono que mejor refleje tu personalidad y la forma en que te conectas con tu audiencia.</span>
+                </p>
+              )}
             </div>
 
             {!isFormComplete() && (
