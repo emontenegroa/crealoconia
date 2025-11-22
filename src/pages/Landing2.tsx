@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Sparkles, CheckCircle2, Maximize2, Minimize2 } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -34,7 +35,8 @@ const Landing2 = () => {
     clientePerfil: '',
     problemaPrincipal: '',
     propuestaMetodo: '',
-    resultados: ''
+    resultados: '',
+    estiloComunicacion: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -92,7 +94,8 @@ const Landing2 = () => {
               clientePerfil: previousData.clientePerfil || '',
               problemaPrincipal: previousData.problemaPrincipal || '',
               propuestaMetodo: previousData.propuestaMetodo || '',
-              resultados: previousData.resultados || ''
+              resultados: previousData.resultados || '',
+              estiloComunicacion: previousData.estiloComunicacion || ''
             });
             setProgressRestored(true);
             
@@ -120,18 +123,17 @@ const Landing2 = () => {
         formData.servicios,
         formData.clientePerfil,
         formData.problemaPrincipal,
-        formData.propuestaMetodo,
-        formData.resultados
+        formData.propuestaMetodo
       ];
       const hasData = textFields.some(value => value.trim() !== '');
-      if (hasData || formData.instagram || formData.website) {
+      if (hasData || formData.instagram || formData.website || formData.estiloComunicacion) {
         const completeFormData = {
           marca: nombre || '',
           email: email,
           quien_eres: formData.servicios || '',
           problemas: formData.problemaPrincipal || '',
           preguntas_frecuentes: formData.clientePerfil || '',
-          estilo: 'Profesional',
+          estilo: formData.estiloComunicacion || 'Profesional',
           producto: formData.propuestaMetodo || '',
           whatsapp: '',
           website: formData.website || '',
@@ -148,28 +150,23 @@ const Landing2 = () => {
   const questions = [
     {
       name: 'servicios',
-      label: '¿Qué servicios ofreces?',
-      placeholder: 'Ej: Sesiones de coaching, diseño gráfico, asesorías legales, etc.'
+      label: '¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas? (Sé específico)',
+      placeholder: 'Ej: Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras de 30-45 años que buscan reconectar con su propósito...'
     },
     {
       name: 'clientePerfil',
-      label: '¿A quién ayudas específicamente? (perfil del cliente)',
-      placeholder: 'Ej: Mujeres emprendedoras, pequeños negocios, profesionales en transición, etc.'
+      label: '¿Qué problema específico vives día a día con tus clientes y cómo los ayudas a solucionarlo?',
+      placeholder: 'Ej: Mis clientas llegan sintiéndose bloqueadas emocionalmente, con miedo al fracaso y síndrome del impostor. Yo las ayudo con un proceso de autoconocimiento profundo usando técnicas de PNL...'
     },
     {
       name: 'problemaPrincipal',
-      label: '¿Qué problema o necesidad principal resuelves?',
-      placeholder: 'Ej: Falta de presencia online, miedo a hablar en público, desorganización administrativa, etc.'
+      label: '¿Qué te preguntan siempre tus clientes o qué disfrutas explicar una y otra vez?',
+      placeholder: 'Ej: Me preguntan constantemente si es posible cambiar de vida después de los 40 años cuando ya tienes responsabilidades. Me encanta mostrarles que siempre es posible...'
     },
     {
       name: 'propuestaMetodo',
-      label: '¿Cuál es tu propuesta o método para resolverlo?',
-      placeholder: 'Ej: Metodología única, enfoque holístico, paso a paso, etc.'
-    },
-    {
-      name: 'resultados',
-      label: '¿Qué resultados obtienen tus clientes después de trabajar contigo?',
-      placeholder: 'Ej: Más confianza, mejor comunicación, aumento de ventas, claridad de propósito, etc.'
+      label: '¿Cuál es tu producto o servicio principal que quieres vender más? (Describe beneficios específicos)',
+      placeholder: 'Ej: Mi programa "Renace", un proceso de coaching de 8 semanas que incluye sesiones individuales, workbook personalizado y comunidad privada. Está diseñado para mujeres que quieren cambios profundos en 90 días...'
     }
   ];
 
@@ -182,7 +179,7 @@ const Landing2 = () => {
       clientePerfil: sanitizeTextForSubmit(formData.clientePerfil),
       problemaPrincipal: sanitizeTextForSubmit(formData.problemaPrincipal),
       propuestaMetodo: sanitizeTextForSubmit(formData.propuestaMetodo),
-      resultados: sanitizeTextForSubmit(formData.resultados)
+      estiloComunicacion: formData.estiloComunicacion
     };
     
     // Validar con zod schema
@@ -218,16 +215,18 @@ const Landing2 = () => {
       formData.servicios,
       formData.clientePerfil,
       formData.problemaPrincipal,
-      formData.propuestaMetodo,
-      formData.resultados
+      formData.propuestaMetodo
     ];
+    
+    // Campos obligatorios adicionales
+    const requiredCount = 4 + (formData.estiloComunicacion ? 1 : 0);
     
     // Campos opcionales: solo cuentan si tieneInstagram o tieneWebsite está marcado
     if (formData.tieneInstagram) textFields.push(formData.instagram);
     if (formData.tieneWebsite) textFields.push(formData.website);
     
-    const totalRequired = 5 + (formData.tieneInstagram ? 1 : 0) + (formData.tieneWebsite ? 1 : 0);
-    const completed = textFields.filter(value => typeof value === 'string' && value.trim().length >= 10).length;
+    const totalRequired = requiredCount + (formData.tieneInstagram ? 1 : 0) + (formData.tieneWebsite ? 1 : 0);
+    const completed = textFields.filter(value => typeof value === 'string' && value.trim().length >= 10).length + (formData.estiloComunicacion ? 1 : 0);
     const quizProgress = (completed / totalRequired) * 40; // 40% del rango total
     return 60 + quizProgress; // Base de 60% + hasta 40% = máximo 100%
   };
@@ -238,13 +237,15 @@ const Landing2 = () => {
       formData.servicios,
       formData.clientePerfil,
       formData.problemaPrincipal,
-      formData.propuestaMetodo,
-      formData.resultados
+      formData.propuestaMetodo
     ];
     
     const requiredComplete = requiredFields.every(value => 
       typeof value === 'string' && value.trim().length >= 10
     );
+    
+    // Validar campo select obligatorio
+    if (!formData.estiloComunicacion) return false;
     
     // Validar campos condicionales
     if (formData.tieneInstagram && formData.instagram.trim().length < 3) return false;
@@ -278,7 +279,7 @@ const Landing2 = () => {
         quien_eres: formData.servicios || '',
         problemas: formData.problemaPrincipal || '',
         preguntas_frecuentes: formData.clientePerfil || '',
-        estilo: 'Profesional',
+        estilo: formData.estiloComunicacion || 'Profesional',
         producto: formData.propuestaMetodo || '',
         whatsapp: initialData.telefono || '', // 🔥 CRÍTICO: WhatsApp viene de Landing1
         website: formData.website || '',
@@ -387,7 +388,7 @@ const Landing2 = () => {
             Tu asistente de contenido está a 5 minutos de distancia
           </h1>
           <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto">
-            Completa estas 5 preguntas para que la IA entienda tu negocio y diseñe tu mensaje de marca listo para atraer clientes.
+            Completa estas preguntas para que la IA entienda tu negocio y diseñe tu mensaje de marca listo para atraer clientes.
           </p>
         </div>
 
@@ -499,7 +500,7 @@ const Landing2 = () => {
               </div>
             </div>
 
-            {/* PREGUNTAS DEL QUIZ */}
+            {/* PREGUNTAS DEL QUIZ (Preguntas 6-9) */}
             {questions.map((question, index) => {
               const fieldValue = formData[question.name as keyof typeof formData];
               const stringValue = typeof fieldValue === 'string' ? fieldValue : '';
@@ -508,7 +509,7 @@ const Landing2 = () => {
                 <div key={question.name} className="space-y-3">
                   <div className="flex items-center justify-between gap-4">
                     <Label htmlFor={question.name} className="text-white text-base md:text-lg font-bold block">
-                      {index + 1}. {question.label}
+                      {index + 6}. {question.label}
                     </Label>
                     <div className="flex items-center gap-2">
                       <button
@@ -555,10 +556,33 @@ const Landing2 = () => {
               );
             })}
 
+            {/* Pregunta 10: Estilo de comunicación */}
+            <div className="space-y-4">
+              <Label htmlFor="estiloComunicacion" className="text-white text-base md:text-lg font-bold block">
+                10. ¿Cómo te gusta comunicarte en redes sociales?
+              </Label>
+              <Select 
+                value={formData.estiloComunicacion || ''} 
+                onValueChange={(value) => setFormData(prev => ({ ...prev, estiloComunicacion: value }))}
+              >
+                <SelectTrigger className="bg-slate-900/50 border-slate-600 text-white">
+                  <SelectValue placeholder="Selecciona tu estilo" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="profesional">Profesional y corporativo</SelectItem>
+                  <SelectItem value="cercano">Cercano y conversacional</SelectItem>
+                  <SelectItem value="inspiracional">Inspiracional y motivador</SelectItem>
+                  <SelectItem value="educativo">Educativo e informativo</SelectItem>
+                  <SelectItem value="directo">Directo al grano</SelectItem>
+                  <SelectItem value="creativo">Creativo y original</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             {!isFormComplete() && (
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 mb-6">
                 <p className="text-amber-200 text-sm text-center">
-                  💡 Completa todas las preguntas con al menos 10 caracteres cada una para continuar
+                  💡 Completa todas las preguntas (cada respuesta con al menos 10 caracteres) y selecciona tu estilo de comunicación para continuar
                 </p>
               </div>
             )}
