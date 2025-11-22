@@ -301,10 +301,10 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
           <>
             <Brain className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
             <span className="hidden lg:inline">
-              {canUseAI ? `Mejorar texto con IA (${remainingUses})` : 'Límite alcanzado'}
+              {canUseAI ? `IA te ayuda a escribir (${remainingUses})` : 'Límite alcanzado'}
             </span>
             <span className="lg:hidden">
-              {canUseAI ? `Mejorar texto con IA (${remainingUses})` : 'Sin usos'}
+              {canUseAI ? `IA ayuda (${remainingUses})` : 'Sin usos'}
             </span>
           </>
         )}
