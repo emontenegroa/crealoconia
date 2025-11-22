@@ -166,51 +166,51 @@ const Landing2 = () => {
   const questions = [
     {
       name: 'servicios',
-      label: '¿Quién eres, qué haces y a quién ayudas específicamente?',
-      placeholder: 'Ejemplo: "Soy nutricionista deportiva y ayudo a atletas amateur que quieren mejorar su rendimiento sin sacrificar sabor. Me apasiona ver cómo mis clientes logran sus metas personales sintiendo más energía."',
-      helper: '✨ Describe tu rol profesional, tu pasión genuina y el perfil exacto de personas que transformas. Sé específico: ¿qué edad tienen? ¿qué desafíos enfrentan? ¿qué aspiran lograr?',
+      label: '¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas? (Sé específico)',
+      placeholder: 'Ej: Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras de 30-45 años que buscan reconectar con su propósito...',
+      helper: 'Describe quién eres, qué te apasiona y a quién ayudas específicamente.',
       checklist: [
-        'Tu profesión o rol exacto',
-        'Qué te apasiona de lo que haces',
-        'Perfil demográfico de tu cliente ideal (edad, ocupación, situación)',
-        'El cambio o transformación que buscas crear en ellos'
-      ]
-    },
-    {
-      name: 'clientePerfil',
-      label: '¿Cuál es el problema número uno que tus clientes enfrentan antes de encontrarte?',
-      placeholder: 'Ejemplo: "Llegan frustrados porque han probado dietas restrictivas que no funcionan a largo plazo. Sienten que no tienen tiempo para comer sano y terminan comiendo cualquier cosa por falta de planificación."',
-      helper: '💡 Piensa en la queja más común, la frustración emocional o el obstáculo práctico que enfrentan. Usa sus propias palabras si puedes recordarlas.',
-      checklist: [
-        'El problema emocional (frustración, miedo, ansiedad)',
-        'El problema práctico (falta de tiempo, dinero, conocimiento)',
-        'Las soluciones que ya intentaron sin éxito',
-        'Cómo este problema afecta su día a día'
+        'Tu profesión o especialidad',
+        'Qué te apasiona genuinamente de tu trabajo',
+        'Perfil exacto de tu cliente ideal (edad, situación, necesidades)',
+        'Qué transformación o resultado buscas crear'
       ]
     },
     {
       name: 'problemaPrincipal',
-      label: '¿Qué 2-3 preguntas te hacen SIEMPRE tus clientes?',
-      placeholder: 'Ejemplo: "¿Puedo comer carbohidratos y aún así perder grasa? ¿Cuántas comidas al día debería hacer? ¿Es necesario tomar suplementos?"',
-      helper: '🔍 Estas preguntas revelan sus dudas reales y miedos ocultos. Escribe entre 2 y 4 preguntas exactas que escuchas repetidamente en consultas o mensajes.',
+      label: '¿Qué problema específico vives día a día con tus clientes y cómo los ayudas a solucionarlo?',
+      placeholder: 'Ej: Mis clientas llegan sintiéndose bloqueadas emocionalmente, con miedo al fracaso y síndrome del impostor. Yo las ayudo con un proceso de autoconocimiento profundo usando técnicas de PNL...',
+      helper: 'Describe el problema real que resuelves y tu método o enfoque para solucionarlo.',
       checklist: [
-        'Preguntas sobre viabilidad ("¿Puedo lograr X?")',
-        'Preguntas sobre proceso ("¿Cómo funciona?")',
-        'Preguntas sobre tiempo/inversión ("¿Cuánto tarda?")',
-        'Objeciones comunes disfrazadas de pregunta'
+        'El problema emocional o práctico que enfrentan',
+        'Cómo ese problema afecta su vida diaria',
+        'Tu método o proceso específico para ayudarlos',
+        'Qué hace diferente tu enfoque'
+      ]
+    },
+    {
+      name: 'clientePerfil',
+      label: '¿Qué te preguntan siempre tus clientes o qué disfrutas explicar una y otra vez?',
+      placeholder: 'Ej: Me preguntan constantemente si es posible cambiar de vida después de los 40 años cuando ya tienes responsabilidades. Me encanta mostrarles que siempre es posible...',
+      helper: 'Estas preguntas frecuentes revelan las dudas y miedos de tu audiencia.',
+      checklist: [
+        'Preguntas sobre viabilidad ("¿Es posible que yo...?")',
+        'Dudas sobre el proceso ("¿Cómo funciona?")',
+        'Preguntas sobre tiempo/inversión ("¿Cuánto toma?")',
+        'Objeciones comunes ("¿Y si no me resulta?")'
       ]
     },
     {
       name: 'propuestaMetodo',
-      label: '¿Cuál es tu producto o servicio estrella y qué incluye exactamente?',
-      placeholder: 'Ejemplo: "Plan nutricional personalizado de 12 semanas que incluye: menús semanales adaptados a tu rutina, lista de compras automática, recetas rápidas en video y seguimiento vía WhatsApp 24/7. Resultados: pierdes grasa manteniendo músculo y aprendes a comer para siempre."',
-      helper: '🎯 Describe tu oferta principal con detalle: qué incluye, cómo se entrega, cuánto dura y qué resultado concreto promete. Enfócate en beneficios, no solo características.',
+      label: '¿Cuál es tu producto o servicio principal que quieres vender más? (Describe beneficios específicos)',
+      placeholder: 'Ej: Mi programa \'Renace\', un proceso de coaching de 8 semanas que incluye sesiones individuales, workbook personalizado y comunidad privada. Está diseñado para mujeres que quieren cambios profundos en 90 días...',
+      helper: 'Describe tu oferta estrella con todos los detalles que la hacen valiosa.',
       checklist: [
-        'Nombre o tipo de servicio/producto',
-        'Qué incluye específicamente (entregas, sesiones, materiales)',
-        'Duración o frecuencia (si aplica)',
-        'Modalidad (online, presencial, híbrido)',
-        'Resultado o transformación prometida'
+        'Nombre del producto/servicio',
+        'Qué incluye específicamente (componentes, entregas)',
+        'Duración, formato y modalidad',
+        'Beneficios concretos y resultado esperado',
+        'Qué lo hace único o especial'
       ]
     }
   ];
