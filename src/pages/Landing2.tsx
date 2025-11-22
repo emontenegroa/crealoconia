@@ -6,9 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Sparkles, CheckCircle2, Maximize2, Minimize2 } from "lucide-react";
+import { ArrowLeft, Sparkles, CheckCircle2, Maximize2, Minimize2, Lightbulb } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AIEnhanceButton from '@/components/AIEnhanceButton';
+import QuestionHelpCard from '@/components/QuestionHelpCard';
 import { quizFormSchema, sanitizeText, sanitizeTextForSubmit } from '@/utils/formValidation';
 import { useFormPersistence } from '@/hooks/useFormPersistence';
 import { usePromptGeneration } from '@/hooks/usePromptGeneration';
@@ -45,6 +46,7 @@ const Landing2 = () => {
   const [aiUsage, setAiUsage] = useState<Record<string, number>>({});
   const [progressRestored, setProgressRestored] = useState(false);
   const [expandedFields, setExpandedFields] = useState<Record<string, boolean>>({});
+  const [showAITooltip, setShowAITooltip] = useState(true);
 
   const handleAIUsageUpdate = (fieldName: string, count: number) => {
     setAiUsage(prev => ({ ...prev, [fieldName]: count }));
@@ -61,6 +63,19 @@ const Landing2 = () => {
         variant: "destructive"
       });
       navigate('/');
+    }
+
+    // Mostrar tooltip de ayuda de IA al cargar
+    const aiTooltipShown = localStorage.getItem('aiTooltipShown');
+    if (!aiTooltipShown) {
+      setTimeout(() => {
+        toast({
+          title: "💡 Tip: La IA puede ayudarte",
+          description: "Escribe tus respuestas naturalmente y usa el botón 'IA te ayuda' para mejorar tu texto. Tienes 2 usos por pregunta.",
+          duration: 8000,
+        });
+        localStorage.setItem('aiTooltipShown', 'true');
+      }, 2000);
     }
   }, [email, nombre, navigate, toast]);
 
@@ -151,27 +166,52 @@ const Landing2 = () => {
   const questions = [
     {
       name: 'servicios',
-      label: '¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas?',
-      placeholder: 'Ej: Soy coach de vida y me apasiona ayudar a personas que se sienten estancadas...',
-      helper: 'Describe tu rol, tu pasión y el tipo de personas que transformas. Piensa en qué te hace diferente y por qué amas lo que haces.'
+      label: '¿Quién eres, qué haces y a quién ayudas específicamente?',
+      placeholder: 'Ejemplo: "Soy nutricionista deportiva y ayudo a atletas amateur que quieren mejorar su rendimiento sin sacrificar sabor. Me apasiona ver cómo mis clientes logran sus metas personales sintiendo más energía."',
+      helper: '✨ Describe tu rol profesional, tu pasión genuina y el perfil exacto de personas que transformas. Sé específico: ¿qué edad tienen? ¿qué desafíos enfrentan? ¿qué aspiran lograr?',
+      checklist: [
+        'Tu profesión o rol exacto',
+        'Qué te apasiona de lo que haces',
+        'Perfil demográfico de tu cliente ideal (edad, ocupación, situación)',
+        'El cambio o transformación que buscas crear en ellos'
+      ]
     },
     {
       name: 'clientePerfil',
-      label: '¿Qué problema específico vives día a día con tus clientes?',
-      placeholder: 'Ej: Mis clientes llegan sin claridad sobre sus metas y les cuesta dar el primer paso...',
-      helper: 'Explica el desafío principal que tus clientes enfrentan antes de trabajar contigo. Sé específico y emocional.'
+      label: '¿Cuál es el problema número uno que tus clientes enfrentan antes de encontrarte?',
+      placeholder: 'Ejemplo: "Llegan frustrados porque han probado dietas restrictivas que no funcionan a largo plazo. Sienten que no tienen tiempo para comer sano y terminan comiendo cualquier cosa por falta de planificación."',
+      helper: '💡 Piensa en la queja más común, la frustración emocional o el obstáculo práctico que enfrentan. Usa sus propias palabras si puedes recordarlas.',
+      checklist: [
+        'El problema emocional (frustración, miedo, ansiedad)',
+        'El problema práctico (falta de tiempo, dinero, conocimiento)',
+        'Las soluciones que ya intentaron sin éxito',
+        'Cómo este problema afecta su día a día'
+      ]
     },
     {
       name: 'problemaPrincipal',
-      label: '¿Qué te preguntan siempre tus clientes?',
-      placeholder: 'Ej: "¿Cómo puedo encontrar mi propósito?" o "¿Por dónde empiezo?"...',
-      helper: 'Comparte las 2-3 preguntas más frecuentes que recibes. Estas revelan las inquietudes reales de tu audiencia.'
+      label: '¿Qué 2-3 preguntas te hacen SIEMPRE tus clientes?',
+      placeholder: 'Ejemplo: "¿Puedo comer carbohidratos y aún así perder grasa? ¿Cuántas comidas al día debería hacer? ¿Es necesario tomar suplementos?"',
+      helper: '🔍 Estas preguntas revelan sus dudas reales y miedos ocultos. Escribe entre 2 y 4 preguntas exactas que escuchas repetidamente en consultas o mensajes.',
+      checklist: [
+        'Preguntas sobre viabilidad ("¿Puedo lograr X?")',
+        'Preguntas sobre proceso ("¿Cómo funciona?")',
+        'Preguntas sobre tiempo/inversión ("¿Cuánto tarda?")',
+        'Objeciones comunes disfrazadas de pregunta'
+      ]
     },
     {
       name: 'propuestaMetodo',
-      label: '¿Cuál es tu producto o servicio principal?',
-      placeholder: 'Ej: Ofrezco sesiones de coaching 1:1 personalizadas y un programa grupal de 8 semanas...',
-      helper: 'Describe tu oferta principal: qué incluye, cómo funciona y qué resultados promete. Sé claro y conciso.'
+      label: '¿Cuál es tu producto o servicio estrella y qué incluye exactamente?',
+      placeholder: 'Ejemplo: "Plan nutricional personalizado de 12 semanas que incluye: menús semanales adaptados a tu rutina, lista de compras automática, recetas rápidas en video y seguimiento vía WhatsApp 24/7. Resultados: pierdes grasa manteniendo músculo y aprendes a comer para siempre."',
+      helper: '🎯 Describe tu oferta principal con detalle: qué incluye, cómo se entrega, cuánto dura y qué resultado concreto promete. Enfócate en beneficios, no solo características.',
+      checklist: [
+        'Nombre o tipo de servicio/producto',
+        'Qué incluye específicamente (entregas, sesiones, materiales)',
+        'Duración o frecuencia (si aplica)',
+        'Modalidad (online, presencial, híbrido)',
+        'Resultado o transformación prometida'
+      ]
     }
   ];
 
@@ -390,41 +430,70 @@ const Landing2 = () => {
             <Sparkles className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-            Tu asistente de contenido está a 5 minutos de distancia
+            Tu asistente de contenido está a 5 minutos
           </h1>
-          <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto">
-            Completa estas preguntas para que la IA entienda tu negocio y diseñe tu mensaje de marca listo para atraer clientes.
+          <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto mb-6">
+            Responde con tus propias palabras. La IA te ayudará a perfeccionar cada respuesta.
           </p>
+          
+          {/* Tooltip de ayuda de IA */}
+          {showAITooltip && (
+            <div className="max-w-2xl mx-auto bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-lg p-4 backdrop-blur-sm animate-in fade-in slide-in-from-top-3 duration-500">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                  <Lightbulb className="w-5 h-5 text-blue-400" />
+                </div>
+                <div className="flex-1 text-left">
+                  <h3 className="text-white font-semibold text-sm mb-1">
+                    💡 Escribe natural, mejora con IA
+                  </h3>
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    Completa cada pregunta con tus palabras. Luego usa el botón <span className="font-semibold text-blue-300">"IA te ayuda"</span> para optimizar tu texto profesionalmente. Tienes 2 mejoras por pregunta.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowAITooltip(false)}
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         <Card className="bg-blue-500/10 border-blue-500/30 backdrop-blur p-6 md:p-8 mb-8 md:mb-12">
-          <h2 className="text-xl md:text-2xl font-bold text-white mb-4">Por qué es importante</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
+            ✨ Lo que recibirás al completar este formulario
+          </h2>
           <p className="text-slate-300 mb-4">
-            Mientras más claras sean tus respuestas, más preciso será el asistente que recibirás. Este asistente te ayudará a:
+            Respuestas claras = Mejor asistente de contenido personalizado para:
           </p>
-          <ul className="space-y-2">
-            <li className="flex items-start gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="flex items-start gap-2 bg-slate-800/40 rounded-lg p-3">
               <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-              <span className="text-slate-300">Crear publicaciones para redes sociales</span>
-            </li>
-            <li className="flex items-start gap-2">
+              <span className="text-slate-300 text-sm">Publicaciones para redes sociales (Instagram, LinkedIn, etc.)</span>
+            </div>
+            <div className="flex items-start gap-2 bg-slate-800/40 rounded-lg p-3">
               <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-              <span className="text-slate-300">Escribir guiones para videos</span>
-            </li>
-            <li className="flex items-start gap-2">
+              <span className="text-slate-300 text-sm">Guiones para videos y reels</span>
+            </div>
+            <div className="flex items-start gap-2 bg-slate-800/40 rounded-lg p-3">
               <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-              <span className="text-slate-300">Diseñar mensajes persuasivos para atraer clientes</span>
-            </li>
-            <li className="flex items-start gap-2">
+              <span className="text-slate-300 text-sm">Textos persuasivos para captar clientes</span>
+            </div>
+            <div className="flex items-start gap-2 bg-slate-800/40 rounded-lg p-3">
               <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-              <span className="text-slate-300">Construir una comunicación clara y profesional</span>
-            </li>
-          </ul>
+              <span className="text-slate-300 text-sm">Comunicación profesional y consistente</span>
+            </div>
+          </div>
         </Card>
 
-        <p className="text-center text-slate-300 italic mb-8 md:mb-12 text-sm md:text-base">
-          Tómate un momento y respóndelas con calma. Este paso es clave para crear tu identidad y mensaje.
-        </p>
+        <div className="text-center mb-8 md:mb-12">
+          <p className="text-slate-300 italic text-sm md:text-base max-w-2xl mx-auto">
+            💬 Escribe con tus palabras, la IA te ayudará a pulir cada respuesta
+          </p>
+        </div>
 
         <Card className="bg-slate-800/80 border-slate-700 backdrop-blur p-6 md:p-8 mb-8">
           <form onSubmit={handleSubmit} className="space-y-8">
@@ -556,14 +625,13 @@ const Landing2 = () => {
                     maxLength={2000}
                     showCounter={true}
                   />
-                  {focusedField === question.name && (
-                    <p className="text-sm text-blue-300/90 mt-2 animate-in fade-in slide-in-from-top-1 duration-200 flex items-start gap-2">
-                      <span className="text-base">💡</span>
-                      <span>{question.helper}</span>
-                    </p>
-                  )}
+                  <QuestionHelpCard 
+                    checklist={question.checklist}
+                    helper={question.helper}
+                    isVisible={focusedField === question.name}
+                  />
                   {errors[question.name] && (
-                    <p className="text-red-400 text-sm">{errors[question.name]}</p>
+                    <p className="text-red-400 text-sm mt-2">{errors[question.name]}</p>
                   )}
                 </div>
               );
@@ -627,10 +695,13 @@ const Landing2 = () => {
                 {isSubmitting ? (
                   <>
                     <Sparkles className="w-5 h-5 mr-2 animate-spin" />
-                    Generando tu asistente personalizado...
+                    Creando tu Kit IA personalizado...
                   </>
                 ) : (
-                  "Generar mi Asistente con IA"
+                  <>
+                    <Sparkles className="w-5 h-5 mr-2" />
+                    Recibir mi Kit IA gratuito
+                  </>
                 )}
               </Button>
             </div>
