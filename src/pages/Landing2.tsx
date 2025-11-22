@@ -143,6 +143,9 @@ const Landing2 = () => {
       ];
       const hasData = textFields.some(value => value.trim() !== '');
       if (hasData || formData.instagram || formData.website || formData.estiloComunicacion) {
+        // Recuperar WhatsApp de localStorage para incluirlo en el auto-save
+        const initialData = JSON.parse(localStorage.getItem('userData') || '{}');
+        
         const completeFormData = {
           marca: nombre || '',
           email: email,
@@ -151,7 +154,7 @@ const Landing2 = () => {
           preguntas_frecuentes: formData.clientePerfil || '',
           estilo: formData.estiloComunicacion || 'Profesional',
           producto: formData.propuestaMetodo || '',
-          whatsapp: '',
+          whatsapp: initialData.telefono || '', // ✅ Incluir WhatsApp desde localStorage
           website: formData.website || '',
           instagram: formData.instagram || ''
         };
