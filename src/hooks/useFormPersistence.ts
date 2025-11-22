@@ -20,6 +20,7 @@ interface FormData {
   problemaPrincipal?: string;
   propuestaMetodo?: string;
   resultados?: string;
+  estiloComunicacion?: string;
   tieneInstagram?: boolean;
   tieneWebsite?: boolean;
 }

@@ -88,15 +88,9 @@ export const quizFormSchema = z.object({
       return !dangerousPatterns.test(text);
     }, { message: "Texto contiene contenido no permitido" }),
   
-  resultados: z
+  estiloComunicacion: z
     .string()
-    .trim()
-    .min(10, { message: "Resultados debe tener al menos 10 caracteres" })
-    .max(2000, { message: "Resultados debe tener menos de 2000 caracteres" })
-    .refine((text) => {
-      const dangerousPatterns = /<script|javascript:|onerror=|onclick=|<iframe/i;
-      return !dangerousPatterns.test(text);
-    }, { message: "Texto contiene contenido no permitido" })
+    .optional()
 });
 
 // Función para sanitizar texto (eliminar caracteres peligrosos)
