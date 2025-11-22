@@ -1,4 +1,4 @@
-import { CheckCircle2, Lightbulb } from 'lucide-react';
+import { Lightbulb } from 'lucide-react';
 
 interface QuestionHelpCardProps {
   checklist?: string[];
@@ -14,31 +14,24 @@ const QuestionHelpCard: React.FC<QuestionHelpCardProps> = ({
   if (!isVisible) return null;
 
   return (
-    <div className="mt-3 animate-in fade-in slide-in-from-top-2 duration-300">
-      <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4">
-        {/* Mensaje de validación */}
-        <div className="flex items-center gap-2 mb-3">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-          <span className="text-sm font-medium text-emerald-300">Perfecto ✓</span>
-        </div>
-
-        {/* Sugerencias */}
-        {checklist.length > 0 && (
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 mb-2">
-              <Lightbulb className="w-4 h-4 text-amber-400" />
-              <span className="text-sm font-medium text-foreground">Sugerencias:</span>
-            </div>
-            <ul className="space-y-1.5 ml-1">
-              {checklist.map((item, index) => (
-                <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
-                  <span className="text-foreground/60">•</span>
-                  <span className="leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
+    <div className="mt-2 animate-in fade-in slide-in-from-top-2 duration-200">
+      <div className="bg-blue-500/5 border-l-2 border-blue-400/40 rounded px-3 py-2.5">
+        <div className="flex items-start gap-2">
+          <Lightbulb className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+          <div className="space-y-1.5 flex-1">
+            <p className="text-xs text-slate-300 leading-relaxed">{helper}</p>
+            {checklist.length > 0 && (
+              <ul className="space-y-1 text-xs text-slate-400">
+                {checklist.map((item, index) => (
+                  <li key={index} className="flex items-start gap-1.5">
+                    <span className="text-blue-400/60 mt-0.5">•</span>
+                    <span className="leading-snug">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
