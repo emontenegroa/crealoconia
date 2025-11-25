@@ -72,7 +72,7 @@ const Landing1 = () => {
         title: "¡Perfecto!",
         description: "Continuemos con las siguientes preguntas"
       });
-      navigate(`/quiz?email=${encodeURIComponent(formData.email)}&nombre=${encodeURIComponent(formData.nombre)}`);
+      navigate('/quiz');
     } catch (error) {
       console.error('Error:', error);
       toast({
