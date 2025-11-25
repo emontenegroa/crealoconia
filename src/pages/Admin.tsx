@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Download, Edit, Trash2, Eye, Filter, RefreshCw, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle, Copy, MessageCircle, Send } from 'lucide-react';
+import { Download, Edit, Trash2, Eye, Filter, RefreshCw, CheckSquare, Square, Mail, Loader2, CheckCircle, AlertTriangle, Copy, MessageCircle, Send, ExternalLink, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
 import ThemeToggle from '@/components/ui/ThemeToggle';
@@ -1405,14 +1405,20 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label>Prompt para Lovable</Label>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => copyToClipboard(submission.form_data.generatedPrompts.lovablePrompt, "Prompt para Lovable")}
-                >
-                  <Copy className="w-4 h-4 mr-2" />
-                  Copiar
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => copyToClipboard(submission.form_data.generatedPrompts.lovablePrompt, "Prompt para Lovable")}
+                  >
+                    <Copy className="w-4 h-4 mr-2" />
+                    Copiar
+                  </Button>
+                  <BuildWithLovableButton 
+                    prompt={submission.form_data.generatedPrompts.lovablePrompt}
+                    images={[]}
+                  />
+                </div>
               </div>
               <Textarea 
                 value={submission.form_data.generatedPrompts.lovablePrompt} 
@@ -1427,6 +1433,116 @@ const SubmissionDetails: React.FC<{ submission: FormSubmission }> = ({ submissio
         </div>
       </TabsContent>
     </Tabs>
+  );
+};
+
+// Componente para botón "Build con Lovable"
+const BuildWithLovableButton: React.FC<{ prompt: string; images?: string[] }> = ({ prompt, images = [] }) => {
+  const [showPreview, setShowPreview] = useState(false);
+  const { toast } = useToast();
+
+  const buildLovableURL = () => {
+    if (!prompt || !prompt.trim()) return '';
+    
+    const encodedPrompt = encodeURIComponent(prompt.trim());
+    let url = `https://lovable.dev/?autosubmit=true#prompt=${encodedPrompt}`;
+    
+    // Agregar imágenes (máximo 10)
+    const limitedImages = images.slice(0, 10);
+    if (limitedImages.length > 0) {
+      limitedImages.forEach(imageUrl => {
+        url += `&images=${encodeURIComponent(imageUrl)}`;
+      });
+    }
+    
+    return url;
+  };
+
+  const handleBuildWithLovable = () => {
+    const url = buildLovableURL();
+    
+    if (!url) {
+      toast({
+        title: "Error",
+        description: "El prompt está vacío",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Verificar longitud de URL (límite práctico de navegadores ~2000 caracteres)
+    if (url.length > 2000) {
+      toast({
+        title: "Advertencia: URL muy larga",
+        description: `La URL tiene ${url.length} caracteres. Algunos navegadores podrían truncarla. Considera reducir el prompt.`,
+        variant: "destructive",
+        duration: 6000
+      });
+    }
+
+    // Abrir en nueva pestaña
+    window.open(url, '_blank', 'noopener,noreferrer');
+    
+    toast({
+      title: "Abriendo Lovable",
+      description: "Se abrirá una nueva pestaña con tu prompt precargado",
+    });
+  };
+
+  const url = buildLovableURL();
+  const isURLTooLong = url.length > 2000;
+
+  return (
+    <div className="relative">
+      <div className="flex gap-2">
+        <Button
+          size="sm"
+          variant="default"
+          onClick={handleBuildWithLovable}
+          disabled={!prompt || !prompt.trim()}
+          className="bg-purple-600 hover:bg-purple-700 text-white"
+        >
+          <ExternalLink className="w-4 h-4 mr-2" />
+          Build con Lovable
+        </Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => setShowPreview(!showPreview)}
+          disabled={!prompt || !prompt.trim()}
+          title="Ver preview de URL"
+        >
+          <Info className="w-4 h-4" />
+        </Button>
+      </div>
+      
+      {showPreview && url && (
+        <div className="absolute top-full left-0 right-0 mt-2 p-3 bg-popover border border-border rounded-md shadow-lg z-50 max-w-2xl">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label className="text-xs font-semibold">Vista previa de URL</Label>
+              <Badge variant={isURLTooLong ? "destructive" : "secondary"} className="text-xs">
+                {url.length} caracteres
+              </Badge>
+            </div>
+            <div className="text-xs text-muted-foreground break-all max-h-32 overflow-y-auto bg-muted/50 p-2 rounded">
+              {url}
+            </div>
+            {isURLTooLong && (
+              <div className="flex items-start gap-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs">
+                <AlertTriangle className="w-3 h-3 text-destructive flex-shrink-0 mt-0.5" />
+                <span className="text-destructive">
+                  La URL excede los 2000 caracteres. Algunos navegadores podrían truncarla.
+                </span>
+              </div>
+            )}
+            <div className="text-xs text-muted-foreground">
+              <strong>Formato:</strong> https://lovable.dev/?autosubmit=true#prompt=...
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
