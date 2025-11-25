@@ -18,9 +18,11 @@ import { useEmailHandling } from '@/hooks/useEmailHandling';
 const Landing2 = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const email = searchParams.get('email');
-  const nombre = searchParams.get('nombre');
+  
+  // Obtener email y nombre de localStorage en lugar de URL
+  const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+  const email = userData.email;
+  const nombre = userData.nombre;
   
   // Integrar persistencia de formulario
   const { saveProgress, loadPreviousProgress, markAsCompleted } = useFormPersistence();
