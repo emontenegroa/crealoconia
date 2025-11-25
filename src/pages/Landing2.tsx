@@ -396,7 +396,7 @@ const Landing2 = () => {
         description: "Revisa tu correo para ver tus prompts personalizados",
       });
       
-      navigate(`/gracias?email=${encodeURIComponent(email || '')}`);
+      navigate('/gracias');
     } catch (error) {
       console.error('Error:', error);
       toast({
