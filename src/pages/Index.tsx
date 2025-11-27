@@ -21,6 +21,7 @@ import TestimonialEspecial from '@/components/TestimonialEspecial';
 import { MetaTracker } from '@/components/MetaTracker';
 import StrategicContentDisplay from '@/components/StrategicContentDisplay';
 import WelcomeScreen from '@/components/WelcomeScreen';
+import BonusSection from '@/components/BonusSection';
 
 import { useFormHandler } from '@/hooks/useFormHandler';
 import { useStepNavigation } from '@/hooks/useStepNavigation';
@@ -117,6 +118,7 @@ const Index = () => {
             <ImprovedTestimonials />
             <TestimonialEspecial />
             <TransparentPricing />
+            <BonusSection />
             <ImprovedFAQ />
           </div>
         </>
