@@ -13,7 +13,9 @@ const Landing1 = () => {
     toast
   } = useToast();
   const navigate = useNavigate();
-  const { saveProgress } = useFormPersistence();
+  const {
+    saveProgress
+  } = useFormPersistence();
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -50,7 +52,7 @@ const Landing1 = () => {
     try {
       // Guardar en localStorage para mantener compatibilidad
       localStorage.setItem('userData', JSON.stringify(formData));
-      
+
       // Guardar en el backend
       const backendData = {
         marca: formData.nombre,
@@ -66,7 +68,6 @@ const Landing1 = () => {
       };
       await saveProgress(backendData as any);
       console.log('✅ Datos iniciales guardados en backend');
-      
       await new Promise(resolve => setTimeout(resolve, 500));
       toast({
         title: "¡Perfecto!",
@@ -144,9 +145,7 @@ const Landing1 = () => {
                   <h3 className="text-lg md:text-xl font-bold text-white">
                     Prompt Estratégico Personalizado
                   </h3>
-                  <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full border border-green-500/30">
-                    Gratis
-                  </span>
+                  
                 </div>
               </div>
               <p className="text-slate-300 text-sm md:text-base">
