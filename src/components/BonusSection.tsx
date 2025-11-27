@@ -80,12 +80,16 @@ const BonusSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
+          <div className="inline-block mb-4">
+            <span className="text-primary text-sm font-bold tracking-wider uppercase border border-primary/30 px-4 py-1 rounded-full">
+              INCLUIDO EN TU SERVICIO
+            </span>
+          </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Al contratar el servicio, desbloqueas estos{" "}
-            <span className="text-primary">Bonus Exclusivos</span>
+            TUS <span className="text-primary">BONUS EXCLUSIVOS</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Todo el valor agregado que recibes con tu inversión
+            8 recursos premium que recibes al contratar
           </p>
         </div>
 
@@ -114,9 +118,9 @@ const BonusSection = () => {
                   <div className="absolute top-3 right-3 z-10">
                     <Badge 
                       variant="default" 
-                      className="bg-primary text-primary-foreground font-semibold shadow-lg"
+                      className="bg-primary text-primary-foreground font-bold shadow-lg text-sm px-3 py-1"
                     >
-                      Bonus #{bonus.bonusNumber}
+                      BONUS #{bonus.bonusNumber}
                     </Badge>
                   </div>
                 )}
@@ -152,9 +156,9 @@ const BonusSection = () => {
                   <div className="pt-2">
                     <Badge 
                       variant="secondary" 
-                      className="bg-secondary/80 text-secondary-foreground text-xs"
+                      className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold border border-emerald-500/20"
                     >
-                      ✓ INCLUIDO CON TU SERVICIO
+                      ✓ INCLUIDO
                     </Badge>
                   </div>
                 </CardContent>
@@ -168,8 +172,8 @@ const BonusSection = () => {
 
         {/* Footer text */}
         <div className="text-center mt-8">
-          <p className="text-sm text-muted-foreground italic">
-            Estos recursos complementan tu servicio principal para maximizar tus resultados
+          <p className="text-sm text-muted-foreground font-medium">
+            Todo esto recibes al contratar • Sin costos adicionales
           </p>
         </div>
       </div>
