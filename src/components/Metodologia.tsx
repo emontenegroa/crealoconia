@@ -1,24 +1,22 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, Brain, Palette, Clock, CheckCircle, ArrowRight, Sparkles } from "lucide-react";
+import { Globe, Brain, Users, ArrowRight } from "lucide-react";
+
 const Metodologia = () => {
   const scrollToForm = () => {
-    // Scroll to the top where the form is
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
 
-    // After scrolling, highlight the form fields
     setTimeout(() => {
       const inputs = document.querySelectorAll('input[name="marca"], input[name="email"]');
       inputs.forEach(input => {
         const element = input as HTMLElement;
         element.style.animation = 'pulse 1s ease-in-out 2';
-        element.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.5)';
+        element.style.boxShadow = '0 0 20px hsl(var(--primary) / 0.3)';
 
-        // Remove the highlight after animation
         setTimeout(() => {
           element.style.animation = '';
           element.style.boxShadow = '';
@@ -26,117 +24,127 @@ const Metodologia = () => {
       });
     }, 800);
   };
-  const pasos = [{
-    numero: "01",
-    icono: <MessageSquare className="w-8 h-8 text-blue-600" />,
-    titulo: "Responde 10 preguntas",
-    descripcion: "Formulario inteligente que captura la esencia de tu negocio",
-    tiempo: "5 minutos",
-    detalles: "Preguntas estratégicas sobre tu marca, audiencia, servicios y objetivos"
-  }, {
-    numero: "02",
-    icono: <Brain className="w-8 h-8 text-purple-600" />,
-    titulo: "IA analiza y estructura",
-    descripcion: "Inteligencia artificial procesa tu información y crea la arquitectura",
-    tiempo: "Automático",
-    detalles: "Genera textos, estructura de contenido y estrategia de conversión"
-  }, {
-    numero: "03",
-    icono: <Palette className="w-8 h-8 text-emerald-600" />,
-    titulo: "Diseño y desarrollo",
-    descripcion: "Creamos el diseño visual y desarrollamos tu página web",
-    tiempo: "18-20 horas",
-    detalles: "Diseño profesional, responsive, optimizado para conversión"
-  }, {
-    numero: "04",
-    icono: <Clock className="w-8 h-8 text-blue-500" />,
-    titulo: "Conoce tu página web",
-    descripcion: "Agenda tu sesión de 15 minutos para que conozcas tu página y resuelvas tus consultas",
-    tiempo: "15 minutos",
-    detalles: "Aquí mismo haces el pago y agendamos tu sesión de mentoría 1 a 1 para las integraciones necesarias y publicar tu sitio web"
-  }];
-  return <div className="py-16 bg-background">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Metodología: Simple, Rápida y Efectiva 🎯</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            En solo 4 pasos convertimos tu información en una página web profesional que genera resultados
+
+  const capas = [
+    {
+      numero: "01",
+      icono: <Globe className="w-10 h-10" />,
+      titulo: "Sitios Web Estratégicos",
+      subtitulo: "Conversión",
+      descripcion: "No es solo diseño bonito. Arquitectura de información, copywriting persuasivo y UX optimizado para convertir visitantes en clientes.",
+      beneficios: ["Estructura de alta conversión", "Copywriting estratégico", "Diseño orientado a resultados"]
+    },
+    {
+      numero: "02",
+      icono: <Brain className="w-10 h-10" />,
+      titulo: "Mensajes Comerciales con IA",
+      subtitulo: "Autoridad",
+      descripcion: "Inteligencia artificial entrenada con tu marca para generar contenido que posiciona, persuade y vende. Tu voz, amplificada.",
+      beneficios: ["Contenido personalizado", "Mensajes de alto impacto", "Posicionamiento de autoridad"]
+    },
+    {
+      numero: "03",
+      icono: <Users className="w-10 h-10" />,
+      titulo: "Acompañamiento Estratégico",
+      subtitulo: "Escalabilidad",
+      descripcion: "Mentoría 1:1 para implementar, optimizar y escalar. No te dejamos solo con un sitio web, te acompañamos en el crecimiento.",
+      beneficios: ["Mentoría personalizada", "Optimización continua", "Estrategia de crecimiento"]
+    }
+  ];
+
+  return (
+    <section className="py-24 lg:py-32 bg-background">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
+            Nuestro Sistema
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
+            Las 3 Capas que Transforman
+            <br />
+            tu Negocio Digital
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Un sistema integrado donde cada capa potencia a la siguiente, 
+            creando un motor de adquisición de clientes imparable.
           </p>
         </div>
 
-        {/* Timeline de pasos */}
-        <div className="relative">
-          {/* Línea conectora */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary to-emerald-500 hidden lg:block"></div>
-          
-          <div className="space-y-12">
-            {pasos.map((paso, index) => <div key={index} className={`flex items-center gap-8 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-                {/* Contenido */}
-                <div className="flex-1">
-                  <Card className="border border-border bg-card hover:shadow-lg transition-shadow">
-                    <CardContent className="p-8">
-                      <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0">
-                          {paso.icono}
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-3">
-                            <span className="text-3xl font-bold text-primary">{paso.numero}</span>
-                            <div className="bg-primary/10 px-3 py-1 rounded-full">
-                              <span className="text-primary font-medium text-sm">{paso.tiempo}</span>
-                            </div>
-                          </div>
-                          <h3 className="text-xl font-bold text-foreground mb-2">{paso.titulo}</h3>
-                          <p className="text-muted-foreground mb-3">{paso.descripcion}</p>
-                          <p className="text-sm text-foreground font-medium">{paso.detalles}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+        {/* Capas Grid */}
+        <div className="grid lg:grid-cols-3 gap-8 mb-20">
+          {capas.map((capa, index) => (
+            <Card 
+              key={index} 
+              className="group relative bg-card border border-border hover:border-primary/30 transition-all duration-500 overflow-hidden"
+            >
+              {/* Accent line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <CardContent className="p-8 lg:p-10">
+                {/* Number & Icon */}
+                <div className="flex items-start justify-between mb-8">
+                  <span className="text-6xl font-bold text-border group-hover:text-primary/20 transition-colors duration-500">
+                    {capa.numero}
+                  </span>
+                  <div className="p-4 bg-secondary rounded-2xl text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">
+                    {capa.icono}
+                  </div>
                 </div>
-
-                {/* Número central para desktop */}
-                <div className="hidden lg:flex items-center justify-center w-16 h-16 bg-primary text-white rounded-full font-bold text-xl z-10">
-                  {index + 1}
+                
+                {/* Content */}
+                <div className="space-y-4">
+                  <div>
+                    <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                      {capa.subtitulo}
+                    </span>
+                    <h3 className="text-xl font-bold text-foreground mt-1">
+                      {capa.titulo}
+                    </h3>
+                  </div>
+                  
+                  <p className="text-muted-foreground leading-relaxed">
+                    {capa.descripcion}
+                  </p>
+                  
+                  {/* Benefits */}
+                  <ul className="space-y-2 pt-4 border-t border-border">
+                    {capa.beneficios.map((beneficio, i) => (
+                      <li key={i} className="flex items-center text-sm text-muted-foreground">
+                        <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3"></div>
+                        {beneficio}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
-                {/* Espaciador */}
-                <div className="flex-1 hidden lg:block"></div>
-              </div>)}
+        {/* CTA Section */}
+        <div className="text-center">
+          <div className="inline-flex flex-col items-center p-10 bg-secondary/50 rounded-3xl border border-border">
+            <h3 className="text-2xl font-bold text-foreground mb-3">
+              ¿Listo para instalar tu sistema de crecimiento?
+            </h3>
+            <p className="text-muted-foreground mb-8 max-w-md">
+              Agenda una consultoría estratégica y descubre cómo podemos 
+              transformar tu presencia digital.
+            </p>
+            <Button 
+              onClick={scrollToForm} 
+              size="lg" 
+              className="h-14 px-10 bg-foreground hover:bg-foreground/90 text-background rounded-xl font-semibold transition-all duration-300"
+            >
+              Aplicar ahora
+              <ArrowRight className="w-5 h-5 ml-3" />
+            </Button>
           </div>
         </div>
-
-        {/* Garantías y beneficios adicionales */}
-        
-
-        {/* CTA de la metodología */}
-        <div className="mt-12 text-center">
-          <Card className="bg-gradient-to-r from-primary/10 to-emerald-500/10 border-primary/30 max-w-4xl mx-auto">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                ¿Quieres ver esta metodología en acción? 🚀
-              </h3>
-              <p className="text-muted-foreground text-lg mb-6">
-                Déjanos crear tu propuesta gratuita y comprueba por ti mismo la calidad de nuestro trabajo
-              </p>
-              <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-                <span>⚡ Sin compromisos</span>
-                <span>⚡ Sin pagos anticipados</span>
-                <span>⚡ Resultado garantizado</span>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Call to Action Button */}
-        <div className="mt-12 text-center">
-          <Button onClick={scrollToForm} size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] px-8 py-4 text-lg font-semibold">
-            <Sparkles className="w-5 h-5 mr-2" />
-            Empezar ahora
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
-        </div>
       </div>
-    </div>;
+    </section>
+  );
 };
+
 export default Metodologia;

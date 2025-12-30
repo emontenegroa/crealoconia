@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { toast } from "@/hooks/use-toast";
 import LoadingSpinnerEnhanced from '@/components/LoadingSpinnerEnhanced';
 import HeroSection from '@/components/HeroSection';
@@ -22,6 +22,7 @@ import { MetaTracker } from '@/components/MetaTracker';
 import StrategicContentDisplay from '@/components/StrategicContentDisplay';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import BonusSection from '@/components/BonusSection';
+import QualificationWizard from '@/components/QualificationWizard';
 
 import { useFormHandler } from '@/hooks/useFormHandler';
 import { useStepNavigation } from '@/hooks/useStepNavigation';
@@ -36,7 +37,9 @@ if (import.meta.env.DEV) {
 
 const Index = () => {
   const formRef = useRef<HTMLDivElement>(null);
-  const { showWelcome, showFullForm, showResults, currentURLStep, goToInitialForm } = useStepNavigation();
+  const { showWelcome, showFullForm, showResults, currentURLStep, goToInitialForm, goToFullForm } = useStepNavigation();
+  const [showQualification, setShowQualification] = useState(false);
+  const [isQualified, setIsQualified] = useState(false);
   
   // Scroll al formulario para el CTA pegajoso
   const scrollToForm = () => {
@@ -73,9 +76,29 @@ const Index = () => {
     handleMathCaptchaChange
   } = useFormHandler();
 
+  // Custom first step handler that triggers qualification
+  const handleFirstStepWithQualification = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isFirstStepValid) {
+      setShowQualification(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleQualified = () => {
+    setIsQualified(true);
+    setShowQualification(false);
+    handleFirstStep({ preventDefault: () => {} } as React.FormEvent);
+  };
+
+  const handleDisqualified = () => {
+    setShowQualification(false);
+  };
+
   const handleBackToInitial = () => {
-    // No resetear los datos, solo volver al paso inicial
     resetForm();
+    setShowQualification(false);
+    setIsQualified(false);
   };
 
   // Scroll al formulario cuando cambien los pasos
@@ -102,19 +125,36 @@ const Index = () => {
         onStartFresh={startFresh}
       />
 
-      {!showFullForm && !showResults && !isGenerating ? (
+      {showQualification ? (
+        <div className="min-h-screen bg-background py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Veamos si somos el fit correcto
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Responde 3 preguntas rápidas para personalizar tu experiencia
+              </p>
+            </div>
+            <QualificationWizard 
+              onQualified={handleQualified}
+              onDisqualified={handleDisqualified}
+            />
+          </div>
+        </div>
+      ) : !showFullForm && !showResults && !isGenerating ? (
         <>
           <HeroSection 
             formData={formData}
             onInputChange={handleInputChange}
-            onSubmit={handleFirstStep}
+            onSubmit={handleFirstStepWithQualification}
             isValid={isFirstStepValid}
           />
           
           <div className="space-y-0">
+            <Metodologia />
             <QuienSoy />
             <ProblemaSolucion />
-            <Metodologia />
             <ImprovedTestimonials />
             <TestimonialEspecial />
             <TransparentPricing />
@@ -143,18 +183,15 @@ const Index = () => {
           />
         </div>
       ) : (
-        // Fallback para evitar pantalla negra - mostrar loading
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
-          <div className="text-center text-white">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
+        <div className="min-h-screen flex items-center justify-center bg-background">
+          <div className="text-center text-foreground">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
             <p>Procesando...</p>
           </div>
         </div>
       )}
       
       <WhatsAppFloat />
-      
-      {/* Remover StickyMobileCTA para móvil según solicitud del usuario */}
     </div>
   );
 };
