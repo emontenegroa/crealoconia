@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Target, TrendingUp, Layers } from "lucide-react";
+import { ArrowRight, CheckCircle } from "lucide-react";
 import { FormData } from '@/hooks/useFormHandler';
 
 interface HeroSectionProps {
@@ -18,7 +18,7 @@ const HeroSection = ({
   isValid
 }: HeroSectionProps) => {
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <header className="min-h-screen bg-background relative overflow-hidden">
       {/* Minimal geometric pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
@@ -37,26 +37,21 @@ const HeroSection = ({
           <div className="inline-flex items-center px-4 py-2 bg-secondary border border-border rounded-full">
             <div className="w-2 h-2 bg-primary rounded-full mr-3 animate-pulse"></div>
             <span className="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-              Growth Agency
+              CrealoconIA
             </span>
           </div>
         </div>
 
         {/* Main content */}
         <div className="max-w-5xl mx-auto text-center space-y-12">
-          {/* Headline */}
+          {/* Headline - H1 único y claro */}
           <div className="space-y-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight text-foreground">
-              No construimos webs.
-              <br />
-              <span className="text-primary">Instalamos sistemas de adquisición</span>
-              <br />
-              de clientes con IA que facturan por ti.
+            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.15] tracking-tight text-foreground">
+              CrealoconIA ayuda a emprendedores y profesionales a crear su presencia digital completa usando inteligencia artificial
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Diseño estratégico, mensajes comerciales de alta conversión y consultoría experta 
-              para negocios de servicios que quieren escalar.
+              Sitio web, contenido y mentoría personalizada, sin conocimientos técnicos y en pocos días.
             </p>
           </div>
 
@@ -70,6 +65,7 @@ const HeroSection = ({
                   onChange={e => onInputChange('marca', e.target.value)}
                   placeholder="Tu negocio o marca"
                   className="h-14 text-base bg-secondary/50 border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
+                  aria-label="Nombre de tu negocio o marca"
                 />
                 
                 <Input
@@ -79,6 +75,7 @@ const HeroSection = ({
                   onChange={e => onInputChange('email', e.target.value)}
                   placeholder="tu@email.com"
                   className="h-14 text-base bg-secondary/50 border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
+                  aria-label="Tu correo electrónico"
                 />
               </div>
 
@@ -87,29 +84,29 @@ const HeroSection = ({
                 className="h-14 px-10 text-base font-semibold bg-foreground hover:bg-foreground/90 text-background border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full md:w-auto"
                 disabled={!isValid}
               >
-                Aplicar para una Consultoría de Crecimiento
+                Quiero crear mi sitio con IA
                 <ArrowRight className="w-5 h-5 ml-3" />
               </Button>
               
               <p className="text-sm text-muted-foreground">
-                Solo trabajamos con negocios comprometidos con su crecimiento
+                Sin compromiso · Ve tu sitio antes de pagar
               </p>
             </form>
           </div>
 
-          {/* Trust indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-8 pt-8 border-t border-border">
+          {/* Value propositions */}
+          <div className="flex flex-wrap items-center justify-center gap-6 pt-8 border-t border-border">
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Target className="w-5 h-5 text-primary" />
-              <span className="text-sm font-medium">Enfoque en resultados</span>
+              <CheckCircle className="w-5 h-5 text-primary" />
+              <span className="text-sm font-medium">Sin conocimientos técnicos</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
-              <TrendingUp className="w-5 h-5 text-primary" />
-              <span className="text-sm font-medium">Estrategia de conversión</span>
+              <CheckCircle className="w-5 h-5 text-primary" />
+              <span className="text-sm font-medium">Sitio web listo en días</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Layers className="w-5 h-5 text-primary" />
-              <span className="text-sm font-medium">Sistema completo</span>
+              <CheckCircle className="w-5 h-5 text-primary" />
+              <span className="text-sm font-medium">Mentoría 1:1 incluida</span>
             </div>
           </div>
         </div>
@@ -122,7 +119,7 @@ const HeroSection = ({
           <div className="w-px h-12 bg-gradient-to-b from-border to-transparent"></div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
