@@ -23,6 +23,14 @@ import StrategicContentDisplay from '@/components/StrategicContentDisplay';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import BonusSection from '@/components/BonusSection';
 import QualificationWizard from '@/components/QualificationWizard';
+import { 
+  WhatIsSection, 
+  ForWhoSection, 
+  WhatIncludesSection, 
+  HowItWorksSection, 
+  WhyNotAgencySection, 
+  SEOFAQSection 
+} from '@/components/SEOSections';
 
 import { useFormHandler } from '@/hooks/useFormHandler';
 import { useStepNavigation } from '@/hooks/useStepNavigation';
@@ -151,16 +159,26 @@ const Index = () => {
             isValid={isFirstStepValid}
           />
           
-          <div className="space-y-0">
+          <main>
+            {/* Secciones SEO estructuradas semánticamente */}
+            <WhatIsSection />
+            <ForWhoSection />
+            <WhatIncludesSection />
+            <HowItWorksSection />
+            <WhyNotAgencySection />
+            
+            {/* Secciones de conversión */}
             <Metodologia />
             <QuienSoy />
-            <ProblemaSolucion />
             <ImprovedTestimonials />
             <TestimonialEspecial />
             <TransparentPricing />
             <BonusSection />
+            
+            {/* FAQ optimizado para IA */}
+            <SEOFAQSection />
             <ImprovedFAQ />
-          </div>
+          </main>
         </>
       ) : isGenerating ? (
         <LoadingSpinnerEnhanced marca={formData.marca} />
