@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { LucideIcon, Maximize2, Minimize2, ArrowLeft } from 'lucide-react';
 import AIEnhanceButton from './AIEnhanceButton';
 import SmartValidation from './SmartValidation';
+import VoiceRecorder from './VoiceRecorder';
 
 interface FormFieldProps {
   type: 'input' | 'textarea' | 'select';
@@ -86,6 +86,18 @@ const FormField = ({
       setHasUsedAI(false);
       setOriginalText('');
     }
+  };
+
+  const handleVoiceTranscription = (transcribedText: string) => {
+    // Append transcribed text to existing value (with space if needed)
+    const newValue = value ? `${value} ${transcribedText}` : transcribedText;
+    onChange(name, newValue);
+  };
+
+  // Check if voice recording should be shown (only for text inputs, not email/phone/url)
+  const shouldShowVoiceRecorder = () => {
+    const voiceEnabledFields = ['quien_eres', 'problemas', 'preguntas_frecuentes', 'producto', 'marca'];
+    return voiceEnabledFields.includes(name) && (type === 'textarea' || type === 'input');
   };
 
   const getPlaceholder = () => {
@@ -187,6 +199,13 @@ const FormField = ({
         </Label>
         
         <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Voice recorder button */}
+          {shouldShowVoiceRecorder() && (
+            <VoiceRecorder 
+              onTranscription={handleVoiceTranscription}
+            />
+          )}
+          
           {type === 'textarea' && (
             <Button
               type="button"
