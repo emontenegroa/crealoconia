@@ -232,41 +232,43 @@ const Landing1 = () => {
         </div>
 
         <div className="mb-12 md:mb-16">
-          <Card className="bg-slate-800/80 border-slate-700 backdrop-blur p-6 md:p-8 max-w-xl mx-auto">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-6 text-center">
-              ¡Empieza Ahora!   
-            </h2>
-            
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <Label htmlFor="nombre" className="text-white mb-2 block">
-                  Nombre o nombre de tu negocio
-                </Label>
-                <Input id="nombre" type="text" placeholder="Tu nombre o nombre de tu negocio" value={formData.nombre} onChange={e => handleInputChange('nombre', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
-                {errors.nombre && <p className="text-red-400 text-sm mt-1">{errors.nombre}</p>}
-              </div>
+          <div className="animated-border-wrapper max-w-xl mx-auto">
+            <Card className="bg-slate-800/95 border-0 backdrop-blur p-6 md:p-8 rounded-[calc(1rem-3px)]">
+              <h2 className="text-xl md:text-2xl font-bold text-white mb-6 text-center">
+                ¡Empieza Ahora!   
+              </h2>
+              
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <Label htmlFor="nombre" className="text-white mb-2 block">
+                    Nombre o nombre de tu negocio
+                  </Label>
+                  <Input id="nombre" type="text" placeholder="Tu nombre o nombre de tu negocio" value={formData.nombre} onChange={e => handleInputChange('nombre', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
+                  {errors.nombre && <p className="text-red-400 text-sm mt-1">{errors.nombre}</p>}
+                </div>
 
-              <div>
-                <Label htmlFor="email" className="text-white mb-2 block">
-                  Correo electrónico
-                </Label>
-                <Input id="email" type="email" placeholder="tu@email.com" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
-                {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
-              </div>
+                <div>
+                  <Label htmlFor="email" className="text-white mb-2 block">
+                    Correo electrónico
+                  </Label>
+                  <Input id="email" type="email" placeholder="tu@email.com" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
+                  {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
+                </div>
 
-              <div>
-                <Label htmlFor="telefono" className="text-white mb-2 block">
-                  Teléfono
-                </Label>
-                <Input id="telefono" type="tel" placeholder="+56 9 XXXX XXXX" value={formData.telefono} onChange={e => handleInputChange('telefono', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
-                {errors.telefono && <p className="text-red-400 text-sm mt-1">{errors.telefono}</p>}
-              </div>
+                <div>
+                  <Label htmlFor="telefono" className="text-white mb-2 block">
+                    Teléfono
+                  </Label>
+                  <Input id="telefono" type="tel" placeholder="+56 9 XXXX XXXX" value={formData.telefono} onChange={e => handleInputChange('telefono', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
+                  {errors.telefono && <p className="text-red-400 text-sm mt-1">{errors.telefono}</p>}
+                </div>
 
-              <Button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-xl" disabled={isSubmitting}>
-                {isSubmitting ? "Procesando..." : "Crear mi Web con IA"}
-              </Button>
-            </form>
-          </Card>
+                <Button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-xl" disabled={isSubmitting}>
+                  {isSubmitting ? "Procesando..." : "Crear mi Web con IA"}
+                </Button>
+              </form>
+            </Card>
+          </div>
         </div>
 
         <PortfolioSection />

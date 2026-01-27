@@ -130,3 +130,46 @@
 .animate-fade-in-up {
   animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Animated gradient border */
+@keyframes gradient-rotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-border-wrapper {
+  position: relative;
+  padding: 3px;
+  border-radius: 1rem;
+  background: linear-gradient(
+    90deg,
+    hsl(217 91% 60%),
+    hsl(280 80% 60%),
+    hsl(45 93% 55%),
+    hsl(280 80% 60%),
+    hsl(217 91% 60%)
+  );
+  background-size: 300% 300%;
+  animation: gradient-rotate 4s ease infinite;
+}
+
+.animated-border-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  padding: 3px;
+  background: inherit;
+  background-size: inherit;
+  animation: inherit;
+  filter: blur(12px);
+  opacity: 0.6;
+  z-index: -1;
+}
