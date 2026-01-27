@@ -415,51 +415,65 @@ const Landing2 = () => {
   const progress = calculateProgress();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
+    <div className="min-h-screen bg-background">
+      {/* Navbar */}
+      <nav className="relative z-20 border-b border-border/50">
+        <div className="container mx-auto px-6 lg:px-12 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-primary-foreground" />
+              </div>
+              <span className="text-lg font-bold text-foreground">Crealoconia.com</span>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
         
         <div className="mb-8">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-slate-300 text-sm md:text-base">Paso 2 de 3</p>
-            <p className="text-slate-300 text-sm md:text-base">{Math.round(progress)}% completado</p>
+            <p className="text-muted-foreground text-sm md:text-base">Paso 2 de 3</p>
+            <p className="text-muted-foreground text-sm md:text-base">{Math.round(progress)}% completado</p>
           </div>
           <Progress value={progress} className="h-2" />
           {nombre && (
-            <p className="text-slate-300 mt-4 text-base md:text-lg">
-              Hola, <span className="font-semibold text-white">{nombre}</span>, casi estamos
+            <p className="text-muted-foreground mt-4 text-base md:text-lg">
+              Hola, <span className="font-semibold text-foreground">{nombre}</span>, casi estamos
             </p>
           )}
         </div>
 
         <div className="text-center mb-8 md:mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 mb-4">
-            <Sparkles className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 mb-4">
+            <Sparkles className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
             Tu asistente de contenido está a 5 minutos
           </h1>
-          <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto mb-6">
+          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto mb-6">
             Responde con tus propias palabras. La IA te ayudará a perfeccionar cada respuesta.
           </p>
           
           {/* Tooltip de ayuda de IA */}
           {showAITooltip && (
-            <div className="max-w-2xl mx-auto bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-lg p-4 backdrop-blur-sm animate-in fade-in slide-in-from-top-3 duration-500">
+            <div className="max-w-2xl mx-auto bg-primary/10 border border-primary/20 rounded-lg p-4 backdrop-blur-sm animate-in fade-in slide-in-from-top-3 duration-500">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                  <Lightbulb className="w-5 h-5 text-blue-400" />
+                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <Lightbulb className="w-5 h-5 text-primary" />
                 </div>
                 <div className="flex-1 text-left">
-                  <h3 className="text-white font-semibold text-sm mb-1">
+                  <h3 className="text-foreground font-semibold text-sm mb-1">
                     💡 Escribe natural, mejora con IA
                   </h3>
-                  <p className="text-slate-300 text-sm leading-relaxed">
-                    Completa cada pregunta con tus palabras. Luego usa el botón <span className="font-semibold text-blue-300">"IA te ayuda"</span> para optimizar tu texto profesionalmente. Tienes 2 mejoras por pregunta.
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Completa cada pregunta con tus palabras. Luego usa el botón <span className="font-semibold text-primary">"IA te ayuda"</span> para optimizar tu texto profesionalmente. Tienes 2 mejoras por pregunta.
                   </p>
                 </div>
                 <button
                   onClick={() => setShowAITooltip(false)}
-                  className="text-slate-400 hover:text-white transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   ✕
                 </button>
@@ -468,44 +482,46 @@ const Landing2 = () => {
           )}
         </div>
 
-        <Card className="bg-blue-500/10 border-blue-500/30 backdrop-blur p-6 md:p-8 mb-8 md:mb-12">
-          <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
-            ✨ Lo que recibirás al completar este formulario
-          </h2>
-          <p className="text-slate-300 mb-4">
-            Respuestas claras = Mejor asistente de contenido personalizado para:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div className="flex items-start gap-2 bg-slate-800/40 rounded-lg p-3">
-              <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-              <span className="text-slate-300 text-sm">Publicaciones para redes sociales (Instagram, LinkedIn, etc.)</span>
-            </div>
-            <div className="flex items-start gap-2 bg-slate-800/40 rounded-lg p-3">
-              <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-              <span className="text-slate-300 text-sm">Guiones para videos y reels</span>
-            </div>
-            <div className="flex items-start gap-2 bg-slate-800/40 rounded-lg p-3">
-              <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-              <span className="text-slate-300 text-sm">Textos persuasivos para captar clientes</span>
-            </div>
-            <div className="flex items-start gap-2 bg-slate-800/40 rounded-lg p-3">
-              <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-              <span className="text-slate-300 text-sm">Comunicación profesional y consistente</span>
+        <div className="animated-border-wrapper mb-8 md:mb-12">
+          <div className="bg-card rounded-[calc(1rem-2px)] p-6 md:p-8">
+            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">
+              ✨ Lo que recibirás al completar este formulario
+            </h2>
+            <p className="text-muted-foreground mb-4">
+              Respuestas claras = Mejor asistente de contenido personalizado para:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="flex items-start gap-2 bg-secondary rounded-lg p-3">
+                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-muted-foreground text-sm">Publicaciones para redes sociales (Instagram, LinkedIn, etc.)</span>
+              </div>
+              <div className="flex items-start gap-2 bg-secondary rounded-lg p-3">
+                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-muted-foreground text-sm">Guiones para videos y reels</span>
+              </div>
+              <div className="flex items-start gap-2 bg-secondary rounded-lg p-3">
+                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-muted-foreground text-sm">Textos persuasivos para captar clientes</span>
+              </div>
+              <div className="flex items-start gap-2 bg-secondary rounded-lg p-3">
+                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-muted-foreground text-sm">Comunicación profesional y consistente</span>
+              </div>
             </div>
           </div>
-        </Card>
+        </div>
 
         <div className="text-center mb-8 md:mb-12">
-          <p className="text-slate-300 italic text-sm md:text-base max-w-2xl mx-auto">
+          <p className="text-muted-foreground italic text-sm md:text-base max-w-2xl mx-auto">
             💬 Escribe con tus palabras, la IA te ayudará a pulir cada respuesta
           </p>
         </div>
 
-        <Card className="bg-slate-800/80 border-slate-700 backdrop-blur p-6 md:p-8 mb-8">
+        <div className="bg-card border border-border rounded-2xl p-6 md:p-8 mb-8">
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* CAMPOS DE INSTAGRAM Y WEBSITE AL INICIO */}
-            <div className="space-y-6 pb-6 border-b border-slate-600">
-              <h3 className="text-white text-lg font-bold">Información de contacto y redes</h3>
+            <div className="space-y-6 pb-6 border-b border-border">
+              <h3 className="text-foreground text-lg font-bold">Información de contacto y redes</h3>
               
               {/* Instagram */}
               <div className="space-y-3">
@@ -519,15 +535,15 @@ const Landing2 = () => {
                       tieneInstagram: e.target.checked,
                       instagram: e.target.checked ? prev.instagram : ''
                     }))}
-                    className="w-4 h-4 accent-purple-600"
+                    className="w-4 h-4 accent-primary"
                   />
-                  <Label htmlFor="tieneInstagram" className="text-white text-base cursor-pointer">
+                  <Label htmlFor="tieneInstagram" className="text-foreground text-base cursor-pointer">
                     Tengo Instagram
                   </Label>
                 </div>
                 {formData.tieneInstagram && (
                   <div>
-                    <Label htmlFor="instagram" className="text-slate-300 text-sm mb-2 block">
+                    <Label htmlFor="instagram" className="text-muted-foreground text-sm mb-2 block">
                       Usuario de Instagram (sin @)
                     </Label>
                     <input
@@ -536,7 +552,7 @@ const Landing2 = () => {
                       placeholder="tuusuario"
                       value={formData.instagram}
                       onChange={(e) => handleInputChange('instagram', e.target.value)}
-                      className="w-full bg-slate-900/50 border border-slate-600 text-white placeholder:text-slate-400 px-4 py-2 rounded-md"
+                      className="w-full bg-secondary border border-border text-foreground placeholder:text-muted-foreground px-4 py-2 rounded-md focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                       disabled={isSubmitting}
                     />
                   </div>
@@ -555,15 +571,15 @@ const Landing2 = () => {
                       tieneWebsite: e.target.checked,
                       website: e.target.checked ? prev.website : ''
                     }))}
-                    className="w-4 h-4 accent-purple-600"
+                    className="w-4 h-4 accent-primary"
                   />
-                  <Label htmlFor="tieneWebsite" className="text-white text-base cursor-pointer">
+                  <Label htmlFor="tieneWebsite" className="text-foreground text-base cursor-pointer">
                     Tengo sitio web
                   </Label>
                 </div>
                 {formData.tieneWebsite && (
                   <div>
-                    <Label htmlFor="website" className="text-slate-300 text-sm mb-2 block">
+                    <Label htmlFor="website" className="text-muted-foreground text-sm mb-2 block">
                       URL de tu sitio web
                     </Label>
                     <input
@@ -572,7 +588,7 @@ const Landing2 = () => {
                       placeholder="https://tusitio.com"
                       value={formData.website}
                       onChange={(e) => handleInputChange('website', e.target.value)}
-                      className="w-full bg-slate-900/50 border border-slate-600 text-white placeholder:text-slate-400 px-4 py-2 rounded-md"
+                      className="w-full bg-secondary border border-border text-foreground placeholder:text-muted-foreground px-4 py-2 rounded-md focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                       disabled={isSubmitting}
                     />
                   </div>
@@ -593,14 +609,14 @@ const Landing2 = () => {
               return (
                 <div key={question.name} className="space-y-3">
                   <div className="flex items-center justify-between gap-4">
-                    <Label htmlFor={question.name} className="text-white text-base md:text-lg font-bold block">
+                    <Label htmlFor={question.name} className="text-foreground text-base md:text-lg font-bold block">
                       {index + 6}. {question.label}
                     </Label>
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => setExpandedFields(prev => ({ ...prev, [question.name]: !prev[question.name] }))}
-                        className="text-slate-400 hover:text-white transition-colors p-1"
+                        className="text-muted-foreground hover:text-foreground transition-colors p-1"
                         title={expandedFields[question.name] ? "Contraer" : "Expandir"}
                       >
                         {expandedFields[question.name] ? (
@@ -639,7 +655,7 @@ const Landing2 = () => {
                     onChange={(e) => handleInputChange(question.name, e.target.value)}
                     onFocus={() => setFocusedField(question.name)}
                     onBlur={() => setFocusedField(null)}
-                    className={`bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400 text-base transition-all duration-300 ${
+                    className={`bg-secondary border-border text-foreground placeholder:text-muted-foreground text-base transition-all duration-300 focus:border-primary focus:ring-2 focus:ring-primary/20 ${
                       expandedFields[question.name] ? 'min-h-[300px]' : 'min-h-[120px]'
                     }`}
                     disabled={isSubmitting}
@@ -652,7 +668,7 @@ const Landing2 = () => {
                     isVisible={focusedField === question.name}
                   />
                   {errors[question.name] && (
-                    <p className="text-red-400 text-sm mt-2">{errors[question.name]}</p>
+                    <p className="text-destructive text-sm mt-2">{errors[question.name]}</p>
                   )}
                 </div>
               );
@@ -660,7 +676,7 @@ const Landing2 = () => {
 
             {/* Pregunta 10: Estilo de comunicación */}
             <div className="space-y-4">
-              <Label htmlFor="estiloComunicacion" className="text-white text-base md:text-lg font-bold block">
+              <Label htmlFor="estiloComunicacion" className="text-foreground text-base md:text-lg font-bold block">
                 10. ¿Cómo te gusta comunicarte en redes sociales?
               </Label>
               <Select 
@@ -668,7 +684,7 @@ const Landing2 = () => {
                 onValueChange={(value) => setFormData(prev => ({ ...prev, estiloComunicacion: value }))}
                 onOpenChange={(open) => setFocusedField(open ? 'estiloComunicacion' : null)}
               >
-                <SelectTrigger className="bg-slate-900/50 border-slate-600 text-white">
+                <SelectTrigger className="bg-secondary border-border text-foreground">
                   <SelectValue placeholder="Selecciona tu estilo" />
                 </SelectTrigger>
                 <SelectContent>
@@ -681,7 +697,7 @@ const Landing2 = () => {
                 </SelectContent>
               </Select>
               {focusedField === 'estiloComunicacion' && (
-                <p className="text-sm text-blue-300/90 mt-2 animate-in fade-in slide-in-from-top-1 duration-200 flex items-start gap-2">
+                <p className="text-sm text-primary/90 mt-2 animate-in fade-in slide-in-from-top-1 duration-200 flex items-start gap-2">
                   <span className="text-base">💡</span>
                   <span>Elige el tono que mejor refleje tu personalidad y la forma en que te conectas con tu audiencia.</span>
                 </p>
@@ -689,8 +705,8 @@ const Landing2 = () => {
             </div>
 
             {!isFormComplete() && (
-              <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 mb-6">
-                <p className="text-amber-200 text-sm text-center">
+              <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mb-6">
+                <p className="text-primary text-sm text-center">
                   💡 Completa todas las preguntas (cada respuesta con al menos 10 caracteres) y selecciona tu estilo de comunicación para continuar
                 </p>
               </div>
@@ -701,7 +717,7 @@ const Landing2 = () => {
                 type="button"
                 variant="outline"
                 onClick={() => navigate('/')}
-                className="w-full sm:w-auto border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white"
+                className="w-full sm:w-auto border-border text-muted-foreground hover:bg-secondary hover:text-foreground"
                 disabled={isSubmitting}
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -710,7 +726,7 @@ const Landing2 = () => {
               
               <Button
                 type="submit"
-                className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isSubmitting || !isFormComplete()}
               >
                 {isSubmitting ? (
@@ -727,15 +743,15 @@ const Landing2 = () => {
               </Button>
             </div>
           </form>
-        </Card>
+        </div>
 
-        <footer className="text-center text-slate-400 text-sm space-y-2 pt-8 border-t border-slate-700">
+        <footer className="text-center text-muted-foreground text-sm space-y-2 pt-8 border-t border-border">
           <div className="flex justify-center gap-4 mb-2">
-            <a href="#" className="hover:text-white transition-colors">Privacidad</a>
+            <a href="#" className="hover:text-foreground transition-colors">Privacidad</a>
             <span>|</span>
-            <a href="#" className="hover:text-white transition-colors">Términos</a>
+            <a href="#" className="hover:text-foreground transition-colors">Términos</a>
             <span>|</span>
-            <a href="#" className="hover:text-white transition-colors">Contacto</a>
+            <a href="#" className="hover:text-foreground transition-colors">Contacto</a>
           </div>
           <p>contacto@crealoconia.com</p>
         </footer>
