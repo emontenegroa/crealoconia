@@ -7,6 +7,7 @@ interface VoiceRecorderProps {
   onTranscription: (text: string) => void;
   disabled?: boolean;
   className?: string;
+  prominent?: boolean;
 }
 
 // Extend window interface for Speech Recognition
@@ -20,7 +21,7 @@ interface SpeechRecognitionErrorEvent extends Event {
   message: string;
 }
 
-const VoiceRecorder = ({ onTranscription, disabled = false, className = '' }: VoiceRecorderProps) => {
+const VoiceRecorder = ({ onTranscription, disabled = false, className = '', prominent = false }: VoiceRecorderProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [transcriptBuffer, setTranscriptBuffer] = useState('');
@@ -174,6 +175,78 @@ const VoiceRecorder = ({ onTranscription, disabled = false, className = '' }: Vo
     return null; // Don't render if not supported
   }
 
+  // Prominent version - larger, more visible, animated
+  if (prominent) {
+    return (
+      <div className={`flex flex-col items-start gap-2 ${className}`}>
+        <Button
+          type="button"
+          onClick={handleClick}
+          disabled={disabled || isProcessing}
+          size="lg"
+          className={`
+            relative overflow-hidden
+            transition-all duration-300 ease-out
+            font-semibold text-base
+            ${isRecording 
+              ? 'bg-red-500 hover:bg-red-600 text-white shadow-lg shadow-red-500/50 scale-105' 
+              : 'bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-105'
+            }
+          `}
+          title={isRecording ? 'Detener grabación' : 'Dictar con tu voz'}
+        >
+          {/* Animated background pulse when not recording */}
+          {!isRecording && !isProcessing && (
+            <span className="absolute inset-0 bg-white/20 animate-pulse rounded-md" />
+          )}
+          
+          {/* Recording animation rings */}
+          {isRecording && (
+            <>
+              <span className="absolute inset-0 rounded-md animate-ping bg-red-400/30" />
+              <span className="absolute inset-1 rounded-md animate-pulse bg-red-400/20" />
+            </>
+          )}
+          
+          <span className="relative flex items-center gap-2">
+            {isProcessing ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>Procesando...</span>
+              </>
+            ) : isRecording ? (
+              <>
+                <MicOff className="w-5 h-5" />
+                <span>Detener grabación</span>
+              </>
+            ) : (
+              <>
+                <Mic className="w-5 h-5" />
+                <span>🎤 Dictar con voz</span>
+              </>
+            )}
+          </span>
+        </Button>
+        
+        {/* Hint text */}
+        {!isRecording && !isProcessing && (
+          <p className="text-xs text-white/60 ml-1 animate-fade-in">
+            ✨ Más rápido que escribir — solo habla y transcribimos
+          </p>
+        )}
+        
+        {/* Live transcription preview */}
+        {isRecording && transcriptBuffer && (
+          <div className="bg-white/10 rounded-lg px-3 py-2 text-sm text-white/80 italic max-w-full animate-fade-in border border-white/20">
+            <span className="text-green-400 mr-2">●</span>
+            "{transcriptBuffer}"
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Compact version (original)
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <Button

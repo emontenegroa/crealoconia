@@ -96,8 +96,14 @@ const FormField = ({
 
   // Check if voice recording should be shown (only for text inputs, not email/phone/url)
   const shouldShowVoiceRecorder = () => {
-    const voiceEnabledFields = ['quien_eres', 'problemas', 'preguntas_frecuentes', 'producto', 'marca'];
-    return voiceEnabledFields.includes(name) && (type === 'textarea' || type === 'input');
+    const voiceEnabledFields = ['quien_eres', 'problemas', 'preguntas_frecuentes', 'producto'];
+    return voiceEnabledFields.includes(name) && type === 'textarea';
+  };
+
+  // Check if should use prominent voice recorder (for long text fields)
+  const shouldUseProminentVoice = () => {
+    const prominentVoiceFields = ['quien_eres', 'problemas', 'preguntas_frecuentes', 'producto'];
+    return prominentVoiceFields.includes(name) && type === 'textarea';
   };
 
   const getPlaceholder = () => {
@@ -199,13 +205,6 @@ const FormField = ({
         </Label>
         
         <div className="flex items-center gap-2 flex-shrink-0">
-          {/* Voice recorder button */}
-          {shouldShowVoiceRecorder() && (
-            <VoiceRecorder 
-              onTranscription={handleVoiceTranscription}
-            />
-          )}
-          
           {type === 'textarea' && (
             <Button
               type="button"
@@ -256,6 +255,16 @@ const FormField = ({
           )}
         </div>
       </div>
+      
+      {/* Prominent Voice Recorder - shown above textarea for long text fields */}
+      {shouldUseProminentVoice() && (
+        <div className="mt-2 mb-3">
+          <VoiceRecorder 
+            onTranscription={handleVoiceTranscription}
+            prominent={true}
+          />
+        </div>
+      )}
       
       {type === 'input' && (
         <Input
