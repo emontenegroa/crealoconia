@@ -10,6 +10,7 @@ import { ArrowLeft, Sparkles, CheckCircle2, Maximize2, Minimize2, Lightbulb } fr
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AIEnhanceButton from '@/components/AIEnhanceButton';
 import QuestionHelpCard from '@/components/QuestionHelpCard';
+import VoiceRecorder from '@/components/VoiceRecorder';
 import { quizFormSchema, sanitizeText, sanitizeTextForSubmit } from '@/utils/formValidation';
 import { useFormPersistence } from '@/hooks/useFormPersistence';
 import { usePromptGeneration } from '@/hooks/usePromptGeneration';
@@ -584,6 +585,11 @@ const Landing2 = () => {
               const fieldValue = formData[question.name as keyof typeof formData];
               const stringValue = typeof fieldValue === 'string' ? fieldValue : '';
               
+              const handleVoiceTranscription = (transcribedText: string) => {
+                const newValue = stringValue ? `${stringValue} ${transcribedText}` : transcribedText;
+                handleInputChange(question.name, newValue);
+              };
+              
               return (
                 <div key={question.name} className="space-y-3">
                   <div className="flex items-center justify-between gap-4">
@@ -616,6 +622,16 @@ const Landing2 = () => {
                       />
                     </div>
                   </div>
+                  
+                  {/* Prominent Voice Recorder - above textarea */}
+                  <div className="mt-2 mb-3">
+                    <VoiceRecorder 
+                      onTranscription={handleVoiceTranscription}
+                      prominent={true}
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                  
                   <Textarea
                     id={question.name}
                     placeholder={question.placeholder}
