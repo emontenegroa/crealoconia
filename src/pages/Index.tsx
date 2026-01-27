@@ -3,37 +3,30 @@ import React, { useRef, useEffect, useState } from 'react';
 import { toast } from "@/hooks/use-toast";
 import LoadingSpinnerEnhanced from '@/components/LoadingSpinnerEnhanced';
 import HeroSection from '@/components/HeroSection';
-import ImportantNotice from '@/components/ImportantNotice';
 import ProgressDialog from '@/components/ProgressDialog';
-import InitialForm from '@/components/InitialForm';
 import MainForm from '@/components/MainForm';
-import HowItWorksToggle from '@/components/HowItWorksToggle';
+import FeatureCardsNew from '@/components/FeatureCardsNew';
+import FooterNew from '@/components/FooterNew';
 import ImprovedTestimonials from '@/components/ImprovedTestimonials';
-import TransparentPricing from '@/components/TransparentPricing';
 import StickyMobileCTA from '@/components/StickyMobileCTA';
 import ImprovedFAQ from '@/components/ImprovedFAQ';
 import PortfolioSection from '@/components/PortfolioSection';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 import QuienSoy from '@/components/QuienSoy';
-import ProblemaSolucion from '@/components/ProblemaSolucion';
 import Metodologia from '@/components/Metodologia';
-import TestimonialEspecial from '@/components/TestimonialEspecial';
 import { MetaTracker } from '@/components/MetaTracker';
-import StrategicContentDisplay from '@/components/StrategicContentDisplay';
-import WelcomeScreen from '@/components/WelcomeScreen';
-import BonusSection from '@/components/BonusSection';
 import QualificationWizard from '@/components/QualificationWizard';
-import { 
-  WhatIsSection, 
-  ForWhoSection, 
-  WhatIncludesSection, 
-  HowItWorksSection, 
-  WhyNotAgencySection, 
-  SEOFAQSection 
-} from '@/components/SEOSections';
 
 import { useFormHandler } from '@/hooks/useFormHandler';
 import { useStepNavigation } from '@/hooks/useStepNavigation';
+
+// Importar la prueba de email en desarrollo
+if (import.meta.env.DEV) {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('runEmailTest')) {
+    import('@/utils/emailTest');
+  }
+}
 
 // Importar la prueba de email en desarrollo
 if (import.meta.env.DEV) {
@@ -160,25 +153,27 @@ const Index = () => {
           />
           
           <main>
-            {/* Secciones SEO estructuradas semánticamente */}
-            <WhatIsSection />
-            <ForWhoSection />
-            <WhatIncludesSection />
-            <HowItWorksSection />
-            <WhyNotAgencySection />
+            {/* Feature Cards */}
+            <FeatureCardsNew />
             
-            {/* Secciones de conversión */}
+            {/* Portfolio / Resultados */}
+            <PortfolioSection />
+            
+            {/* Metodología */}
             <Metodologia />
-            <QuienSoy />
-            <ImprovedTestimonials />
-            <TestimonialEspecial />
-            <TransparentPricing />
-            <BonusSection />
             
-            {/* FAQ optimizado para IA */}
-            <SEOFAQSection />
+            {/* Quién Soy */}
+            <QuienSoy />
+            
+            {/* Testimonios */}
+            <ImprovedTestimonials />
+            
+            {/* FAQ */}
             <ImprovedFAQ />
           </main>
+          
+          {/* Footer */}
+          <FooterNew />
         </>
       ) : isGenerating ? (
         <LoadingSpinnerEnhanced marca={formData.marca} />

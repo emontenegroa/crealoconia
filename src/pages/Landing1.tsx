@@ -1,21 +1,17 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Brain, User, Code, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Zap, Sparkles, ShieldCheck, Star, User, Mail, MessageSquare, Rocket, CreditCard, CheckCircle, Settings, Bot } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PortfolioSection from "@/components/PortfolioSection";
 import { useFormPersistence } from "@/hooks/useFormPersistence";
+
 const Landing1 = () => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
   const navigate = useNavigate();
-  const {
-    saveProgress
-  } = useFormPersistence();
+  const { saveProgress } = useFormPersistence();
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -23,6 +19,7 @@ const Landing1 = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.nombre || formData.nombre.trim().length < 3) {
@@ -38,6 +35,7 @@ const Landing1 = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) {
@@ -50,10 +48,7 @@ const Landing1 = () => {
     }
     setIsSubmitting(true);
     try {
-      // Guardar en localStorage para mantener compatibilidad
       localStorage.setItem('userData', JSON.stringify(formData));
-
-      // Guardar en el backend
       const backendData = {
         marca: formData.nombre,
         email: formData.email,
@@ -85,216 +80,334 @@ const Landing1 = () => {
       setIsSubmitting(false);
     }
   };
+
   const handleInputChange = (name: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors(prev => {
-        const newErrors = {
-          ...prev
-        };
+        const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
       });
     }
   };
-  return <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
-      <div className="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
-        
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Haz Crecer tu Negocio con una Web Profesional en Minutos
-            <span className="block mt-2 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              (Impulsada por tu propio asistente de IA)
-            </span>
-          </h1>
-          <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Ideal para <span className="text-white font-semibold">Coaches, Terapeutas, Psicólogos, Consultores, Nutricionistas, Abogados, Arquitectos, Contadores, Diseñadores, Asesores Financieros y Creadores de Contenido</span>.
-          </p>
-          <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed mt-4">
-            Tu web es tu carta de presentación. Consíguela lista sin complicaciones técnicas y enfocada en conseguir clientes.
-          </p>
+
+  const features = [
+    {
+      icon: Rocket,
+      title: "Lanzamiento Rápido",
+      description: "Olvídate de procesos de meses. Tu web profesional lista y optimizada en horas."
+    },
+    {
+      icon: Sparkles,
+      title: "Diseño IA + Humano",
+      description: "Algoritmos que estructuran, expertos que refinan. El equilibrio perfecto."
+    },
+    {
+      icon: CreditCard,
+      title: "Pago Único",
+      description: "Sin suscripciones mensuales ocultas. Pagas por tu activo digital una sola vez."
+    }
+  ];
+
+  const benefitsSection = [
+    {
+      icon: Settings,
+      title: "Adiós Parálisis Técnica",
+      description: "Eliminamos la barrera técnica compleja para que solo te ocupes de cerrar tratos con tu cliente."
+    },
+    {
+      icon: Sparkles,
+      title: "Mensaje que Vende",
+      description: "Copywriting persuasivo potenciado por IA que convierte visitantes curiosos en leads calificados."
+    },
+    {
+      icon: Bot,
+      title: "Asistente IA Propio",
+      description: "Tu sistema trabaja 24/7 agendando llamadas y respondiendo dudas básicas por ti."
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Navbar */}
+      <nav className="relative z-20 border-b border-border/50">
+        <div className="container mx-auto px-6 lg:px-12 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-primary-foreground" />
+              </div>
+              <span className="text-lg font-bold text-foreground">Crealoconia.com</span>
+            </div>
+            
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#servicios" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Servicios</a>
+              <a href="#casos" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Casos de Éxito</a>
+              <a href="#nosotros" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Nosotros</a>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Button variant="ghost" className="text-sm text-muted-foreground hover:text-foreground hidden sm:inline-flex">
+                Login
+              </Button>
+              <Button className="bg-foreground text-background hover:bg-foreground/90 text-sm px-5">
+                Contacto
+              </Button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <header className="relative overflow-hidden">
+        <div className="relative z-10 container mx-auto px-6 lg:px-12 py-16 lg:py-24">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Column */}
+            <div className="space-y-8">
+              {/* Badge */}
+              <div className="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
+                <div className="w-2 h-2 bg-primary rounded-full mr-3 animate-pulse"></div>
+                <span className="text-sm font-medium text-primary tracking-wide uppercase">
+                  Nueva Tecnología 2025
+                </span>
+              </div>
+
+              {/* Main Headline */}
+              <div className="space-y-4">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-foreground">
+                  ¿Eres Coach o Consultor?
+                  <br />
+                  <span className="text-foreground">Lanza tu Web Profesional en </span>
+                  <span className="text-gradient-primary">4 Horas</span>
+                  <span className="text-foreground">,</span>
+                  <br />
+                  <span className="text-foreground">No en 4 Meses.</span>
+                </h1>
+                
+                <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
+                  Utilizamos inteligencia artificial para capturar tu esencia y construir una presencia digital de alto impacto sin complicaciones técnicas.
+                </p>
+              </div>
+
+              {/* Social Proof */}
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-3">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="w-10 h-10 rounded-full bg-secondary border-2 border-background flex items-center justify-center">
+                      <User className="w-5 h-5 text-muted-foreground" />
+                    </div>
+                  ))}
+                  <div className="w-10 h-10 rounded-full bg-primary/20 border-2 border-background flex items-center justify-center">
+                    <span className="text-xs font-bold text-primary">+150</span>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Profesionales activos</p>
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                    ))}
+                    <span className="text-sm text-muted-foreground ml-1">(4.9/5)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature Pills */}
+              <div className="flex flex-wrap gap-3">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary border border-border rounded-full">
+                  <Zap className="w-4 h-4 text-primary" />
+                  <span className="text-sm text-foreground">Velocidad IA</span>
+                </div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary border border-border rounded-full">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  <span className="text-sm text-foreground">Calidad Premium</span>
+                </div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary border border-border rounded-full">
+                  <ShieldCheck className="w-4 h-4 text-primary" />
+                  <span className="text-sm text-foreground">Garantizado</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Form */}
+            <div className="lg:pl-8">
+              <div className="animated-border-wrapper">
+                <div className="bg-card rounded-[calc(1rem-2px)] p-8 space-y-6">
+                  <div className="space-y-2">
+                    <h2 className="text-2xl font-bold text-foreground">Reserva tu lugar ahora</h2>
+                    <p className="text-muted-foreground">
+                      Completa el formulario y descubre el poder de Crealoconia.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="space-y-2">
+                      <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                        Nombre Completo
+                      </Label>
+                      <div className="relative">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                        <Input
+                          value={formData.nombre}
+                          onChange={e => handleInputChange('nombre', e.target.value)}
+                          placeholder="Ej. Ana García"
+                          className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
+                          disabled={isSubmitting}
+                        />
+                      </div>
+                      {errors.nombre && <p className="text-destructive text-sm">{errors.nombre}</p>}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                        Correo Electrónico
+                      </Label>
+                      <div className="relative">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                        <Input
+                          type="email"
+                          value={formData.email}
+                          onChange={e => handleInputChange('email', e.target.value)}
+                          placeholder="tu@correo.com"
+                          className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
+                          disabled={isSubmitting}
+                        />
+                      </div>
+                      {errors.email && <p className="text-destructive text-sm">{errors.email}</p>}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                        WhatsApp
+                      </Label>
+                      <div className="relative">
+                        <MessageSquare className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                        <Input
+                          type="tel"
+                          value={formData.telefono}
+                          onChange={e => handleInputChange('telefono', e.target.value)}
+                          placeholder="+52 55 1234 5678"
+                          className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
+                          disabled={isSubmitting}
+                        />
+                      </div>
+                      {errors.telefono && <p className="text-destructive text-sm">{errors.telefono}</p>}
+                    </div>
+
+                    <Button
+                      type="submit"
+                      className="w-full h-14 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Procesando..." : "EMPEZAR AHORA"}
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                    
+                    <p className="text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
+                      <Star className="w-4 h-4 text-primary" />
+                      Solo 5 plazas disponibles este mes
+                    </p>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="mb-12 md:mb-16 text-center">
-          <Card className="bg-blue-500/10 border-blue-500/30 backdrop-blur p-6 md:p-8 max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              ¿Por qué una web profesional es vital?
+        {/* Background gradients */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-primary/5 via-primary/2 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-primary/3 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+      </header>
+
+      {/* Feature Cards */}
+      <section className="py-20 bg-background" id="servicios">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid md:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="feature-card p-8 bg-card border border-border rounded-2xl"
+              >
+                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                  <feature.icon className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* De la Idea a la Realidad Section */}
+      <section className="py-20 bg-card/50">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+              De la Idea a la Realidad
             </h2>
-            <p className="text-slate-300 text-base md:text-lg">
-              Tus potenciales clientes buscan una web clara, profesional y que comunique tu valor para ellos, 
-              si no, simplemente pasan al siguiente.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              La tecnología de <span className="text-primary font-semibold">Crealoconia</span> supera la barrera técnica para que te enfoques en escalar tu negocio.
             </p>
-          </Card>
-        </div>
+          </div>
 
-        <div className="mb-12 md:mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-8 md:mb-12">
-            Cómo Funciona: 3 Servicios en 1
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 hover:bg-slate-800/70 transition-all duration-300 animate-fade-in">
-              <div className="mb-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center mb-3">
-                  <Brain className="w-6 h-6 text-white" />
+          <div className="grid md:grid-cols-3 gap-8">
+            {benefitsSection.map((benefit, index) => (
+              <div key={index} className="p-8 bg-card border border-border rounded-2xl">
+                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                  <benefit.icon className="w-7 h-7 text-primary" />
                 </div>
-                <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg md:text-xl font-bold text-white">
-                    Prompt Estratégico Personalizado
-                  </h3>
-                  
-                </div>
-              </div>
-              <p className="text-slate-300 text-sm md:text-base">
-                Completa un breve formulario y la IA creará un asistente exclusivo para tu marca, que te ayudará a generar contenido, guiones de video, mensajes para redes y texto para tu web.
-              </p>
-            </Card>
-
-            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 hover:bg-slate-800/70 transition-all duration-300 animate-fade-in" style={{
-            animationDelay: '0.1s'
-          }}>
-              <div className="mb-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center mb-3">
-                  <User className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-white mb-2">
-                  Mentoría 1 a 1 con Esteban Montenegro
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  {benefit.title}
                 </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  {benefit.description}
+                </p>
               </div>
-              <p className="text-slate-300 text-sm md:text-base">
-                Revisamos tu propuesta de valor, optimizamos tu comunicación y ajustamos tu mensaje 
-                para atraer a los clientes correctos.
-              </p>
-            </Card>
-
-            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 hover:bg-slate-800/70 transition-all duration-300 animate-fade-in" style={{
-            animationDelay: '0.2s'
-          }}>
-              <div className="mb-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-3">
-                  <Code className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-white mb-2">
-                  Sitio Web Profesional
-                </h3>
-              </div>
-              <p className="text-slate-300 text-sm md:text-base mb-3">
-                Tu web diseñada para convertir, con tu propuesta clara y enfocada a conseguir nuevos clientes.
-              </p>
-              <p className="text-lg font-bold text-white mb-1">
-                Precio: $197.000 CLP
-              </p>
-              <p className="text-xs text-slate-400">
-                (pago único, incluye mentoría personalizada)
-              </p>
-              <p className="text-xs text-slate-400 mt-2">
-                *No aplica para E-commerce
-              </p>
-            </Card>
+            ))}
           </div>
         </div>
+      </section>
 
-        <div className="mb-12 md:mb-16">
-          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur p-6 md:p-8 max-w-3xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
-              Beneficios Clave
-            </h2>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-300 text-base md:text-lg">
-                  Posicionamiento profesional inmediato
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-300 text-base md:text-lg">
-                  Mensaje claro y persuasivo para atraer clientes
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-300 text-base md:text-lg">
-                  Acompañamiento experto, no estás solo
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-300 text-base md:text-lg">
-                  Sin necesidad de saber diseño o tecnología
-                </span>
-              </li>
-            </ul>
-          </Card>
-        </div>
-
-        <div className="mb-12 md:mb-16">
-          <div className="animated-border-wrapper max-w-xl mx-auto">
-            <Card className="bg-slate-800/95 border-0 backdrop-blur p-6 md:p-8 rounded-[calc(1rem-3px)]">
-              <h2 className="text-xl md:text-2xl font-bold text-white mb-6 text-center">
-                ¡Empieza Ahora!   
-              </h2>
-              
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <Label htmlFor="nombre" className="text-white mb-2 block">
-                    Nombre o nombre de tu negocio
-                  </Label>
-                  <Input id="nombre" type="text" placeholder="Tu nombre o nombre de tu negocio" value={formData.nombre} onChange={e => handleInputChange('nombre', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
-                  {errors.nombre && <p className="text-red-400 text-sm mt-1">{errors.nombre}</p>}
-                </div>
-
-                <div>
-                  <Label htmlFor="email" className="text-white mb-2 block">
-                    Correo electrónico
-                  </Label>
-                  <Input id="email" type="email" placeholder="tu@email.com" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
-                  {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
-                </div>
-
-                <div>
-                  <Label htmlFor="telefono" className="text-white mb-2 block">
-                    Teléfono
-                  </Label>
-                  <Input id="telefono" type="tel" placeholder="+56 9 XXXX XXXX" value={formData.telefono} onChange={e => handleInputChange('telefono', e.target.value)} className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400" disabled={isSubmitting} />
-                  {errors.telefono && <p className="text-red-400 text-sm mt-1">{errors.telefono}</p>}
-                </div>
-
-                <Button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-xl" disabled={isSubmitting}>
-                  {isSubmitting ? "Procesando..." : "Crear mi Web con IA"}
-                </Button>
-              </form>
-            </Card>
-          </div>
-        </div>
-
+      {/* Portfolio Section */}
+      <section id="casos">
         <PortfolioSection />
+      </section>
 
-        <div className="mb-12 text-center">
-          <p className="text-slate-300 text-sm md:text-base mb-4">
-            Más de 150 emprendedores ya están usando CrealoConIA
-          </p>
-          <div className="flex justify-center items-center gap-2">
-            {[1, 2, 3, 4].map(i => <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
-                {String.fromCharCode(64 + i)}
-              </div>)}
+      {/* Footer */}
+      <footer className="py-8 bg-background border-t border-border">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-primary" />
+              <span className="font-semibold text-foreground">Crealoconia</span>
+            </div>
+            
+            <p className="text-sm text-muted-foreground">
+              © 2025 Crealoconia.com. Todos los derechos reservados.
+            </p>
+            
+            <div className="flex items-center gap-6">
+              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Privacidad
+              </a>
+              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Términos
+              </a>
+              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Soporte
+              </a>
+            </div>
           </div>
         </div>
-
-        <footer className="text-center text-slate-400 text-sm space-y-2 pt-8 border-t border-slate-700">
-          <div className="flex justify-center gap-4 mb-2">
-            <a href="#" className="hover:text-white transition-colors">Privacidad</a>
-            <span>|</span>
-            <a href="#" className="hover:text-white transition-colors">Términos</a>
-            <span>|</span>
-            <a href="#" className="hover:text-white transition-colors">Contacto</a>
-          </div>
-          <p>contacto@crealoconia.com</p>
-        </footer>
-      </div>
-    </div>;
+      </footer>
+    </div>
+  );
 };
+
 export default Landing1;
