@@ -7,11 +7,14 @@ import { ArrowRight, Zap, Sparkles, ShieldCheck, Star, User, Mail, MessageSquare
 import { useNavigate } from "react-router-dom";
 import PortfolioSection from "@/components/PortfolioSection";
 import { useFormPersistence } from "@/hooks/useFormPersistence";
-
 const Landing1 = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const navigate = useNavigate();
-  const { saveProgress } = useFormPersistence();
+  const {
+    saveProgress
+  } = useFormPersistence();
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -19,7 +22,6 @@ const Landing1 = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.nombre || formData.nombre.trim().length < 3) {
@@ -35,7 +37,6 @@ const Landing1 = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) {
@@ -80,56 +81,48 @@ const Landing1 = () => {
       setIsSubmitting(false);
     }
   };
-
   const handleInputChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
     if (errors[name]) {
       setErrors(prev => {
-        const newErrors = { ...prev };
+        const newErrors = {
+          ...prev
+        };
         delete newErrors[name];
         return newErrors;
       });
     }
   };
-
-  const features = [
-    {
-      icon: Rocket,
-      title: "Lanzamiento Rápido",
-      description: "Olvídate de procesos de meses. Tu web profesional lista y optimizada en horas."
-    },
-    {
-      icon: Sparkles,
-      title: "Diseño IA + Humano",
-      description: "Algoritmos que estructuran, expertos que refinan. El equilibrio perfecto."
-    },
-    {
-      icon: CreditCard,
-      title: "Pago Único",
-      description: "Sin suscripciones mensuales ocultas. Pagas por tu activo digital una sola vez."
-    }
-  ];
-
-  const benefitsSection = [
-    {
-      icon: Settings,
-      title: "Adiós Parálisis Técnica",
-      description: "Eliminamos la barrera técnica compleja para que solo te ocupes de cerrar tratos con tu cliente."
-    },
-    {
-      icon: Sparkles,
-      title: "Mensaje que Vende",
-      description: "Copywriting persuasivo potenciado por IA que convierte visitantes curiosos en leads calificados."
-    },
-    {
-      icon: Bot,
-      title: "Asistente IA Propio",
-      description: "Tu sistema trabaja 24/7 agendando llamadas y respondiendo dudas básicas por ti."
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const features = [{
+    icon: Rocket,
+    title: "Lanzamiento Rápido",
+    description: "Olvídate de procesos de meses. Tu web profesional lista y optimizada en horas."
+  }, {
+    icon: Sparkles,
+    title: "Diseño IA + Humano",
+    description: "Algoritmos que estructuran, expertos que refinan. El equilibrio perfecto."
+  }, {
+    icon: CreditCard,
+    title: "Pago Único",
+    description: "Sin suscripciones mensuales ocultas. Pagas por tu activo digital una sola vez."
+  }];
+  const benefitsSection = [{
+    icon: Settings,
+    title: "Adiós Parálisis Técnica",
+    description: "Eliminamos la barrera técnica compleja para que solo te ocupes de cerrar tratos con tu cliente."
+  }, {
+    icon: Sparkles,
+    title: "Mensaje que Vende",
+    description: "Copywriting persuasivo potenciado por IA que convierte visitantes curiosos en leads calificados."
+  }, {
+    icon: Bot,
+    title: "Asistente IA Propio",
+    description: "Tu sistema trabaja 24/7 agendando llamadas y respondiendo dudas básicas por ti."
+  }];
+  return <div className="min-h-screen bg-background">
       {/* Navbar */}
       <nav className="relative z-20 border-b border-border/50">
         <div className="container mx-auto px-6 lg:px-12 py-4">
@@ -167,9 +160,7 @@ const Landing1 = () => {
               {/* Badge */}
               <div className="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
                 <div className="w-2 h-2 bg-primary rounded-full mr-3 animate-pulse"></div>
-                <span className="text-sm font-medium text-primary tracking-wide uppercase">
-                  Nueva Tecnología 2025
-                </span>
+                <span className="text-sm font-medium text-primary tracking-wide uppercase">NUEVA TECNOLOGÍA 2026</span>
               </div>
 
               {/* Main Headline */}
@@ -192,11 +183,9 @@ const Landing1 = () => {
               {/* Social Proof */}
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-3">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="w-10 h-10 rounded-full bg-secondary border-2 border-background flex items-center justify-center">
+                  {[1, 2, 3].map(i => <div key={i} className="w-10 h-10 rounded-full bg-secondary border-2 border-background flex items-center justify-center">
                       <User className="w-5 h-5 text-muted-foreground" />
-                    </div>
-                  ))}
+                    </div>)}
                   <div className="w-10 h-10 rounded-full bg-primary/20 border-2 border-background flex items-center justify-center">
                     <span className="text-xs font-bold text-primary">+150</span>
                   </div>
@@ -204,9 +193,7 @@ const Landing1 = () => {
                 <div>
                   <p className="text-sm font-semibold text-foreground">Profesionales activos</p>
                   <div className="flex items-center gap-1">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                    ))}
+                    {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
                     <span className="text-sm text-muted-foreground ml-1">(4.9/5)</span>
                   </div>
                 </div>
@@ -247,13 +234,7 @@ const Landing1 = () => {
                       </Label>
                       <div className="relative">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                        <Input
-                          value={formData.nombre}
-                          onChange={e => handleInputChange('nombre', e.target.value)}
-                          placeholder="Ej. Ana García o Mi Empresa"
-                          className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
-                          disabled={isSubmitting}
-                        />
+                        <Input value={formData.nombre} onChange={e => handleInputChange('nombre', e.target.value)} placeholder="Ej. Ana García o Mi Empresa" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
                       </div>
                       {errors.nombre && <p className="text-destructive text-sm">{errors.nombre}</p>}
                     </div>
@@ -264,14 +245,7 @@ const Landing1 = () => {
                       </Label>
                       <div className="relative">
                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                        <Input
-                          type="email"
-                          value={formData.email}
-                          onChange={e => handleInputChange('email', e.target.value)}
-                          placeholder="tu@correo.com"
-                          className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
-                          disabled={isSubmitting}
-                        />
+                        <Input type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} placeholder="tu@correo.com" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
                       </div>
                       {errors.email && <p className="text-destructive text-sm">{errors.email}</p>}
                     </div>
@@ -282,23 +256,12 @@ const Landing1 = () => {
                       </Label>
                       <div className="relative">
                         <MessageSquare className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                        <Input
-                          type="tel"
-                          value={formData.telefono}
-                          onChange={e => handleInputChange('telefono', e.target.value)}
-                          placeholder="+52 55 1234 5678"
-                          className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
-                          disabled={isSubmitting}
-                        />
+                        <Input type="tel" value={formData.telefono} onChange={e => handleInputChange('telefono', e.target.value)} placeholder="+52 55 1234 5678" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
                       </div>
                       {errors.telefono && <p className="text-destructive text-sm">{errors.telefono}</p>}
                     </div>
 
-                    <Button
-                      type="submit"
-                      className="w-full h-14 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
-                      disabled={isSubmitting}
-                    >
+                    <Button type="submit" className="w-full h-14 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300" disabled={isSubmitting}>
                       {isSubmitting ? "Procesando..." : "EMPEZAR AHORA"}
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
@@ -323,11 +286,7 @@ const Landing1 = () => {
       <section className="py-20 bg-background" id="servicios">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="feature-card p-8 bg-card border border-border rounded-2xl"
-              >
+            {features.map((feature, index) => <div key={index} className="feature-card p-8 bg-card border border-border rounded-2xl">
                 <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
                   <feature.icon className="w-7 h-7 text-primary" />
                 </div>
@@ -337,8 +296,7 @@ const Landing1 = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   {feature.description}
                 </p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -356,8 +314,7 @@ const Landing1 = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {benefitsSection.map((benefit, index) => (
-              <div key={index} className="p-8 bg-card border border-border rounded-2xl">
+            {benefitsSection.map((benefit, index) => <div key={index} className="p-8 bg-card border border-border rounded-2xl">
                 <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
                   <benefit.icon className="w-7 h-7 text-primary" />
                 </div>
@@ -367,8 +324,7 @@ const Landing1 = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   {benefit.description}
                 </p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -393,8 +349,6 @@ const Landing1 = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Landing1;
