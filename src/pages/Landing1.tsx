@@ -243,14 +243,14 @@ const Landing1 = () => {
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                        Nombre Completo
+                        Nombre o Empresa
                       </Label>
                       <div className="relative">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                         <Input
                           value={formData.nombre}
                           onChange={e => handleInputChange('nombre', e.target.value)}
-                          placeholder="Ej. Ana García"
+                          placeholder="Ej. Ana García o Mi Empresa"
                           className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
                           disabled={isSubmitting}
                         />
