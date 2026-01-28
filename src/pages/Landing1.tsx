@@ -144,7 +144,6 @@ const Landing1 = () => {
             <div className="hidden md:flex items-center gap-8">
               <a href="#servicios" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Servicios</a>
               <a href="#casos" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Casos de Éxito</a>
-              <a href="#nosotros" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Nosotros</a>
             </div>
 
             <div className="flex items-center gap-3">
@@ -391,18 +390,6 @@ const Landing1 = () => {
             <p className="text-sm text-muted-foreground">
               © 2025 Crealoconia.com. Todos los derechos reservados.
             </p>
-            
-            <div className="flex items-center gap-6">
-              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Privacidad
-              </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Términos
-              </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Soporte
-              </a>
-            </div>
           </div>
         </div>
       </footer>
