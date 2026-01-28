@@ -15,17 +15,6 @@ const FooterNew = () => {
             © 2025 Crealoconia.com. Todos los derechos reservados.
           </p>
           
-          <div className="flex items-center gap-6">
-            <a href="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Privacidad
-            </a>
-            <a href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Términos
-            </a>
-            <a href="/support" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Soporte
-            </a>
-          </div>
         </div>
       </div>
     </footer>
