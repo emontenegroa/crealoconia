@@ -26,7 +26,31 @@ serve(async (req) => {
     )
 
     const { method } = req
-    const url = new URL(req.url)
+
+    // Parse request body for all methods that need it
+    let requestBody: { email?: string; name?: string; color?: string } = {}
+    if (method === 'POST') {
+      requestBody = await req.json()
+    } else if (method === 'GET') {
+      // For GET requests, check query params or headers for email
+      const url = new URL(req.url)
+      requestBody.email = url.searchParams.get('email') || undefined
+    }
+
+    // Validate admin email - only authorized admin can access tags
+    const authorizedEmail = 'esteban@crealoconia.com'
+    if (!requestBody.email || requestBody.email.toLowerCase() !== authorizedEmail.toLowerCase()) {
+      console.log('❌ Unauthorized access attempt:', requestBody.email)
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized - Admin access required' }),
+        { 
+          status: 403,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      )
+    }
+
+    console.log('✅ Admin authenticated:', requestBody.email)
 
     switch (method) {
       case 'GET':
@@ -45,7 +69,7 @@ serve(async (req) => {
 
       case 'POST':
         // Create a new tag
-        const { name, color } = await req.json()
+        const { name, color } = requestBody
 
         if (!name || !name.trim()) {
           return new Response(
