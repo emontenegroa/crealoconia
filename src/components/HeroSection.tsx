@@ -4,6 +4,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Zap, Sparkles, ShieldCheck, Star, User, Mail, MessageSquare } from "lucide-react";
 import { FormData } from '@/hooks/useFormHandler';
+import RotatingText from './RotatingText';
+
+const audienceTypes = [
+  "¿Eres Coach o Consultor?",
+  "¿Eres Terapeuta o Psicólogo?",
+  "¿Eres Freelancer o Diseñador?",
+  "¿Eres Nutricionista o Entrenador?",
+  "¿Tienes un Negocio Local?",
+  "¿Eres Profesional Independiente?"
+];
 
 interface HeroSectionProps {
   formData: FormData;
@@ -65,7 +75,7 @@ const HeroSection = ({
             {/* Main Headline */}
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-foreground">
-                ¿Eres Coach o Consultor?
+                <RotatingText texts={audienceTypes} interval={3000} />
                 <br />
                 <span className="text-foreground">Lanza tu Web Profesional en </span>
                 <span className="text-gradient-primary">4 Horas</span>
