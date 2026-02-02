@@ -11,6 +11,8 @@ const audienceTypes = [
   "¿Eres Terapeuta o Psicólogo?",
   "¿Eres Freelancer o Diseñador?",
   "¿Eres Nutricionista o Entrenador?",
+  "¿Eres Abogado o Doctor?",
+  "¿Tienes un Servicio para Empresas?",
   "¿Tienes un Negocio Local?",
   "¿Eres Profesional Independiente?"
 ];
