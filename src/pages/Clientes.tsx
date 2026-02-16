@@ -2,9 +2,9 @@ import { ExternalLink } from 'lucide-react';
 
 const clientes = [
   {
-    nombre: "Dr. Cristóbal Castillo",
+    nombre: "Dr. Cristóbal Castillo Malebrán",
     url: "https://encuadrados.crealoconia.com",
-    descripcion: "Psiquiatra Infanto-Juvenil. Bienestar emocional y neurodesarrollo para niños y adolescentes.",
+    descripcion: "Psiquiatra Infanto-Juvenil con más de 15 años de experiencia. Especialista en neurodesarrollo, autismo y TDAH en niños y adolescentes. Universidad de Chile.",
     imagen: "/clientes/encuadrados.png",
     categoria: "Salud",
   },
