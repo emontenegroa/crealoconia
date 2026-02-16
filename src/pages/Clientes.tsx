@@ -2,6 +2,13 @@ import { ExternalLink } from 'lucide-react';
 
 const clientes = [
 {
+  nombre: "Dra. María López",
+  url: "https://encuadrados.crealoconia.com",
+  descripcion: "Psiquiatra Infanto-Juvenil con más de 15 años de experiencia. Especialista en neurodesarrollo, autismo, TDAH y medicina del sueño. Universidad de Chile.",
+  imagen: "/clientes/encuadrados.png",
+  categoria: "Salud"
+},
+{
   nombre: "Hampi Paatcha",
   url: "https://hampi.cl",
   descripcion: "Bruja moderna que fusiona ciencia con espiritualidad. Transformación personal y gestión de la ansiedad.",
