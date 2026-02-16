@@ -122,11 +122,12 @@ const Clientes = () => {
 
               {/* Screenshot thumbnail */}
               <div className="aspect-video overflow-hidden bg-muted">
-                
-
-
-
-
+                <img
+                  src={cliente.imagen}
+                  alt={`Sitio web de ${cliente.nombre}`}
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
 
               </div>
 
