@@ -2,11 +2,25 @@ import { ExternalLink } from 'lucide-react';
 
 const clientes = [
 {
-  nombre: "Dra. María López",
-  url: "https://encuadrados.crealoconia.com",
-  descripcion: "Psiquiatra Infanto-Juvenil con más de 15 años de experiencia. Especialista en neurodesarrollo, autismo, TDAH y medicina del sueño. Universidad de Chile.",
-  imagen: "/clientes/encuadrados.png",
-  categoria: "Salud"
+  nombre: "Escala Humana",
+  url: "https://soyescalahumana.cl",
+  descripcion: "Acompañamiento y experiencias para reconectar con lo esencial. Coach ontológica y permacultora.",
+  imagen: "/clientes/escalahumana.png",
+  categoria: "Coaching"
+},
+{
+  nombre: "Geraldine Hyde",
+  url: "https://geraldinehyde.cl",
+  descripcion: "Abogada especialista en compliance educativo. 25 años transformando el cumplimiento legal en cultura de prevención.",
+  imagen: "/clientes/geraldine.png",
+  categoria: "Legal"
+},
+{
+  nombre: "Ángela Villena",
+  url: "https://angelavillena.com",
+  descripcion: "Mentoría ejecutiva. Acompañamiento estratégico para líderes con 27+ años de experiencia corporativa.",
+  imagen: "/clientes/angelavillena.png",
+  categoria: "Coaching"
 },
 {
   nombre: "Hampi Paatcha",
@@ -65,32 +79,11 @@ const clientes = [
   categoria: "Eventos"
 },
 {
-  nombre: "Escala Humana",
-  url: "https://soyescalahumana.cl",
-  descripcion: "Acompañamiento y experiencias para reconectar con lo esencial. Coach ontológica y permacultora.",
-  imagen: "/clientes/escalahumana.png",
-  categoria: "Coaching"
-},
-{
-  nombre: "Geraldine Hyde",
-  url: "https://geraldinehyde.cl",
-  descripcion: "Abogada especialista en compliance educativo. 25 años transformando el cumplimiento legal en cultura de prevención.",
-  imagen: "/clientes/geraldine.png",
-  categoria: "Legal"
-},
-{
   nombre: "Soynutri Meraki",
   url: "https://soynutrimeraki.cl",
   descripcion: "Nutricionista y esteticista. Tratamientos personalizados que elevan autoestima y devuelven luminosidad.",
   imagen: "/clientes/nutrimeraki.png",
   categoria: "Salud"
-},
-{
-  nombre: "Ángela Villena",
-  url: "https://angelavillena.com",
-  descripcion: "Mentoría ejecutiva. Acompañamiento estratégico para líderes con 27+ años de experiencia corporativa.",
-  imagen: "/clientes/angelavillena.png",
-  categoria: "Coaching"
 }];
 
 
