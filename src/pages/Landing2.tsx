@@ -487,25 +487,18 @@ const Landing2 = () => {
             <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">
               ✨ Lo que recibirás al completar este formulario
             </h2>
-            <p className="text-muted-foreground mb-4">
-              Respuestas claras = Mejor asistente de contenido personalizado para:
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="flex items-start gap-2 bg-secondary rounded-lg p-3">
                 <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-muted-foreground text-sm">Publicaciones para redes sociales (Instagram, LinkedIn, etc.)</span>
+                <span className="text-muted-foreground text-sm">Construimos el ejemplo de tu sitio web profesional con IA</span>
               </div>
               <div className="flex items-start gap-2 bg-secondary rounded-lg p-3">
                 <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-muted-foreground text-sm">Guiones para videos y reels</span>
+                <span className="text-muted-foreground text-sm">Te lo mostramos antes de que decidas comprar</span>
               </div>
               <div className="flex items-start gap-2 bg-secondary rounded-lg p-3">
                 <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-muted-foreground text-sm">Textos persuasivos para captar clientes</span>
-              </div>
-              <div className="flex items-start gap-2 bg-secondary rounded-lg p-3">
-                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-muted-foreground text-sm">Comunicación profesional y consistente</span>
+                <span className="text-muted-foreground text-sm">Si te gusta, lo publicas. Si no, no pagas nada</span>
               </div>
             </div>
           </div>
@@ -732,12 +725,12 @@ const Landing2 = () => {
                 {isSubmitting ? (
                   <>
                     <Sparkles className="w-5 h-5 mr-2 animate-spin" />
-                    Creando tu Kit IA personalizado...
+                    Creando tu sitio web...
                   </>
                 ) : (
                   <>
                     <Sparkles className="w-5 h-5 mr-2" />
-                    Recibir mi Kit IA gratuito
+                    Ver cómo quedaría mi sitio web
                   </>
                 )}
               </Button>

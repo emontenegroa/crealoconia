@@ -132,7 +132,7 @@ const Landing1 = () => {
   }, {
     icon: Bot,
     title: "Asistente IA Propio",
-    description: "Tu sistema trabaja 24/7 agendando llamadas y respondiendo dudas básicas por ti."
+    description: "Recibes un Asistente IA configurado con la información de tu negocio, listo para generar contenido, campañas y textos de venta. Valor: $150.000. Incluido sin costo extra."
   }];
 
   const aiToolsIncluded = [{
@@ -171,6 +171,7 @@ const Landing1 = () => {
             <div className="hidden md:flex items-center gap-8">
               <a href="#servicios" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Servicios</a>
               <a href="#casos" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Casos de Éxito</a>
+              <a href="/clientes" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Ver clientes</a>
             </div>
 
             <div className="flex items-center gap-3">
@@ -187,6 +188,17 @@ const Landing1 = () => {
 
       {/* Hero Section */}
       <header className="relative overflow-hidden">
+        {/* Bloque prueba social antes del formulario */}
+        <div className="bg-primary/5 border-b border-primary/10 py-3">
+          <div className="container mx-auto px-6 text-center">
+            <p className="text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground">Únete a los +12 negocios</span> que ya tienen su sitio con IA —{" "}
+              <a href="/clientes" className="text-primary hover:underline font-medium inline-flex items-center gap-1">
+                Ver proyectos reales →
+              </a>
+            </p>
+          </div>
+        </div>
         <div className="relative z-10 container mx-auto px-6 lg:px-12 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column */}
@@ -290,19 +302,19 @@ const Landing1 = () => {
                       </Label>
                       <div className="relative">
                         <MessageSquare className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                        <Input type="tel" value={formData.telefono} onChange={e => handleInputChange('telefono', e.target.value)} placeholder="+52 55 1234 5678" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
+                        <Input type="tel" value={formData.telefono} onChange={e => handleInputChange('telefono', e.target.value)} placeholder="+56 9 1234 5678" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
                       </div>
                       {errors.telefono && <p className="text-destructive text-sm">{errors.telefono}</p>}
                     </div>
 
                     <Button type="submit" className="w-full h-14 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300" disabled={isSubmitting}>
-                      {isSubmitting ? "Procesando..." : "EMPEZAR AHORA"}
+                      {isSubmitting ? "Procesando..." : "Ver cómo quedaría mi sitio web"}
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                     
                     <p className="text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
                       <Star className="w-4 h-4 text-primary" />
-                      Solo 5 plazas disponibles este mes
+                      Agenda tu llamada de diagnóstico gratuita — sin compromiso
                     </p>
                   </form>
                 </div>
@@ -424,12 +436,32 @@ const Landing1 = () => {
         </div>
       </section>
 
+      {/* Sección Precio */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="bg-card border border-primary/30 rounded-2xl p-8 md:p-12 shadow-lg shadow-primary/10">
+              <span className="text-sm font-semibold text-primary uppercase tracking-wider mb-4 block">Inversión única</span>
+              <div className="text-5xl md:text-6xl font-bold text-foreground mb-4">$390.000 <span className="text-2xl text-muted-foreground font-normal">CLP</span></div>
+              <p className="text-muted-foreground text-lg mb-6">
+                Incluye sitio web profesional + Asistente IA personalizado para tu negocio + dominio + hosting 2 años. Sin costos ocultos. Sin suscripciones.
+              </p>
+              <div className="bg-primary/10 border border-primary/20 rounded-xl p-4">
+                <p className="text-primary font-semibold">
+                  ✅ Primero ves tu sitio terminado. Solo pagas si te encanta.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Modelo Sin Riesgo */}
       <section className="py-20 bg-card/50">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="max-w-4xl mx-auto">
-            <div className="animated-border-wrapper">
-              <div className="bg-card rounded-[calc(1.5rem-2px)] p-8 md:p-12">
+            <div className="relative rounded-[1.5rem] p-[3px] bg-gradient-to-br from-emerald-400 via-green-500 to-emerald-600 shadow-[0_0_40px_rgba(16,185,129,0.4)]">
+              <div className="bg-card rounded-[calc(1.5rem-3px)] p-8 md:p-12">
                 <div className="text-center mb-10">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-6">
                     <ThumbsUp className="w-8 h-8 text-primary" />
@@ -476,7 +508,7 @@ const Landing1 = () => {
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl shadow-lg shadow-primary/25"
                   >
-                    Quiero Ver Mi Web Primero
+                    Ver cómo quedaría mi sitio web
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </div>
