@@ -364,6 +364,50 @@ const handler = async (req: Request): Promise<Response> => {
           email: "esteban@crealoconia.com"
         },
         to: [{ email: email, name: data?.marca || email }],
+        subject: `Estamos preparando tu sitio web — Crealoconia`,
+        htmlContent: `
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: white; color: #333;">
+            
+            <div style="padding: 40px 32px 32px 32px; background: white;">
+              <h1 style="color: #1f2937; font-size: 24px; font-weight: 600; margin: 0 0 16px 0; line-height: 1.3;">
+                Hola ${data?.marca || 'allí'},
+              </h1>
+              
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0;">
+                Recibimos la información de <strong>${data?.marca || 'tu negocio'}</strong>.
+              </p>
+              
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 24px; margin: 24px 0;">
+                <p style="color: #059669; font-size: 18px; font-weight: 600; margin: 0 0 12px 0;">
+                  🚀 Estamos preparando el ejemplo de tu sitio web con IA
+                </p>
+                <p style="color: #059669; font-size: 16px; margin: 0;">
+                  Te contactamos en las próximas 24 horas para mostrártelo.
+                </p>
+              </div>
+              
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 24px 0;">
+                Sin compromiso. Sin costo hasta que veas el resultado y te encante.
+              </p>
+
+              <div style="background: #f8fafc; padding: 24px; border-top: 1px solid #e5e7eb; margin-top: 32px;">
+                <p style="color: #4b5563; font-size: 16px; margin: 0 0 8px 0; line-height: 1.6;">
+                  — Esteban<br>
+                  <strong>Crealoconia.com</strong><br>
+                  📲 WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none;">+56 9 6279 1772</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        `
+      };
+    } else if (type === 'confirmation_DEPRECATED') {
+      emailPayload = {
+        sender: {
+          name: "Esteban de CrealoconIA",
+          email: "esteban@crealoconia.com"
+        },
+        to: [{ email: email, name: data?.marca || email }],
         subject: `🧠 Tu Kit IA está listo - ${data?.marca || 'Kit Personalizado'}`,
         htmlContent: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: white; color: #333;">

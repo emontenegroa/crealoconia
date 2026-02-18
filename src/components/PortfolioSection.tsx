@@ -92,7 +92,7 @@ const PortfolioSection = () => {
           <p className="text-muted-foreground mb-4">
             ¿Listo para crear tu sitio web profesional?
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               Entrega en 4 horas
@@ -106,6 +106,12 @@ const PortfolioSection = () => {
               Con IA integrada
             </div>
           </div>
+          <a
+            href="/clientes"
+            className="inline-flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 px-6 py-3 rounded-xl font-semibold transition-all duration-300"
+          >
+            Ver todos los proyectos →
+          </a>
         </div>
       </div>
     </section>;
