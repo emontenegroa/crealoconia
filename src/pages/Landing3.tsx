@@ -219,7 +219,7 @@ const Landing3 = () => {
             <span>|</span>
             <a href="#" className="hover:text-foreground transition-colors">Contacto</a>
           </div>
-          <p>contacto@crealoconia.com</p>
+          <p>esteban@crealoconia.com</p>
           <Button
             variant="outline"
             onClick={() => window.open('https://wa.me/56961249991', '_blank')}
