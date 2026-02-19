@@ -10,15 +10,15 @@ import { useFormPersistence } from "@/hooks/useFormPersistence";
 import RotatingText from "@/components/RotatingText";
 
 const audienceTypes = [
-  "¿Eres Coach o Consultor?",
-  "¿Eres Terapeuta o Psicólogo?",
-  "¿Eres Freelancer o Diseñador?",
-  "¿Eres Nutricionista o Entrenador?",
-  "¿Eres Abogado o Doctor?",
-  "¿Tienes un Servicio para Empresas?",
-  "¿Tienes un Negocio Local?",
-  "¿Eres Profesional Independiente?"
-];
+"¿Eres Coach o Consultor?",
+"¿Eres Terapeuta o Psicólogo?",
+"¿Eres Freelancer o Diseñador?",
+"¿Eres Nutricionista o Entrenador?",
+"¿Eres Abogado o Doctor?",
+"¿Tienes un Servicio para Empresas?",
+"¿Tienes un Negocio Local?",
+"¿Eres Profesional Independiente?"];
+
 const Landing1 = () => {
   const {
     toast
@@ -76,7 +76,7 @@ const Landing1 = () => {
       };
       await saveProgress(backendData as any);
       console.log('✅ Datos iniciales guardados en backend');
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       toast({
         title: "¡Perfecto!",
         description: "Continuemos con las siguientes preguntas"
@@ -94,12 +94,12 @@ const Landing1 = () => {
     }
   };
   const handleInputChange = (name: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
     if (errors[name]) {
-      setErrors(prev => {
+      setErrors((prev) => {
         const newErrors = {
           ...prev
         };
@@ -178,8 +178,8 @@ const Landing1 = () => {
               <Button variant="ghost" className="text-sm text-muted-foreground hover:text-foreground hidden sm:inline-flex">
                 Login
               </Button>
-              <Button className="bg-foreground text-background hover:bg-foreground/90 text-sm px-5" onClick={() => window.open('https://wa.me/56962791772?text=HeY%20como%20es%20eso%20de%20que%20creas%20paginas%20web%20en%204%20horas%3F', '_blank')}>
-                Contacto
+              <Button className="bg-foreground text-background hover:bg-foreground/90 text-sm px-5">
+                Hablemos
               </Button>
             </div>
           </div>
@@ -229,7 +229,7 @@ const Landing1 = () => {
               {/* Social Proof */}
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-3">
-                  {[1, 2, 3].map(i => <div key={i} className="w-10 h-10 rounded-full bg-secondary border-2 border-background flex items-center justify-center">
+                  {[1, 2, 3].map((i) => <div key={i} className="w-10 h-10 rounded-full bg-secondary border-2 border-background flex items-center justify-center">
                       <User className="w-5 h-5 text-muted-foreground" />
                     </div>)}
                   <div className="w-10 h-10 rounded-full bg-primary/20 border-2 border-background flex items-center justify-center">
@@ -239,7 +239,7 @@ const Landing1 = () => {
                 <div>
                   <p className="text-sm font-semibold text-foreground">Profesionales activos</p>
                   <div className="flex items-center gap-1">
-                    {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
+                    {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
                     <span className="text-sm text-muted-foreground ml-1">(4.9/5)</span>
                   </div>
                 </div>
@@ -280,7 +280,7 @@ const Landing1 = () => {
                       </Label>
                       <div className="relative">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                        <Input value={formData.nombre} onChange={e => handleInputChange('nombre', e.target.value)} placeholder="Ej. Ana García o Mi Empresa" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
+                        <Input value={formData.nombre} onChange={(e) => handleInputChange('nombre', e.target.value)} placeholder="Ej. Ana García o Mi Empresa" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
                       </div>
                       {errors.nombre && <p className="text-destructive text-sm">{errors.nombre}</p>}
                     </div>
@@ -291,7 +291,7 @@ const Landing1 = () => {
                       </Label>
                       <div className="relative">
                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                        <Input type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} placeholder="tu@correo.com" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
+                        <Input type="email" value={formData.email} onChange={(e) => handleInputChange('email', e.target.value)} placeholder="tu@correo.com" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
                       </div>
                       {errors.email && <p className="text-destructive text-sm">{errors.email}</p>}
                     </div>
@@ -302,7 +302,7 @@ const Landing1 = () => {
                       </Label>
                       <div className="relative">
                         <MessageSquare className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                        <Input type="tel" value={formData.telefono} onChange={e => handleInputChange('telefono', e.target.value)} placeholder="+56 9 1234 5678" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
+                        <Input type="tel" value={formData.telefono} onChange={(e) => handleInputChange('telefono', e.target.value)} placeholder="+56 9 1234 5678" className="h-14 pl-12 text-base bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl" disabled={isSubmitting} />
                       </div>
                       {errors.telefono && <p className="text-destructive text-sm">{errors.telefono}</p>}
                     </div>
@@ -392,8 +392,8 @@ const Landing1 = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {aiToolsIncluded.map((tool, index) => (
-              <div key={index} className="animated-border-wrapper group">
+            {aiToolsIncluded.map((tool, index) =>
+          <div key={index} className="animated-border-wrapper group">
                 <div className="bg-card rounded-[calc(1rem-2px)] p-6 h-full">
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -411,7 +411,7 @@ const Landing1 = () => {
                   </p>
                 </div>
               </div>
-            ))}
+          )}
           </div>
 
           <div className="mt-12 text-center">
@@ -504,10 +504,10 @@ const Landing1 = () => {
                     <ShieldCheck className="w-4 h-4 inline mr-2 text-primary" />
                     Sin compromisos. Sin letra pequeña. Sin presiones.
                   </p>
-                  <Button 
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl shadow-lg shadow-primary/25"
-                  >
+                  <Button
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl shadow-lg shadow-primary/25">
+
                     Ver cómo quedaría mi sitio web
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
