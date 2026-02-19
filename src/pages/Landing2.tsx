@@ -746,7 +746,7 @@ const Landing2 = () => {
             <span>|</span>
             <a href="#" className="hover:text-foreground transition-colors">Contacto</a>
           </div>
-          <p>contacto@crealoconia.com</p>
+          <p>esteban@crealoconia.com</p>
         </footer>
       </div>
     </div>
