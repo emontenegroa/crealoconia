@@ -19,17 +19,17 @@ import { useEmailHandling } from '@/hooks/useEmailHandling';
 const Landing2 = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  
+
   // Obtener email y nombre de localStorage en lugar de URL
   const userData = JSON.parse(localStorage.getItem('userData') || '{}');
   const email = userData.email;
   const nombre = userData.nombre;
-  
+
   // Integrar persistencia de formulario
   const { saveProgress, loadPreviousProgress, markAsCompleted } = useFormPersistence();
   const { generateSuperPrompt } = usePromptGeneration();
   const { sendEmailToAdmin, sendConfirmationEmail } = useEmailHandling();
-  
+
   const [formData, setFormData] = useState({
     instagram: '',
     tieneInstagram: false,
@@ -52,13 +52,13 @@ const Landing2 = () => {
   const [showAITooltip, setShowAITooltip] = useState(true);
 
   const handleAIUsageUpdate = (fieldName: string, count: number) => {
-    setAiUsage(prev => ({ ...prev, [fieldName]: count }));
+    setAiUsage((prev) => ({ ...prev, [fieldName]: count }));
   };
 
   useEffect(() => {
     // Scroll al inicio cuando se carga la página
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
+
     if (!email || !nombre) {
       toast({
         title: "Error",
@@ -75,7 +75,7 @@ const Landing2 = () => {
         toast({
           title: "💡 Tip: La IA puede ayudarte",
           description: "Escribe tus respuestas naturalmente y usa el botón 'IA te ayuda' para mejorar tu texto. Tienes 2 usos por pregunta.",
-          duration: 8000,
+          duration: 8000
         });
         localStorage.setItem('aiTooltipShown', 'true');
       }, 2000);
@@ -86,22 +86,22 @@ const Landing2 = () => {
   useEffect(() => {
     const restoreProgress = async () => {
       if (!email || progressRestored) return;
-      
+
       try {
         console.log('🔍 Buscando progreso previo del quiz para:', email);
         const previousData = await loadPreviousProgress(email);
-        
+
         if (previousData) {
           // Verificar si hay datos del quiz guardados
-          const hasQuizData = 
-            previousData.servicios || 
-            previousData.clientePerfil || 
-            previousData.problemaPrincipal || 
-            previousData.propuestaMetodo || 
-            previousData.resultados ||
-            previousData.instagram ||
-            previousData.website;
-          
+          const hasQuizData =
+          previousData.servicios ||
+          previousData.clientePerfil ||
+          previousData.problemaPrincipal ||
+          previousData.propuestaMetodo ||
+          previousData.resultados ||
+          previousData.instagram ||
+          previousData.website;
+
           if (hasQuizData) {
             console.log('✅ Progreso del quiz encontrado, restaurando...');
             setFormData({
@@ -117,11 +117,11 @@ const Landing2 = () => {
               estiloComunicacion: previousData.estiloComunicacion || ''
             });
             setProgressRestored(true);
-            
+
             toast({
               title: "Progreso restaurado",
               description: "Hemos recuperado tus respuestas anteriores del quiz.",
-              duration: 5000,
+              duration: 5000
             });
           }
         }
@@ -129,26 +129,26 @@ const Landing2 = () => {
         console.error('Error al cargar progreso previo:', error);
       }
     };
-    
+
     restoreProgress();
   }, [email, progressRestored, loadPreviousProgress, toast]);
 
   // Auto-guardar progreso cada 30 segundos en el backend
   useEffect(() => {
     if (!email) return;
-    
+
     const interval = setInterval(() => {
       const textFields = [
-        formData.servicios,
-        formData.clientePerfil,
-        formData.problemaPrincipal,
-        formData.propuestaMetodo
-      ];
-      const hasData = textFields.some(value => value.trim() !== '');
+      formData.servicios,
+      formData.clientePerfil,
+      formData.problemaPrincipal,
+      formData.propuestaMetodo];
+
+      const hasData = textFields.some((value) => value.trim() !== '');
       if (hasData || formData.instagram || formData.website || formData.estiloComunicacion) {
         // Recuperar WhatsApp de localStorage para incluirlo en el auto-save
         const initialData = JSON.parse(localStorage.getItem('userData') || '{}');
-        
+
         const completeFormData = {
           marca: nombre || '',
           email: email,
@@ -170,60 +170,60 @@ const Landing2 = () => {
   }, [formData, email, nombre, saveProgress]);
 
   const questions = [
-    {
-      name: 'servicios',
-      label: '¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas? (Sé específico)',
-      placeholder: 'Ej: Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras de 30-45 años que buscan reconectar con su propósito...',
-      helper: 'Describe quién eres, qué te apasiona y a quién ayudas específicamente.',
-      checklist: [
-        'Tu profesión o especialidad',
-        'Qué te apasiona genuinamente de tu trabajo',
-        'Perfil exacto de tu cliente ideal (edad, situación, necesidades)',
-        'Qué transformación o resultado buscas crear'
-      ]
-    },
-    {
-      name: 'problemaPrincipal',
-      label: '¿Qué problema específico vives día a día con tus clientes y cómo los ayudas a solucionarlo?',
-      placeholder: 'Ej: Mis clientas llegan sintiéndose bloqueadas emocionalmente, con miedo al fracaso y síndrome del impostor. Yo las ayudo con un proceso de autoconocimiento profundo usando técnicas de PNL...',
-      helper: 'Describe el problema real que resuelves y tu método o enfoque para solucionarlo.',
-      checklist: [
-        'El problema emocional o práctico que enfrentan',
-        'Cómo ese problema afecta su vida diaria',
-        'Tu método o proceso específico para ayudarlos',
-        'Qué hace diferente tu enfoque'
-      ]
-    },
-    {
-      name: 'clientePerfil',
-      label: '¿Qué te preguntan siempre tus clientes o qué disfrutas explicar una y otra vez?',
-      placeholder: 'Ej: Me preguntan constantemente si es posible cambiar de vida después de los 40 años cuando ya tienes responsabilidades. Me encanta mostrarles que siempre es posible...',
-      helper: 'Estas preguntas frecuentes revelan las dudas y miedos de tu audiencia.',
-      checklist: [
-        'Preguntas sobre viabilidad ("¿Es posible que yo...?")',
-        'Dudas sobre el proceso ("¿Cómo funciona?")',
-        'Preguntas sobre tiempo/inversión ("¿Cuánto toma?")',
-        'Objeciones comunes ("¿Y si no me resulta?")'
-      ]
-    },
-    {
-      name: 'propuestaMetodo',
-      label: '¿Cuál es tu producto o servicio principal que quieres vender más? (Describe beneficios específicos)',
-      placeholder: 'Ej: Mi programa \'Renace\', un proceso de coaching de 8 semanas que incluye sesiones individuales, workbook personalizado y comunidad privada. Está diseñado para mujeres que quieren cambios profundos en 90 días...',
-      helper: 'Describe tu oferta estrella con todos los detalles que la hacen valiosa.',
-      checklist: [
-        'Nombre del producto/servicio',
-        'Qué incluye específicamente (componentes, entregas)',
-        'Duración, formato y modalidad',
-        'Beneficios concretos y resultado esperado',
-        'Qué lo hace único o especial'
-      ]
-    }
-  ];
+  {
+    name: 'servicios',
+    label: '¿Quién eres y qué te apasiona de tu trabajo? ¿A quién ayudas? (Sé específico)',
+    placeholder: 'Ej: Soy Carolina, coach de vida certificada con 8 años de experiencia. Me apasiona acompañar a mujeres emprendedoras de 30-45 años que buscan reconectar con su propósito...',
+    helper: 'Describe quién eres, qué te apasiona y a quién ayudas específicamente.',
+    checklist: [
+    'Tu profesión o especialidad',
+    'Qué te apasiona genuinamente de tu trabajo',
+    'Perfil exacto de tu cliente ideal (edad, situación, necesidades)',
+    'Qué transformación o resultado buscas crear']
+
+  },
+  {
+    name: 'problemaPrincipal',
+    label: '¿Qué problema específico vives día a día con tus clientes y cómo los ayudas a solucionarlo?',
+    placeholder: 'Ej: Mis clientas llegan sintiéndose bloqueadas emocionalmente, con miedo al fracaso y síndrome del impostor. Yo las ayudo con un proceso de autoconocimiento profundo usando técnicas de PNL...',
+    helper: 'Describe el problema real que resuelves y tu método o enfoque para solucionarlo.',
+    checklist: [
+    'El problema emocional o práctico que enfrentan',
+    'Cómo ese problema afecta su vida diaria',
+    'Tu método o proceso específico para ayudarlos',
+    'Qué hace diferente tu enfoque']
+
+  },
+  {
+    name: 'clientePerfil',
+    label: '¿Qué te preguntan siempre tus clientes o qué disfrutas explicar una y otra vez?',
+    placeholder: 'Ej: Me preguntan constantemente si es posible cambiar de vida después de los 40 años cuando ya tienes responsabilidades. Me encanta mostrarles que siempre es posible...',
+    helper: 'Estas preguntas frecuentes revelan las dudas y miedos de tu audiencia.',
+    checklist: [
+    'Preguntas sobre viabilidad ("¿Es posible que yo...?")',
+    'Dudas sobre el proceso ("¿Cómo funciona?")',
+    'Preguntas sobre tiempo/inversión ("¿Cuánto toma?")',
+    'Objeciones comunes ("¿Y si no me resulta?")']
+
+  },
+  {
+    name: 'propuestaMetodo',
+    label: '¿Cuál es tu producto o servicio principal que quieres vender más? (Describe beneficios específicos)',
+    placeholder: 'Ej: Mi programa \'Renace\', un proceso de coaching de 8 semanas que incluye sesiones individuales, workbook personalizado y comunidad privada. Está diseñado para mujeres que quieren cambios profundos en 90 días...',
+    helper: 'Describe tu oferta estrella con todos los detalles que la hacen valiosa.',
+    checklist: [
+    'Nombre del producto/servicio',
+    'Qué incluye específicamente (componentes, entregas)',
+    'Duración, formato y modalidad',
+    'Beneficios concretos y resultado esperado',
+    'Qué lo hace único o especial']
+
+  }];
+
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
+
     // Sanitizar datos antes de validar
     const sanitizedData = {
       servicios: sanitizeTextForSubmit(formData.servicios),
@@ -232,17 +232,17 @@ const Landing2 = () => {
       propuestaMetodo: sanitizeTextForSubmit(formData.propuestaMetodo),
       estiloComunicacion: formData.estiloComunicacion
     };
-    
+
     // Validar con zod schema
     const result = quizFormSchema.safeParse(sanitizedData);
-    
+
     if (!result.success) {
-      result.error.errors.forEach(error => {
+      result.error.errors.forEach((error) => {
         const fieldName = error.path[0] as string;
         newErrors[fieldName] = error.message;
       });
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -250,9 +250,9 @@ const Landing2 = () => {
   const handleInputChange = (name: string, value: string) => {
     // Sanitizar solo caracteres peligrosos, sin trim
     const sanitizedValue = sanitizeText(value);
-    setFormData(prev => ({ ...prev, [name]: sanitizedValue }));
+    setFormData((prev) => ({ ...prev, [name]: sanitizedValue }));
     if (errors[name]) {
-      setErrors(prev => {
+      setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
@@ -263,51 +263,51 @@ const Landing2 = () => {
   const calculateProgress = () => {
     // Paso 2 de 3: empieza en 60% (paso 1 completado) y termina en 100%
     const textFields = [
-      formData.servicios,
-      formData.clientePerfil,
-      formData.problemaPrincipal,
-      formData.propuestaMetodo
-    ];
-    
+    formData.servicios,
+    formData.clientePerfil,
+    formData.problemaPrincipal,
+    formData.propuestaMetodo];
+
+
     // Campos obligatorios adicionales
     const requiredCount = 4 + (formData.estiloComunicacion ? 1 : 0);
-    
+
     // Campos opcionales: solo cuentan si tieneInstagram o tieneWebsite está marcado
     if (formData.tieneInstagram) textFields.push(formData.instagram);
     if (formData.tieneWebsite) textFields.push(formData.website);
-    
+
     const totalRequired = requiredCount + (formData.tieneInstagram ? 1 : 0) + (formData.tieneWebsite ? 1 : 0);
-    const completed = textFields.filter(value => typeof value === 'string' && value.trim().length >= 10).length + (formData.estiloComunicacion ? 1 : 0);
-    const quizProgress = (completed / totalRequired) * 40; // 40% del rango total
+    const completed = textFields.filter((value) => typeof value === 'string' && value.trim().length >= 10).length + (formData.estiloComunicacion ? 1 : 0);
+    const quizProgress = completed / totalRequired * 40; // 40% del rango total
     return 60 + quizProgress; // Base de 60% + hasta 40% = máximo 100%
   };
 
   const isFormComplete = () => {
     // Validar campos obligatorios
     const requiredFields = [
-      formData.servicios,
-      formData.clientePerfil,
-      formData.problemaPrincipal,
-      formData.propuestaMetodo
-    ];
-    
-    const requiredComplete = requiredFields.every(value => 
-      typeof value === 'string' && value.trim().length >= 10
+    formData.servicios,
+    formData.clientePerfil,
+    formData.problemaPrincipal,
+    formData.propuestaMetodo];
+
+
+    const requiredComplete = requiredFields.every((value) =>
+    typeof value === 'string' && value.trim().length >= 10
     );
-    
+
     // Validar campo select obligatorio
     if (!formData.estiloComunicacion) return false;
-    
+
     // Validar campos condicionales
     if (formData.tieneInstagram && formData.instagram.trim().length < 3) return false;
     if (formData.tieneWebsite && formData.website.trim().length < 10) return false;
-    
+
     return requiredComplete;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       toast({
         title: "Completa todas las preguntas",
@@ -318,11 +318,11 @@ const Landing2 = () => {
     }
 
     setIsSubmitting(true);
-    
+
     try {
       // Recuperar datos iniciales de Landing1
       const initialData = JSON.parse(localStorage.getItem('userData') || '{}');
-      
+
       // Construir datos completos incluyendo el WhatsApp de Landing1
       const completeFormData = {
         marca: nombre || '',
@@ -336,7 +336,7 @@ const Landing2 = () => {
         website: formData.website || '',
         instagram: formData.instagram || ''
       };
-      
+
       // Generar prompts
       console.log('🤖 Generando prompts...');
       const prompts = await generateSuperPrompt(completeFormData as any);
@@ -346,13 +346,13 @@ const Landing2 = () => {
         superPromptLength: prompts?.superPrompt?.length || 0,
         lovablePromptLength: prompts?.lovablePrompt?.length || 0
       });
-      
+
       // Agregar prompts a los datos completos
       const dataWithPrompts = {
         ...completeFormData,
         generatedPrompts: prompts
       };
-      
+
       console.log('💾 Guardando en backend con prompts incluidos...');
       console.log('📊 Datos a guardar:', {
         email: dataWithPrompts.email,
@@ -363,11 +363,11 @@ const Landing2 = () => {
         hasSuperPrompt: !!dataWithPrompts.generatedPrompts?.superPrompt,
         hasLovablePrompt: !!dataWithPrompts.generatedPrompts?.lovablePrompt
       });
-      
+
       // Marcar como completado en backend (incluye AMBOS prompts)
       await markAsCompleted(dataWithPrompts as any);
       console.log('✅ Registro completado guardado en backend con AMBOS prompts');
-      
+
       // Guardar en localStorage para Landing3
       const userData = JSON.parse(localStorage.getItem('userData') || '{}');
       const completeData = {
@@ -378,7 +378,7 @@ const Landing2 = () => {
         completedAt: new Date().toISOString()
       };
       localStorage.setItem('userData', JSON.stringify(completeData));
-      
+
       // Enviar emails (incluye Super Prompt en email de confirmación)
       console.log('📧 Enviando emails...');
       console.log('📧 Email admin con datos:', {
@@ -387,18 +387,18 @@ const Landing2 = () => {
         whatsapp: dataWithPrompts.whatsapp
       });
       console.log('📧 Email confirmación incluye Super Prompt:', !!dataWithPrompts.generatedPrompts?.superPrompt);
-      
+
       await Promise.all([
-        sendEmailToAdmin(dataWithPrompts as any),
-        sendConfirmationEmail(dataWithPrompts as any)
-      ]);
+      sendEmailToAdmin(dataWithPrompts as any),
+      sendConfirmationEmail(dataWithPrompts as any)]
+      );
       console.log('✅ Emails enviados exitosamente');
-      
+
       toast({
         title: "¡Perfecto!",
-        description: "Revisa tu correo para ver tus prompts personalizados",
+        description: "Revisa tu correo para ver tus prompts personalizados"
       });
-      
+
       navigate('/gracias');
     } catch (error) {
       console.error('Error:', error);
@@ -438,11 +438,11 @@ const Landing2 = () => {
             <p className="text-muted-foreground text-sm md:text-base">{Math.round(progress)}% completado</p>
           </div>
           <Progress value={progress} className="h-2" />
-          {nombre && (
-            <p className="text-muted-foreground mt-4 text-base md:text-lg">
+          {nombre &&
+          <p className="text-muted-foreground mt-4 text-base md:text-lg">
               Hola, <span className="font-semibold text-foreground">{nombre}</span>, casi estamos
             </p>
-          )}
+          }
         </div>
 
         <div className="text-center mb-8 md:mb-12">
@@ -457,8 +457,8 @@ const Landing2 = () => {
           </p>
           
           {/* Tooltip de ayuda de IA */}
-          {showAITooltip && (
-            <div className="max-w-2xl mx-auto bg-primary/10 border border-primary/20 rounded-lg p-4 backdrop-blur-sm animate-in fade-in slide-in-from-top-3 duration-500">
+          {showAITooltip &&
+          <div className="max-w-2xl mx-auto bg-primary/10 border border-primary/20 rounded-lg p-4 backdrop-blur-sm animate-in fade-in slide-in-from-top-3 duration-500">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                   <Lightbulb className="w-5 h-5 text-primary" />
@@ -472,14 +472,14 @@ const Landing2 = () => {
                   </p>
                 </div>
                 <button
-                  onClick={() => setShowAITooltip(false)}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
+                onClick={() => setShowAITooltip(false)}
+                className="text-muted-foreground hover:text-foreground transition-colors">
+
                   ✕
                 </button>
               </div>
             </div>
-          )}
+          }
         </div>
 
         <div className="animated-border-wrapper mb-8 md:mb-12">
@@ -523,33 +523,33 @@ const Landing2 = () => {
                     type="checkbox"
                     id="tieneInstagram"
                     checked={formData.tieneInstagram}
-                    onChange={(e) => setFormData(prev => ({ 
-                      ...prev, 
+                    onChange={(e) => setFormData((prev) => ({
+                      ...prev,
                       tieneInstagram: e.target.checked,
                       instagram: e.target.checked ? prev.instagram : ''
                     }))}
-                    className="w-4 h-4 accent-primary"
-                  />
+                    className="w-4 h-4 accent-primary" />
+
                   <Label htmlFor="tieneInstagram" className="text-foreground text-base cursor-pointer">
                     Tengo Instagram
                   </Label>
                 </div>
-                {formData.tieneInstagram && (
-                  <div>
+                {formData.tieneInstagram &&
+                <div>
                     <Label htmlFor="instagram" className="text-muted-foreground text-sm mb-2 block">
                       Usuario de Instagram (sin @)
                     </Label>
                     <input
-                      type="text"
-                      id="instagram"
-                      placeholder="tuusuario"
-                      value={formData.instagram}
-                      onChange={(e) => handleInputChange('instagram', e.target.value)}
-                      className="w-full bg-secondary border border-border text-foreground placeholder:text-muted-foreground px-4 py-2 rounded-md focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                      disabled={isSubmitting}
-                    />
+                    type="text"
+                    id="instagram"
+                    placeholder="tuusuario"
+                    value={formData.instagram}
+                    onChange={(e) => handleInputChange('instagram', e.target.value)}
+                    className="w-full bg-secondary border border-border text-foreground placeholder:text-muted-foreground px-4 py-2 rounded-md focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                    disabled={isSubmitting} />
+
                   </div>
-                )}
+                }
               </div>
 
               {/* Website */}
@@ -559,33 +559,33 @@ const Landing2 = () => {
                     type="checkbox"
                     id="tieneWebsite"
                     checked={formData.tieneWebsite}
-                    onChange={(e) => setFormData(prev => ({ 
-                      ...prev, 
+                    onChange={(e) => setFormData((prev) => ({
+                      ...prev,
                       tieneWebsite: e.target.checked,
                       website: e.target.checked ? prev.website : ''
                     }))}
-                    className="w-4 h-4 accent-primary"
-                  />
+                    className="w-4 h-4 accent-primary" />
+
                   <Label htmlFor="tieneWebsite" className="text-foreground text-base cursor-pointer">
                     Tengo sitio web
                   </Label>
                 </div>
-                {formData.tieneWebsite && (
-                  <div>
+                {formData.tieneWebsite &&
+                <div>
                     <Label htmlFor="website" className="text-muted-foreground text-sm mb-2 block">
                       URL de tu sitio web
                     </Label>
                     <input
-                      type="url"
-                      id="website"
-                      placeholder="https://tusitio.com"
-                      value={formData.website}
-                      onChange={(e) => handleInputChange('website', e.target.value)}
-                      className="w-full bg-secondary border border-border text-foreground placeholder:text-muted-foreground px-4 py-2 rounded-md focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                      disabled={isSubmitting}
-                    />
+                    type="url"
+                    id="website"
+                    placeholder="https://tusitio.com"
+                    value={formData.website}
+                    onChange={(e) => handleInputChange('website', e.target.value)}
+                    className="w-full bg-secondary border border-border text-foreground placeholder:text-muted-foreground px-4 py-2 rounded-md focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                    disabled={isSubmitting} />
+
                   </div>
-                )}
+                }
               </div>
             </div>
 
@@ -593,12 +593,12 @@ const Landing2 = () => {
             {questions.map((question, index) => {
               const fieldValue = formData[question.name as keyof typeof formData];
               const stringValue = typeof fieldValue === 'string' ? fieldValue : '';
-              
+
               const handleVoiceTranscription = (transcribedText: string) => {
                 const newValue = stringValue ? `${stringValue} ${transcribedText}` : transcribedText;
                 handleInputChange(question.name, newValue);
               };
-              
+
               return (
                 <div key={question.name} className="space-y-3">
                   <div className="flex items-center justify-between gap-4">
@@ -608,15 +608,15 @@ const Landing2 = () => {
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
-                        onClick={() => setExpandedFields(prev => ({ ...prev, [question.name]: !prev[question.name] }))}
+                        onClick={() => setExpandedFields((prev) => ({ ...prev, [question.name]: !prev[question.name] }))}
                         className="text-muted-foreground hover:text-foreground transition-colors p-1"
-                        title={expandedFields[question.name] ? "Contraer" : "Expandir"}
-                      >
-                        {expandedFields[question.name] ? (
-                          <Minimize2 className="w-4 h-4" />
-                        ) : (
-                          <Maximize2 className="w-4 h-4" />
-                        )}
+                        title={expandedFields[question.name] ? "Contraer" : "Expandir"}>
+
+                        {expandedFields[question.name] ?
+                        <Minimize2 className="w-4 h-4" /> :
+
+                        <Maximize2 className="w-4 h-4" />
+                        }
                       </button>
                       <AIEnhanceButton
                         currentText={stringValue}
@@ -627,18 +627,18 @@ const Landing2 = () => {
                         }}
                         onEnhanced={(enhancedText) => handleInputChange(question.name, enhancedText)}
                         sessionId={sessionId}
-                        onUsageUpdate={handleAIUsageUpdate}
-                      />
+                        onUsageUpdate={handleAIUsageUpdate} />
+
                     </div>
                   </div>
                   
                   {/* Prominent Voice Recorder - above textarea */}
                   <div className="mt-2 mb-3">
-                    <VoiceRecorder 
+                    <VoiceRecorder
                       onTranscription={handleVoiceTranscription}
                       prominent={true}
-                      disabled={isSubmitting}
-                    />
+                      disabled={isSubmitting} />
+
                   </div>
                   
                   <Textarea
@@ -649,22 +649,22 @@ const Landing2 = () => {
                     onFocus={() => setFocusedField(question.name)}
                     onBlur={() => setFocusedField(null)}
                     className={`bg-secondary border-border text-foreground placeholder:text-muted-foreground text-base transition-all duration-300 focus:border-primary focus:ring-2 focus:ring-primary/20 ${
-                      expandedFields[question.name] ? 'min-h-[300px]' : 'min-h-[120px]'
-                    }`}
+                    expandedFields[question.name] ? 'min-h-[300px]' : 'min-h-[120px]'}`
+                    }
                     disabled={isSubmitting}
                     maxLength={2000}
-                    showCounter={true}
-                  />
-                  <QuestionHelpCard 
+                    showCounter={true} />
+
+                  <QuestionHelpCard
                     checklist={question.checklist}
                     helper={question.helper}
-                    isVisible={focusedField === question.name}
-                  />
-                  {errors[question.name] && (
-                    <p className="text-destructive text-sm mt-2">{errors[question.name]}</p>
-                  )}
-                </div>
-              );
+                    isVisible={focusedField === question.name} />
+
+                  {errors[question.name] &&
+                  <p className="text-destructive text-sm mt-2">{errors[question.name]}</p>
+                  }
+                </div>);
+
             })}
 
             {/* Pregunta 10: Estilo de comunicación */}
@@ -672,11 +672,11 @@ const Landing2 = () => {
               <Label htmlFor="estiloComunicacion" className="text-foreground text-base md:text-lg font-bold block">
                 10. ¿Cómo te gusta comunicarte en redes sociales?
               </Label>
-              <Select 
-                value={formData.estiloComunicacion || ''} 
-                onValueChange={(value) => setFormData(prev => ({ ...prev, estiloComunicacion: value }))}
-                onOpenChange={(open) => setFocusedField(open ? 'estiloComunicacion' : null)}
-              >
+              <Select
+                value={formData.estiloComunicacion || ''}
+                onValueChange={(value) => setFormData((prev) => ({ ...prev, estiloComunicacion: value }))}
+                onOpenChange={(open) => setFocusedField(open ? 'estiloComunicacion' : null)}>
+
                 <SelectTrigger className="bg-secondary border-border text-foreground">
                   <SelectValue placeholder="Selecciona tu estilo" />
                 </SelectTrigger>
@@ -689,21 +689,21 @@ const Landing2 = () => {
                   <SelectItem value="creativo">Creativo y original</SelectItem>
                 </SelectContent>
               </Select>
-              {focusedField === 'estiloComunicacion' && (
-                <p className="text-sm text-primary/90 mt-2 animate-in fade-in slide-in-from-top-1 duration-200 flex items-start gap-2">
+              {focusedField === 'estiloComunicacion' &&
+              <p className="text-sm text-primary/90 mt-2 animate-in fade-in slide-in-from-top-1 duration-200 flex items-start gap-2">
                   <span className="text-base">💡</span>
                   <span>Elige el tono que mejor refleje tu personalidad y la forma en que te conectas con tu audiencia.</span>
                 </p>
-              )}
+              }
             </div>
 
-            {!isFormComplete() && (
-              <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mb-6">
+            {!isFormComplete() &&
+            <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mb-6">
                 <p className="text-primary text-sm text-center">
                   💡 Completa todas las preguntas (cada respuesta con al menos 10 caracteres) y selecciona tu estilo de comunicación para continuar
                 </p>
               </div>
-            )}
+            }
 
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
               <Button
@@ -711,8 +711,8 @@ const Landing2 = () => {
                 variant="outline"
                 onClick={() => navigate('/')}
                 className="w-full sm:w-auto border-border text-muted-foreground hover:bg-secondary hover:text-foreground"
-                disabled={isSubmitting}
-              >
+                disabled={isSubmitting}>
+
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Volver atrás
               </Button>
@@ -720,37 +720,37 @@ const Landing2 = () => {
               <Button
                 type="submit"
                 className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-6 rounded-full text-base md:text-lg transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isSubmitting || !isFormComplete()}
-              >
-                {isSubmitting ? (
-                  <>
+                disabled={isSubmitting || !isFormComplete()}>
+
+                {isSubmitting ?
+                <>
                     <Sparkles className="w-5 h-5 mr-2 animate-spin" />
                     Creando tu sitio web...
-                  </>
-                ) : (
-                  <>
+                  </> :
+
+                <>
                     <Sparkles className="w-5 h-5 mr-2" />
                     Ver cómo quedaría mi sitio web
                   </>
-                )}
+                }
               </Button>
             </div>
           </form>
         </div>
 
         <footer className="text-center text-muted-foreground text-sm space-y-2 pt-8 border-t border-border">
-          <div className="flex justify-center gap-4 mb-2">
-            <a href="#" className="hover:text-foreground transition-colors">Privacidad</a>
-            <span>|</span>
-            <a href="#" className="hover:text-foreground transition-colors">Términos</a>
-            <span>|</span>
-            <a href="#" className="hover:text-foreground transition-colors">Contacto</a>
-          </div>
+          
+
+
+
+
+
+
           <p>esteban@crealoconia.com</p>
         </footer>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Landing2;
