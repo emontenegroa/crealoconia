@@ -186,8 +186,8 @@ const Landing3 = () => {
             <p className="text-muted-foreground mb-4 text-base md:text-lg">
               La mentoría para crear y lanzar tu web es <strong className="text-foreground">sin costo al agendar</strong>.
             </p>
-            <p className="text-muted-foreground mb-4 text-base md:text-lg">
-              El pago de <strong className="text-foreground text-xl">$390.000 CLP</strong> (web + dominio + hosting 2 años + mentoría personalizada) 
+            <p className="text-muted-foreground mb-4 text-base md:text-lg">El pago de $390.000 CLP (web + dominio + hosting 2 años + Asistentes de IA + Mentoría personalizada) se realiza durante la sesión, mediante un enlace de pago seguro.
+              <strong className="text-foreground text-xl">$390.000 CLP</strong> (web + dominio + hosting 2 años + mentoría personalizada) 
               se realiza <strong className="text-foreground">durante la sesión</strong>, mediante un enlace de pago seguro.
             </p>
             <p className="text-muted-foreground text-base md:text-lg">
