@@ -111,8 +111,8 @@ const Landing3 = () => {
             {/* CTA Button */}
             <Button
               onClick={handleSchedule}
-              className="w-full mb-8 bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-6 md:py-8 rounded-full text-base md:text-xl transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02]"
-            >
+              className="w-full mb-8 bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-6 md:py-8 rounded-full text-base md:text-xl transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02]">
+
               <Calendar className="w-6 h-6 mr-2" />
               Quiero ver mi sitio ahora
             </Button>
@@ -187,7 +187,7 @@ const Landing3 = () => {
               La mentoría para crear y lanzar tu web es <strong className="text-foreground">sin costo al agendar</strong>.
             </p>
             <p className="text-muted-foreground mb-4 text-base md:text-lg">
-              El pago de <strong className="text-foreground text-xl">$197.000 CLP</strong> (web + dominio + hosting 2 años + mentoría personalizada) 
+              El pago de <strong className="text-foreground text-xl">$390.000 CLP</strong> (web + dominio + hosting 2 años + mentoría personalizada) 
               se realiza <strong className="text-foreground">durante la sesión</strong>, mediante un enlace de pago seguro.
             </p>
             <p className="text-muted-foreground text-base md:text-lg">
@@ -223,14 +223,14 @@ const Landing3 = () => {
           <Button
             variant="outline"
             onClick={() => window.open('https://wa.me/56962791772?text=HeY%20como%20es%20eso%20de%20que%20creas%20paginas%20web%20en%204%20horas%3F', '_blank')}
-            className="mt-4 border-border text-muted-foreground hover:bg-secondary hover:text-foreground"
-          >
+            className="mt-4 border-border text-muted-foreground hover:bg-secondary hover:text-foreground">
+
             WhatsApp: +56 9 6124 9991
           </Button>
         </footer>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Landing3;
