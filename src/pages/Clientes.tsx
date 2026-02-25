@@ -1,4 +1,5 @@
 import { ExternalLink } from 'lucide-react';
+import WhatsAppFloat from '@/components/WhatsAppFloat';
 
 const clientes = [
 {
@@ -88,7 +89,7 @@ const clientes = [
 
 
 const Clientes = () => {
-  return (
+  return (<>
     <main className="min-h-screen bg-background py-16 px-4">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
@@ -159,7 +160,9 @@ const Clientes = () => {
           </a>
         </div>
       </div>
-    </main>);
+    </main>
+    <WhatsAppFloat />
+    </>);
 
 };
 

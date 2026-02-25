@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import PortfolioSection from "@/components/PortfolioSection";
 import { useFormPersistence } from "@/hooks/useFormPersistence";
 import RotatingText from "@/components/RotatingText";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const audienceTypes = [
 "¿Eres Coach o Consultor?",
@@ -538,6 +539,7 @@ const Landing1 = () => {
           </div>
         </div>
       </footer>
+      <WhatsAppFloat />
     </div>;
 };
 export default Landing1;
