@@ -11,7 +11,7 @@ import ImprovedTestimonials from '@/components/ImprovedTestimonials';
 import StickyMobileCTA from '@/components/StickyMobileCTA';
 import ImprovedFAQ from '@/components/ImprovedFAQ';
 import PortfolioSection from '@/components/PortfolioSection';
-import WhatsAppFloat from '@/components/WhatsAppFloat';
+
 import QuienSoy from '@/components/QuienSoy';
 import Metodologia from '@/components/Metodologia';
 import { MetaTracker } from '@/components/MetaTracker';
@@ -204,7 +204,6 @@ const Index = () => {
         </div>
       )}
       
-      <WhatsAppFloat />
     </div>
   );
 };
