@@ -11,7 +11,7 @@ const Privacidad = () => {
           <div>
             <h2 className="text-xl font-semibold mb-2">1. Quiénes somos</h2>
             <p>Crealo con IA es una plataforma de creación de contenido asistida por inteligencia artificial para profesionales y empresas de salud, bienestar y servicios en Chile y Latinoamérica.</p>
-            <p className="mt-1">Contacto: esteban@crealoconia.com<a href="mailto:hola@crealoconia.com" className="text-primary underline">hola@crealoconia.com</a></p>
+            <p className="mt-1">Contacto: <a href="mailto:esteban@crealoconia.com" className="text-primary underline">esteban@crealoconia.com</a></p>
           </div>
 
           <div>
@@ -60,7 +60,7 @@ const Privacidad = () => {
 
           <div>
             <h2 className="text-xl font-semibold mb-2">7. Tus derechos (Ley 19.628)</h2>
-            <p>Tienes derecho a acceder, rectificar, cancelar u oponerte al tratamiento de tus datos. Escríbenos a esteban@crealoconia.com— respondemos en máximo 15 días hábiles.<a href="mailto:hola@crealoconia.com" className="text-primary underline">hola@crealoconia.com</a> — respondemos en máximo 15 días hábiles.</p>
+            <p>Tienes derecho a acceder, rectificar, cancelar u oponerte al tratamiento de tus datos. Escríbenos a <a href="mailto:esteban@crealoconia.com" className="text-primary underline">esteban@crealoconia.com</a> — respondemos en máximo 15 días hábiles.</p>
           </div>
 
           <div>
@@ -75,7 +75,7 @@ const Privacidad = () => {
 
           <div>
             <h2 className="text-xl font-semibold mb-2">10. Contacto</h2>
-            <p><a href="mailto:hola@crealoconia.com" className="text-primary underline">hola@crealoconia.com</a></p>
+            <p><a href="mailto:esteban@crealoconia.com" className="text-primary underline">esteban@crealoconia.com</a></p>
           </div>
         </section>
       </main>
