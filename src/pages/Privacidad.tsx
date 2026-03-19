@@ -60,7 +60,7 @@ const Privacidad = () => {
 
           <div>
             <h2 className="text-xl font-semibold mb-2">7. Tus derechos (Ley 19.628)</h2>
-            <p>Tienes derecho a acceder, rectificar, cancelar u oponerte al tratamiento de tus datos. Escríbenos a esteban@crealoconia.com— respondemos en máximo 15 días hábiles.<a href="mailto:hola@crealoconia.com" className="text-primary underline">hola@crealoconia.com</a> — respondemos en máximo 15 días hábiles.</p>
+            <p>Tienes derecho a acceder, rectificar, cancelar u oponerte al tratamiento de tus datos. Escríbenos a <a href="mailto:esteban@crealoconia.com" className="text-primary underline">esteban@crealoconia.com</a> — respondemos en máximo 15 días hábiles.</p>
           </div>
 
           <div>
