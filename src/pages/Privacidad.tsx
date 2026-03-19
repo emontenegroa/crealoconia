@@ -75,7 +75,7 @@ const Privacidad = () => {
 
           <div>
             <h2 className="text-xl font-semibold mb-2">10. Contacto</h2>
-            <p><a href="mailto:hola@crealoconia.com" className="text-primary underline">hola@crealoconia.com</a></p>
+            <p><a href="mailto:esteban@crealoconia.com" className="text-primary underline">esteban@crealoconia.com</a></p>
           </div>
         </section>
       </main>
