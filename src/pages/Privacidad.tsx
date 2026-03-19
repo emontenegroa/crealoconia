@@ -11,7 +11,7 @@ const Privacidad = () => {
           <div>
             <h2 className="text-xl font-semibold mb-2">1. Quiénes somos</h2>
             <p>Crealo con IA es una plataforma de creación de contenido asistida por inteligencia artificial para profesionales y empresas de salud, bienestar y servicios en Chile y Latinoamérica.</p>
-            <p className="mt-1">Contacto: esteban@crealoconia.com<a href="mailto:hola@crealoconia.com" className="text-primary underline">hola@crealoconia.com</a></p>
+            <p className="mt-1">Contacto: <a href="mailto:esteban@crealoconia.com" className="text-primary underline">esteban@crealoconia.com</a></p>
           </div>
 
           <div>
