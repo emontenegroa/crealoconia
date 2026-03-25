@@ -41,7 +41,7 @@ serve(async (req) => {
 
     // Parse request body/params
     let sessionToken: string | undefined
-    let requestBody: { email?: string; name?: string; color?: string; sessionToken?: string } = {}
+    let requestBody: { email?: string; name?: string; color?: string; sessionToken?: string; action?: string } = {}
     
     if (method === 'POST') {
       requestBody = await req.json()
