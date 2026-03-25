@@ -340,10 +340,40 @@ serve(async (req) => {
       // Log admin access for audit trail
       await supabase.rpc('log_admin_access', { admin_email: email });
       
+      // Generate a cryptographic session token
+      const sessionToken = crypto.randomUUID() + '-' + crypto.randomUUID();
+      const expiresAt = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString(); // 8 hours
+      
+      // Store the session token in admin_temp_keys with 8h expiry
+      const { error: tokenStoreError } = await supabase
+        .from('admin_temp_keys')
+        .insert({
+          email: email,
+          temp_key: sessionToken,
+          expires_at: expiresAt,
+          used: false,
+          user_agent: req.headers.get('user-agent')
+        });
+      
+      if (tokenStoreError) {
+        console.error('❌ Error storing session token:', tokenStoreError);
+        return new Response(
+          JSON.stringify({ error: 'Error interno creando sesión' }),
+          { 
+            status: 500,
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
+          }
+        );
+      }
+      
+      console.log('✅ Session token created, expires at:', expiresAt);
+      
       return new Response(
         JSON.stringify({ 
           message: 'Autenticación exitosa',
-          email: email
+          email: email,
+          sessionToken: sessionToken,
+          expiresAt: expiresAt
         }),
         { 
           status: 200,
