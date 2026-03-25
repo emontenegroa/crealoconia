@@ -99,8 +99,11 @@ serve(async (req) => {
 
     console.log('✅ Admin authenticated via session token')
 
-    switch (method) {
-      case 'GET':
+    // Route by action field since supabase.functions.invoke always uses POST
+    const action = requestBody.action || (method === 'GET' ? 'get' : 'create')
+    
+    switch (action) {
+      case 'get':
         // Get all tags
         const { data: tags, error: fetchError } = await supabaseAdmin
           .from('tags')
@@ -114,7 +117,7 @@ serve(async (req) => {
           { headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
         )
 
-      case 'POST':
+      case 'create':
         // Create a new tag
         const { name, color } = requestBody
 
