@@ -7,12 +7,13 @@ export const WhatIsSection = () => {
     <section className="py-20 bg-secondary/30" aria-labelledby="que-es-crealoconia">
       <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
         <h2 id="que-es-crealoconia" className="text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
-          ¿Qué es CrealoconIA?
+          ¿Qué es CrealoconIA? Sitios web profesionales con inteligencia artificial en Chile
         </h2>
         <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-center">
-          CrealoconIA es una plataforma digital que utiliza inteligencia artificial para ayudar a emprendedores, 
-          coaches, terapeutas y pequeñas empresas a crear su sitio web profesional, generar contenido y definir 
-          su estrategia digital, con acompañamiento personalizado.
+          CrealoconIA es una plataforma chilena fundada por Esteban Montenegro que crea sitios web profesionales 
+          usando inteligencia artificial en 24 horas. Está diseñada para emprendedores, coaches, terapeutas y 
+          pequeñas empresas que necesitan presencia digital sin complicaciones técnicas. Incluye mentoría 
+          personalizada 1:1, textos optimizados para conversión y un asistente IA de contenido.
         </p>
       </div>
     </section>
@@ -22,17 +23,17 @@ export const WhatIsSection = () => {
 // ¿PARA QUIÉN ES?
 export const ForWhoSection = () => {
   const audiences = [
-    { icon: Users, text: "Emprendedores que no saben por dónde empezar" },
-    { icon: MessageSquare, text: "Profesionales independientes: coaches, terapeutas, consultores" },
-    { icon: Globe, text: "Pymes que necesitan presencia digital rápida" },
-    { icon: Sparkles, text: "Personas que quieren usar IA sin aprender tecnología compleja" },
+    { icon: Users, text: "Emprendedores que necesitan su primera página web profesional sin saber de tecnología" },
+    { icon: MessageSquare, text: "Profesionales independientes: coaches, terapeutas, psicólogos, consultores y abogados" },
+    { icon: Globe, text: "Pymes y negocios locales en Chile que necesitan presencia digital rápida y efectiva" },
+    { icon: Sparkles, text: "Personas que quieren aprovechar la inteligencia artificial para su negocio sin aprender programación" },
   ];
 
   return (
     <section className="py-20 bg-background" aria-labelledby="para-quien-es">
       <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
         <h2 id="para-quien-es" className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
-          ¿Para quién es CrealoconIA?
+          ¿Para quién es CrealoconIA? Profesionales y emprendedores en Chile
         </h2>
         <ul className="space-y-6">
           {audiences.map((item, index) => (
@@ -50,18 +51,18 @@ export const ForWhoSection = () => {
 // ¿QUÉ INCLUYE?
 export const WhatIncludesSection = () => {
   const includes = [
-    "Creación de sitio web profesional con IA",
-    "Estructura de contenidos clara y orientada a conversión",
-    "Textos optimizados para buscadores y motores de IA",
-    "Mentoría 1:1 para aplicar IA al negocio",
-    "Acompañamiento estratégico en decisiones digitales",
+    "Creación de sitio web profesional con inteligencia artificial en 24 horas",
+    "Textos de venta optimizados para buscadores (SEO) y motores de IA",
+    "Asistente IA personalizado para generar contenido, campañas y textos",
+    "Mentoría 1:1 con Esteban Montenegro para ajustar tu estrategia digital",
+    "Hosting incluido por 2 años con dominio .com o .cl configurado",
   ];
 
   return (
     <section className="py-20 bg-secondary/30" aria-labelledby="que-incluye">
       <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
         <h2 id="que-incluye" className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
-          ¿Qué incluye CrealoconIA?
+          ¿Qué incluye CrealoconIA por $390.000 CLP?
         </h2>
         <ul className="space-y-4">
           {includes.map((item, index) => (
@@ -79,18 +80,18 @@ export const WhatIncludesSection = () => {
 // ¿CÓMO FUNCIONA?
 export const HowItWorksSection = () => {
   const steps = [
-    { number: 1, title: "Levantamos tu contexto y objetivo", description: "Entendemos tu negocio, audiencia y metas." },
-    { number: 2, title: "Definimos estructura y mensaje clave", description: "Creamos la estrategia de contenido." },
-    { number: 3, title: "Creamos el sitio web con IA", description: "Generamos tu sitio profesional en tiempo récord." },
-    { number: 4, title: "Ajustamos contenido y diseño", description: "Personalizamos hasta que quede perfecto." },
-    { number: 5, title: "Te acompañamos con mentoría", description: "Sesión 1:1 para implementar y optimizar." },
+    { number: 1, title: "Completas un quiz de 10 preguntas sobre tu negocio", description: "Nos cuentas quién eres, a quién ayudas y qué vendes. Toma 5 minutos." },
+    { number: 2, title: "Creamos tu sitio web con inteligencia artificial", description: "Generamos tu sitio profesional con textos optimizados en menos de 24 horas." },
+    { number: 3, title: "Revisas tu sitio web terminado sin compromiso", description: "Te mostramos el resultado completo. Solo pagas si te gusta." },
+    { number: 4, title: "Mentoría 1:1 para ajustar y publicar", description: "Sesión personalizada con Esteban Montenegro para refinar y dejar todo listo." },
+    { number: 5, title: "Tu web publicada con dominio propio", description: "Configuramos dominio, hosting y te entregamos tu asistente IA de contenido." },
   ];
 
   return (
     <section className="py-20 bg-background" aria-labelledby="como-funciona">
       <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
         <h2 id="como-funciona" className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
-          ¿Cómo funciona CrealoconIA?
+          ¿Cómo funciona CrealoconIA? 5 pasos para tu sitio web con IA
         </h2>
         <ol className="space-y-6">
           {steps.map((step) => (
@@ -113,17 +114,17 @@ export const HowItWorksSection = () => {
 // ¿POR QUÉ CREALOCONIA Y NO UNA AGENCIA?
 export const WhyNotAgencySection = () => {
   const reasons = [
-    { icon: Zap, title: "No es solo diseño", description: "Es estrategia + IA combinadas." },
-    { icon: CheckCircle, title: "No entregamos un sitio", description: "Entregamos claridad sobre tu presencia digital." },
-    { icon: Sparkles, title: "No necesitas saber tecnología", description: "Nosotros nos encargamos de todo lo técnico." },
-    { icon: Handshake, title: "Acompañamiento real", description: "No solo entrega, mentoría personalizada incluida." },
+    { icon: Zap, title: "24 horas, no semanas", description: "Una agencia tarda semanas. CrealoconIA entrega en 24 horas con IA + estrategia." },
+    { icon: CheckCircle, title: "Textos que convierten", description: "No entregamos solo diseño. Entregamos copywriting optimizado para ventas." },
+    { icon: Sparkles, title: "Sin conocimientos técnicos", description: "Solo respondes 10 preguntas. Nosotros nos encargamos de todo lo técnico." },
+    { icon: Handshake, title: "Mentoría real incluida", description: "Sesión 1:1 con Esteban Montenegro. No solo entrega, acompañamiento personalizado." },
   ];
 
   return (
     <section className="py-20 bg-secondary/30" aria-labelledby="por-que-crealoconia">
       <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
         <h2 id="por-que-crealoconia" className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
-          ¿Por qué CrealoconIA y no una agencia tradicional?
+          ¿Por qué CrealoconIA y no una agencia de diseño web tradicional?
         </h2>
         <div className="grid md:grid-cols-2 gap-6">
           {reasons.map((reason, index) => (
@@ -145,20 +146,20 @@ export const WhyNotAgencySection = () => {
 export const SEOFAQSection = () => {
   const faqs = [
     {
-      question: "¿Necesito saber de tecnología o IA?",
-      answer: "No. CrealoconIA está pensada para personas sin conocimientos técnicos."
+      question: "¿Cuánto cuesta crear un sitio web con IA en Chile?",
+      answer: "CrealoconIA ofrece sitios web profesionales por $390.000 CLP como pago único. Incluye sitio web, dominio, hosting 2 años, asistente IA y mentoría 1:1. Sin suscripciones mensuales."
     },
     {
-      question: "¿Cuánto tiempo toma tener el sitio listo?",
-      answer: "Dependiendo del alcance, el sitio puede estar operativo en pocos días."
+      question: "¿Necesito saber de tecnología para usar CrealoconIA?",
+      answer: "No. CrealoconIA está diseñada para personas sin conocimientos técnicos. Solo respondes 10 preguntas sobre tu negocio y nosotros creamos tu sitio web completo."
     },
     {
-      question: "¿CrealoconIA es solo una página web?",
-      answer: "No. Incluye sitio web, contenido y mentoría estratégica."
+      question: "¿Cuánto tiempo toma crear un sitio web con inteligencia artificial?",
+      answer: "Con CrealoconIA tu sitio web está listo en 24 horas máximo. Completas el quiz en 5 minutos y recibes tu propuesta al día siguiente."
     },
     {
-      question: "¿Sirve para cualquier tipo de negocio?",
-      answer: "Está pensada principalmente para emprendedores, profesionales y pymes de servicios."
+      question: "¿CrealoconIA sirve para coaches y terapeutas en Chile?",
+      answer: "Sí. CrealoconIA está especialmente diseñada para coaches, terapeutas, psicólogos, consultores y profesionales independientes que necesitan presencia digital profesional."
     },
   ];
 
@@ -166,7 +167,7 @@ export const SEOFAQSection = () => {
     <section className="py-20 bg-background" aria-labelledby="preguntas-frecuentes">
       <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
         <h2 id="preguntas-frecuentes" className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
-          Preguntas Frecuentes
+          Preguntas frecuentes sobre CrealoconIA
         </h2>
         <dl className="space-y-6">
           {faqs.map((faq, index) => (
