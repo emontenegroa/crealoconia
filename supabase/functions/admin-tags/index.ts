@@ -21,7 +21,7 @@ function getCorsHeaders(req: Request) {
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response('ok', { headers: getCorsHeaders(req) })
   }
 
   try {
@@ -57,7 +57,7 @@ serve(async (req) => {
         JSON.stringify({ error: 'Unauthorized - Admin access required' }),
         { 
           status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       )
     }
@@ -76,7 +76,7 @@ serve(async (req) => {
 
         return new Response(
           JSON.stringify(tags),
-          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          { headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
         )
 
       case 'POST':
@@ -88,7 +88,7 @@ serve(async (req) => {
             JSON.stringify({ error: 'Tag name is required' }),
             { 
               status: 400,
-              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+              headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
             }
           )
         }
@@ -103,7 +103,7 @@ serve(async (req) => {
         if (existingTag) {
           return new Response(
             JSON.stringify(existingTag),
-            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            { headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
           )
         }
 
@@ -121,7 +121,7 @@ serve(async (req) => {
 
         return new Response(
           JSON.stringify(newTag),
-          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          { headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
         )
 
       default:
@@ -129,7 +129,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Method not allowed' }),
           { 
             status: 405,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         )
     }
@@ -140,7 +140,7 @@ serve(async (req) => {
       JSON.stringify({ error: error.message }),
       { 
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     )
   }

@@ -22,7 +22,7 @@ function getCorsHeaders(req: Request) {
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { headers: getCorsHeaders(req) });
   }
 
   try {
@@ -65,7 +65,7 @@ const handler = async (req: Request): Promise<Response> => {
         message: 'No hay formularios abandonados' 
       }), {
         status: 200,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
+        headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
       });
     }
 
@@ -209,7 +209,7 @@ const handler = async (req: Request): Promise<Response> => {
         data: responseData 
       }), {
         status: 200,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
+        headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
       });
     } else {
       const errorData = await response.text();
@@ -223,7 +223,7 @@ const handler = async (req: Request): Promise<Response> => {
       JSON.stringify({ error: error.message }),
       {
         status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
+        headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
       }
     );
   }

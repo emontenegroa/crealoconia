@@ -24,7 +24,7 @@ function getCorsHeaders(req: Request) {
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { headers: getCorsHeaders(req) });
   }
 
   try {
@@ -34,21 +34,21 @@ serve(async (req) => {
     if (!userText || typeof userText !== 'string') {
       return new Response(JSON.stringify({ error: 'userText es requerido y debe ser texto' }), {
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' },
       });
     }
 
     if (userText.length < 10 || userText.length > 3000) {
       return new Response(JSON.stringify({ error: 'userText debe tener entre 10 y 3000 caracteres' }), {
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' },
       });
     }
 
     if (!fieldType || typeof fieldType !== 'string') {
       return new Response(JSON.stringify({ error: 'fieldType es requerido' }), {
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' },
       });
     }
 
@@ -174,13 +174,13 @@ El resultado debe ser un prompt que genere una landing page de conversión profe
     console.log(`Enhanced text generated successfully for ${fieldType}`);
 
     return new Response(JSON.stringify({ enhancedText }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' },
     });
   } catch (error) {
     console.error('Error in enhance-with-ai function:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' },
     });
   }
 });

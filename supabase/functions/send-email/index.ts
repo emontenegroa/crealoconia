@@ -47,7 +47,7 @@ interface EmailRequest {
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { headers: getCorsHeaders(req) });
   }
 
   try {
@@ -629,7 +629,7 @@ const handler = async (req: Request): Promise<Response> => {
     } else {
       return new Response(JSON.stringify({ error: 'Tipo de email no válido' }), {
         status: 400,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
+        headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
       });
     }
 
@@ -721,7 +721,7 @@ const handler = async (req: Request): Promise<Response> => {
         timestamp: new Date().toISOString()
       }), {
         status: 200,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
+        headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
       });
     } else {
       const errorData = await response.text();
@@ -738,7 +738,7 @@ const handler = async (req: Request): Promise<Response> => {
       }),
       {
         status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
+        headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
       }
     );
   }

@@ -29,7 +29,7 @@ serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     console.log('✅ CORS preflight handled');
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { headers: getCorsHeaders(req) });
   }
 
   if (req.method !== 'POST') {
@@ -38,7 +38,7 @@ serve(async (req) => {
       JSON.stringify({ error: 'Method not allowed' }),
       { 
         status: 405,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     );
   }
@@ -59,7 +59,7 @@ serve(async (req) => {
         JSON.stringify({ error: 'Email no autorizado para acceso administrativo' }),
         { 
           status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
     }
@@ -78,7 +78,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error obteniendo datos' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -88,7 +88,7 @@ serve(async (req) => {
         JSON.stringify({ submissions }),
         { 
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
 
@@ -108,7 +108,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error actualizando registro' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -118,7 +118,7 @@ serve(async (req) => {
         JSON.stringify({ message: 'Actualizado exitosamente' }),
         { 
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
 
@@ -138,7 +138,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error eliminando registro' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -148,7 +148,7 @@ serve(async (req) => {
         JSON.stringify({ message: 'Eliminado exitosamente' }),
         { 
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
 
@@ -168,7 +168,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error eliminando registros' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -178,7 +178,7 @@ serve(async (req) => {
         JSON.stringify({ message: `${ids.length} registros eliminados exitosamente` }),
         { 
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
     }
@@ -188,7 +188,7 @@ serve(async (req) => {
       JSON.stringify({ error: 'Acción no válida' }),
       { 
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     );
 
@@ -203,7 +203,7 @@ serve(async (req) => {
       }),
       { 
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     );
   }

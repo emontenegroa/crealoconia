@@ -29,7 +29,7 @@ serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     console.log('✅ CORS preflight handled');
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { headers: getCorsHeaders(req) });
   }
 
   if (req.method !== 'POST') {
@@ -38,7 +38,7 @@ serve(async (req) => {
       JSON.stringify({ error: 'Method not allowed' }),
       { 
         status: 405,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     );
   }
@@ -59,7 +59,7 @@ serve(async (req) => {
         JSON.stringify({ error: 'Email no autorizado para acceso administrativo' }),
         { 
           status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
     }
@@ -77,7 +77,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error interno de validación' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -96,7 +96,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Demasiados intentos. Inténtalo en 5 minutos.' }),
           { 
             status: 429,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -122,7 +122,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Configuración de email no disponible' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -174,7 +174,7 @@ serve(async (req) => {
             JSON.stringify({ error: 'Error enviando email' }),
             { 
               status: 500,
-              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+              headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
             }
           );
         }
@@ -197,7 +197,7 @@ serve(async (req) => {
             JSON.stringify({ error: 'Error interno almacenando código' }),
             { 
               status: 500,
-              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+              headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
             }
           );
         }
@@ -211,7 +211,7 @@ serve(async (req) => {
           }),
           { 
             status: 200,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
 
@@ -221,7 +221,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error interno enviando email' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -248,7 +248,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Código inválido' }),
           { 
             status: 400,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -270,7 +270,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Demasiados intentos. Inténtalo en 5 minutos.' }),
           { 
             status: 429,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -299,7 +299,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error interno de verificación' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -320,7 +320,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Código inválido o expirado' }),
           { 
             status: 401,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -347,7 +347,7 @@ serve(async (req) => {
         }),
         { 
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
     }
@@ -357,7 +357,7 @@ serve(async (req) => {
       JSON.stringify({ error: 'Acción no válida' }),
       { 
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     );
 
@@ -372,7 +372,7 @@ serve(async (req) => {
       }),
       { 
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     );
   }
