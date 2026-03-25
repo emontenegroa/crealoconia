@@ -111,12 +111,12 @@ export default function AdminRoute() {
 
       if (error) throw error;
 
-      // Crear sesión persistente (24 horas)
+      // Crear sesión persistente (8 horas)
       const now = Date.now();
       const session: AdminSession = {
         email,
         authenticatedAt: now,
-        expiresAt: now + (24 * 60 * 60 * 1000) // 24 horas
+        expiresAt: now + (8 * 60 * 60 * 1000) // 8 horas
       };
       
       localStorage.setItem('admin_session', JSON.stringify(session));
