@@ -11,6 +11,7 @@ interface AdminSession {
   email: string;
   authenticatedAt: number;
   expiresAt: number;
+  sessionToken: string;
 }
 
 export default function AdminRoute() {
@@ -111,12 +112,17 @@ export default function AdminRoute() {
 
       if (error) throw error;
 
-      // Crear sesión persistente (8 horas)
+      if (!data?.sessionToken) {
+        throw new Error('No session token received');
+      }
+
+      // Crear sesión persistente (8 horas) with server token
       const now = Date.now();
       const session: AdminSession = {
         email,
         authenticatedAt: now,
-        expiresAt: now + (8 * 60 * 60 * 1000) // 8 horas
+        expiresAt: new Date(data.expiresAt).getTime(),
+        sessionToken: data.sessionToken
       };
       
       localStorage.setItem('admin_session', JSON.stringify(session));

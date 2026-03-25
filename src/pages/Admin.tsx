@@ -102,6 +102,7 @@ export default function Admin({ onLogout }: AdminProps) {
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
           email: sessionData.email,
+          sessionToken: sessionData.sessionToken,
           action: 'get_submissions'
         }
       });
@@ -250,6 +251,7 @@ export default function Admin({ onLogout }: AdminProps) {
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
           email: sessionData.email,
+          sessionToken: sessionData.sessionToken,
           action: 'update_submission',
           data: { id, updates }
         }
@@ -290,6 +292,7 @@ export default function Admin({ onLogout }: AdminProps) {
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
           email: sessionData.email,
+          sessionToken: sessionData.sessionToken,
           action: 'delete_submission',
           data: { id }
         }
@@ -338,6 +341,7 @@ export default function Admin({ onLogout }: AdminProps) {
       const { data, error } = await supabase.functions.invoke('admin-data', {
         body: { 
           email: sessionData.email,
+          sessionToken: sessionData.sessionToken,
           action: 'delete_multiple_submissions',
           data: { ids: selectedIds }
         }
