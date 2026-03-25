@@ -1,15 +1,27 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+const allowedOrigins = [
+  'https://crealoconia.com',
+  'https://www.crealoconia.com',
+  'https://crealoconia.lovable.app',
+  'https://yxagfbefgqlsjrxjtgjr.lovable.app',
+  'http://localhost:5173',
+  'http://localhost:8080',
+];
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get('origin') || '';
+  return {
+    'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : allowedOrigins[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  };
 }
 
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response('ok', { headers: getCorsHeaders(req) })
   }
 
   try {
@@ -45,7 +57,7 @@ serve(async (req) => {
         JSON.stringify({ error: 'Unauthorized - Admin access required' }),
         { 
           status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       )
     }
@@ -64,7 +76,7 @@ serve(async (req) => {
 
         return new Response(
           JSON.stringify(tags),
-          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          { headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
         )
 
       case 'POST':
@@ -76,7 +88,7 @@ serve(async (req) => {
             JSON.stringify({ error: 'Tag name is required' }),
             { 
               status: 400,
-              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+              headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
             }
           )
         }
@@ -91,7 +103,7 @@ serve(async (req) => {
         if (existingTag) {
           return new Response(
             JSON.stringify(existingTag),
-            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            { headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
           )
         }
 
@@ -109,7 +121,7 @@ serve(async (req) => {
 
         return new Response(
           JSON.stringify(newTag),
-          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          { headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
         )
 
       default:
@@ -117,7 +129,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Method not allowed' }),
           { 
             status: 405,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         )
     }
@@ -125,10 +137,10 @@ serve(async (req) => {
   } catch (error) {
     console.error('Error in admin-tags function:', error)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: 'Error interno del servidor', code: 'INTERNAL_ERROR' }),
       { 
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     )
   }

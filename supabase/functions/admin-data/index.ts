@@ -1,10 +1,22 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const allowedOrigins = [
+  'https://crealoconia.com',
+  'https://www.crealoconia.com',
+  'https://crealoconia.lovable.app',
+  'https://yxagfbefgqlsjrxjtgjr.lovable.app',
+  'http://localhost:5173',
+  'http://localhost:8080',
+];
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get('origin') || '';
+  return {
+    'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : allowedOrigins[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  };
+}
 
 // Initialize Supabase client with service role
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
@@ -17,7 +29,7 @@ serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     console.log('✅ CORS preflight handled');
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { headers: getCorsHeaders(req) });
   }
 
   if (req.method !== 'POST') {
@@ -26,7 +38,7 @@ serve(async (req) => {
       JSON.stringify({ error: 'Method not allowed' }),
       { 
         status: 405,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     );
   }
@@ -47,7 +59,7 @@ serve(async (req) => {
         JSON.stringify({ error: 'Email no autorizado para acceso administrativo' }),
         { 
           status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
     }
@@ -66,7 +78,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error obteniendo datos' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -76,7 +88,7 @@ serve(async (req) => {
         JSON.stringify({ submissions }),
         { 
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
 
@@ -96,7 +108,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error actualizando registro' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -106,7 +118,7 @@ serve(async (req) => {
         JSON.stringify({ message: 'Actualizado exitosamente' }),
         { 
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
 
@@ -126,7 +138,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error eliminando registro' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -136,7 +148,7 @@ serve(async (req) => {
         JSON.stringify({ message: 'Eliminado exitosamente' }),
         { 
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
 
@@ -156,7 +168,7 @@ serve(async (req) => {
           JSON.stringify({ error: 'Error eliminando registros' }),
           { 
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
           }
         );
       }
@@ -166,7 +178,7 @@ serve(async (req) => {
         JSON.stringify({ message: `${ids.length} registros eliminados exitosamente` }),
         { 
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
     }
@@ -176,22 +188,21 @@ serve(async (req) => {
       JSON.stringify({ error: 'Acción no válida' }),
       { 
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     );
 
   } catch (error) {
     console.error('💥 Error crítico general:', error);
     console.error('📋 Stack trace:', error.stack);
-    console.error('📋 Error message:', error.message);
     return new Response(
       JSON.stringify({ 
         error: 'Error interno del servidor',
-        details: error.message || 'Error desconocido'
+        code: 'INTERNAL_ERROR'
       }),
       { 
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
       }
     );
   }
