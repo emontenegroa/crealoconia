@@ -39,22 +39,57 @@ serve(async (req) => {
 
     const { method } = req
 
-    // Parse request body for all methods that need it
-    let requestBody: { email?: string; name?: string; color?: string } = {}
+    // Parse request body/params
+    let sessionToken: string | undefined
+    let requestBody: { email?: string; name?: string; color?: string; sessionToken?: string } = {}
+    
     if (method === 'POST') {
       requestBody = await req.json()
+      sessionToken = requestBody.sessionToken
     } else if (method === 'GET') {
-      // For GET requests, check query params or headers for email
       const url = new URL(req.url)
+      sessionToken = url.searchParams.get('sessionToken') || undefined
       requestBody.email = url.searchParams.get('email') || undefined
     }
 
-    // Validate admin email - only authorized admin can access tags
-    const authorizedEmail = 'esteban@crealoconia.com'
-    if (!requestBody.email || requestBody.email.toLowerCase() !== authorizedEmail.toLowerCase()) {
-      console.log('❌ Unauthorized access attempt:', requestBody.email)
+    // Validate session token server-side
+    if (!sessionToken) {
+      console.log('❌ Missing session token')
       return new Response(
-        JSON.stringify({ error: 'Unauthorized - Admin access required' }),
+        JSON.stringify({ error: 'Sesión no válida' }),
+        { 
+          status: 401,
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
+        }
+      )
+    }
+
+    // Verify token against database
+    const { data: tokenRecord, error: tokenError } = await supabaseAdmin
+      .from('admin_temp_keys')
+      .select('email, expires_at, used')
+      .eq('temp_key', sessionToken)
+      .eq('used', false)
+      .gt('expires_at', new Date().toISOString())
+      .single()
+
+    if (tokenError || !tokenRecord) {
+      console.log('❌ Invalid or expired session token')
+      return new Response(
+        JSON.stringify({ error: 'Sesión expirada o no válida' }),
+        { 
+          status: 401,
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
+        }
+      )
+    }
+
+    // Verify the token belongs to the authorized admin email
+    const authorizedEmail = 'esteban@crealoconia.com'
+    if (tokenRecord.email?.toLowerCase() !== authorizedEmail.toLowerCase()) {
+      console.log('❌ Token email mismatch')
+      return new Response(
+        JSON.stringify({ error: 'No autorizado' }),
         { 
           status: 403,
           headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
@@ -62,7 +97,7 @@ serve(async (req) => {
       )
     }
 
-    console.log('✅ Admin authenticated:', requestBody.email)
+    console.log('✅ Admin authenticated via session token')
 
     switch (method) {
       case 'GET':

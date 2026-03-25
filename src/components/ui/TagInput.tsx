@@ -67,26 +67,18 @@ export function TagInput({ value, onChange, placeholder = "Buscar o crear tags..
 
   const loadTags = async () => {
     try {
+      // Get session token for authenticated admin access
+      const adminSession = localStorage.getItem('admin_session');
+      const sessionToken = adminSession ? JSON.parse(adminSession).sessionToken : undefined;
+      
       const { data, error } = await supabase.functions.invoke('admin-tags', {
-        method: 'GET'
+        body: { sessionToken, action: 'get' }
       });
       
       if (error) throw error;
       setAllTags(data || []);
     } catch (error) {
       console.error('Error loading tags:', error);
-      // Fallback to direct database call
-      try {
-        const { data, error } = await supabase
-          .from('tags')
-          .select('*')
-          .order('name');
-        
-        if (error) throw error;
-        setAllTags(data || []);
-      } catch (fallbackError) {
-        console.error('Fallback error loading tags:', fallbackError);
-      }
     }
   };
 
@@ -94,9 +86,11 @@ export function TagInput({ value, onChange, placeholder = "Buscar o crear tags..
     const color = TAG_COLORS[Math.floor(Math.random() * TAG_COLORS.length)];
     
     try {
+      const adminSession = localStorage.getItem('admin_session');
+      const sessionToken = adminSession ? JSON.parse(adminSession).sessionToken : undefined;
+      
       const { data, error } = await supabase.functions.invoke('admin-tags', {
-        method: 'POST',
-        body: { name, color }
+        body: { name, color, sessionToken, action: 'create' }
       });
       
       if (error) throw error;

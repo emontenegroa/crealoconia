@@ -46,23 +46,56 @@ serve(async (req) => {
   try {
     console.log('📥 Reading request body...');
     const body = await req.json();
-    console.log('📋 Request body:', JSON.stringify(body));
+    console.log('📋 Request body action:', body.action);
     
-    const { email, action, data } = body;
-    console.log('📧 Email:', email, 'Action:', action);
+    const { email, action, data, sessionToken } = body;
 
-    // Validate admin email
-    const authorizedEmail = 'esteban@crealoconia.com';
-    if (email?.toLowerCase() !== authorizedEmail.toLowerCase()) {
-      console.log('❌ Email no autorizado:', email);
+    // Validate session token server-side
+    if (!sessionToken || typeof sessionToken !== 'string') {
+      console.log('❌ Missing session token');
       return new Response(
-        JSON.stringify({ error: 'Email no autorizado para acceso administrativo' }),
+        JSON.stringify({ error: 'Sesión no válida' }),
+        { 
+          status: 401,
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
+        }
+      );
+    }
+
+    // Verify token against database
+    const { data: tokenRecord, error: tokenError } = await supabase
+      .from('admin_temp_keys')
+      .select('email, expires_at, used')
+      .eq('temp_key', sessionToken)
+      .eq('used', false)
+      .gt('expires_at', new Date().toISOString())
+      .single();
+
+    if (tokenError || !tokenRecord) {
+      console.log('❌ Invalid or expired session token');
+      return new Response(
+        JSON.stringify({ error: 'Sesión expirada o no válida' }),
+        { 
+          status: 401,
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
+        }
+      );
+    }
+
+    // Verify the token belongs to the authorized admin email
+    const authorizedEmail = 'esteban@crealoconia.com';
+    if (tokenRecord.email?.toLowerCase() !== authorizedEmail.toLowerCase()) {
+      console.log('❌ Token email mismatch');
+      return new Response(
+        JSON.stringify({ error: 'No autorizado' }),
         { 
           status: 403,
           headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }
         }
       );
     }
+
+    console.log('✅ Session token verified for:', tokenRecord.email);
 
     if (action === 'get_submissions') {
       console.log('📊 Obteniendo submissions...');
