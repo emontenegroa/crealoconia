@@ -733,8 +733,8 @@ const handler = async (req: Request): Promise<Response> => {
     console.error('💥 Error en send-email function:', error);
     return new Response(
       JSON.stringify({ 
-        error: error.message,
-        timestamp: new Date().toISOString()
+        error: 'Error interno del servidor',
+        code: 'INTERNAL_ERROR'
       }),
       {
         status: 500,

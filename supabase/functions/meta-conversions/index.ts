@@ -194,13 +194,14 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response(
       JSON.stringify({
         success: false,
-        error: error.message
+        error: 'Error interno del servidor',
+        code: 'INTERNAL_ERROR'
       }),
       {
         status: 500,
         headers: {
           'Content-Type': 'application/json',
-          ...corsHeaders,
+          ...getCorsHeaders(req),
         },
       }
     );

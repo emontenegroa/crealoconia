@@ -137,7 +137,7 @@ serve(async (req) => {
   } catch (error) {
     console.error('Error in admin-tags function:', error)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: 'Error interno del servidor', code: 'INTERNAL_ERROR' }),
       { 
         status: 500,
         headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' }

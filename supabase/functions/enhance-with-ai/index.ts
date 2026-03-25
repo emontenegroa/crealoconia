@@ -178,7 +178,7 @@ El resultado debe ser un prompt que genere una landing page de conversión profe
     });
   } catch (error) {
     console.error('Error in enhance-with-ai function:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ error: 'Error interno del servidor', code: 'INTERNAL_ERROR' }), {
       status: 500,
       headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' },
     });
