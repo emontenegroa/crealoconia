@@ -364,11 +364,10 @@ serve(async (req) => {
   } catch (error) {
     console.error('💥 Error crítico general:', error);
     console.error('📋 Stack trace:', error.stack);
-    console.error('📋 Error message:', error.message);
     return new Response(
       JSON.stringify({ 
         error: 'Error interno del servidor',
-        details: error.message || 'Error desconocido'
+        code: 'INTERNAL_ERROR'
       }),
       { 
         status: 500,
