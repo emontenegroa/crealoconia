@@ -53,7 +53,10 @@ const HeroSection = ({
               <Button variant="ghost" className="text-sm text-muted-foreground hover:text-foreground">
                 Login
               </Button>
-              <Button className="bg-foreground text-background hover:bg-foreground/90 text-sm px-5">
+              <Button 
+                className="bg-foreground text-background hover:bg-foreground/90 text-sm px-5"
+                onClick={() => window.open('https://wa.me/56945487423?text=HeY%20como%20es%20eso%20de%20que%20creas%20paginas%20web%20en%204%20horas%3F', '_blank')}
+              >
                 Contacto
               </Button>
             </div>
