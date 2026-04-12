@@ -223,7 +223,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                   📧 Email
                 </a>
                 <a 
-                  href={`https://wa.me/56962791772?text=Hola%2C%20completé%20el%20formulario%20para%20${encodeURIComponent(formData.marca)}%20y%20tengo%20una%20consulta`} 
+                  href={`https://wa.me/56945487423?text=Hola%2C%20completé%20el%20formulario%20para%20${encodeURIComponent(formData.marca)}%20y%20tengo%20una%20consulta`} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2 shadow-lg shadow-primary/25"

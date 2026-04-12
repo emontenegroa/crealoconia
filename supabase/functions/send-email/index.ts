@@ -220,7 +220,7 @@ const handler = async (req: Request): Promise<Response> => {
               </div>
 
               <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 20px 0;">
-                Si tienes dudas, escríbeme directo a mi WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none; font-weight: 600;">+56 9 6279 1772</a>.
+                Si tienes dudas, escríbeme directo a mi WhatsApp: <a href="https://wa.me/56945487423" style="color: #059669; text-decoration: none; font-weight: 600;">+56 9 4548 7423</a>.
               </p>
 
               <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
@@ -234,7 +234,7 @@ const handler = async (req: Request): Promise<Response> => {
                   Un saludo,<br>
                   <strong>Esteban Montenegro</strong><br>
                   Fundador de CrealoconIA<br>
-                  📲 WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none;">+56 9 6279 1772</a>
+                  📲 WhatsApp: <a href="https://wa.me/56945487423" style="color: #059669; text-decoration: none;">+56 9 4548 7423</a>
                 </p>
               </div>
             </div>
@@ -290,7 +290,7 @@ const handler = async (req: Request): Promise<Response> => {
                   👉 Para avanzar, solo responde este correo diciendo "Sí, quiero mi sitio" y damos el vamos.
                 </p>
                 <p style="color: #059669; font-size: 16px; line-height: 1.6; margin: 0;">
-                  📲 Si prefieres, también puedes escribirme directo a mi WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none; font-weight: 600;">+56 9 6279 1772</a>.
+                  📲 Si prefieres, también puedes escribirme directo a mi WhatsApp: <a href="https://wa.me/56945487423" style="color: #059669; text-decoration: none; font-weight: 600;">+56 9 4548 7423</a>.
                 </p>
               </div>
 
@@ -305,7 +305,7 @@ const handler = async (req: Request): Promise<Response> => {
                   Un saludo,<br>
                   <strong>Esteban Montenegro</strong><br>
                   Fundador de CrealoconIA<br>
-                  📲 WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none;">+56 9 6279 1772</a>
+                  📲 WhatsApp: <a href="https://wa.me/56945487423" style="color: #059669; text-decoration: none;">+56 9 4548 7423</a>
                 </p>
               </div>
             </div>
@@ -405,7 +405,7 @@ const handler = async (req: Request): Promise<Response> => {
                 <p style="color: #4b5563; font-size: 16px; margin: 0 0 8px 0; line-height: 1.6;">
                   — Esteban<br>
                   <strong>Crealoconia.com</strong><br>
-                  📲 WhatsApp: <a href="https://wa.me/56962791772" style="color: #059669; text-decoration: none;">+56 9 6279 1772</a>
+                  📲 WhatsApp: <a href="https://wa.me/56945487423" style="color: #059669; text-decoration: none;">+56 9 4548 7423</a>
                 </p>
               </div>
             </div>
@@ -559,8 +559,8 @@ const handler = async (req: Request): Promise<Response> => {
                 Fundador de Crealoconia.com
               </p>
               <p style="color: #4b5563; font-size: 16px; margin: 16px 0 0 0; line-height: 1.6;">
-                <a href="https://wa.me/56962791772" style="background: #059669; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">
-                  📱 WhatsApp: +56 9 6279 1772
+                <a href="https://wa.me/56945487423" style="background: #059669; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">
+                  📱 WhatsApp: +56 9 4548 7423
                 </a>
               </p>
             </div>

@@ -25,7 +25,7 @@ const Landing3 = () => {
   }, []);
 
   const handleSchedule = () => {
-    window.open('https://wa.me/56962791772?text=HeY%20como%20es%20eso%20de%20que%20creas%20paginas%20web%20en%204%20horas%3F', '_blank');
+    window.open('https://wa.me/56945487423?text=HeY%20como%20es%20eso%20de%20que%20creas%20paginas%20web%20en%204%20horas%3F', '_blank');
   };
 
   return (
@@ -222,7 +222,7 @@ const Landing3 = () => {
           <p>esteban@crealoconia.com</p>
           <Button
             variant="outline"
-            onClick={() => window.open('https://wa.me/56962791772?text=HeY%20como%20es%20eso%20de%20que%20creas%20paginas%20web%20en%204%20horas%3F', '_blank')}
+            onClick={() => window.open('https://wa.me/56945487423?text=HeY%20como%20es%20eso%20de%20que%20creas%20paginas%20web%20en%204%20horas%3F', '_blank')}
             className="mt-4 border-border text-muted-foreground hover:bg-secondary hover:text-foreground">
 
             WhatsApp: +56 9 6124 9991
