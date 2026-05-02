@@ -2,23 +2,26 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { toast } from "@/hooks/use-toast";
 import LoadingSpinnerEnhanced from '@/components/LoadingSpinnerEnhanced';
-import HeroSection from '@/components/HeroSection';
 import ProgressDialog from '@/components/ProgressDialog';
 import MainForm from '@/components/MainForm';
-import FeatureCardsNew from '@/components/FeatureCardsNew';
-import FooterNew from '@/components/FooterNew';
-import ImprovedTestimonials from '@/components/ImprovedTestimonials';
-import StickyMobileCTA from '@/components/StickyMobileCTA';
-import ImprovedFAQ from '@/components/ImprovedFAQ';
-import PortfolioSection from '@/components/PortfolioSection';
-
-import QuienSoy from '@/components/QuienSoy';
-import Metodologia from '@/components/Metodologia';
+import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { MetaTracker } from '@/components/MetaTracker';
 import QualificationWizard from '@/components/QualificationWizard';
 
 import { useFormHandler } from '@/hooks/useFormHandler';
 import { useStepNavigation } from '@/hooks/useStepNavigation';
+import { useReveal } from '@/hooks/useReveal';
+
+import Nav from '@/components/landing/Nav';
+import Hero from '@/components/landing/Hero';
+import Mirror from '@/components/landing/Mirror';
+import Transformation from '@/components/landing/Transformation';
+import HowItWorks from '@/components/landing/HowItWorks';
+import Testimonials from '@/components/landing/Testimonials';
+import Offer from '@/components/landing/Offer';
+import Faq from '@/components/landing/Faq';
+import FinalCta from '@/components/landing/FinalCta';
+import Footer from '@/components/landing/Footer';
 
 // Importar la prueba de email en desarrollo
 if (import.meta.env.DEV) {
@@ -41,16 +44,8 @@ const Index = () => {
   const { showWelcome, showFullForm, showResults, currentURLStep, goToInitialForm, goToFullForm } = useStepNavigation();
   const [showQualification, setShowQualification] = useState(false);
   const [isQualified, setIsQualified] = useState(false);
-  
-  // Scroll al formulario para el CTA pegajoso
-  const scrollToForm = () => {
-    formRef.current?.scrollIntoView({ 
-      behavior: 'smooth', 
-      block: 'start',
-      inline: 'nearest'
-    });
-  };
-  
+  useReveal();
+
   const {
     formData,
     setFormData,
@@ -77,13 +72,10 @@ const Index = () => {
     handleMathCaptchaChange
   } = useFormHandler();
 
-  // Custom first step handler that triggers qualification
-  const handleFirstStepWithQualification = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isFirstStepValid) {
-      setShowQualification(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+  // Direct entry into qualification flow (no inline form on hero)
+  const startFlow = () => {
+    setShowQualification(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleQualified = () => {
@@ -145,35 +137,19 @@ const Index = () => {
         </div>
       ) : !showFullForm && !showResults && !isGenerating ? (
         <>
-          <HeroSection 
-            formData={formData}
-            onInputChange={handleInputChange}
-            onSubmit={handleFirstStepWithQualification}
-            isValid={isFirstStepValid}
-          />
-          
+          <Nav onCta={startFlow} />
           <main>
-            {/* Feature Cards */}
-            <FeatureCardsNew />
-            
-            {/* Portfolio / Resultados */}
-            <PortfolioSection />
-            
-            {/* Metodología */}
-            <Metodologia />
-            
-            {/* Quién Soy */}
-            <QuienSoy />
-            
-            {/* Testimonios */}
-            <ImprovedTestimonials />
-            
-            {/* FAQ */}
-            <ImprovedFAQ />
+            <Hero onPrimary={startFlow} />
+            <Mirror />
+            <Transformation />
+            <HowItWorks />
+            <Testimonials />
+            <Offer onCta={startFlow} />
+            <Faq />
+            <FinalCta onCta={startFlow} />
           </main>
-          
-          {/* Footer */}
-          <FooterNew />
+          <Footer />
+          <WhatsAppFloat />
         </>
       ) : isGenerating ? (
         <LoadingSpinnerEnhanced marca={formData.marca} />
