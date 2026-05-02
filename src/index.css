@@ -4,87 +4,68 @@
 
 @layer base {
   :root {
-    /* Dark Theme - Slate Blue Background with Emerald Accent */
-    --background: 215 28% 7%;
-    --foreground: 210 20% 98%;
+    /* LIGHT — warm off-white surfaces, deep teal accent */
+    --background: 48 26% 96%;        /* #f7f6f2 */
+    --foreground: 30 8% 10%;
+    --card: 45 18% 93%;              /* #f0eeea */
+    --card-foreground: 30 8% 10%;
+    --popover: 45 18% 93%;
+    --popover-foreground: 30 8% 10%;
+    --primary: 184 99% 22%;          /* #01696f */
+    --primary-foreground: 48 26% 96%;
+    --secondary: 45 12% 88%;
+    --secondary-foreground: 30 8% 10%;
+    --muted: 45 12% 88%;
+    --muted-foreground: 30 6% 38%;
+    --accent: 184 99% 22%;
+    --accent-foreground: 48 26% 96%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 48 26% 96%;
+    --border: 40 10% 82%;
+    --input: 45 12% 88%;
+    --ring: 184 99% 22%;
+    --radius: 0.5rem;
 
-    --card: 215 25% 10%;
-    --card-foreground: 210 20% 98%;
-
-    --popover: 215 25% 10%;
-    --popover-foreground: 210 20% 98%;
-
-    /* Emerald Green Accent */
-    --primary: 160 84% 45%;
-    --primary-foreground: 215 28% 7%;
-
-    --secondary: 215 20% 14%;
-    --secondary-foreground: 210 20% 98%;
-
-    --muted: 215 20% 16%;
-    --muted-foreground: 215 15% 55%;
-
-    /* Emerald highlight */
-    --accent: 160 84% 45%;
-    --accent-foreground: 215 28% 7%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 20% 98%;
-
-    --border: 215 20% 18%;
-    --input: 215 20% 14%;
-    --ring: 160 84% 45%;
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 215 25% 10%;
-    --sidebar-foreground: 210 20% 90%;
-    --sidebar-primary: 160 84% 45%;
-    --sidebar-primary-foreground: 215 28% 7%;
-    --sidebar-accent: 215 20% 14%;
-    --sidebar-accent-foreground: 210 20% 90%;
-    --sidebar-border: 215 20% 18%;
-    --sidebar-ring: 160 84% 45%;
+    --sidebar-background: 45 18% 93%;
+    --sidebar-foreground: 30 8% 10%;
+    --sidebar-primary: 184 99% 22%;
+    --sidebar-primary-foreground: 48 26% 96%;
+    --sidebar-accent: 45 12% 88%;
+    --sidebar-accent-foreground: 30 8% 10%;
+    --sidebar-border: 40 10% 82%;
+    --sidebar-ring: 184 99% 22%;
   }
 
   .dark {
-    /* Same as root - already dark theme */
-    --background: 215 28% 7%;
-    --foreground: 210 20% 98%;
+    /* DARK — near-black warm surfaces, bright teal accent */
+    --background: 30 11% 5%;         /* #0f0e0d */
+    --foreground: 40 20% 96%;
+    --card: 36 8% 9%;                /* #1a1917 */
+    --card-foreground: 40 20% 96%;
+    --popover: 36 8% 9%;
+    --popover-foreground: 40 20% 96%;
+    --primary: 188 33% 47%;          /* #4f98a3 */
+    --primary-foreground: 30 11% 5%;
+    --secondary: 40 4% 13%;          /* #222120 */
+    --secondary-foreground: 40 20% 96%;
+    --muted: 40 4% 13%;
+    --muted-foreground: 40 8% 62%;
+    --accent: 188 33% 47%;
+    --accent-foreground: 30 11% 5%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 40 20% 96%;
+    --border: 40 4% 18%;
+    --input: 40 4% 13%;
+    --ring: 188 33% 47%;
 
-    --card: 215 25% 10%;
-    --card-foreground: 210 20% 98%;
-
-    --popover: 215 25% 10%;
-    --popover-foreground: 210 20% 98%;
-
-    --primary: 160 84% 45%;
-    --primary-foreground: 215 28% 7%;
-
-    --secondary: 215 20% 14%;
-    --secondary-foreground: 210 20% 98%;
-
-    --muted: 215 20% 16%;
-    --muted-foreground: 215 15% 55%;
-
-    --accent: 160 84% 45%;
-    --accent-foreground: 215 28% 7%;
-
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 210 20% 98%;
-
-    --border: 215 20% 18%;
-    --input: 215 20% 14%;
-    --ring: 160 84% 45%;
-
-    --sidebar-background: 215 25% 10%;
-    --sidebar-foreground: 210 20% 90%;
-    --sidebar-primary: 160 84% 45%;
-    --sidebar-primary-foreground: 215 28% 7%;
-    --sidebar-accent: 215 20% 14%;
-    --sidebar-accent-foreground: 210 20% 90%;
-    --sidebar-border: 215 20% 18%;
-    --sidebar-ring: 160 84% 45%;
+    --sidebar-background: 36 8% 9%;
+    --sidebar-foreground: 40 20% 96%;
+    --sidebar-primary: 188 33% 47%;
+    --sidebar-primary-foreground: 30 11% 5%;
+    --sidebar-accent: 40 4% 13%;
+    --sidebar-accent-foreground: 40 20% 96%;
+    --sidebar-border: 40 4% 18%;
+    --sidebar-ring: 188 33% 47%;
   }
 }
 
@@ -95,9 +76,23 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-family: 'Satoshi', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01", "ss02";
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Cabinet Grotesk', 'Satoshi', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
   }
 }
+
+/* Scroll reveal */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal { opacity: 0; }
+.reveal.is-visible { animation: reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
 @keyframes fade-in {
   from {
