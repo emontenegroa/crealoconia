@@ -9,6 +9,7 @@ import PortfolioSection from "@/components/PortfolioSection";
 import { useFormPersistence } from "@/hooks/useFormPersistence";
 import RotatingText from "@/components/RotatingText";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import SeoHead from "@/components/SeoHead";
 
 const audienceTypes = [
 "¿Eres Coach o Consultor?",

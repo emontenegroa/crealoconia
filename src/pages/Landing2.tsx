@@ -15,6 +15,7 @@ import { quizFormSchema, sanitizeText, sanitizeTextForSubmit } from '@/utils/for
 import { useFormPersistence } from '@/hooks/useFormPersistence';
 import { usePromptGeneration } from '@/hooks/usePromptGeneration';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
+import SeoHead from '@/components/SeoHead';
 
 const Landing2 = () => {
   const { toast } = useToast();

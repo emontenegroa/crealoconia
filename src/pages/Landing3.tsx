@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import SeoHead from "@/components/SeoHead";
 
 const Landing3 = () => {
   const [searchParams] = useSearchParams();

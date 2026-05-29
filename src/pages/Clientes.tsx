@@ -1,5 +1,6 @@
 import { ExternalLink } from 'lucide-react';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
+import SeoHead from '@/components/SeoHead';
 
 const clientes = [
 {
@@ -90,6 +91,11 @@ const clientes = [
 
 const Clientes = () => {
   return (<>
+    <SeoHead
+      title="Casos de Éxito | Sitios Web con IA | CrealoconIA"
+      description="Conoce más de 12 sitios web profesionales creados con inteligencia artificial para coaches, terapeutas, abogados y emprendedores en Chile."
+      path="/clientes"
+    />
     <main className="min-h-screen bg-background py-16 px-4">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
