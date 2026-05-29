@@ -31,4 +31,4 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
-Sitemap: https://crealoconia.com/sitemap.xml
+Sitemap: https://crealoconia.lovable.app/sitemap.xml
