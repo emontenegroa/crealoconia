@@ -31,6 +31,11 @@ const Landing3 = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        title="¡Listo! Tu Sitio Web está en Camino | CrealoconIA"
+        description="Gracias por confiar en CrealoconIA. Revisa tu correo: tu propuesta de sitio web profesional con IA estará lista en 24 horas."
+        path="/gracias"
+      />
       {/* Navbar */}
       <nav className="relative z-20 border-b border-border/50">
         <div className="container mx-auto px-6 lg:px-12 py-4">

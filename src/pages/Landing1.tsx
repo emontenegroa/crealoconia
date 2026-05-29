@@ -159,6 +159,11 @@ const Landing1 = () => {
     highlight: "Redes sociales"
   }];
   return <div className="min-h-screen bg-background">
+      <SeoHead
+        title="Crea tu Sitio Web con IA en Chile | CrealoconIA"
+        description="CrealoconIA crea tu sitio web profesional con inteligencia artificial en 24 horas. Para emprendedores, coaches y pymes en Chile. Mentoría 1:1 incluida."
+        path="/"
+      />
       {/* Navbar */}
       <nav className="relative z-20 border-b border-border/50">
         <div className="container mx-auto px-6 lg:px-12 py-4">
