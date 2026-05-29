@@ -15,6 +15,7 @@ import { quizFormSchema, sanitizeText, sanitizeTextForSubmit } from '@/utils/for
 import { useFormPersistence } from '@/hooks/useFormPersistence';
 import { usePromptGeneration } from '@/hooks/usePromptGeneration';
 import { useEmailHandling } from '@/hooks/useEmailHandling';
+import SeoHead from '@/components/SeoHead';
 
 const Landing2 = () => {
   const { toast } = useToast();
@@ -416,6 +417,11 @@ const Landing2 = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        title="Quiz: Diseña tu Sitio Web con IA | CrealoconIA"
+        description="Responde el quiz personalizado y genera el prompt perfecto para tu sitio web profesional con inteligencia artificial."
+        path="/quiz"
+      />
       {/* Navbar */}
       <nav className="relative z-20 border-b border-border/50">
         <div className="container mx-auto px-6 lg:px-12 py-4">

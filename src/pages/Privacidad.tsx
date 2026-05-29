@@ -1,8 +1,14 @@
 import FooterNew from "@/components/FooterNew";
+import SeoHead from "@/components/SeoHead";
 
 const Privacidad = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SeoHead
+        title="Política de Privacidad | CrealoconIA"
+        description="Cómo CrealoconIA recopila, usa y protege tus datos. Cumplimiento con la Ley 19.628 de Chile y políticas de Meta."
+        path="/privacidad"
+      />
       <main className="container mx-auto max-w-3xl px-6 py-16">
         <h1 className="text-3xl font-bold mb-2">Política de Privacidad</h1>
         <p className="text-sm text-muted-foreground mb-10">Última actualización: 17 de marzo de 2026</p>
