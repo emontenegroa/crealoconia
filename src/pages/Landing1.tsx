@@ -15,6 +15,14 @@ import { useCountUp } from "@/hooks/useCountUp";
 import MetricasDestacadas from "@/components/MetricasDestacadas";
 import ComoTrabajamos from "@/components/ComoTrabajamos";
 import { Reveal } from "@/components/motion/Reveal";
+import HeroStage, {
+  WordReveal,
+  heroContainer,
+  heroItem,
+  springPill,
+  formPanel,
+} from "@/components/motion/HeroStage";
+import { motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 
 const audienceTypes = [
@@ -30,21 +38,39 @@ const audienceTypes = [
 // Feature cards con stagger reveal al hacer scroll
 interface Feature { icon: LucideIcon; title: string; description: string; }
 const FeatureCardsAnimadas = ({ features }: { features: Feature[] }) => {
-  const ref = useScrollRevealGroup<HTMLDivElement>(0.12);
   return (
     <section className="py-20 bg-background" id="servicios">
       <div className="container mx-auto px-6 lg:px-12">
-        <div ref={ref} className="grid md:grid-cols-3 gap-6">
+        <motion.div
+          className="grid md:grid-cols-3 gap-6"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+        >
           {features.map((feature, index) => (
-            <div key={index} className="reveal feature-card hover-lift p-8 bg-card border border-border rounded-2xl">
+            <motion.div
+              key={index}
+              variants={{
+                hidden: { opacity: 0, y: 60, scale: 0.92 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              whileHover={{ y: -10, transition: { duration: 0.25 } }}
+              className="feature-card group p-8 bg-card border border-border rounded-2xl transition-colors hover:border-primary/50 hover:shadow-[0_25px_60px_-20px_hsl(var(--primary)/0.45)]"
+            >
               <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
                 <feature.icon className="w-7 h-7 text-primary" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -53,7 +79,6 @@ const FeatureCardsAnimadas = ({ features }: { features: Feature[] }) => {
 // Seccion "De la Idea a la Realidad" con header reveal y cards en stagger
 const SeccionBeneficios = ({ benefits }: { benefits: Feature[] }) => {
   const headerRef = useScrollReveal<HTMLDivElement>();
-  const gridRef = useScrollRevealGroup<HTMLDivElement>(0.12);
   return (
     <section className="py-20 bg-card/50">
       <div className="container mx-auto px-6 lg:px-12">
@@ -65,17 +90,37 @@ const SeccionBeneficios = ({ benefits }: { benefits: Feature[] }) => {
             La tecnología de <span className="text-primary font-semibold">Crealoconia</span> supera la barrera técnica para que te enfoques en escalar tu negocio.
           </p>
         </div>
-        <div ref={gridRef} className="grid md:grid-cols-3 gap-8">
+        <motion.div
+          className="grid md:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
+        >
           {benefits.map((benefit, index) => (
-            <div key={index} className="reveal hover-lift p-8 bg-card border border-border rounded-2xl">
+            <motion.div
+              key={index}
+              variants={{
+                hidden: { opacity: 0, y: 60, scale: 0.92, filter: "blur(8px)" },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              whileHover={{ y: -10, transition: { duration: 0.25 } }}
+              className="p-8 bg-card border border-border rounded-2xl transition-colors hover:border-primary/50 hover:shadow-[0_25px_60px_-20px_hsl(var(--primary)/0.45)]"
+            >
               <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
                 <benefit.icon className="w-7 h-7 text-primary" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">{benefit.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -89,7 +134,6 @@ const Landing1 = () => {
   const {
     saveProgress
   } = useFormPersistence();
-  const aiToolsRef = useScrollRevealGroup<HTMLDivElement>(0.1);
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
