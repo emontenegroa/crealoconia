@@ -203,7 +203,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Kit IA - Crealoconia",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: "Usuario de Prueba" }],
+        to: [{ email: effectiveEmail, name: "Usuario de Prueba" }],
         subject: `🧪 Sistema de Email Funcionando - Kit IA`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px;">
@@ -250,7 +250,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: data?.name || email }],
+        to: [{ email: effectiveEmail, name: data?.name || email }],
         subject: data?.subject || "Mensaje personalizado de CrealoconIA",
         htmlContent: data?.message || "Mensaje personalizado enviado desde CrealoconIA"
       };
@@ -260,7 +260,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: data?.name || email }],
+        to: [{ email: effectiveEmail, name: data?.name || email }],
         subject: "Completa tu información para tu sitio web personalizado",
         htmlContent: `
           <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; padding: 0;">
@@ -338,7 +338,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: data?.name || email }],
+        to: [{ email: effectiveEmail, name: data?.name || email }],
         subject: "Propuesta personalizada para tu sitio web",
         htmlContent: `
           <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; padding: 0;">
@@ -409,7 +409,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Kit IA - Nueva Submisión",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email }],
+        to: [{ email: effectiveEmail }],
         subject: `🧠 Nueva submisión Kit IA - ${data?.marca || 'Sin marca'} (${data?.email || 'Sin email'})`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; background: white; padding: 20px;">
@@ -465,7 +465,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: data?.marca || email }],
+        to: [{ email: effectiveEmail, name: data?.marca || email }],
         subject: `Estamos preparando tu sitio web — Crealoconia`,
         htmlContent: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: white; color: #333;">
@@ -509,7 +509,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: data?.marca || email }],
+        to: [{ email: effectiveEmail, name: data?.marca || email }],
         subject: `🧠 Tu Kit IA está listo - ${data?.marca || 'Kit Personalizado'}`,
         htmlContent: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: white; color: #333;">
