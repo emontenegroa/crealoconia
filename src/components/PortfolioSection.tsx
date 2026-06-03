@@ -1,4 +1,8 @@
+import { useScrollReveal, useScrollRevealGroup } from "@/hooks/useScrollReveal";
+
 const PortfolioSection = () => {
+  const headerRef = useScrollReveal<HTMLDivElement>();
+  const gridRef = useScrollRevealGroup<HTMLDivElement>(0.08);
   const ejemplos = [{
     id: 1,
     titulo: "Esteban Montenegro",
@@ -56,7 +60,7 @@ const PortfolioSection = () => {
   }];
   return <section className="py-16 bg-background border-t border-border/10">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div ref={headerRef} className="reveal text-center mb-12">
           <h2 className="text-3xl font-bold text-foreground mb-4">
             Sitios Web Creados con <span className="text-primary">CrealoconIA.com</span>
           </h2>
@@ -65,11 +69,11 @@ const PortfolioSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {ejemplos.map(ejemplo => <div key={ejemplo.id} className="group cursor-pointer">
-              <div className="bg-card rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-border/50">
-                <div className="aspect-video overflow-hidden">
-                  <img src={ejemplo.imagen} alt={`Sitio web de ${ejemplo.titulo}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {ejemplos.map(ejemplo => <div key={ejemplo.id} className="reveal group cursor-pointer">
+              <div className="hover-lift bg-card rounded-lg overflow-hidden shadow-sm border border-border/50">
+                <div className="img-zoom aspect-video">
+                  <img src={ejemplo.imagen} alt={`Sitio web de ${ejemplo.titulo}`} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-4">
                   <div className="flex items-center gap-2 mb-2">
