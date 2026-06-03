@@ -680,7 +680,7 @@ const handler = async (req: Request): Promise<Response> => {
       
       emailPayload = {
         sender: { email: "esteban@crealoconia.com", name: "Kit IA Admin" },
-        to: [{ email: email }],
+        to: [{ email: effectiveEmail }],
         subject: "Código de acceso",
         htmlContent: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 20px; background: #f8f9fa;">
