@@ -134,6 +134,7 @@ export default function AdminRoute() {
           type: 'admin',
           to: email,
           subject: 'Acceso al panel administrativo',
+          sessionToken: data.sessionToken,
           data: {
             timestamp: new Date().toLocaleString('es-ES'),
             ip: 'N/A' // Sería necesario obtener la IP real
