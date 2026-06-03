@@ -42,6 +42,41 @@ interface EmailRequest {
   email: string;
   data?: any;
   submissionId?: string;
+  sessionToken?: string;
+}
+
+const ADMIN_EMAIL = 'esteban@crealoconia.com';
+
+// Minimal HTML sanitizer for the `custom` email body. Removes script/style/iframe
+// tags, event handlers, and javascript: URLs to prevent the endpoint from being
+// abused as an arbitrary-HTML phishing relay.
+function sanitizeHtml(input: string): string {
+  if (typeof input !== 'string') return '';
+  let out = input;
+  // Drop dangerous tags entirely (including content)
+  out = out.replace(/<\s*(script|style|iframe|object|embed|link|meta)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, '');
+  out = out.replace(/<\s*(script|style|iframe|object|embed|link|meta)\b[^>]*\/?\s*>/gi, '');
+  // Strip on* event handler attributes
+  out = out.replace(/\son[a-z]+\s*=\s*"(?:[^"]*)"/gi, '');
+  out = out.replace(/\son[a-z]+\s*=\s*'(?:[^']*)'/gi, '');
+  out = out.replace(/\son[a-z]+\s*=\s*[^\s>]+/gi, '');
+  // Neutralize javascript:/data: URLs in href/src
+  out = out.replace(/(href|src)\s*=\s*"(\s*javascript:|\s*data:)[^"]*"/gi, '$1="#"');
+  out = out.replace(/(href|src)\s*=\s*'(\s*javascript:|\s*data:)[^']*'/gi, "$1='#'");
+  return out;
+}
+
+async function verifyAdminSession(supabase: any, sessionToken: unknown): Promise<boolean> {
+  if (!sessionToken || typeof sessionToken !== 'string') return false;
+  const { data: tokenRecord } = await supabase
+    .from('admin_temp_keys')
+    .select('email, expires_at, used')
+    .eq('temp_key', sessionToken)
+    .eq('used', false)
+    .gt('expires_at', new Date().toISOString())
+    .maybeSingle();
+  if (!tokenRecord) return false;
+  return (tokenRecord.email || '').toLowerCase() === ADMIN_EMAIL.toLowerCase();
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -68,9 +103,58 @@ const handler = async (req: Request): Promise<Response> => {
     // Inicializar cliente de Supabase
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-    const { type, email, data, submissionId }: EmailRequest = await req.json();
-    
+    const { type, email, data, submissionId, sessionToken }: EmailRequest = await req.json();
+
     console.log(`📧 Enviando email de tipo: ${type} a: ${email}`);
+
+    // ===================== ACCESS CONTROL =====================
+    const adminOnlyTypes = new Set(['test', 'admin', 'custom', 'follow-up', 'proposal']);
+    let recipientEmail = email;
+
+    if (adminOnlyTypes.has(type)) {
+      const ok = await verifyAdminSession(supabase, sessionToken);
+      if (!ok) {
+        return new Response(
+          JSON.stringify({ error: 'No autorizado' }),
+          { status: 401, headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) } }
+        );
+      }
+    } else if (type === 'admin_temp_key') {
+      // Login code: only ever sent to the admin email, regardless of caller input.
+      recipientEmail = ADMIN_EMAIL;
+    } else if (type === 'confirmation') {
+      // Public callers may only send a confirmation to an email that actually
+      // exists in form_submissions, preventing arbitrary-recipient abuse.
+      if (!recipientEmail || typeof recipientEmail !== 'string') {
+        return new Response(
+          JSON.stringify({ error: 'Email requerido' }),
+          { status: 400, headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) } }
+        );
+      }
+      const { data: sub } = await supabase
+        .from('form_submissions')
+        .select('id')
+        .eq('email', recipientEmail)
+        .limit(1)
+        .maybeSingle();
+      if (!sub) {
+        return new Response(
+          JSON.stringify({ error: 'Submission no encontrada para este email' }),
+          { status: 403, headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) } }
+        );
+      }
+    }
+
+    // Sanitize custom email body to prevent it being used as a phishing relay.
+    if (type === 'custom' && data && typeof data === 'object') {
+      data.message = sanitizeHtml(String(data.message ?? ''));
+      if (typeof data.subject === 'string') {
+        // Strip CR/LF to prevent header injection in subject
+        data.subject = data.subject.replace(/[\r\n]+/g, ' ').slice(0, 200);
+      }
+    }
+    // Replace caller-provided email with the validated recipient
+    const effectiveEmail = recipientEmail;
 
     // Base URL para imágenes: por defecto el dominio de la app en producción
     let baseUrl = 'https://yxagfbefgqlsjrxjtgjr.lovable.app';
