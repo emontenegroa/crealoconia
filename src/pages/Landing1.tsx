@@ -13,6 +13,8 @@ import SeoHead from "@/components/SeoHead";
 import { useScrollReveal, useScrollRevealGroup } from "@/hooks/useScrollReveal";
 import { useCountUp } from "@/hooks/useCountUp";
 import MetricasDestacadas from "@/components/MetricasDestacadas";
+import ComoTrabajamos from "@/components/ComoTrabajamos";
+import { Reveal } from "@/components/motion/Reveal";
 import type { LucideIcon } from "lucide-react";
 
 const audienceTypes = [
@@ -271,7 +273,7 @@ const Landing1 = () => {
         <div className="relative z-10 container mx-auto px-6 lg:px-12 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column */}
-            <div className="space-y-8">
+            <Reveal y={32} className="space-y-8">
               {/* Badge */}
               <div className="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
                 <div className="w-2 h-2 bg-primary rounded-full mr-3 animate-pulse"></div>
@@ -329,7 +331,7 @@ const Landing1 = () => {
                   <span className="text-sm text-foreground">Garantizado</span>
                 </div>
               </div>
-            </div>
+            </Reveal>
 
             {/* Right Column - Form */}
             <div className="lg:pl-8">
@@ -548,6 +550,9 @@ const Landing1 = () => {
           </div>
         </div>
       </section>
+
+      {/* Como trabajamos: sticky scroll + cinta de proyectos */}
+      <ComoTrabajamos />
 
       {/* Portfolio Section */}
       <section id="casos">
