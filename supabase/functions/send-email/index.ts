@@ -108,7 +108,8 @@ const handler = async (req: Request): Promise<Response> => {
     console.log(`📧 Enviando email de tipo: ${type} a: ${email}`);
 
     // ===================== ACCESS CONTROL =====================
-    const adminOnlyTypes = new Set(['test', 'admin', 'custom', 'follow-up', 'proposal']);
+    // Types that may ONLY be invoked by an authenticated admin session.
+    const adminOnlyTypes = new Set(['test', 'custom', 'follow-up', 'proposal']);
     let recipientEmail = email;
 
     if (adminOnlyTypes.has(type)) {
@@ -119,6 +120,12 @@ const handler = async (req: Request): Promise<Response> => {
           { status: 401, headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) } }
         );
       }
+    } else if (type === 'admin') {
+      // Public notification of a new submission. Recipient is hard-locked to the
+      // admin inbox so the endpoint cannot be used to send arbitrary emails to
+      // third parties. The form data body itself was user-supplied at submission
+      // time, which is expected.
+      recipientEmail = ADMIN_EMAIL;
     } else if (type === 'admin_temp_key') {
       // Login code: only ever sent to the admin email, regardless of caller input.
       recipientEmail = ADMIN_EMAIL;
