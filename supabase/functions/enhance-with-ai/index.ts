@@ -1,6 +1,7 @@
 
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.8';
 
 const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
 
@@ -28,7 +29,63 @@ serve(async (req) => {
   }
 
   try {
-    const { userText, fieldType, context } = await req.json();
+    const { userText, fieldType, context, sessionId } = await req.json();
+
+    // Server-side enforcement of AI usage limit
+    if (!sessionId || typeof sessionId !== 'string' || sessionId.length < 8 || sessionId.length > 128) {
+      return new Response(JSON.stringify({ error: 'sessionId requerido' }), {
+        status: 400,
+        headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' },
+      });
+    }
+
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, serviceKey);
+
+    const MAX_USES_PER_FIELD = 2;
+
+    if (fieldType && typeof fieldType === 'string') {
+      const { data: usageRow } = await supabase
+        .from('ai_usage_tracking')
+        .select('id, usage_count')
+        .eq('session_id', sessionId)
+        .eq('field_name', fieldType)
+        .maybeSingle();
+
+      const currentCount = usageRow?.usage_count ?? 0;
+      if (currentCount >= MAX_USES_PER_FIELD) {
+        return new Response(JSON.stringify({ error: 'Límite de mejoras IA alcanzado para este campo' }), {
+          status: 429,
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' },
+        });
+      }
+
+      // Optional per-session global cap to prevent runaway abuse
+      const { data: allRows } = await supabase
+        .from('ai_usage_tracking')
+        .select('usage_count')
+        .eq('session_id', sessionId);
+      const totalUses = (allRows ?? []).reduce((s, r) => s + (r.usage_count || 0), 0);
+      if (totalUses >= 50) {
+        return new Response(JSON.stringify({ error: 'Límite global de IA alcanzado para esta sesión' }), {
+          status: 429,
+          headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' },
+        });
+      }
+
+      // Atomically increment usage BEFORE calling OpenAI to prevent races
+      if (usageRow) {
+        await supabase
+          .from('ai_usage_tracking')
+          .update({ usage_count: currentCount + 1, updated_at: new Date().toISOString() })
+          .eq('id', usageRow.id);
+      } else {
+        await supabase
+          .from('ai_usage_tracking')
+          .insert({ session_id: sessionId, field_name: fieldType, usage_count: 1 });
+      }
+    }
 
     // Validación de entrada
     if (!userText || typeof userText !== 'string') {

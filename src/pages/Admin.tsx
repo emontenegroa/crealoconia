@@ -574,12 +574,20 @@ Fundador de CrealoconIA
 
     try {
       setEmailTesting(true);
-      
+
+      // Read admin session token to authorize the privileged email send
+      let sessionToken: string | undefined;
+      try {
+        const raw = localStorage.getItem('admin_session');
+        if (raw) sessionToken = JSON.parse(raw)?.sessionToken;
+      } catch { /* ignore */ }
+
       const { data, error } = await supabase.functions.invoke('send-email', {
         body: {
           type: emailType,
           email: selectedEmailSubmission.email,
           submissionId: selectedEmailSubmission.id,
+          sessionToken,
           data: {
             subject: customEmailSubject,
             message: customEmailContent,

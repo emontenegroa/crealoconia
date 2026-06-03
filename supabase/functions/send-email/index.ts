@@ -42,6 +42,41 @@ interface EmailRequest {
   email: string;
   data?: any;
   submissionId?: string;
+  sessionToken?: string;
+}
+
+const ADMIN_EMAIL = 'esteban@crealoconia.com';
+
+// Minimal HTML sanitizer for the `custom` email body. Removes script/style/iframe
+// tags, event handlers, and javascript: URLs to prevent the endpoint from being
+// abused as an arbitrary-HTML phishing relay.
+function sanitizeHtml(input: string): string {
+  if (typeof input !== 'string') return '';
+  let out = input;
+  // Drop dangerous tags entirely (including content)
+  out = out.replace(/<\s*(script|style|iframe|object|embed|link|meta)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, '');
+  out = out.replace(/<\s*(script|style|iframe|object|embed|link|meta)\b[^>]*\/?\s*>/gi, '');
+  // Strip on* event handler attributes
+  out = out.replace(/\son[a-z]+\s*=\s*"(?:[^"]*)"/gi, '');
+  out = out.replace(/\son[a-z]+\s*=\s*'(?:[^']*)'/gi, '');
+  out = out.replace(/\son[a-z]+\s*=\s*[^\s>]+/gi, '');
+  // Neutralize javascript:/data: URLs in href/src
+  out = out.replace(/(href|src)\s*=\s*"(\s*javascript:|\s*data:)[^"]*"/gi, '$1="#"');
+  out = out.replace(/(href|src)\s*=\s*'(\s*javascript:|\s*data:)[^']*'/gi, "$1='#'");
+  return out;
+}
+
+async function verifyAdminSession(supabase: any, sessionToken: unknown): Promise<boolean> {
+  if (!sessionToken || typeof sessionToken !== 'string') return false;
+  const { data: tokenRecord } = await supabase
+    .from('admin_temp_keys')
+    .select('email, expires_at, used')
+    .eq('temp_key', sessionToken)
+    .eq('used', false)
+    .gt('expires_at', new Date().toISOString())
+    .maybeSingle();
+  if (!tokenRecord) return false;
+  return (tokenRecord.email || '').toLowerCase() === ADMIN_EMAIL.toLowerCase();
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -68,9 +103,65 @@ const handler = async (req: Request): Promise<Response> => {
     // Inicializar cliente de Supabase
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-    const { type, email, data, submissionId }: EmailRequest = await req.json();
-    
+    const { type, email, data, submissionId, sessionToken }: EmailRequest = await req.json();
+
     console.log(`📧 Enviando email de tipo: ${type} a: ${email}`);
+
+    // ===================== ACCESS CONTROL =====================
+    // Types that may ONLY be invoked by an authenticated admin session.
+    const adminOnlyTypes = new Set(['test', 'custom', 'follow-up', 'proposal']);
+    let recipientEmail = email;
+
+    if (adminOnlyTypes.has(type)) {
+      const ok = await verifyAdminSession(supabase, sessionToken);
+      if (!ok) {
+        return new Response(
+          JSON.stringify({ error: 'No autorizado' }),
+          { status: 401, headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) } }
+        );
+      }
+    } else if (type === 'admin') {
+      // Public notification of a new submission. Recipient is hard-locked to the
+      // admin inbox so the endpoint cannot be used to send arbitrary emails to
+      // third parties. The form data body itself was user-supplied at submission
+      // time, which is expected.
+      recipientEmail = ADMIN_EMAIL;
+    } else if (type === 'admin_temp_key') {
+      // Login code: only ever sent to the admin email, regardless of caller input.
+      recipientEmail = ADMIN_EMAIL;
+    } else if (type === 'confirmation') {
+      // Public callers may only send a confirmation to an email that actually
+      // exists in form_submissions, preventing arbitrary-recipient abuse.
+      if (!recipientEmail || typeof recipientEmail !== 'string') {
+        return new Response(
+          JSON.stringify({ error: 'Email requerido' }),
+          { status: 400, headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) } }
+        );
+      }
+      const { data: sub } = await supabase
+        .from('form_submissions')
+        .select('id')
+        .eq('email', recipientEmail)
+        .limit(1)
+        .maybeSingle();
+      if (!sub) {
+        return new Response(
+          JSON.stringify({ error: 'Submission no encontrada para este email' }),
+          { status: 403, headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) } }
+        );
+      }
+    }
+
+    // Sanitize custom email body to prevent it being used as a phishing relay.
+    if (type === 'custom' && data && typeof data === 'object') {
+      data.message = sanitizeHtml(String(data.message ?? ''));
+      if (typeof data.subject === 'string') {
+        // Strip CR/LF to prevent header injection in subject
+        data.subject = data.subject.replace(/[\r\n]+/g, ' ').slice(0, 200);
+      }
+    }
+    // Replace caller-provided email with the validated recipient
+    const effectiveEmail = recipientEmail;
 
     // Base URL para imágenes: por defecto el dominio de la app en producción
     let baseUrl = 'https://yxagfbefgqlsjrxjtgjr.lovable.app';
@@ -112,7 +203,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Kit IA - Crealoconia",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: "Usuario de Prueba" }],
+        to: [{ email: effectiveEmail, name: "Usuario de Prueba" }],
         subject: `🧪 Sistema de Email Funcionando - Kit IA`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px;">
@@ -159,7 +250,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: data?.name || email }],
+        to: [{ email: effectiveEmail, name: data?.name || email }],
         subject: data?.subject || "Mensaje personalizado de CrealoconIA",
         htmlContent: data?.message || "Mensaje personalizado enviado desde CrealoconIA"
       };
@@ -169,7 +260,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: data?.name || email }],
+        to: [{ email: effectiveEmail, name: data?.name || email }],
         subject: "Completa tu información para tu sitio web personalizado",
         htmlContent: `
           <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; padding: 0;">
@@ -247,7 +338,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: data?.name || email }],
+        to: [{ email: effectiveEmail, name: data?.name || email }],
         subject: "Propuesta personalizada para tu sitio web",
         htmlContent: `
           <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; padding: 0;">
@@ -318,7 +409,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Kit IA - Nueva Submisión",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email }],
+        to: [{ email: effectiveEmail }],
         subject: `🧠 Nueva submisión Kit IA - ${data?.marca || 'Sin marca'} (${data?.email || 'Sin email'})`,
         htmlContent: `
           <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; background: white; padding: 20px;">
@@ -374,7 +465,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: data?.marca || email }],
+        to: [{ email: effectiveEmail, name: data?.marca || email }],
         subject: `Estamos preparando tu sitio web — Crealoconia`,
         htmlContent: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: white; color: #333;">
@@ -418,7 +509,7 @@ const handler = async (req: Request): Promise<Response> => {
           name: "Esteban de CrealoconIA",
           email: "esteban@crealoconia.com"
         },
-        to: [{ email: email, name: data?.marca || email }],
+        to: [{ email: effectiveEmail, name: data?.marca || email }],
         subject: `🧠 Tu Kit IA está listo - ${data?.marca || 'Kit Personalizado'}`,
         htmlContent: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: white; color: #333;">
@@ -596,7 +687,7 @@ const handler = async (req: Request): Promise<Response> => {
       
       emailPayload = {
         sender: { email: "esteban@crealoconia.com", name: "Kit IA Admin" },
-        to: [{ email: email }],
+        to: [{ email: effectiveEmail }],
         subject: "Código de acceso",
         htmlContent: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 20px; background: #f8f9fa;">

@@ -26,6 +26,24 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Require shared-secret authentication to prevent abuse.
+    // Accept either CRON_SECRET (preferred for pg_cron jobs) or the service role key.
+    const authHeader = req.headers.get('authorization') || '';
+    const providedToken = authHeader.toLowerCase().startsWith('bearer ')
+      ? authHeader.slice(7).trim()
+      : authHeader.trim();
+    const cronSecret = Deno.env.get('CRON_SECRET');
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    const isAuthorized =
+      (!!cronSecret && providedToken === cronSecret) ||
+      (!!serviceKey && providedToken === serviceKey);
+    if (!isAuthorized) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) },
+      });
+    }
+
     console.log('🔍 Revisando formularios abandonados...');
 
     const BREVO_API_KEY = Deno.env.get('BREVO_API_KEY');
