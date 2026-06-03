@@ -58,24 +58,39 @@ export default function ComoTrabajamos() {
         <StickyStory steps={pasos} />
       </div>
 
-      {/* Cinta infinita de proyectos reales */}
+      {/* Cinta infinita de proyectos reales — dos filas en direcciones opuestas */}
       <div className="mt-24">
         <Reveal className="text-center mb-10">
           <p className="text-sm uppercase tracking-widest text-muted-foreground">
             Más de 50 proyectos entregados
           </p>
         </Reveal>
-        <Marquee duration={40}>
-          {proyectos.map((src, i) => (
-            <div
-              key={i}
-              className="h-44 w-72 shrink-0 overflow-hidden rounded-2xl border border-border bg-card shadow-lg"
-            >
-              <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
-            </div>
-          ))}
-        </Marquee>
+        <div className="space-y-6">
+          <Marquee duration={45}>
+            {proyectos.map((src, i) => (
+              <ProyectoCard key={`a-${i}`} src={src} />
+            ))}
+          </Marquee>
+          <Marquee duration={55} reverse>
+            {[...proyectos].reverse().map((src, i) => (
+              <ProyectoCard key={`b-${i}`} src={src} />
+            ))}
+          </Marquee>
+        </div>
       </div>
     </section>
+  );
+}
+
+function ProyectoCard({ src }: { src: string }) {
+  return (
+    <div className="group relative h-44 w-72 shrink-0 overflow-hidden rounded-2xl border border-border bg-card shadow-lg transition-all duration-500 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_25px_60px_-20px_hsl(var(--primary)/0.55)]">
+      <img
+        src={src}
+        alt=""
+        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+        loading="lazy"
+      />
+    </div>
   );
 }

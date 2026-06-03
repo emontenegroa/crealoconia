@@ -71,9 +71,9 @@ const PortfolioSection = () => {
 
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {ejemplos.map(ejemplo => <div key={ejemplo.id} className="reveal group cursor-pointer">
-              <div className="hover-lift bg-card rounded-lg overflow-hidden shadow-sm border border-border/50">
+              <div className="hover-lift bg-card rounded-lg overflow-hidden shadow-sm border border-border/50 transition-all duration-500 group-hover:border-primary/50 group-hover:shadow-[0_25px_60px_-20px_hsl(var(--primary)/0.5)]">
                 <div className="img-zoom aspect-video">
-                  <img src={ejemplo.imagen} alt={`Sitio web de ${ejemplo.titulo}`} className="w-full h-full object-cover" />
+                  <img src={ejemplo.imagen} alt={`Sitio web de ${ejemplo.titulo}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 </div>
                 <div className="p-4">
                   <div className="flex items-center gap-2 mb-2">

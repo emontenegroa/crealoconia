@@ -15,6 +15,14 @@ import { useCountUp } from "@/hooks/useCountUp";
 import MetricasDestacadas from "@/components/MetricasDestacadas";
 import ComoTrabajamos from "@/components/ComoTrabajamos";
 import { Reveal } from "@/components/motion/Reveal";
+import HeroStage, {
+  WordReveal,
+  heroContainer,
+  heroItem,
+  springPill,
+  formPanel,
+} from "@/components/motion/HeroStage";
+import { motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 
 const audienceTypes = [
@@ -30,21 +38,39 @@ const audienceTypes = [
 // Feature cards con stagger reveal al hacer scroll
 interface Feature { icon: LucideIcon; title: string; description: string; }
 const FeatureCardsAnimadas = ({ features }: { features: Feature[] }) => {
-  const ref = useScrollRevealGroup<HTMLDivElement>(0.12);
   return (
     <section className="py-20 bg-background" id="servicios">
       <div className="container mx-auto px-6 lg:px-12">
-        <div ref={ref} className="grid md:grid-cols-3 gap-6">
+        <motion.div
+          className="grid md:grid-cols-3 gap-6"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+        >
           {features.map((feature, index) => (
-            <div key={index} className="reveal feature-card hover-lift p-8 bg-card border border-border rounded-2xl">
+            <motion.div
+              key={index}
+              variants={{
+                hidden: { opacity: 0, y: 60, scale: 0.92 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              whileHover={{ y: -10, transition: { duration: 0.25 } }}
+              className="feature-card group p-8 bg-card border border-border rounded-2xl transition-colors hover:border-primary/50 hover:shadow-[0_25px_60px_-20px_hsl(var(--primary)/0.45)]"
+            >
               <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
                 <feature.icon className="w-7 h-7 text-primary" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -53,7 +79,6 @@ const FeatureCardsAnimadas = ({ features }: { features: Feature[] }) => {
 // Seccion "De la Idea a la Realidad" con header reveal y cards en stagger
 const SeccionBeneficios = ({ benefits }: { benefits: Feature[] }) => {
   const headerRef = useScrollReveal<HTMLDivElement>();
-  const gridRef = useScrollRevealGroup<HTMLDivElement>(0.12);
   return (
     <section className="py-20 bg-card/50">
       <div className="container mx-auto px-6 lg:px-12">
@@ -65,17 +90,37 @@ const SeccionBeneficios = ({ benefits }: { benefits: Feature[] }) => {
             La tecnología de <span className="text-primary font-semibold">Crealoconia</span> supera la barrera técnica para que te enfoques en escalar tu negocio.
           </p>
         </div>
-        <div ref={gridRef} className="grid md:grid-cols-3 gap-8">
+        <motion.div
+          className="grid md:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
+        >
           {benefits.map((benefit, index) => (
-            <div key={index} className="reveal hover-lift p-8 bg-card border border-border rounded-2xl">
+            <motion.div
+              key={index}
+              variants={{
+                hidden: { opacity: 0, y: 60, scale: 0.92, filter: "blur(8px)" },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              whileHover={{ y: -10, transition: { duration: 0.25 } }}
+              className="p-8 bg-card border border-border rounded-2xl transition-colors hover:border-primary/50 hover:shadow-[0_25px_60px_-20px_hsl(var(--primary)/0.45)]"
+            >
               <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
                 <benefit.icon className="w-7 h-7 text-primary" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">{benefit.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -89,7 +134,6 @@ const Landing1 = () => {
   const {
     saveProgress
   } = useFormPersistence();
-  const aiToolsRef = useScrollRevealGroup<HTMLDivElement>(0.1);
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -259,6 +303,8 @@ const Landing1 = () => {
 
       {/* Hero Section */}
       <header className="relative overflow-hidden">
+        {/* Fondo animado: mesh respira + blobs siguen al mouse */}
+        <HeroStage />
         {/* Bloque prueba social antes del formulario */}
         <div className="bg-primary/5 border-b border-primary/10 py-3">
           <div className="container mx-auto px-6 text-center">
@@ -273,32 +319,45 @@ const Landing1 = () => {
         <div className="relative z-10 container mx-auto px-6 lg:px-12 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column */}
-            <Reveal y={32} className="space-y-8">
+            <motion.div
+              className="space-y-8"
+              variants={heroContainer}
+              initial="hidden"
+              animate="show"
+            >
               {/* Badge */}
-              <div className="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
+              <motion.div
+                variants={springPill}
+                className="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full"
+              >
                 <div className="w-2 h-2 bg-primary rounded-full mr-3 animate-pulse"></div>
                 <span className="text-sm font-medium text-primary tracking-wide uppercase">NUEVA TECNOLOGÍA 2026</span>
-              </div>
+              </motion.div>
 
               {/* Main Headline */}
-              <div className="space-y-4">
+              <motion.div variants={heroItem} className="space-y-4">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-foreground">
                   <RotatingText texts={audienceTypes} interval={3000} />
                   <br />
-                  <span className="text-foreground">Lanza tu Web Profesional en </span>
-                  <span className="text-gradient-primary">4 Horas</span>
-                  <span className="text-foreground">,</span>
+                  <WordReveal as="span" text="Lanza tu Web Profesional en" delay={0.2} className="text-foreground" />
+                  <span className="text-foreground">&nbsp;</span>
+                  <WordReveal as="span" text="4 Horas," delay={0.55} className="text-gradient-primary" />
                   <br />
-                  <span className="text-foreground">No en 4 Meses.</span>
+                  <WordReveal as="span" text="No en 4 Meses." delay={0.8} className="text-foreground" />
                 </h1>
                 
-                <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
+                <motion.p
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 1.05 }}
+                  className="text-lg text-muted-foreground max-w-lg leading-relaxed"
+                >
                   Utilizamos inteligencia artificial para capturar tu esencia y construir una presencia digital de alto impacto sin complicaciones técnicas.
-                </p>
-              </div>
+                </motion.p>
+              </motion.div>
 
               {/* Social Proof */}
-              <div className="flex items-center gap-4">
+              <motion.div variants={heroItem} className="flex items-center gap-4">
                 <div className="flex -space-x-3">
                   {[1, 2, 3].map((i) => <div key={i} className="w-10 h-10 rounded-full bg-secondary border-2 border-background flex items-center justify-center">
                       <User className="w-5 h-5 text-muted-foreground" />
@@ -314,27 +373,35 @@ const Landing1 = () => {
                     <span className="text-sm text-muted-foreground ml-1">(4.9/5)</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Feature Pills */}
-              <div className="flex flex-wrap gap-3">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary border border-border rounded-full">
+              <motion.div
+                className="flex flex-wrap gap-3"
+                variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } } }}
+              >
+                <motion.div variants={springPill} className="inline-flex items-center gap-2 px-4 py-2 bg-secondary border border-border rounded-full">
                   <Zap className="w-4 h-4 text-primary" />
                   <span className="text-sm text-foreground">Velocidad IA</span>
-                </div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary border border-border rounded-full">
+                </motion.div>
+                <motion.div variants={springPill} className="inline-flex items-center gap-2 px-4 py-2 bg-secondary border border-border rounded-full">
                   <Sparkles className="w-4 h-4 text-primary" />
                   <span className="text-sm text-foreground">Calidad Premium</span>
-                </div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary border border-border rounded-full">
+                </motion.div>
+                <motion.div variants={springPill} className="inline-flex items-center gap-2 px-4 py-2 bg-secondary border border-border rounded-full">
                   <ShieldCheck className="w-4 h-4 text-primary" />
                   <span className="text-sm text-foreground">Garantizado</span>
-                </div>
-              </div>
-            </Reveal>
+                </motion.div>
+              </motion.div>
+            </motion.div>
 
             {/* Right Column - Form */}
-            <div className="lg:pl-8">
+            <motion.div
+              className="lg:pl-8"
+              variants={formPanel}
+              initial="hidden"
+              animate="show"
+            >
               <div className="animated-border-wrapper">
                 <div className="bg-card rounded-[calc(1rem-2px)] p-8 space-y-6">
                   <div className="space-y-2">
@@ -390,13 +457,10 @@ const Landing1 = () => {
                   </form>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* Background gradients */}
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-primary/5 via-primary/2 to-transparent rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-primary/3 to-transparent rounded-full blur-3xl pointer-events-none"></div>
       </header>
 
       {/* Feature Cards */}
@@ -424,9 +488,23 @@ const Landing1 = () => {
             </p>
           </div>
 
-          <div ref={aiToolsRef} className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09 } } }}
+          >
             {aiToolsIncluded.map((tool, index) =>
-          <div key={index} className="reveal animated-border-wrapper group">
+          <motion.div
+            key={index}
+            variants={{
+              hidden: { opacity: 0, y: 60, scale: 0.9 },
+              show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
+            }}
+            whileHover={{ y: -8 }}
+            className="animated-border-wrapper group"
+          >
                 <div className="bg-card rounded-[calc(1rem-2px)] p-6 h-full">
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -443,9 +521,9 @@ const Landing1 = () => {
                     {tool.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
           )}
-          </div>
+          </motion.div>
 
           <div className="mt-12 text-center">
             <p className="text-muted-foreground mb-4">
