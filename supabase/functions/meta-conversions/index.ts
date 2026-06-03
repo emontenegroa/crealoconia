@@ -77,7 +77,48 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const requestData: ConversionRequest = await req.json();
-    
+
+    // Validate eventSourceUrl belongs to an allowed app domain to prevent
+    // anonymous injection of fake conversion events.
+    const ALLOWED_EVENT_HOSTS = [
+      'crealoconia.com',
+      'www.crealoconia.com',
+      'crealoconia.lovable.app',
+      'yxagfbefgqlsjrxjtgjr.lovable.app',
+      'localhost',
+    ];
+    try {
+      const u = new URL(requestData.eventSourceUrl);
+      if (!ALLOWED_EVENT_HOSTS.includes(u.hostname)) {
+        return new Response(
+          JSON.stringify({ success: false, error: 'Invalid eventSourceUrl' }),
+          { status: 400, headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) } }
+        );
+      }
+    } catch {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid eventSourceUrl' }),
+        { status: 400, headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) } }
+      );
+    }
+
+    // Cross-check with Origin header — must also be an allowed domain to
+    // prevent attackers from spoofing event_source_url alone.
+    const origin = req.headers.get('origin') || '';
+    try {
+      if (origin) {
+        const o = new URL(origin);
+        if (!ALLOWED_EVENT_HOSTS.includes(o.hostname)) {
+          return new Response(
+            JSON.stringify({ success: false, error: 'Forbidden origin' }),
+            { status: 403, headers: { 'Content-Type': 'application/json', ...getCorsHeaders(req) } }
+          );
+        }
+      }
+    } catch {
+      // ignore parse errors; origin is optional
+    }
+
     // Get client IP from Cloudflare headers or X-Forwarded-For
     const clientIp = req.headers.get('cf-connecting-ip') || 
                       req.headers.get('x-forwarded-for')?.split(',')[0] || 
