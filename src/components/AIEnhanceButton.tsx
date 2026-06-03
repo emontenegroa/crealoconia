@@ -204,7 +204,8 @@ Mantén el tono ${context.estilo?.toLowerCase() || 'profesional'} y hazlo más i
           fieldType: fieldType,
           context: context,
           customPrompt: getEnhancementPrompt(),
-          enhanceMode: enhanceMode
+          enhanceMode: enhanceMode,
+          sessionId: sessionId
         }
       });
 
