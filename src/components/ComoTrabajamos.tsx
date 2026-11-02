@@ -1,29 +1,33 @@
-// ComoTrabajamos.tsx — Sticky scroll storytelling + cinta de proyectos.
-// El efecto "wow" estilo creme.digital, con tus imagenes reales.
-import StickyStory, { type Step } from "@/components/motion/StickyStory";
+// ComoTrabajamos.tsx — Cards apiladas estilo creme.digital + cinta de proyectos.
+import StackedCards, { type StackStep } from "@/components/motion/StackedCards";
+import { MessageSquare, Sparkles, Eye, Rocket } from "lucide-react";
 import Marquee from "@/components/motion/Marquee";
 import { Reveal } from "@/components/motion/Reveal";
 
-const pasos: Step[] = [
+const pasos: StackStep[] = [
   {
+    icon: MessageSquare,
     eyebrow: "Paso 1 — Capturamos tu esencia",
     title: "Nos cuentas tu negocio",
     body: "Un quiz de 5 minutos y nuestra IA entiende tu marca, tu público y tu propuesta de valor. Sin reuniones eternas.",
     image: "/ejemplos/emontenegroa.png",
   },
   {
+    icon: Sparkles,
     eyebrow: "Paso 2 — Construimos con IA",
     title: "Tu sitio cobra vida en horas",
     body: "Combinamos IA y diseño humano para armar una web profesional, con copy que vende y estructura que convierte.",
     image: "/ejemplos/despliega.png",
   },
   {
+    icon: Eye,
     eyebrow: "Paso 3 — Lo ves antes de pagar",
     title: "Primero te encanta, después decides",
     body: "Te mostramos el sitio terminado y funcionando. Si te gusta, es tuyo. Si no, no pagas nada.",
     image: "/ejemplos/totalsport.png",
   },
   {
+    icon: Rocket,
     eyebrow: "Paso 4 — Escalas con tu equipo IA",
     title: "Marketing automático incluido",
     body: "Te llevas un asistente de IA configurado para generar contenido, campañas y textos de venta para tu negocio.",
@@ -44,9 +48,18 @@ const proyectos = [
 
 export default function ComoTrabajamos() {
   return (
-    <section className="py-24 bg-background overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-12">
-        <Reveal className="text-center mb-20">
+    <section className="relative py-24 bg-background">
+      {/* Fondo con gradiente teal profundo */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[85%]"
+        style={{
+          background:
+            "radial-gradient(80% 40% at 15% 5%, hsl(var(--primary) / 0.28), transparent 70%), radial-gradient(70% 40% at 90% 55%, hsl(var(--primary) / 0.2), transparent 70%)",
+        }}
+      />
+      <div className="relative container mx-auto px-6 lg:px-12">
+        <Reveal className="text-center mb-8">
           <span className="text-sm font-semibold uppercase tracking-widest text-primary">
             Cómo trabajamos
           </span>
@@ -54,12 +67,14 @@ export default function ComoTrabajamos() {
             De la idea al sitio en 4 pasos
           </h2>
         </Reveal>
+      </div>
 
-        <StickyStory steps={pasos} />
+      <div className="relative">
+        <StackedCards steps={pasos} />
       </div>
 
       {/* Cinta infinita de proyectos reales — dos filas en direcciones opuestas */}
-      <div className="mt-24">
+      <div className="relative mt-24 overflow-hidden">
         <Reveal className="text-center mb-10">
           <p className="text-sm uppercase tracking-widest text-muted-foreground">
             Más de 50 proyectos entregados
