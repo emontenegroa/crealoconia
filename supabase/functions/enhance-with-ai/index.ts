@@ -3,7 +3,7 @@ import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.8';
 
-const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
+const openAIApiKey = Deno.env.get('LOVABLE_API_KEY');
 
 const allowedOrigins = [
   'https://crealoconia.com',
@@ -194,14 +194,15 @@ El resultado debe ser un prompt que genere una landing page de conversión profe
         systemPrompt = `Eres un experto en marketing y comunicación. Mejora y expande el texto del usuario manteniéndolo auténtico pero más profesional y atractivo. Usa un tono ${context.estilo || 'profesional'}.`;
     }
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${openAIApiKey}`,
         'Content-Type': 'application/json',
+        'X-Lovable-AIG-SDK': 'fetch',
       },
       body: JSON.stringify({
-        model: 'gpt-5-mini-2025-08-07',
+        model: 'openai/gpt-5.4-mini',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: `Texto a mejorar: "${sanitizedText}"\n\nContexto adicional: Marca: ${context.marca || 'No especificada'}, Estilo: ${context.estilo || 'No especificado'}` }
