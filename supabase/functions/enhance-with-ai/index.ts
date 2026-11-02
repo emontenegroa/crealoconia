@@ -199,14 +199,15 @@ El resultado debe ser un prompt que genere una landing page de conversión profe
       headers: {
         'Authorization': `Bearer ${openAIApiKey}`,
         'Content-Type': 'application/json',
+        'X-Lovable-AIG-SDK': 'fetch',
       },
       body: JSON.stringify({
-        model: 'google/gemini-3-flash-preview',
+        model: 'openai/gpt-5.4-mini',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: `Texto a mejorar: "${sanitizedText}"\n\nContexto adicional: Marca: ${context.marca || 'No especificada'}, Estilo: ${context.estilo || 'No especificado'}` }
         ],
-        max_tokens: fieldType === 'super_prompt' || fieldType === 'lovable_prompt' ? 6000 : 1500,
+        max_completion_tokens: fieldType === 'super_prompt' || fieldType === 'lovable_prompt' ? 6000 : 1500,
       }),
     });
 
