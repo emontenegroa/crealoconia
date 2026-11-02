@@ -45,9 +45,9 @@ function Card({
   const Icon = step.icon;
 
   return (
-    <div className="sticky top-0 flex h-screen items-center justify-center px-4">
+    <div className="sticky flex h-screen items-center justify-center px-4" style={{ top: index * 24 }}>
       <motion.div
-        style={{ scale: reduce ? 1 : scale, top: `calc(${index * 28}px)` }}
+        style={{ scale: reduce ? 1 : scale }}
         className="relative w-full max-w-6xl origin-top"
         initial={reduce ? false : { opacity: 0, y: 80 }}
         whileInView={{ opacity: 1, y: 0 }}
